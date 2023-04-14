@@ -4,9 +4,18 @@ NAME			=	miniRT
 SRC_PATH		=	src/
 
 SRC				=\
+	dialog_box/create_dialog_box.c	\
+\
+\
 	hooks/button_press.c	\
 	hooks/key_press.c		\
+\
+\
+	struct/create_t_size_int_2d.c	\
+\
+\
 	close_miniRT.c	\
+	image.c			\
 	init_minirt.c	\
 	main.c			\
 	render_frame.c

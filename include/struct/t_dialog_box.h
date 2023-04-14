@@ -1,5 +1,7 @@
 #ifndef DIALOG_BOX_H
-#define DIALOG_BOX_H
+# define DIALOG_BOX_H
+
+# include <unistd.h>
 
 # include "struct/t_point_int_2d.h"
 # include "struct/t_size_int_2d.h"

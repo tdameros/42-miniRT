@@ -5,6 +5,7 @@
 
 #include "struct/t_dialog_box.h"
 #include "struct/window.h"
+#include "struct/t_minirt.h"
 #include "miniRT.h"
 
 struct s_limit
@@ -26,7 +27,7 @@ static bool	does_dialog_box_overlap_with_another_on_the_same_level(
 static bool	do_dialog_boxes_overlap(struct s_limit new_dialog_box_limit,
 				const t_dialog_box *dialog_box_to_compare);
 
-t_dialog_box	create_t_dialog_box(const t_window *window,
+t_dialog_box	create_t_dialog_box(t_minirt *minirt,
 					t_dialog_box *parent, const t_point_int_2d position,
 					const t_size_int_2d size)
 {
@@ -34,7 +35,7 @@ t_dialog_box	create_t_dialog_box(const t_window *window,
 
 	errno = 0;
 	ft_bzero(&dialog_box, sizeof(t_dialog_box));
-	if (can_dialog_box_be_placed(window->dialog_boxes, parent, position,
+	if (can_dialog_box_be_placed(minirt->dialog_boxes, parent, position,
 			size) == false)
 	{
 		errno = EINVAL;
@@ -43,7 +44,7 @@ t_dialog_box	create_t_dialog_box(const t_window *window,
 	dialog_box.parent = parent;
 	dialog_box.position = position;
 	dialog_box.size = size;
-	init_image(&dialog_box.image, window, size.height, size.width);
+	init_image(&dialog_box.image, &minirt->window, size.height, size.width);
 	return (dialog_box);
 }
 

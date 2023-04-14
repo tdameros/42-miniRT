@@ -9,4 +9,3 @@ void	init_image(t_image *image, t_window *window, int height, int width)
 	image->address = mlx_get_data_addr(image->image, &image->bits_per_pixel,
 			&image->line_length, &image->endian);
 }
-`
