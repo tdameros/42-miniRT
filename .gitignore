@@ -1,0 +1,72 @@
+# Tester
+
+# Junk
+.DS_Store
+.nfs*
+.vscode
+
+# Norm
+.normignore
+better_norminette.log
+
+# IDE
+.idea/
+.VSCode/
+cmake-build-debug/
+
+# Executables
+minishell
+libft_test
+libft_test_debug
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+
+# Prerequisites
+*.d
+
+# Object files
+.build/
+*.o
+*.ko
+*.obj
+*.elf
+
+# Linker output
+*.ilk
+*.map
+*.exp
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Kernel Module Compile Results
+*.mod*
+*.cmd
+.tmp_versions/
+modules.order
+Module.symvers
+Mkfile.old
+dkms.conf
