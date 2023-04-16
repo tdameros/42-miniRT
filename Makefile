@@ -11,12 +11,12 @@ SRC				=\
 	hooks/key_press.c		\
 \
 \
-	struct/create_t_size_int_2d.c	\
+	init/init_dialog_boxes.c	\
+	init/init_minirt.c			\
 \
 \
 	close_miniRT.c	\
 	image.c			\
-	init_minirt.c	\
 	main.c			\
 	render_frame.c
 
@@ -24,7 +24,7 @@ DIR_BUILD		=	.build/
 OBJS			=	$(patsubst %.c, $(DIR_BUILD)%.o, $(SRC))
 DEPS			=	$(patsubst %.c, $(DIR_BUILD)%.d, $(SRC))
 DEPS_FLAGS		=	-MMD -MP
-CFLAGS			=	-Wall -Wextra -Werror -fsanitize=address
+CFLAGS			=	-Wall -Wextra -Werror -g3 #-fsanitize=address
 RM				=	rm -rf
 AR				=	ar rcs
 

@@ -3,12 +3,13 @@
 #include "libft.h"
 #include "mlx.h"
 
-#include "miniRT.h"
 #include "miniRT_X11.h"
 #include "hooks.h"
-#include "struct/t_minirt.h"
 #include "render_frame.h"
 #include "close_miniRT.h"
+#include "struct/t_window.h"
+#include "struct/t_minirt.h"
+#include "init.h"
 
 static void	init_hooks(t_minirt *minirt);
 
@@ -26,6 +27,13 @@ int	init_minirt(t_minirt *minirt, const char *start_up_scene)
 	(void)start_up_scene;
 
 	init_hooks(minirt);
+	init_image(&minirt->main_image, &minirt->window, WINDOW_HEIGHT,
+		WINDOW_WIDTH); // TODO secure me
+	if (init_dialog_boxes(minirt))
+	{
+		// TODO: free everything
+		return (-1);
+	}
 	return (0);
 }
 

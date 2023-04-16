@@ -8,15 +8,13 @@ include_directories(lib/libft/include)
 include_directories(lib/minilibx_opengl_20191021)
 
 add_executable(miniRT
-        include/struct/t_dialog_box.h
+        include/struct/t_gui_box.h
         include/struct/t_minirt.h
         include/struct/t_point_int_2d.h
         include/struct/t_size_int_2d.h
-        include/struct/window.h
         include/close_miniRT.h
         include/hooks.h
         include/image.h
-        include/miniRT.h
         include/miniRT_start_up.h
         include/miniRT_X11.h
         include/render_frame.h
@@ -182,9 +180,8 @@ add_executable(miniRT
         src/dialog_box/create_dialog_box.c
         src/hooks/button_press.c
         src/hooks/key_press.c
-        src/struct/create_t_size_int_2d.c
         src/close_miniRT.c
         src/image.c
-        src/init_minirt.c
+        src/init/init_minirt.c
         src/main.c
-        src/render_frame.c)
+        src/render_frame.c src/init/init_dialog_boxes.c include/struct/t_window.h include/init.h)

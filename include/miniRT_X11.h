@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   miniRT_X11.h                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/15 10:45:39 by vfries            #+#    #+#             */
+/*   Updated: 2023/04/15 10:46:29 by vfries           ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINIRT_X11_H
 # define MINIRT_X11_H
 
@@ -67,7 +79,8 @@
 # define LAST_EVENT			36
 
 # ifdef __APPLE__
-enum mouse_buttons
+
+enum e_mouse_buttons
 {
 	BUTTON_LEFT = 1,
 	BUTTON_RIGHT = 2,
@@ -75,7 +88,8 @@ enum mouse_buttons
 # endif //__APPLE__
 
 # ifdef __APPLE__
-enum key_codes
+
+enum e_key_codes
 {
 	KEY_ESC = 53,
 	KEY_W = 13,

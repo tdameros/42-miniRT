@@ -1,13 +1,14 @@
-#ifndef MINIRT_STRUCT_H
-# define MINIRT_STRUCT_H
+#ifndef T_MINIRT_H
+#define T_MINIRT_H
 
-# include "window.h"
-# include "t_dialog_box.h"
+#include "t_window.h"
+#include "t_gui_box.h"
 
 typedef struct s_minirt
 {
 	t_window		window;
-	t_dialog_boxes	dialog_boxes;
+	t_gui_boxes	dialog_boxes;
+	t_image			main_image;
 }	t_minirt;
 
-#endif //MINIRT_STRUCT_H
+#endif //T_MINIRT_H
