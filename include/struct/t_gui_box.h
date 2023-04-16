@@ -19,8 +19,9 @@ typedef struct s_gui_box
 	t_point_int_2d		position;
 	t_size_int_2d		size;
 	t_image				image;
-	void				(*draw)(struct s_gui_box *self);
-	void				(*on_click)(struct s_gui_box *self, void *arg);
+	void				(*draw)(struct s_gui_box *self, void *minirt,
+							int x_offset, int y_offset);
+	void				(*on_click)(struct s_gui_box *self, void *minirt);
 	t_gui_boxes			children;
 }	t_gui_box;
 

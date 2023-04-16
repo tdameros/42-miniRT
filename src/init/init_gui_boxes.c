@@ -26,7 +26,11 @@ int init_gui_boxes(t_minirt *minirt)
 	return (0);
 }
 #include "colors.h"
+#include "mlx.h"
+
 static void	on_click_test(t_gui_box *self, t_minirt *minirt);
+static void	default_gui_box_draw(t_gui_box *self, t_minirt *minirt,
+				int x_offset, int y_offset);
 static int	init_object_creation_gui_box(t_minirt *minirt,
 										   t_gui_box *gui_box)
 {
@@ -39,6 +43,7 @@ static int	init_object_creation_gui_box(t_minirt *minirt,
 	for (int i = 0; i < WINDOW_WIDTH; i++)
 		for (int j = 0; j < WINDOW_HEIGHT / 10; j++)
 			put_pixel_on_img(&gui_box->image, j, i, COLOR_WHITE);
+	gui_box->draw = (void (*)(t_gui_box *, void *, int, int))&default_gui_box_draw;
 	gui_box->children.size = 1;
 	gui_box->children.gui_boxes = malloc(sizeof(t_gui_box));
 	if (gui_box->children.gui_boxes == NULL)
@@ -49,6 +54,7 @@ static int	init_object_creation_gui_box(t_minirt *minirt,
 	for (int i = 0; i < gui_box->children.gui_boxes->size.width; i++)
 		for (int j = 0; j < gui_box->children.gui_boxes->size.height; j++)
 			put_pixel_on_img(&gui_box->children.gui_boxes->image, j, i, COLOR_BLUE);
+	gui_box->children.gui_boxes->draw = (void (*)(t_gui_box *, void *, int, int))&default_gui_box_draw;
 	gui_box->children.gui_boxes->on_click = (void (*)(t_gui_box*, void*))&on_click_test;
 	return (0);
 }
@@ -70,4 +76,12 @@ static void	on_click_test(t_gui_box *self, t_minirt *minirt)
 			for (int j = 0; j < self->size.height; j++)
 				put_pixel_on_img(&self->image, j, i, COLOR_BLUE);
 	(void) minirt;
+}
+
+static void	default_gui_box_draw(t_gui_box *self, t_minirt *minirt,
+				int x_offset, int y_offset)
+{
+	mlx_put_image_to_window(minirt->window.mlx, minirt->window.window,
+							self->image.image, self->position.x + x_offset,
+							self->position.y + y_offset);
 }
