@@ -11,12 +11,20 @@ int	render_frame(t_minirt *minirt)
 	mlx_put_image_to_window(minirt->window.mlx, minirt->window.window,
 		minirt->main_image.image, 0, 0);
 	put_user_interface_to_window(minirt);
-	mlx_put_image_to_window(minirt->window.mlx, minirt->window.window,
-		minirt->dialog_boxes.dialog_boxes->image.image, minirt->dialog_boxes.dialog_boxes->position.x, minirt->dialog_boxes.dialog_boxes->position.y);
 	return (0);
 }
 
 static void put_user_interface_to_window(t_minirt *minirt)
 {
+//	size_t	i;
+//
+//	i = minirt->dialog_boxes.size;
+//	while (i--)
+//		put_gui_box
+
+	mlx_put_image_to_window(minirt->window.mlx, minirt->window.window,
+		minirt->gui_boxes.gui_boxes->image.image,
+		minirt->gui_boxes.gui_boxes->position.x,
+		minirt->gui_boxes.gui_boxes->position.y);
 	(void)minirt;
 }

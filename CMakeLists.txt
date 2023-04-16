@@ -184,4 +184,4 @@ add_executable(miniRT
         src/image.c
         src/init/init_minirt.c
         src/main.c
-        src/render_frame.c src/init/init_dialog_boxes.c include/struct/t_window.h include/init.h)
+        src/render_frame.c src/init/init_gui_boxes.c include/struct/t_window.h include/init.h)

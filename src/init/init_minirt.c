@@ -29,7 +29,7 @@ int	init_minirt(t_minirt *minirt, const char *start_up_scene)
 	init_hooks(minirt);
 	init_image(&minirt->main_image, &minirt->window, WINDOW_HEIGHT,
 		WINDOW_WIDTH); // TODO secure me
-	if (init_dialog_boxes(minirt))
+	if (init_gui_boxes(minirt))
 	{
 		// TODO: free everything
 		return (-1);

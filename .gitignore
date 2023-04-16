@@ -15,7 +15,8 @@ better_norminette.log
 cmake-build-debug/
 
 # Executables
-minishell
+miniRT
+miniRT_bonus
 libft_test
 libft_test_debug
 *.exe

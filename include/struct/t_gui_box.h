@@ -9,7 +9,7 @@
 
 typedef struct s_gui_boxes
 {
-	struct s_gui_box	*dialog_boxes;
+	struct s_gui_box	*gui_boxes;
 	size_t				size;
 }	t_gui_boxes;
 

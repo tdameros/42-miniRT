@@ -6,9 +6,9 @@
 
 typedef struct s_minirt
 {
-	t_window		window;
-	t_gui_boxes	dialog_boxes;
-	t_image			main_image;
+	t_window	window;
+	t_gui_boxes	gui_boxes;
+	t_image		main_image;
 }	t_minirt;
 
 #endif //T_MINIRT_H
