@@ -4,15 +4,15 @@ NAME			=	miniRT
 SRC_PATH		=	src/
 
 SRC				=\
-	dialog_box/create_dialog_box.c	\
+	dialog_box/create_gui_box.c	\
 \
 \
 	hooks/button_press.c	\
 	hooks/key_press.c		\
 \
 \
-	init/init_dialog_boxes.c	\
-	init/init_minirt.c			\
+	init/init_gui_boxes.c	\
+	init/init_minirt.c		\
 \
 \
 	close_miniRT.c	\
@@ -24,7 +24,7 @@ DIR_BUILD		=	.build/
 OBJS			=	$(patsubst %.c, $(DIR_BUILD)%.o, $(SRC))
 DEPS			=	$(patsubst %.c, $(DIR_BUILD)%.d, $(SRC))
 DEPS_FLAGS		=	-MMD -MP
-CFLAGS			=	-Wall -Wextra -Werror -g3 #-fsanitize=address
+CFLAGS			=	-Wall -Wextra -Werror -g3 -fsanitize=address
 RM				=	rm -rf
 AR				=	ar rcs
 

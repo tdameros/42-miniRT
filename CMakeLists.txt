@@ -177,7 +177,7 @@ add_executable(miniRT
         lib/minilibx_opengl_20191021/mlx_rgb.c
         lib/minilibx_opengl_20191021/mlx_shaders.c
         lib/minilibx_opengl_20191021/mlx_xpm.c
-        src/dialog_box/create_dialog_box.c
+        src/dialog_box/create_gui_box.c
         src/hooks/button_press.c
         src/hooks/key_press.c
         src/close_miniRT.c
