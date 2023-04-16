@@ -4,7 +4,7 @@
 #include "struct/t_minirt.h"
 
 static t_gui_box	*get_clicked_gui_box(t_gui_boxes gui_boxes, int x, int y);
-static bool	is_point_in_gui_box(const t_gui_box *gui_box, int x, int y);
+static bool			is_point_in_gui_box(const t_gui_box *gui_box, int x, int y);
 
 int	button_press_handler(int button, int x, int y, t_minirt *minirt)
 {
@@ -30,8 +30,8 @@ static t_gui_box	*get_clicked_gui_box(t_gui_boxes gui_boxes, int x, int y)
 			if (gui_boxes.gui_boxes[i].children.size == 0)
 				return (gui_boxes.gui_boxes + i);
 			return (get_clicked_gui_box(gui_boxes.gui_boxes[i].children,
-					x + gui_boxes.gui_boxes[i].position.x,
-					y + gui_boxes.gui_boxes[i].position.y));
+					x - gui_boxes.gui_boxes[i].position.x,
+					y - gui_boxes.gui_boxes[i].position.y));
 		}
 	}
 	return (NULL);
