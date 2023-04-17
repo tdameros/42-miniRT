@@ -22,6 +22,9 @@ typedef struct s_gui_box
 	t_gui_boxes			children;
 }	t_gui_box;
 
+t_gui_box	create_t_gui_box(t_minirt *minirt, t_gui_box *parent,
+				t_point_int_2d position, t_size_int_2d size);
+
 void	default_gui_box_draw(t_gui_box *self, t_minirt *minirt,
 			int x_offset, int y_offset);
 

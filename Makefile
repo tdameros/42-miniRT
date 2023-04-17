@@ -16,7 +16,10 @@ SRC				=\
 	image/round_image_corners.c	\
 \
 \
-	init/init_gui_boxes.c	\
+	init/init_gui/init_gui_boxes.c						\
+	init/init_gui/init_object_creation_gui_box.c		\
+	init/init_gui/init_object_modification_gui_box.c	\
+	\
 	init/init_minirt.c		\
 \
 \

@@ -33,7 +33,7 @@ t_gui_box	create_t_gui_box(t_minirt *minirt,
 	t_gui_box	gui_box;
 
 	errno = 0;
-	ft_bzero(&gui_box, sizeof(t_gui_box));
+	ft_bzero(&gui_box, sizeof(gui_box));
 	if (can_gui_box_be_placed(minirt->gui_boxes, parent, position,
 							  size) == false)
 	{
