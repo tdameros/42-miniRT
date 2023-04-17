@@ -181,7 +181,7 @@ add_executable(miniRT
         src/hooks/button_press.c
         src/hooks/key_press.c
         src/close_miniRT.c
-        src/image.c
+        src/image/image.c
         src/init/init_minirt.c
         src/main.c
-        src/render_frame.c src/init/init_gui_boxes.c include/struct/t_window.h include/init.h)
+        src/render_frame.c src/init/init_gui_boxes.c include/struct/t_window.h include/init.h src/image/round_image_corners.c)

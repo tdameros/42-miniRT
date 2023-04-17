@@ -7,9 +7,7 @@ static void	put_gui_box_to_window(t_gui_box *gui_box,
 
 int	render_frame(t_minirt *minirt)
 {
-	for (int i = 0; i < WINDOW_WIDTH; i++)							// This will be replaced by the ray tracing
-		for (int j = 0; j < WINDOW_HEIGHT; j++)						//
-			put_pixel_on_img(&minirt->main_image, j, i, 0x000000);	//
+	// Do ray tracing on minirt->main_image.image
 	mlx_put_image_to_window(minirt->window.mlx, minirt->window.window,
 		minirt->main_image.image, 0, 0);
 	put_user_interface_to_window(minirt);

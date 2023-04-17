@@ -11,12 +11,15 @@ SRC				=\
 	hooks/key_press.c		\
 \
 \
+	image/image.c				\
+	image/round_image_corners.c	\
+\
+\
 	init/init_gui_boxes.c	\
 	init/init_minirt.c		\
 \
 \
 	close_miniRT.c	\
-	image.c			\
 	main.c			\
 	render_frame.c
 

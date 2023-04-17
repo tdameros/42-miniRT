@@ -35,14 +35,13 @@ static int	init_object_creation_gui_box(t_minirt *minirt,
 										   t_gui_box *gui_box)
 {
 	*gui_box = create_t_gui_box(minirt, NULL,
-								(t_point_int_2d){.x = 0, .y = 4},
-								(t_size_int_2d){.width = WINDOW_WIDTH,
-										   .height = WINDOW_HEIGHT / 10});
+								(t_point_int_2d){.x = 12, .y = 12},
+								(t_size_int_2d){.width = WINDOW_WIDTH - 24,
+										   .height = WINDOW_HEIGHT / 9});
 	if (errno == EINVAL)
 		return (-1);
-	for (int i = 0; i < WINDOW_WIDTH; i++)
-		for (int j = 0; j < WINDOW_HEIGHT / 10; j++)
-			put_pixel_on_img(&gui_box->image, j, i, COLOR_WHITE);
+	change_image_color(&gui_box->image, 0x40000000);
+	round_image_corners(&gui_box->image, 20);
 	gui_box->draw = (void (*)(t_gui_box *, void *, int, int))&default_gui_box_draw;
 	gui_box->children.size = 1;
 	gui_box->children.gui_boxes = malloc(sizeof(t_gui_box));

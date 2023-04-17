@@ -15,6 +15,8 @@ static void	init_hooks(t_minirt *minirt);
 
 int	init_minirt(t_minirt *minirt, const char *start_up_scene)
 {
+	(void)start_up_scene; // TODO remove me
+
 	ft_bzero(minirt, sizeof(t_minirt));
 	minirt->window.mlx = mlx_init();
 	if (minirt->window.mlx == NULL)
@@ -24,11 +26,11 @@ int	init_minirt(t_minirt *minirt, const char *start_up_scene)
 	if (minirt->window.window == NULL)
 		return (-1); // TODO: free mlx
 
-	(void)start_up_scene;
+	init_image_from_xpm(&minirt->main_image, &minirt->window, "test.xpm"); // TODO secure me
+
 
 	init_hooks(minirt);
-	init_image(&minirt->main_image, &minirt->window, WINDOW_HEIGHT,
-		WINDOW_WIDTH); // TODO secure me
+
 	if (init_gui_boxes(minirt))
 	{
 		// TODO: free everything
