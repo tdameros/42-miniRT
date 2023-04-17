@@ -20,7 +20,7 @@ static void put_user_interface_to_window(t_minirt *minirt)
 {
 	size_t	i;
 
-	i = minirt->gui_boxes.size;
+	i = minirt->gui_boxes.length;
 	while (i--)
 		put_gui_box_to_window(minirt->gui_boxes.gui_boxes + i, minirt, 0, 0);
 }
@@ -31,7 +31,7 @@ static void	put_gui_box_to_window(t_gui_box *gui_box,
 	size_t	i;
 
 	gui_box->draw(gui_box, minirt, x_offset, y_offset);
-	i = gui_box->children.size;
+	i = gui_box->children.length;
 	while (i--)
 		put_gui_box_to_window(gui_box->children.gui_boxes + i, minirt,
 			gui_box->position.x, gui_box->position.y);

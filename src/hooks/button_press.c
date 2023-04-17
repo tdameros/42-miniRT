@@ -23,14 +23,14 @@ static t_gui_box	*get_clicked_gui_box(t_gui_boxes gui_boxes, int *x, int *y)
 {
 	size_t	i;
 
-	i = gui_boxes.size;
+	i = gui_boxes.length;
 	while (i--)
 	{
 		if (is_point_in_gui_box(gui_boxes.gui_boxes + i, *x, *y))
 		{
 			*x -= gui_boxes.gui_boxes[i].position.x;
 			*y -= gui_boxes.gui_boxes[i].position.y;
-			if (gui_boxes.gui_boxes[i].children.size == 0)
+			if (gui_boxes.gui_boxes[i].children.length == 0)
 				return (gui_boxes.gui_boxes + i);
 			return (get_clicked_gui_box(gui_boxes.gui_boxes[i].children,
 					x,

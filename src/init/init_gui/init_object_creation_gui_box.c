@@ -19,6 +19,7 @@ int	init_object_creation_gui_box(t_minirt *minirt, t_gui_box *gui_box)
 	round_image_corners(&gui_box->image, 20);
 	gui_box->draw = &default_gui_box_draw;
 	gui_box->children.size = 1;
+	gui_box->children.length = 1;
 	gui_box->children.gui_boxes = malloc(sizeof(*gui_box->children.gui_boxes)
 										 * gui_box->children.size);
 	if (gui_box->children.gui_boxes == NULL)
