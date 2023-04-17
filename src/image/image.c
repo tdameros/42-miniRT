@@ -1,5 +1,4 @@
 #include <stddef.h>
-#include <math.h>
 
 #include "mlx.h"
 
@@ -32,11 +31,19 @@ int	init_image_from_xpm(t_image *image, t_window *window, char *xmp_file)
 
 void	put_pixel_on_image(t_image *image, int y, int x, unsigned int color)
 {
-	char	*dst;
+	char	*destination;
 
-	dst = image->address
+	destination = image->address
 		  + (y * image->line_length + x * (image->bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
+	*(unsigned int *)destination = color;
+}
+
+unsigned int	get_image_pixel_color(t_image *image, int y, int x)
+{
+	const char	*pixel = image->address
+			+ (y * image->line_length + x * (image->bits_per_pixel / 8));
+
+	return (*(const unsigned int *)pixel);
 }
 
 void	change_image_color(t_image *image, unsigned int color)

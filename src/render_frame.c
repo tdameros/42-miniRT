@@ -1,5 +1,7 @@
-#include "struct/t_minirt.h"
 #include "mlx.h"
+
+#include "struct/t_minirt.h"
+#include "struct/t_gui_box.h"
 
 static void put_user_interface_to_window(t_minirt *minirt);
 static void	put_gui_box_to_window(t_gui_box *gui_box,

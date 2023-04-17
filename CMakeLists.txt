@@ -177,11 +177,10 @@ add_executable(miniRT
         lib/minilibx_opengl_20191021/mlx_rgb.c
         lib/minilibx_opengl_20191021/mlx_shaders.c
         lib/minilibx_opengl_20191021/mlx_xpm.c
-        src/dialog_box/create_gui_box.c
         src/hooks/button_press.c
         src/hooks/key_press.c
         src/close_miniRT.c
         src/image/image.c
         src/init/init_minirt.c
         src/main.c
-        src/render_frame.c src/init/init_gui_boxes.c include/struct/t_window.h include/init.h src/image/round_image_corners.c)
+        src/render_frame.c src/init/init_gui_boxes.c include/struct/t_window.h include/init.h src/image/round_image_corners.c src/gui_box/default_gui_box_methods.c src/gui_box/default_gui_box_methods.c include/struct/t_gui_boxes.h)

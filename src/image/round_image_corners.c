@@ -2,6 +2,7 @@
 #include <stdbool.h>
 
 #include "image.h"
+#include "colors.h"
 
 static bool is_in_top_left_corner(int x, int y, int radius);
 static bool is_in_top_right_corner(int x, int y, int radius, t_image *image);
@@ -25,7 +26,7 @@ void round_image_corners(t_image *image, int radius)
 					|| is_in_top_right_corner(x, y, radius, image)
 					|| is_in_bottom_left_corner(x, y, radius, image)
 					|| is_in_bottom_right_corner(x, y, radius, image))
-				put_pixel_on_image(image, y, x, 0xFF000000);
+				put_pixel_on_image(image, y, x, COLOR_TRANSPARENT);
 		}
 	}
 }
