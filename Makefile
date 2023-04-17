@@ -4,7 +4,7 @@ NAME			=	miniRT
 SRC_PATH		=	src/
 
 SRC				=\
-	dialog_box/create_gui_box.c	\
+	gui_box/create_gui_box.c	\
 \
 \
 	hooks/button_press.c	\

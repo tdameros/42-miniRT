@@ -52,7 +52,7 @@ static int	init_object_creation_gui_box(t_minirt *minirt,
 			(t_size_int_2d){.width = 40, .height = 40});
 	for (int i = 0; i < gui_box->children.gui_boxes->size.width; i++)
 		for (int j = 0; j < gui_box->children.gui_boxes->size.height; j++)
-			put_pixel_on_img(&gui_box->children.gui_boxes->image, j, i, COLOR_BLUE);
+			put_pixel_on_image(&gui_box->children.gui_boxes->image, j, i, COLOR_BLUE);
 	gui_box->children.gui_boxes->draw = (void (*)(t_gui_box *, void *, int, int))&default_gui_box_draw;
 	gui_box->children.gui_boxes->on_click = (void (*)(t_gui_box*, void*))&on_click_test;
 	return (0);
@@ -69,11 +69,11 @@ static void	on_click_test(t_gui_box *self, t_minirt *minirt)
 	if (color == COLOR_BLUE)
 		for (int i = 0; i < self->size.width; i++)
 			for (int j = 0; j < self->size.height; j++)
-				put_pixel_on_img(&self->image, j, i, COLOR_SAND);
+				put_pixel_on_image(&self->image, j, i, COLOR_SAND);
 	else
 		for (int i = 0; i < self->size.width; i++)
 			for (int j = 0; j < self->size.height; j++)
-				put_pixel_on_img(&self->image, j, i, COLOR_BLUE);
+				put_pixel_on_image(&self->image, j, i, COLOR_BLUE);
 	(void) minirt;
 }
 

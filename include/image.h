@@ -28,7 +28,7 @@ typedef struct s_image
 
 void	init_image(t_image *image, t_window *window, int height, int width);
 int		init_image_from_xpm(t_image *image, t_window *window, char *xmp_file);
-void	put_pixel_on_img(t_image *image, int y, int x, unsigned int color);
+void	put_pixel_on_image(t_image *image, int y, int x, unsigned int color);
 void	change_image_color(t_image *image, unsigned int color);
 void	round_image_corners(t_image *image, int radius);
 

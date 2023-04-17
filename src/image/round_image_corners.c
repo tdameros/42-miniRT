@@ -25,7 +25,7 @@ void round_image_corners(t_image *image, int radius)
 					|| is_in_top_right_corner(x, y, radius, image)
 					|| is_in_bottom_left_corner(x, y, radius, image)
 					|| is_in_bottom_right_corner(x, y, radius, image))
-				put_pixel_on_img(image, y, x, 0xFF000000);
+				put_pixel_on_image(image, y, x, 0xFF000000);
 		}
 	}
 }

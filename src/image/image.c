@@ -30,7 +30,7 @@ int	init_image_from_xpm(t_image *image, t_window *window, char *xmp_file)
 	return (0);
 }
 
-void	put_pixel_on_img(t_image *image, int y, int x, unsigned int color)
+void	put_pixel_on_image(t_image *image, int y, int x, unsigned int color)
 {
 	char	*dst;
 
@@ -49,6 +49,6 @@ void	change_image_color(t_image *image, unsigned int color)
 	{
 		j = image->width;
 		while (j--)
-			put_pixel_on_img(image, i, j, color);
+			put_pixel_on_image(image, i, j, color);
 	}
 }
