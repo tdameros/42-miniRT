@@ -16,5 +16,6 @@ int	init_object_modification_gui_box(t_minirt *minirt, t_gui_box *gui_box,
 	change_image_color(&gui_box->image, 0x40000000);
 	round_image_corners(&gui_box->image, 20);
 	gui_box->draw = &default_gui_box_draw;
+	gui_box->on_click = &default_gui_box_on_click;
 	return (0);
 }

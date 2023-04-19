@@ -6,6 +6,7 @@ SRC_PATH		=	src/
 SRC				=\
 	gui_box/create_gui_box.c			\
 	gui_box/default_gui_box_methods.c	\
+	gui_box/get_clicked_gui_box.c		\
 \
 \
 	hooks/button_press.c	\

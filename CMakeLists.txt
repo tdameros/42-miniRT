@@ -183,4 +183,4 @@ add_executable(miniRT
         src/image/image.c
         src/init/init_minirt.c
         src/main.c
-        src/render_frame.c src/init/init_gui/init_gui_boxes.c include/struct/t_window.h include/init.h src/image/round_image_corners.c src/gui_box/default_gui_box_methods.c src/gui_box/default_gui_box_methods.c include/struct/t_gui_boxes.h src/gui_box/create_gui_box.c src/init/init_gui/init_object_creation_gui_box.c src/init/init_gui/init_object_modification_gui_box.c)
+        src/render_frame.c src/init/init_gui/init_gui_boxes.c include/struct/t_window.h include/init.h src/image/round_image_corners.c src/gui_box/default_gui_box_methods.c src/gui_box/default_gui_box_methods.c include/struct/t_gui_boxes.h src/gui_box/create_gui_box.c src/init/init_gui/init_object_creation_gui_box.c src/init/init_gui/init_object_modification_gui_box.c src/gui_box/get_clicked_gui_box.c src/gui_box/get_clicked_gui_box.c)

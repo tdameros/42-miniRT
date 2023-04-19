@@ -26,7 +26,7 @@ int	init_minirt(t_minirt *minirt, const char *start_up_scene)
 	if (minirt->window.window == NULL)
 		return (-1); // TODO: free mlx
 
-	init_image_from_xpm(&minirt->main_image, &minirt->window, "test.xpm"); // TODO secure me
+	init_image_from_xpm(&minirt->main_image, &minirt->window, "data/test.xpm"); // TODO secure me
 
 
 	init_hooks(minirt);

@@ -1,7 +1,8 @@
 #include <sys/errno.h>
 #include <stdlib.h>
-#include "colors.h"
+
 #include "struct/t_gui_box.h"
+#include "colors.h"
 #include "init.h"
 
 static void	on_click_test(t_gui_box *self, t_minirt *minirt, int y, int x);
@@ -18,6 +19,7 @@ int	init_object_creation_gui_box(t_minirt *minirt, t_gui_box *gui_box)
 	change_image_color(&gui_box->image, 0x40000000);
 	round_image_corners(&gui_box->image, 20);
 	gui_box->draw = &default_gui_box_draw;
+	gui_box->on_click = &default_gui_box_on_click;
 	gui_box->children.size = 1;
 	gui_box->children.length = 1;
 	gui_box->children.gui_boxes = malloc(sizeof(*gui_box->children.gui_boxes)
