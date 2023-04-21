@@ -13,6 +13,7 @@
 
 static void	init_hooks(t_minirt *minirt);
 
+#include <stdlib.h>
 static void	print_scene_content(t_raytracing_data *raytracing_data);
 int	init_minirt(t_minirt *minirt, const char *start_up_scene)
 {
@@ -29,7 +30,7 @@ int	init_minirt(t_minirt *minirt, const char *start_up_scene)
 	if (parse_scene(minirt, start_up_scene) < 0)
 		return (-1); // TODO free stuff
 	print_scene_content(&minirt->raytracing_data);
-
+	exit(0);
 
 	init_image_from_xpm(&minirt->main_image, &minirt->window, "data/test.xpm"); // TODO secure me
 

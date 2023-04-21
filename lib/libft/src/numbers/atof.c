@@ -1,5 +1,4 @@
 #include <errno.h>
-#include <float.h>
 #include <math.h>
 
 #include "libft.h"
@@ -15,24 +14,23 @@ double	ft_atof(const char *string)
 
 	is_negative = *string == '-';
 	string += is_negative || *string == '+';
-//	if (*string == '\0')
-//	{
-//		errno = EINVAL;
-//		return (0);
-//	}
+	if (*string == '\0')
+	{
+		errno = EINVAL;
+		return (0);
+	}
 	new_errno_value = get_pre_decimal(&string, &result);
-//	if (new_errno_value != 0)
-//	{
-//		errno = new_errno_value;
-//		return (0);
-//	}
+	if (new_errno_value != 0)
+	{
+		errno = new_errno_value;
+		return (0);
+	}
 	new_errno_value = get_post_decimal(&string, &result);
-//	if (new_errno_value != 0)
-//	{
-//		errno = new_errno_value;
-//		return (0);
-//	}
-	(void)new_errno_value;
+	if (new_errno_value != 0)
+	{
+		errno = new_errno_value;
+		return (0);
+	}
 	return (result * (-is_negative + !is_negative));
 }
 
@@ -43,11 +41,11 @@ static int	get_pre_decimal(const char **string, double *result)
 	*result = 0;
 	while (ft_isdigit(**string))
 	{
-		if (*result != 0 && *result < *result * 10)
+		if (*result > *result * 10)
 			return (ERANGE);
 		(*result) *= 10;
 		nb_to_add = **string - '0';
-		if (nb_to_add > DBL_MAX - *result)
+		if (nb_to_add > HUGE_VAL - *result)
 			return (ERANGE);
 		(*result) += nb_to_add;
 		(*string)++;
@@ -69,7 +67,7 @@ static int	get_post_decimal(const char **string, double *result)
 	while (ft_isdigit(**string))
 	{
 		nb_to_add = (double)(**string - '0') / (double)post_decimal;
-		if (nb_to_add > DBL_MAX - *result)
+		if (nb_to_add > HUGE_VAL - *result)
 			return (ERANGE);
 		*result = *result + nb_to_add;
 		(*string)++;
