@@ -36,29 +36,20 @@ double	ft_atof(const char *string)
 
 static int	get_pre_decimal(const char **string, double *result)
 {
-	double	nb_to_add;
-
 	*result = 0;
 	while (ft_isdigit(**string))
 	{
-		if (*result > *result * 10)
-			return (ERANGE);
-		(*result) *= 10;
-		nb_to_add = **string - '0';
-		if (nb_to_add > HUGE_VAL - *result)
-			return (ERANGE);
-		(*result) += nb_to_add;
+		*result = *result * 10 + **string - '0';
 		(*string)++;
 	}
 	if (**string != '.' && **string != '\0')
 		return (EINVAL);
-	return (0);
+	return (ERANGE * (isinf(*result) != 0));
 }
 
 static int	get_post_decimal(const char **string, double *result)
 {
 	size_t	post_decimal;
-	double	nb_to_add;
 
 	if (**string == '\0')
 		return (0);
@@ -66,14 +57,11 @@ static int	get_post_decimal(const char **string, double *result)
 	post_decimal = 10;
 	while (ft_isdigit(**string))
 	{
-		nb_to_add = (double)(**string - '0') / (double)post_decimal;
-		if (nb_to_add > HUGE_VAL - *result)
-			return (ERANGE);
-		*result = *result + nb_to_add;
-		(*string)++;
+		(*result) += (double)(**string - '0') / (double)post_decimal;
 		post_decimal *= 10;
+		(*string)++;
 	}
 	if (**string != '\0')
 		return (EINVAL);
-	return (0);
+	return (ERANGE * (isinf(*result) != 0));
 }

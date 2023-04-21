@@ -34,6 +34,7 @@ int	parse_scene_content(t_minirt *minirt, char ***scene_content)
 	t_list					*object_list;
 
 	ft_bzero(&rt_file_requirements, sizeof(t_rt_file_requirements));
+	minirt->raytracing_data.camera.fov = 90;
 	object_list = NULL;
 	i = 0;
 	while (scene_content[i] != NULL)
