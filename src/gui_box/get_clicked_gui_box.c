@@ -11,11 +11,11 @@ t_gui_box	*get_clicked_gui_box(t_gui_boxes gui_boxes, int *x, int *y)
 	i = gui_boxes.length;
 	while (i--)
 	{
-		if (is_point_in_gui_box(gui_boxes.gui_boxes + i, *x, *y))
+		if (is_point_in_gui_box(gui_boxes.data + i, *x, *y))
 		{
-			*x -= gui_boxes.gui_boxes[i].position.x;
-			*y -= gui_boxes.gui_boxes[i].position.y;
-			return (gui_boxes.gui_boxes + i);
+			*x -= gui_boxes.data[i].position.x;
+			*y -= gui_boxes.data[i].position.y;
+			return (gui_boxes.data + i);
 		}
 	}
 	return (NULL);

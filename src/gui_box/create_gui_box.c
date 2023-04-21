@@ -34,7 +34,7 @@ t_gui_box	create_t_gui_box(t_minirt *minirt,
 
 	errno = 0;
 	ft_bzero(&gui_box, sizeof(gui_box));
-	if (can_gui_box_be_placed(minirt->gui_boxes, parent, position,
+	if (can_gui_box_be_placed(minirt->gui.gui_boxes, parent, position,
 							  size) == false)
 	{
 		errno = EINVAL;
@@ -94,7 +94,7 @@ static bool	does_gui_box_overlap_with_another_on_the_same_level(
 	i = same_level_gui_boxes.length;
 	while (i--)
 		if (do_gui_boxes_overlap(new_gui_box_limit,
-								 same_level_gui_boxes.gui_boxes + i))
+								 same_level_gui_boxes.data + i))
 			return (true);
 	return (false);
 }

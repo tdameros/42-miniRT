@@ -22,20 +22,20 @@ int	init_object_creation_gui_box(t_minirt *minirt, t_gui_box *gui_box)
 	gui_box->on_click = &default_gui_box_on_click;
 	gui_box->children.size = 1;
 	gui_box->children.length = 1;
-	gui_box->children.gui_boxes = malloc(sizeof(*gui_box->children.gui_boxes)
-										 * gui_box->children.size);
-	if (gui_box->children.gui_boxes == NULL)
+	gui_box->children.data = malloc(sizeof(*gui_box->children.data)
+									* gui_box->children.size);
+	if (gui_box->children.data == NULL)
 		return (-1); // TODO destroy previous gui_box
-	*gui_box->children.gui_boxes = create_t_gui_box(minirt, gui_box,
-			(t_point_int_2d){.x = gui_box->size.width / 2 - 20, \
+	*gui_box->children.data = create_t_gui_box(minirt, gui_box,
+											   (t_point_int_2d){.x = gui_box->size.width / 2 - 20, \
 							 .y = gui_box->size.height / 2 - 20},
-			(t_size_int_2d){.width = 40, .height = 40});
+											   (t_size_int_2d){.width = 40, .height = 40});
 	if (errno == EINVAL)
 		return (-1); // TODO destroy previous gui_box
-	change_image_color(&gui_box->children.gui_boxes->image, COLOR_BLUE);
-	round_image_corners(&gui_box->children.gui_boxes->image, 20);
-	gui_box->children.gui_boxes->draw = &default_gui_box_draw;
-	gui_box->children.gui_boxes->on_click = &on_click_test;
+	change_image_color(&gui_box->children.data->image, COLOR_BLUE);
+	round_image_corners(&gui_box->children.data->image, 20);
+	gui_box->children.data->draw = &default_gui_box_draw;
+	gui_box->children.data->on_click = &on_click_test;
 	return (0);
 }
 

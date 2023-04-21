@@ -98,6 +98,7 @@ enum e_key_codes
 	KEY_D = 2,
 	KEY_E = 14,
 	KEY_Q = 12,
+	KEY_H = 4,
 	KEY_SPACE = 49,
 	KEY_SLASH = 44,
 	KEY_L_SHIFT = 257,

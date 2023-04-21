@@ -5,7 +5,7 @@
 
 typedef struct s_gui_boxes
 {
-	struct s_gui_box	*gui_boxes;
+	struct s_gui_box	*data;
 	size_t				length;
 	size_t				size;
 }	t_gui_boxes;

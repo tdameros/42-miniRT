@@ -17,4 +17,6 @@
 
 int	render_frame(t_minirt *minirt);
 
+void render_user_interface(t_minirt *minirt);
+
 #endif //RENDER_FRAME_H

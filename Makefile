@@ -45,9 +45,12 @@ SRC				=\
 	init/init_minirt.c		\
 \
 \
+	render_frame/render_frame.c				\
+	render_frame/render_user_interface.c	\
+\
+\
 	close_miniRT.c	\
-	main.c			\
-	render_frame.c
+	main.c
 
 DIR_BUILD		=	.build/
 OBJS			=	$(patsubst %.c, $(DIR_BUILD)%.o, $(SRC))
