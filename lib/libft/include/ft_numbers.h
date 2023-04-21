@@ -18,6 +18,7 @@
 
 int			ft_abs(int i);
 
+double		ft_atof(const char *string);
 int			ft_atoi(const char *str);
 long long	ft_atoll(const char *str);
 char		*ft_itoa(int n);

@@ -21,6 +21,26 @@ SRC				=\
 	init/init_gui/init_object_creation_gui_box.c		\
 	init/init_gui/init_object_modification_gui_box.c	\
 	\
+	init/parsing/line_parsing/utils/add_object_to_object_list.c	\
+	init/parsing/line_parsing/utils/get_color.c					\
+	init/parsing/line_parsing/utils/get_double.c				\
+	init/parsing/line_parsing/utils/get_lighting_ratio.c		\
+	init/parsing/line_parsing/utils/get_normalized_vector.c		\
+	init/parsing/line_parsing/utils/get_position.c				\
+	\
+	init/parsing/line_parsing/invalid_scene_content_line.c	\
+	init/parsing/line_parsing/parse_ambient_light.c			\
+	init/parsing/line_parsing/parse_camera.c				\
+	init/parsing/line_parsing/parse_cylinder.c				\
+	init/parsing/line_parsing/parse_light.c					\
+	init/parsing/line_parsing/parse_plane.c					\
+	init/parsing/line_parsing/parse_sphere.c				\
+	\
+	init/parsing/free_scene_content.c	\
+	init/parsing/get_scene_content.c	\
+	init/parsing/parse_scene_content.c	\
+	init/parsing/parsing.c				\
+	\
 	init/init_minirt.c		\
 \
 \

@@ -122,6 +122,7 @@ SRC =\
 	numbers/swap/swap_uint.c	\
 \
 	numbers/abs.c	\
+	numbers/atof.c	\
 	numbers/atoi.c	\
 	numbers/atoll.c	\
 	numbers/itoa.c	\
@@ -129,7 +130,7 @@ SRC =\
 \
 	string/split/free_split.c				\
 	string/split/split_set.c				\
-	string/split/split_size.c				\
+	string/split/split_len.c				\
 	string/split/split.c					\
 	string/split/split_unless_in_quotes.c	\
 \

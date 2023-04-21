@@ -18,7 +18,7 @@
 
 char	**ft_split_set(char const *s, char *set);
 char	**ft_split(char const *s, char c);
-size_t	ft_split_size(char **strs);
+size_t	ft_split_len(char **strs);
 void	ft_free_split(void *strs);
 char	**ft_split_unless_in_quotes(char *arg);
 size_t	ft_count_args_after_split_unless_quotes(char *arg);

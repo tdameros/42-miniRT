@@ -140,7 +140,7 @@ add_executable(miniRT
         lib/libft/src/string/split/free_split.c
         lib/libft/src/string/split/split.c
         lib/libft/src/string/split/split_set.c
-        lib/libft/src/string/split/split_size.c
+        lib/libft/src/string/split/split_len.c
         lib/libft/src/string/split/split_unless_in_quotes.c
         lib/libft/src/string/is_number.c
         lib/libft/src/string/skip_char.c
@@ -183,4 +183,4 @@ add_executable(miniRT
         src/image/image.c
         src/init/init_minirt.c
         src/main.c
-        src/render_frame.c src/init/init_gui/init_gui_boxes.c include/struct/t_window.h include/init.h src/image/round_image_corners.c src/gui_box/default_gui_box_methods.c src/gui_box/default_gui_box_methods.c include/struct/t_gui_boxes.h src/gui_box/create_gui_box.c src/init/init_gui/init_object_creation_gui_box.c src/init/init_gui/init_object_modification_gui_box.c src/gui_box/get_clicked_gui_box.c src/gui_box/get_clicked_gui_box.c)
+        src/render_frame.c src/init/init_gui/init_gui_boxes.c include/struct/t_window.h include/init.h src/image/round_image_corners.c src/gui_box/default_gui_box_methods.c src/gui_box/default_gui_box_methods.c include/struct/t_gui_boxes.h src/gui_box/create_gui_box.c src/init/init_gui/init_object_creation_gui_box.c src/init/init_gui/init_object_modification_gui_box.c src/gui_box/get_clicked_gui_box.c src/gui_box/get_clicked_gui_box.c src/init/parsing/parsing.c include/struct/t_camera.h include/struct/t_vector_3d.h include/struct/t_raytracing_data.h include/struct/t_ambient_light.h include/struct/t_object.h src/init/parsing/get_scene_content.c src/init/parsing/free_scene_content.c src/init/parsing/parse_scene_content.c src/init/parsing/line_parsing/parse_ambient_light.c include/struct/t_rt_file_requirements.h src/init/parsing/line_parsing/invalid_scene_content_line.c lib/libft/src/numbers/atof.c src/init/parsing/line_parsing/parse_camera.c src/init/parsing/line_parsing/parse_camera.c src/init/parsing/line_parsing/utils/get_color.c src/init/parsing/line_parsing/utils/get_position.c src/init/parsing/line_parsing/utils/get_normalized_vector.c src/init/parsing/line_parsing/parse_cylinder.c src/init/parsing/line_parsing/parse_light.c src/init/parsing/line_parsing/utils/get_lighting_ratio.c src/init/parsing/line_parsing/parse_sphere.c src/init/parsing/line_parsing/utils/add_object_to_object_list.c src/init/parsing/line_parsing/parse_plane.c src/init/parsing/line_parsing/utils/get_double.c)

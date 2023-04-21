@@ -12,7 +12,7 @@
 
 #include <stddef.h>
 
-size_t	ft_split_size(char **strs)
+size_t	ft_split_len(char **strs)
 {
 	size_t	i;
 
