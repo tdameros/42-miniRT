@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_color.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/21 03:19:16 by vfries            #+#    #+#             */
+/*   Updated: 2023/04/21 03:30:57 by vfries           ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <errno.h>
 
 #include "libft.h"
@@ -27,9 +39,9 @@ int	get_color(char *color_string, t_color *color_destination)
 		|| is_not_valid_color(colors[1]) || is_not_valid_color(colors[2]))
 		return (-1);
 	*color_destination = (t_color){
-			.r = (int)colors[0],
-			.g = (int)colors[1],
-			.b = (int)colors[2],
+		.r = (int)colors[0],
+		.g = (int)colors[1],
+		.b = (int)colors[2],
 	};
 	return (0);
 }

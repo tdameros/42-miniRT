@@ -1,6 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_position.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/21 03:19:25 by vfries            #+#    #+#             */
+/*   Updated: 2023/04/21 03:19:29 by vfries           ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <errno.h>
-#include "struct/t_minirt.h"
+
 #include "libft.h"
+
+#include "struct/t_minirt.h"
 
 int	get_position(char *position_string, t_vector_3d *position_destination)
 {

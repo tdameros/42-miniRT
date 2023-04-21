@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_sphere.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/21 03:19:12 by vfries            #+#    #+#             */
+/*   Updated: 2023/04/21 03:25:35 by vfries           ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 #include "struct/t_minirt.h"
@@ -14,24 +26,12 @@ int	parse_sphere(t_minirt *minirt, char **scene_content_line,
 	ft_bzero(&sphere, sizeof(t_object));
 	sphere.type = SPHERE;
 	if (ft_split_len(scene_content_line) != 4)
-	{
-		ft_putstr_fd("Error\nFailed to get sphere line\n", STDERR_FILENO);
-		return (-1);
-	}
+		return (error("Error\nFailed to get sphere line\n"));
 	if (get_position(scene_content_line[1], &sphere.position) < 0)
-	{
-		ft_putstr_fd("Error\nFailed to get sphere position\n", STDERR_FILENO);
-		return (-1);
-	}
+		return (error("Error\nFailed to get sphere position\n"));
 	if (get_double(scene_content_line[2], &sphere.diameter) < 0)
-	{
-		ft_putstr_fd("Error\nFailed to get sphere radius\n", STDERR_FILENO);
-		return (-1);
-	}
+		return (error("Error\nFailed to get sphere radius\n"));
 	if (get_color(scene_content_line[3], &sphere.color) < 0)
-	{
-		ft_putstr_fd("Error\nFailed to get sphere color\n", STDERR_FILENO);
-		return (-1);
-	}
+		return (error("Error\nFailed to get sphere color\n"));
 	return (add_object_to_object_list(object_list, sphere));
 }

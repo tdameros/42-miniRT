@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_scene_content.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/21 03:18:57 by vfries            #+#    #+#             */
+/*   Updated: 2023/04/21 03:18:58 by vfries           ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdlib.h>
 #include <errno.h>
 
@@ -44,7 +56,7 @@ static t_list	*get_all_lines(int fd)
 		ft_lstclear(&lines, &free);
 		return (NULL);
 	}
-	return (ft_lst_reverse(&lines));
+	return (lines);
 }
 
 static int	add_line(t_list **lines, char *line)

@@ -22,6 +22,7 @@ SRC				=\
 	init/init_gui/init_object_modification_gui_box.c	\
 	\
 	init/parsing/line_parsing/utils/add_object_to_object_list.c	\
+	init/parsing/line_parsing/utils/error.c						\
 	init/parsing/line_parsing/utils/get_color.c					\
 	init/parsing/line_parsing/utils/get_double.c				\
 	init/parsing/line_parsing/utils/get_lighting_ratio.c		\

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_scene_content.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/21 03:18:55 by vfries            #+#    #+#             */
+/*   Updated: 2023/04/21 03:22:28 by vfries           ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdlib.h>
 #include <errno.h>
 #include <stdio.h>
@@ -38,7 +50,7 @@ int	parse_scene_content(t_minirt *minirt, char ***scene_content)
 		i++;
 	}
 	return (put_object_list_in_minirt(&minirt->raytracing_data.objects,
-		object_list));
+			object_list));
 }
 
 static int	parse_scene_content_line(t_minirt *minirt,
@@ -46,18 +58,16 @@ static int	parse_scene_content_line(t_minirt *minirt,
 				t_rt_file_requirements *rt_file_requirements,
 				t_list **object_list)
 {
-	int (*parse_line[])(t_minirt *, char **, t_rt_file_requirements *,
-				t_list **)
-	= {
-		&parse_ambient_light,
-		&parse_camera,
-		&parse_light,
-		&parse_sphere,
-		&parse_plane,
-		&parse_cylinder,
-	};
+	int			(*parse_line[6])(t_minirt *, char **, t_rt_file_requirements *,
+			t_list **);
 	const int	function_index = get_function_index(scene_content_line[0]);
 
+	parse_line[0] = &parse_ambient_light;
+	parse_line[1] = &parse_camera;
+	parse_line[2] = &parse_light;
+	parse_line[3] = &parse_sphere;
+	parse_line[4] = &parse_plane;
+	parse_line[5] = &parse_cylinder;
 	if (function_index < 0)
 	{
 		ft_putstr_fd("Error\n", STDERR_FILENO);
@@ -65,7 +75,7 @@ static int	parse_scene_content_line(t_minirt *minirt,
 		return (-1);
 	}
 	if (parse_line[function_index](minirt, scene_content_line,
-			rt_file_requirements, object_list) < 0)
+		rt_file_requirements, object_list) < 0)
 	{
 		invalid_scene_content_line(scene_content_line);
 		return (-1);

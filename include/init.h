@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/21 03:24:55 by vfries            #+#    #+#             */
+/*   Updated: 2023/04/21 03:24:56 by vfries           ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef INIT_H
 # define INIT_H
 
@@ -5,14 +17,15 @@
 
 # include "struct/t_gui_box.h"
 # include "struct/t_minirt.h"
-#include "struct/t_rt_file_requirements.h"
+# include "struct/t_rt_file_requirements.h"
 
-int	init_gui_boxes(t_minirt *minirt);
-int	init_object_creation_gui_box(t_minirt *minirt, t_gui_box *gui_box);
-int	init_object_modification_gui_box(t_minirt *minirt, t_gui_box *gui_box,
-		const t_gui_box *object_creation_gui_box);
+int		init_gui_boxes(t_minirt *minirt);
+int		init_object_creation_gui_box(t_minirt *minirt, t_gui_box *gui_box);
+int		init_object_modification_gui_box(t_minirt *minirt, t_gui_box *gui_box,
+			const t_gui_box *object_creation_gui_box);
 
 int		add_object_to_object_list(t_list **object_list, t_object object);
+int		error(const char *error_message);
 int		get_color(char *color_string, t_color *color_destination);
 int		get_double(char *double_string, double *double_destination);
 int		get_lighting_ratio(char *lighting_ratio_string,

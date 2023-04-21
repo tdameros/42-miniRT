@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_light.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/21 03:19:09 by vfries            #+#    #+#             */
+/*   Updated: 2023/04/21 03:26:45 by vfries           ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 #include "struct/t_minirt.h"
@@ -9,33 +21,18 @@ int	parse_light(t_minirt *minirt, char **scene_content_line,
 {
 	(void)object_list;
 	if (rt_file_requirements->light == true)
-	{
-		ft_putstr_fd("Error\nLight already defined\n", STDERR_FILENO);
-		return (-1);
-	}
+		return (error("Error\nLight already defined\n"));
 	if (ft_split_len(scene_content_line) != 4)
-	{
-		ft_putstr_fd("Error\nFailed to get light line\n", STDERR_FILENO);
-		return (-1);
-	}
+		return (error("Error\nFailed to get light line\n"));
 	if (get_position(scene_content_line[1],
 			&minirt->raytracing_data.light.position) < 0)
-	{
-		ft_putstr_fd("Error\nFailed to get light position\n", STDERR_FILENO);
-		return (-1);
-	}
+		return (error("Error\nFailed to get light position\n"));
 	if (get_lighting_ratio(scene_content_line[2],
 			&minirt->raytracing_data.light.brightness) < 0)
-	{
-		ft_putstr_fd("Error\nFailed to get light ratio\n", STDERR_FILENO);
-		return (-1);
-	}
+		return (error("Error\nFailed to get light ratio\n"));
 	if (get_color(scene_content_line[3],
 			&minirt->raytracing_data.light.color) < 0)
-	{
-		ft_putstr_fd("Error\nFailed to get light color\n", STDERR_FILENO);
-		return (-1);
-	}
+		return (error("Error\nFailed to get light color\n"));
 	rt_file_requirements->light = true;
 	return (0);
 }

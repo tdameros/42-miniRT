@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_camera.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/21 03:19:05 by vfries            #+#    #+#             */
+/*   Updated: 2023/04/21 03:28:52 by vfries           ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <errno.h>
 #include "libft.h"
 
@@ -12,34 +24,18 @@ int	parse_camera(t_minirt *minirt, char **scene_content_line,
 {
 	(void)object_list;
 	if (rt_file_requirements->camera == true)
-	{
-		ft_putstr_fd("Error\nCamera already defined\n", STDERR_FILENO);
-		return (-1);
-	}
+		return (error("Error\nCamera already defined\n"));
 	if (ft_split_len(scene_content_line) != 4)
-	{
-		ft_putstr_fd("Error\nFailed to get camera line\n", STDERR_FILENO);
-		return (-1);
-	}
+		return (error("Error\nFailed to get camera line\n"));
 	if (get_position(scene_content_line[1],
 			&minirt->raytracing_data.camera.position) < 0)
-	{
-		ft_putstr_fd("Error\nFailed to get camera position\n", STDERR_FILENO);
-		return (-1);
-	}
+		return (error("Error\nFailed to get camera position\n"));
 	if (get_normalized_vector(scene_content_line[2],
 			&minirt->raytracing_data.camera.orientation) < 0)
-	{
-		ft_putstr_fd("Error\nFailed to get camera orientation\n",
-			STDERR_FILENO);
-		return (-1);
-	}
+		return (error("Error\nFailed to get camera orientation\n"));
 	if (get_camera_fov(scene_content_line[3],
 			&minirt->raytracing_data.camera.fov) < 0)
-	{
-		ft_putstr_fd("Error\nFailed to get camera fov\n", STDERR_FILENO);
-		return (-1);
-	}
+		return (error("Error\nFailed to get camera fov\n"));
 	rt_file_requirements->camera = true;
 	return (0);
 }
