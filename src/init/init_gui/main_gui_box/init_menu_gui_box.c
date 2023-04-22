@@ -6,11 +6,11 @@
 #include "struct/t_gui_box.h"
 
 static int	init_menu_gui_box_children(t_minirt *minirt, t_gui_box *gui_box);
-static int	init_camera_icon(t_minirt *minirt, t_gui_box *gui_box,
+static int	init_camera_icon_box(t_minirt *minirt, t_gui_box *gui_box,
 				t_gui_box *parent);
-static int	init_saving_icon(t_minirt *minirt, t_gui_box *gui_box,
+static int	init_saving_icon_box(t_minirt *minirt, t_gui_box *gui_box,
 				t_gui_box *parent);
-static int	init_menu_settings_icon(t_minirt *minirt, t_gui_box *gui_box,
+static int	init_menu_settings_icon_box(t_minirt *minirt, t_gui_box *gui_box,
 				t_gui_box *parent);
 
 #define SEPERATOR 4
@@ -48,16 +48,16 @@ static int	init_menu_gui_box_children(t_minirt *minirt, t_gui_box *gui_box)
 			* gui_box->children.size);
 	if (gui_box->children.data == NULL)
 		return (-1);
-	if (init_camera_icon(minirt, gui_box->children.data + 0, gui_box) < 0)
+	if (init_camera_icon_box(minirt, gui_box->children.data + 0, gui_box) < 0)
 		return (-1);
-	if (init_saving_icon(minirt, gui_box->children.data + 1, gui_box) < 0)
+	if (init_saving_icon_box(minirt, gui_box->children.data + 1, gui_box) < 0)
 		return (-1); // TODO free previous
-	if (init_menu_settings_icon(minirt, gui_box->children.data + 2, gui_box) < 0)
+	if (init_menu_settings_icon_box(minirt, gui_box->children.data + 2, gui_box) < 0)
 		return (-1); // TODO free previous
 	return (0);
 }
-#include "stdio.h"
-static int	init_camera_icon(t_minirt *minirt, t_gui_box *gui_box,
+
+static int	init_camera_icon_box(t_minirt *minirt, t_gui_box *gui_box,
 				t_gui_box *parent)
 {
 	const int	box_width = round(((double)parent->size.width - SEPERATOR * 4)
@@ -73,7 +73,6 @@ static int	init_camera_icon(t_minirt *minirt, t_gui_box *gui_box,
 		.height = parent->size.height - SEPERATOR * 2
 		}
 	);
-	printf("%d\n%d\n", gui_box->size.width, gui_box->size.height);
 	if (errno == EINVAL)
 		return (-1);
 	change_image_color(&gui_box->image, 0x00FFFFFF);
@@ -83,8 +82,8 @@ static int	init_camera_icon(t_minirt *minirt, t_gui_box *gui_box,
 	return (0);
 }
 
-static int	init_saving_icon(t_minirt *minirt, t_gui_box *gui_box,
-							   t_gui_box *parent)
+static int	init_saving_icon_box(t_minirt *minirt, t_gui_box *gui_box,
+				t_gui_box *parent)
 {
 	const int	box_width = round(((double)parent->size.width - SEPERATOR * 4)
 								   / 3.0);
@@ -108,7 +107,7 @@ static int	init_saving_icon(t_minirt *minirt, t_gui_box *gui_box,
 	return (0);
 }
 
-static int	init_menu_settings_icon(t_minirt *minirt, t_gui_box *gui_box,
+static int	init_menu_settings_icon_box(t_minirt *minirt, t_gui_box *gui_box,
 				t_gui_box *parent)
 {
 	const int	box_width = round(((double)parent->size.width - SEPERATOR * 4)
