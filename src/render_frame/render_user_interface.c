@@ -42,7 +42,6 @@ static int	get_y_decal(const t_gui_box *gui_box, const t_gui *gui)
 
 static int	get_x_decal(const t_gui_box *gui_box, const t_gui *gui)
 {
-	return ((int)((gui_box->size.width
-		+ (WINDOW_WIDTH - gui_box->position.x - gui_box->size.width))
+	return ((int)((WINDOW_WIDTH - gui_box->position.x)
 		* gui->hidden_ratio));
 }
