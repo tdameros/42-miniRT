@@ -43,7 +43,7 @@ t_gui_box	create_t_gui_box(t_minirt *minirt,
 	gui_box.parent = parent;
 	gui_box.position = position;
 	gui_box.size = size;
-	init_image(&gui_box.image, &minirt->window, size.height, size.width); // TODO can this fail?
+	init_image(&gui_box.image, &minirt->window, size.width, size.height); // TODO can this fail?
 	return (gui_box);
 }
 

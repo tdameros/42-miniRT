@@ -14,8 +14,8 @@ int init_gui_boxes(t_minirt *minirt)
 										* minirt->gui.gui_boxes.size);
 	if (minirt->gui.gui_boxes.data == NULL)
 		return (-1);
-	if (init_object_creation_gui_box(minirt,
-			minirt->gui.gui_boxes.data) < 0)
+	if (init_main_gui_box(minirt,
+						  minirt->gui.gui_boxes.data) < 0)
 	{
 		free(minirt->gui.gui_boxes.data);
 		return (-1);

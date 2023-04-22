@@ -6,13 +6,16 @@
 #include "struct/t_window.h"
 #include "libft.h"
 
-void	init_image(t_image *image, t_window *window, int height, int width)
+int	init_image(t_image *image, t_window *window, int width, int height)
 {
-	image->image = mlx_new_image(window->mlx, width, height); // TODO can this fail?
+	image->image = mlx_new_image(window->mlx, width, height);
+	if (image->image == NULL)
+		return (-1);
 	image->address = mlx_get_data_addr(image->image, &image->bits_per_pixel,
 			&image->line_length, &image->endian);
 	image->height = height;
 	image->width = width;
+	return (0);
 }
 
 int	init_image_from_xpm(t_image *image, t_window *window, char *xmp_file)

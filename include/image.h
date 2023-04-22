@@ -26,8 +26,8 @@ typedef struct s_image
 	int		width;
 }	t_image;
 
-void			init_image(t_image *image, t_window *window, int height,
-					int width);
+int				init_image(t_image *image, t_window *window, int width,
+					int height);
 int				init_image_from_xpm(t_image *image, t_window *window,
 					char *xmp_file);
 void			put_pixel_on_image(t_image *image, int y, int x,

@@ -41,12 +41,21 @@ int	init_minirt(t_minirt *minirt, const char *start_up_scene)
 	return (0);
 }
 
+static int	resize(t_minirt *minirt)
+{
+	(void)minirt;
+	ft_printf("resize\n");
+	return (0);
+}
+
 static void	init_hooks(t_minirt *minirt)
 {
 	mlx_hook(minirt->window.window, KEY_PRESS, KEY_PRESS_MASK,
 		&key_press_handler, minirt);
 //	mlx_hook(minirt->window.window, KEY_RELEASE, KEY_RELEASE_MASK,
 //		&key_release_handler, minirt);
+	mlx_hook(minirt->window.window, CONFIGURE_NOTIFY, STRUCTURE_NOTIFY_MASK,
+		&resize, minirt);
 	mlx_hook(minirt->window.window, BUTTON_PRESS, BUTTON_PRESS_MASK,
 		&button_press_handler, minirt);
 	mlx_hook(minirt->window.window, DESTROY_NOTIFY, STRUCTURE_NOTIFY_MASK,
