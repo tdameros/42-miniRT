@@ -16,8 +16,6 @@ static void	init_hooks(t_minirt *minirt);
 static void	print_scene_content(t_raytracing_data *raytracing_data);
 int	init_minirt(t_minirt *minirt, const char *start_up_scene)
 {
-	(void)start_up_scene; // TODO remove me
-
 	ft_bzero(minirt, sizeof(t_minirt));
 	minirt->window.mlx = mlx_init();
 	if (minirt->window.mlx == NULL)

@@ -1,4 +1,3 @@
-
 #include "struct/t_minirt.h"
 #include "struct/t_gui_box.h"
 
@@ -6,7 +5,6 @@ static void	update_gui_hidden_ration(t_gui *gui);
 static int	get_y_decal(const t_gui_box *gui_box, const t_gui *gui);
 static int	get_x_decal(const t_gui_box *gui_box, const t_gui *gui);
 
-#include "stdio.h"
 void render_user_interface(t_minirt *minirt)
 {
 	update_gui_hidden_ration(&minirt->gui);
