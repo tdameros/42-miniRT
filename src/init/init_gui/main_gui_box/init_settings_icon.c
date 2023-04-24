@@ -8,6 +8,8 @@
 #include "struct/t_gui_box.h"
 #include "colors.h"
 
+#define CIRCLE_COLOR 0x00666666
+
 static void	write_setting_icon(t_image *image);
 static void	draw_circle(t_image *image, t_point_int_2d circle_center,
 				int radius, unsigned int color);
@@ -50,7 +52,39 @@ static void	write_setting_icon(t_image *image)
 	draw_circle(image, (t_point_int_2d) {
 			.x = image->width / 2,
 			.y = image->height / 2},
-			circle_diameter / 2, 0x00FFFFFF);
+			circle_diameter / 2, CIRCLE_COLOR);
+	draw_circle(image, (t_point_int_2d) {
+			.x = image->width / 2,
+			.y = image->height / 2 - circle_diameter / 2.5},
+			circle_diameter / 4, CIRCLE_COLOR);
+
+	draw_circle(image, (t_point_int_2d) {
+			.x = image->width / 2 - circle_diameter / M_PI,
+			.y = image->height / 2 - circle_diameter / M_PI + circle_diameter / 10},
+			circle_diameter / 4, CIRCLE_COLOR);
+	draw_circle(image, (t_point_int_2d) {
+			.x = image->width / 2 + circle_diameter / M_PI,
+			.y = image->height / 2 - circle_diameter / M_PI + circle_diameter / 10},
+			circle_diameter / 4, CIRCLE_COLOR);
+
+	draw_circle(image, (t_point_int_2d) {
+			.x = image->width / 2,
+			.y = image->height / 2 + circle_diameter / 2.5},
+			circle_diameter / 4, CIRCLE_COLOR);
+
+	draw_circle(image, (t_point_int_2d) {
+			.x = image->width / 2 - circle_diameter / M_PI,
+			.y = image->height / 2 + circle_diameter / M_PI - circle_diameter / 10},
+			circle_diameter / 4, CIRCLE_COLOR);
+	draw_circle(image, (t_point_int_2d) {
+			.x = image->width / 2 + circle_diameter / M_PI,
+			.y = image->height / 2 + circle_diameter / M_PI - circle_diameter / 10},
+			circle_diameter / 4, CIRCLE_COLOR);
+
+	draw_circle(image, (t_point_int_2d) {
+			.x = image->width / 2,
+			.y = image->height / 2},
+			circle_diameter / 2.5, COLOR_TRANSPARENT);
 }
 
 static void	draw_circle(t_image *image, t_point_int_2d circle_center,
