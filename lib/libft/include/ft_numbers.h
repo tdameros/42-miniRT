@@ -21,6 +21,7 @@ int			ft_abs(int i);
 double		ft_atof(const char *string);
 int			ft_atoi(const char *str);
 long long	ft_atoll(const char *str);
+int			ft_get_smallest_int(int a, int b);
 char		*ft_itoa(int n);
 
 void		ft_swap_double(double *a, double *b);

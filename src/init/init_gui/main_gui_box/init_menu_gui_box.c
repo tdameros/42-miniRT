@@ -4,6 +4,7 @@
 
 #include "struct/t_minirt.h"
 #include "struct/t_gui_box.h"
+#include "init.h"
 
 static int	init_menu_gui_box_children(t_minirt *minirt, t_gui_box *gui_box);
 static int	init_camera_icon_box(t_minirt *minirt, t_gui_box *gui_box,
@@ -14,6 +15,7 @@ static int	init_menu_settings_icon_box(t_minirt *minirt, t_gui_box *gui_box,
 				t_gui_box *parent);
 
 #define SEPERATOR 4
+#define ICON_BOX_COLOR 0x40404040
 
 int	init_menu_gui_box(t_minirt *minirt, t_gui_box *gui_box,
 		t_gui_box *parent)
@@ -75,9 +77,9 @@ static int	init_camera_icon_box(t_minirt *minirt, t_gui_box *gui_box,
 	);
 	if (errno == EINVAL)
 		return (-1);
-	change_image_color(&gui_box->image, 0x00FFFFFF);
+	change_image_color(&gui_box->image, ICON_BOX_COLOR);
 	round_image_corners(&gui_box->image, 20);
-	gui_box->draw = &default_gui_box_draw;
+	gui_box->draw = &icon_box_draw_method;
 	gui_box->on_click = &default_gui_box_on_click;
 	return (0);
 }
@@ -100,9 +102,9 @@ static int	init_saving_icon_box(t_minirt *minirt, t_gui_box *gui_box,
 	);
 	if (errno == EINVAL)
 		return (-1);
-	change_image_color(&gui_box->image, 0x00FFFFFF);
+	change_image_color(&gui_box->image, ICON_BOX_COLOR);
 	round_image_corners(&gui_box->image, 20);
-	gui_box->draw = &default_gui_box_draw;
+	gui_box->draw = &icon_box_draw_method;
 	gui_box->on_click = &default_gui_box_on_click;
 	return (0);
 }
@@ -125,9 +127,11 @@ static int	init_menu_settings_icon_box(t_minirt *minirt, t_gui_box *gui_box,
 	);
 	if (errno == EINVAL)
 		return (-1);
-	change_image_color(&gui_box->image, 0x00FFFFFF);
+	if (init_settings_icon(minirt, gui_box) < 0)
+		return (-1); // TODO free icon_box
+	change_image_color(&gui_box->image, ICON_BOX_COLOR);
 	round_image_corners(&gui_box->image, 20);
-	gui_box->draw = &default_gui_box_draw;
+	gui_box->draw = &icon_box_draw_method;
 	gui_box->on_click = &default_gui_box_on_click;
 	return (0);
 }

@@ -121,11 +121,12 @@ SRC =\
 	numbers/swap/swap_ssize_t.c	\
 	numbers/swap/swap_uint.c	\
 \
-	numbers/abs.c	\
-	numbers/atof.c	\
-	numbers/atoi.c	\
-	numbers/atoll.c	\
-	numbers/itoa.c	\
+	numbers/abs.c				\
+	numbers/atof.c				\
+	numbers/atoi.c				\
+	numbers/atoll.c				\
+	numbers/get_smallest_int.c	\
+	numbers/itoa.c				\
 \
 \
 	string/split/free_split.c				\
