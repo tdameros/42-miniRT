@@ -17,7 +17,6 @@ static void	draw_circle(t_image *image, t_point_int_2d circle_center,
 int	init_settings_icon(t_minirt *minirt, t_gui_box *gui_box)
 {
 	gui_box->children.size = 1;
-	gui_box->children.length = 1;
 	gui_box->children.data = malloc(sizeof(*gui_box->children.data)
 		* gui_box->children.size);
 	if (gui_box->children.data == NULL)

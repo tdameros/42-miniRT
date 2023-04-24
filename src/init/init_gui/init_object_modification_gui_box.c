@@ -3,6 +3,9 @@
 #include "struct/t_gui_box.h"
 #include "init.h"
 
+int	init_object_modification_gui_box_children(t_minirt *minirt,
+		t_gui_box *parent);
+
 int	init_object_modification_gui_box(t_minirt *minirt, t_gui_box *gui_box,
 		const t_gui_box *object_creation_gui_box)
 {
@@ -17,5 +20,15 @@ int	init_object_modification_gui_box(t_minirt *minirt, t_gui_box *gui_box,
 	round_image_corners(&gui_box->image, 20);
 	gui_box->draw = &default_gui_box_draw;
 	gui_box->on_click = &default_gui_box_on_click;
+	if (init_object_modification_gui_box_children(minirt, gui_box))
+		return (-1); // TODO free image
+	return (0);
+}
+
+int	init_object_modification_gui_box_children(t_minirt *minirt,
+		t_gui_box *parent)
+{
+	(void)parent;
+	(void)minirt;
 	return (0);
 }

@@ -9,7 +9,6 @@
 int init_gui_boxes(t_minirt *minirt)
 {
 	minirt->gui.gui_boxes.size = 2;
-	minirt->gui.gui_boxes.length = 2;
 	minirt->gui.gui_boxes.data = malloc(sizeof(*minirt->gui.gui_boxes.data)
 										* minirt->gui.gui_boxes.size);
 	if (minirt->gui.gui_boxes.data == NULL)

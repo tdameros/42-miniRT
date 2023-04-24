@@ -91,7 +91,7 @@ static bool	does_gui_box_overlap_with_another_on_the_same_level(
 		.bottom = position.y + size.height
 	};
 
-	i = same_level_gui_boxes.length;
+	i = same_level_gui_boxes.size;
 	while (i--)
 		if (do_gui_boxes_overlap(new_gui_box_limit,
 								 same_level_gui_boxes.data + i))

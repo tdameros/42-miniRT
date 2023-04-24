@@ -44,7 +44,6 @@ static int	init_menu_gui_box_children(t_minirt *minirt, t_gui_box *gui_box)
 {
 	(void)minirt;
 	(void)gui_box;
-	gui_box->children.length = 3;
 	gui_box->children.size = 3;
 	gui_box->children.data = malloc(sizeof(*gui_box->children.data)
 			* gui_box->children.size);

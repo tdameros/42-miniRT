@@ -8,7 +8,7 @@ t_gui_box	*get_clicked_gui_box(t_gui_boxes gui_boxes, int *x, int *y)
 {
 	size_t	i;
 
-	i = gui_boxes.length;
+	i = gui_boxes.size;
 	while (i--)
 	{
 		if (is_point_in_gui_box(gui_boxes.data + i, *x, *y))

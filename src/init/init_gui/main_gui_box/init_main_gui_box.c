@@ -30,7 +30,6 @@ static int	init_main_gui_box_children(t_minirt *minirt, t_gui_box *gui_box)
 
 {
 	gui_box->children.size = 1;
-	gui_box->children.length = 1;
 	gui_box->children.data = malloc(sizeof(*gui_box->children.data)
 		* gui_box->children.size);
 	if (gui_box->children.data == NULL)
