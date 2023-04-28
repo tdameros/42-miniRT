@@ -4,7 +4,6 @@ project(miniRT C)
 set(CMAKE_C_STANDARD 11)
 
 include_directories(include)
-include_directories(include/struct)
 include_directories(lib/libft/include)
 include_directories(lib/minilibx_opengl_20191021)
 
@@ -232,4 +231,4 @@ add_executable(miniRT
         src/render_frame/render_user_interface.c
         src/close_miniRT.c
         src/main.c
-        src/color.c)
+        src/color.c src/init/init_gui/object_modification_gui_box/init_color_picker/add_hover_color_circle.c src/init/init_gui/mouse_in_box.c)

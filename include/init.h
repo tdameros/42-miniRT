@@ -19,24 +19,32 @@
 # include "struct/t_minirt.h"
 # include "struct/t_rt_file_requirements.h"
 
-int		init_gui_boxes(t_minirt *minirt);
+int				init_gui_boxes(t_minirt *minirt);
+bool			mouse_is_hovering_box(t_gui_box *self,
+					t_point_int_2d mouse_position);
+t_point_int_2d	get_mouse_position(t_gui_box *self, t_minirt *minirt,
+					int x_offset, int y_offset);
 
-int		init_main_gui_box(t_minirt *minirt, t_gui_box *gui_box);
-int		init_menu_gui_box(t_minirt *minirt, t_gui_box *gui_box,
-			t_gui_box *parent);
-void	icon_box_draw_method(t_gui_box *self, t_minirt *minirt,
-			int x_offset, int y_offset);
-int		init_settings_icon(t_minirt *minirt, t_gui_box *gui_box);
+int				init_main_gui_box(t_minirt *minirt, t_gui_box *gui_box);
+int				init_menu_gui_box(t_minirt *minirt, t_gui_box *gui_box,
+					t_gui_box *parent);
+void			icon_box_draw_method(t_gui_box *self, t_minirt *minirt,
+					int x_offset, int y_offset);
+int				init_settings_icon(t_minirt *minirt, t_gui_box *gui_box);
 
-int		init_object_modification_gui_box(t_minirt *minirt, t_gui_box *gui_box,
-			const t_gui_box *object_creation_gui_box);
-int		init_base_color_box(t_minirt *minirt, t_gui_box *gui_box,
-			t_gui_box *parent);
-int		get_increasing_color(double color, double x, double decal,
-			double ratio);
-int		get_decreasing_color(double color, double x, double decal,
-			double ratio);
-int		get_base_color(double color, double x, double decal, double ratio);
+int				init_object_modification_gui_box(t_minirt *minirt,
+					t_gui_box *gui_box, const t_gui_box *object_creation_gui_box);
+int				init_base_color_box(t_minirt *minirt, t_gui_box *gui_box,
+					t_gui_box *parent);
+int				get_increasing_color(double color, double x, double decal,
+					double ratio);
+int				get_decreasing_color(double color, double x, double decal,
+					double ratio);
+int				get_base_color(double color, double x, double decal, double ratio);
+int				init_color_picker_box(t_minirt *minirt, t_gui_box *gui_box,
+					t_gui_box *parent);
+void			add_hover_color_circle(t_gui_box *self, t_minirt *minirt,
+					int x_offset, int y_offset);
 
 int		add_object_to_object_list(t_list **object_list, t_object object);
 int		error(const char *error_message);

@@ -6,7 +6,7 @@ unsigned int	rgb_to_uint(t_color color)
 		| ((unsigned int) color.g << 8) | ((unsigned int) color.b));
 }
 
-t_color	get_t_color_from_uint(unsigned int color)
+t_color	get_t_color_from_uint(const unsigned int color)
 {
 	return ((t_color){
 		.r = (int)((color & 0x00FF0000) >> 16),

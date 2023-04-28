@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include <errno.h>
-#include <math.h>
 
 #include "struct/t_minirt.h"
 #include "struct/t_gui_box.h"
@@ -35,6 +34,8 @@ typedef struct s_color_separator
 	int	previous_max;
 }	t_color_separator;
 
+static void	base_color_box_draw(t_gui_box *self, t_minirt *minirt,
+				int x_offset, int y_offset);
 static void	put_color_segment(t_image *image, t_point_int_2d *position,
 				t_color_separator *color_separator,
 				t_color_getter color_getter);
@@ -43,25 +44,39 @@ static void	write_color_row(t_image *image, int y);
 static void	base_color_picker_on_click(t_gui_box *self, t_minirt *minirt, int y,
 				int x);
 
+#include "mlx.h"
+
+
 int	init_base_color_box(t_minirt *minirt, t_gui_box *gui_box,
 				t_gui_box *parent)
 {
-	int	y;
-
 	*gui_box = create_t_gui_box(minirt, parent, \
 		(t_point_int_2d){.x = 0,
-			.y = parent->size.height - parent->size.height / 2 + 2}, \
+			.y = parent->size.height - parent->size.height / 2 + 4}, \
 		(t_size_int_2d){.height = parent->size.height / 2 - 4, \
 			.width = parent->size.width});
 	if (errno == EINVAL)
 		return (-1);
-	gui_box->draw = &default_gui_box_draw;
+	gui_box->draw = &base_color_box_draw;
 	gui_box->on_click = &base_color_picker_on_click;
-	y = -1;
-	while (++y < gui_box->size.height)
-		write_color_row(&gui_box->image, y);
-	round_image_corners(&gui_box->image, 10);
+	minirt->gui.color_picker_base_color = get_t_color_from_uint(COLOR_BLUE);
 	return (0);
+}
+
+static void	base_color_box_draw(t_gui_box *self, t_minirt *minirt,
+				int x_offset, int y_offset)
+{
+	int	y;
+
+	y = -1;
+	while (++y < self->size.height)
+		write_color_row(&self->image, y);
+	round_image_corners(&self->image, 10);
+	add_hover_color_circle(self, minirt, x_offset, y_offset);
+	mlx_put_image_to_window(minirt->window.mlx, minirt->window.window,
+		self->image.image,
+		self->position.x + x_offset,
+		self->position.y + y_offset);
 }
 
 static void	write_color_row(t_image *image, int y)
