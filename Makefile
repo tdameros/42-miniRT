@@ -17,13 +17,20 @@ SRC				=\
 	image/round_image_corners.c	\
 \
 \
+	init/init_gui/object_modification_gui_box/init_color_picker/color_getter_functions.c	\
+	\
+	init/init_gui/object_modification_gui_box/init_color_picker/init_base_color_box.c		\
+	init/init_gui/object_modification_gui_box/init_object_modification_gui_box.c			\
+	\
+	\
 	init/init_gui/main_gui_box/icon_box_draw_method.c	\
 	init/init_gui/main_gui_box/init_main_gui_box.c		\
 	init/init_gui/main_gui_box/init_menu_gui_box.c		\
 	init/init_gui/main_gui_box/init_settings_icon.c		\
 	\
+	\
 	init/init_gui/init_gui_boxes.c						\
-	init/init_gui/init_object_modification_gui_box.c	\
+	\
 	\
 	init/parsing/line_parsing/utils/add_object_to_object_list.c	\
 	init/parsing/line_parsing/utils/error.c						\
@@ -54,7 +61,8 @@ SRC				=\
 \
 \
 	close_miniRT.c	\
-	main.c
+	main.c			\
+	rgb_to_uint.c
 
 DIR_BUILD		=	.build/
 OBJS			=	$(patsubst %.c, $(DIR_BUILD)%.o, $(SRC))

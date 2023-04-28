@@ -8,4 +8,6 @@ typedef struct s_color
 	int	b;
 }	t_color;
 
+unsigned int	rgb_to_uint(t_color color);
+
 #endif //T_COLOR_H

@@ -4,17 +4,31 @@ project(miniRT C)
 set(CMAKE_C_STANDARD 11)
 
 include_directories(include)
+include_directories(include/struct)
 include_directories(lib/libft/include)
 include_directories(lib/minilibx_opengl_20191021)
 
 add_executable(miniRT
+        include/struct/t_ambient_light.h
+        include/struct/t_camera.h
+        include/struct/t_color.h
+        include/struct/t_gui.h
         include/struct/t_gui_box.h
+        include/struct/t_gui_boxes.h
+        include/struct/t_light.h
         include/struct/t_minirt.h
+        include/struct/t_object.h
         include/struct/t_point_int_2d.h
+        include/struct/t_raytracing_data.h
+        include/struct/t_rt_file_requirements.h
         include/struct/t_size_int_2d.h
+        include/struct/t_vector_3d.h
+        include/struct/t_window.h
         include/close_miniRT.h
+        include/colors.h
         include/hooks.h
         include/image.h
+        include/init.h
         include/miniRT_start_up.h
         include/miniRT_X11.h
         include/render_frame.h
@@ -128,8 +142,10 @@ add_executable(miniRT
         lib/libft/src/numbers/swap/swap_ssize_t.c
         lib/libft/src/numbers/swap/swap_uint.c
         lib/libft/src/numbers/abs.c
+        lib/libft/src/numbers/atof.c
         lib/libft/src/numbers/atoi.c
         lib/libft/src/numbers/atoll.c
+        lib/libft/src/numbers/get_smallest_int.c
         lib/libft/src/numbers/itoa.c
         lib/libft/src/sort/msort_int.c
         lib/libft/src/sort/msort_str.c
@@ -139,8 +155,8 @@ add_executable(miniRT
         lib/libft/src/string/join/strjoin_three.c
         lib/libft/src/string/split/free_split.c
         lib/libft/src/string/split/split.c
-        lib/libft/src/string/split/split_set.c
         lib/libft/src/string/split/split_len.c
+        lib/libft/src/string/split/split_set.c
         lib/libft/src/string/split/split_unless_in_quotes.c
         lib/libft/src/string/is_number.c
         lib/libft/src/string/skip_char.c
@@ -177,10 +193,43 @@ add_executable(miniRT
         lib/minilibx_opengl_20191021/mlx_rgb.c
         lib/minilibx_opengl_20191021/mlx_shaders.c
         lib/minilibx_opengl_20191021/mlx_xpm.c
+        src/gui_box/create_gui_box.c
+        src/gui_box/default_gui_box_methods.c
+        src/gui_box/get_clicked_gui_box.c
         src/hooks/button_press.c
         src/hooks/key_press.c
-        src/close_miniRT.c
         src/image/image.c
+        src/image/round_image_corners.c
+        src/init/init_gui/main_gui_box/icon_box_draw_method.c
+        src/init/init_gui/main_gui_box/init_main_gui_box.c
+        src/init/init_gui/main_gui_box/init_menu_gui_box.c
+        src/init/init_gui/main_gui_box/init_settings_icon.c
+        src/init/init_gui/object_modification_gui_box/init_color_picker/color_getter_functions.c
+        src/init/init_gui/object_modification_gui_box/init_color_picker/init_base_color_box.c
+        src/init/init_gui/object_modification_gui_box/init_color_picker/init_color_picker_box.c
+        src/init/init_gui/object_modification_gui_box/init_object_modification_gui_box.c
+        src/init/init_gui/init_gui_boxes.c
+        src/init/parsing/line_parsing/utils/add_object_to_object_list.c
+        src/init/parsing/line_parsing/utils/error.c
+        src/init/parsing/line_parsing/utils/get_color.c
+        src/init/parsing/line_parsing/utils/get_double.c
+        src/init/parsing/line_parsing/utils/get_lighting_ratio.c
+        src/init/parsing/line_parsing/utils/get_normalized_vector.c
+        src/init/parsing/line_parsing/utils/get_position.c
+        src/init/parsing/line_parsing/invalid_scene_content_line.c
+        src/init/parsing/line_parsing/parse_ambient_light.c
+        src/init/parsing/line_parsing/parse_camera.c
+        src/init/parsing/line_parsing/parse_cylinder.c
+        src/init/parsing/line_parsing/parse_light.c
+        src/init/parsing/line_parsing/parse_plane.c
+        src/init/parsing/line_parsing/parse_sphere.c
+        src/init/parsing/free_scene_content.c
+        src/init/parsing/get_scene_content.c
+        src/init/parsing/parse_scene_content.c
+        src/init/parsing/parsing.c
         src/init/init_minirt.c
+        src/render_frame/render_frame.c
+        src/render_frame/render_user_interface.c
+        src/close_miniRT.c
         src/main.c
-        src/render_frame/render_frame.c src/init/init_gui/init_gui_boxes.c include/struct/t_window.h include/init.h src/image/round_image_corners.c src/gui_box/default_gui_box_methods.c src/gui_box/default_gui_box_methods.c include/struct/t_gui_boxes.h src/gui_box/create_gui_box.c src/init/init_gui/main_gui_box/init_main_gui_box.c src/init/init_gui/init_object_modification_gui_box.c src/gui_box/get_clicked_gui_box.c src/gui_box/get_clicked_gui_box.c src/init/parsing/parsing.c include/struct/t_camera.h include/struct/t_vector_3d.h include/struct/t_raytracing_data.h include/struct/t_ambient_light.h include/struct/t_object.h src/init/parsing/get_scene_content.c src/init/parsing/free_scene_content.c src/init/parsing/parse_scene_content.c src/init/parsing/line_parsing/parse_ambient_light.c include/struct/t_rt_file_requirements.h src/init/parsing/line_parsing/invalid_scene_content_line.c lib/libft/src/numbers/atof.c src/init/parsing/line_parsing/parse_camera.c src/init/parsing/line_parsing/parse_camera.c src/init/parsing/line_parsing/utils/get_color.c src/init/parsing/line_parsing/utils/get_position.c src/init/parsing/line_parsing/utils/get_normalized_vector.c src/init/parsing/line_parsing/parse_cylinder.c src/init/parsing/line_parsing/parse_light.c src/init/parsing/line_parsing/utils/get_lighting_ratio.c src/init/parsing/line_parsing/parse_sphere.c src/init/parsing/line_parsing/utils/add_object_to_object_list.c src/init/parsing/line_parsing/parse_plane.c src/init/parsing/line_parsing/utils/get_double.c src/init/parsing/line_parsing/utils/error.c include/struct/t_gui.h src/render_frame/render_user_interface.c src/init/init_gui/main_gui_box/init_menu_gui_box.c src/init/init_gui/main_gui_box/icon_box_draw_method.c src/init/init_gui/main_gui_box/init_settings_icon.c lib/libft/src/numbers/get_smallest_int.c)
+        src/color.c)
