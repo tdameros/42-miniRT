@@ -4,7 +4,7 @@
 # include "struct/t_window.h"
 # include "struct/t_raytracing_data.h"
 # include "struct/t_gui.h"
-# include "image.h"
+# include "t_image.h"
 
 typedef struct s_minirt
 {

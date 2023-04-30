@@ -74,7 +74,7 @@ static void	base_color_box_draw(t_gui_box *self, t_minirt *minirt,
 	round_image_corners(&self->image, 10);
 	add_hover_color_circle(self, minirt, x_offset, y_offset);
 	mlx_put_image_to_window(minirt->window.mlx, minirt->window.window,
-		self->image.image,
+		self->image.data,
 		self->position.x + x_offset,
 		self->position.y + y_offset);
 }

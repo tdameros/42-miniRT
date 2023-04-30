@@ -26,7 +26,7 @@ add_executable(miniRT
         include/close_miniRT.h
         include/colors.h
         include/hooks.h
-        include/image.h
+        include/struct/t_image.h
         include/init.h
         include/miniRT_start_up.h
         include/miniRT_X11.h
@@ -192,13 +192,13 @@ add_executable(miniRT
         lib/minilibx_opengl_20191021/mlx_rgb.c
         lib/minilibx_opengl_20191021/mlx_shaders.c
         lib/minilibx_opengl_20191021/mlx_xpm.c
-        src/gui_box/create_gui_box.c
-        src/gui_box/default_gui_box_methods.c
-        src/gui_box/get_clicked_gui_box.c
+        src/structs/gui_box/create_gui_box.c
+        src/structs/gui_box/default_gui_box_methods.c
+        src/structs/gui_box/get_clicked_gui_box.c
         src/hooks/button_press.c
         src/hooks/key_press.c
-        src/image/image.c
-        src/image/round_image_corners.c
+        src/structs/image/image.c
+        src/structs/image/round_image_corners.c
         src/init/init_gui/main_gui_box/icon_box_draw_method.c
         src/init/init_gui/main_gui_box/init_main_gui_box.c
         src/init/init_gui/main_gui_box/init_menu_gui_box.c
@@ -231,4 +231,4 @@ add_executable(miniRT
         src/render_frame/render_user_interface.c
         src/close_miniRT.c
         src/main.c
-        src/color.c src/init/init_gui/object_modification_gui_box/init_color_picker/add_hover_color_circle.c src/init/init_gui/mouse_in_box.c)
+        src/color.c src/init/init_gui/object_modification_gui_box/init_color_picker/add_hover_color_circle.c src/init/init_gui/mouse_in_box.c src/structs/image/destroy_t_image.c src/structs/gui_box/destroy_t_gui_box.c)

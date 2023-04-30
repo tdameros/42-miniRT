@@ -2,17 +2,17 @@
 
 #include "mlx.h"
 
-#include "image.h"
+#include "struct/t_image.h"
 #include "struct/t_window.h"
 #include "libft.h"
 
 int	init_image(t_image *image, t_window *window, int width, int height)
 {
-	image->image = mlx_new_image(window->mlx, width, height);
-	if (image->image == NULL)
+	image->data = mlx_new_image(window->mlx, width, height);
+	if (image->data == NULL)
 		return (-1);
-	image->address = mlx_get_data_addr(image->image, &image->bits_per_pixel,
-			&image->line_length, &image->endian);
+	image->address = mlx_get_data_addr(image->data, &image->bits_per_pixel,
+									   &image->line_length, &image->endian);
 	image->height = height;
 	image->width = width;
 	return (0);
@@ -20,15 +20,15 @@ int	init_image(t_image *image, t_window *window, int width, int height)
 
 int	init_image_from_xpm(t_image *image, t_window *window, char *xmp_file)
 {
-	image->image = mlx_xpm_file_to_image(window->mlx, xmp_file,
-			&image->width, &image->height);
-	if (image->image == NULL)
+	image->data = mlx_xpm_file_to_image(window->mlx, xmp_file,
+										&image->width, &image->height);
+	if (image->data == NULL)
 	{
 		ft_putstr_fd("Error: mlx_xpm_file_to_image failed\n", STDERR_FILENO);
 		return (1);
 	}
-	image->address = mlx_get_data_addr(image->image, &image->bits_per_pixel,
-			&image->line_length, &image->endian);
+	image->address = mlx_get_data_addr(image->data, &image->bits_per_pixel,
+									   &image->line_length, &image->endian);
 	return (0);
 }
 

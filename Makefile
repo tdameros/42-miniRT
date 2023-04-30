@@ -4,37 +4,26 @@ NAME			=	miniRT
 SRC_PATH		=	src/
 
 SRC				=\
-	gui_box/create_gui_box.c			\
-	gui_box/default_gui_box_methods.c	\
-	gui_box/get_clicked_gui_box.c		\
-\
-\
 	hooks/button_press.c	\
 	hooks/key_press.c		\
-\
-\
-	image/image.c				\
-	image/round_image_corners.c	\
 \
 \
 	init/init_gui/object_modification_gui_box/init_color_picker/add_hover_color_circle.c	\
 	init/init_gui/object_modification_gui_box/init_color_picker/color_getter_functions.c	\
 	init/init_gui/object_modification_gui_box/init_color_picker/init_base_color_box.c		\
 	init/init_gui/object_modification_gui_box/init_color_picker/init_color_picker_box.c		\
-	\
+											 \
 	init/init_gui/object_modification_gui_box/init_object_modification_gui_box.c			\
-	\
-	\
+				 \
 	init/init_gui/main_gui_box/icon_box_draw_method.c	\
 	init/init_gui/main_gui_box/init_main_gui_box.c		\
 	init/init_gui/main_gui_box/init_menu_gui_box.c		\
 	init/init_gui/main_gui_box/init_settings_icon.c		\
-	\
-	\
+				 \
 	init/init_gui/init_gui_boxes.c	\
 	init/init_gui/mouse_in_box.c	\
-	\
-	\
+		\
+		\
 	init/parsing/line_parsing/utils/add_object_to_object_list.c	\
 	init/parsing/line_parsing/utils/error.c						\
 	init/parsing/line_parsing/utils/get_color.c					\
@@ -42,7 +31,7 @@ SRC				=\
 	init/parsing/line_parsing/utils/get_lighting_ratio.c		\
 	init/parsing/line_parsing/utils/get_normalized_vector.c		\
 	init/parsing/line_parsing/utils/get_position.c				\
-	\
+							 \
 	init/parsing/line_parsing/invalid_scene_content_line.c	\
 	init/parsing/line_parsing/parse_ambient_light.c			\
 	init/parsing/line_parsing/parse_camera.c				\
@@ -50,17 +39,27 @@ SRC				=\
 	init/parsing/line_parsing/parse_light.c					\
 	init/parsing/line_parsing/parse_plane.c					\
 	init/parsing/line_parsing/parse_sphere.c				\
-	\
+				\
 	init/parsing/free_scene_content.c	\
 	init/parsing/get_scene_content.c	\
 	init/parsing/parse_scene_content.c	\
 	init/parsing/parsing.c				\
-	\
+		\
 	init/init_minirt.c		\
 \
 \
 	render_frame/render_frame.c				\
 	render_frame/render_user_interface.c	\
+\
+\
+	structs/image/destroy_t_image.c		\
+	structs/image/image.c				\
+	structs/image/round_image_corners.c	\
+		   \
+	structs/gui_box/create_gui_box.c			\
+	structs/gui_box/default_gui_box_methods.c	\
+	structs/gui_box/destroy_t_gui_box.c			\
+	structs/gui_box/get_clicked_gui_box.c		\
 \
 \
 	close_miniRT.c	\
@@ -71,7 +70,7 @@ DIR_BUILD		=	.build/
 OBJS			=	$(patsubst %.c, $(DIR_BUILD)%.o, $(SRC))
 DEPS			=	$(patsubst %.c, $(DIR_BUILD)%.d, $(SRC))
 DEPS_FLAGS		=	-MMD -MP
-CFLAGS			=	-Wall -Wextra -Werror -O3 #-g3 -fsanitize=address
+CFLAGS			=	-Wall -Wextra -Werror -g3 -fsanitize=address
 RM				=	rm -rf
 AR				=	ar rcs
 

@@ -36,7 +36,7 @@ static void	color_picker_draw(t_gui_box *self, t_minirt *minirt,
 {
 	update_image(self, minirt, x_offset, y_offset);
 	mlx_put_image_to_window(minirt->window.mlx, minirt->window.window,
-		self->image.image,
+		self->image.data,
 		self->position.x + x_offset,
 		self->position.y + y_offset);
 }

@@ -1,7 +1,7 @@
 #include <math.h>
 #include <stdbool.h>
 
-#include "image.h"
+#include "struct/t_image.h"
 #include "colors.h"
 
 static bool is_in_top_left_corner(int x, int y, int radius);

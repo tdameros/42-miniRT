@@ -5,7 +5,7 @@ static void	update_gui_hidden_ration(t_gui *gui);
 static int	get_y_decal(const t_gui_box *gui_box, const t_gui *gui);
 static int	get_x_decal(const t_gui_box *gui_box, const t_gui *gui);
 
-void render_user_interface(t_minirt *minirt)
+void	render_user_interface(t_minirt *minirt)
 {
 	update_gui_hidden_ration(&minirt->gui);
 	if (minirt->gui.hidden_ratio == 1.0)
@@ -16,17 +16,22 @@ void render_user_interface(t_minirt *minirt)
 		get_x_decal(minirt->gui.gui_boxes.data + 1, &minirt->gui), 0);
 }
 
+#define HIDDEN_RATIO_DIVIDER 45
+#define HIDDEN_RATION_ADDER 0.0050
+
 static void	update_gui_hidden_ration(t_gui *gui)
 {
 	if (gui->is_hidden && gui->hidden_ratio < 1.0)
 	{
-		gui->hidden_ratio += 0.015;
+		gui->hidden_ratio += (1.0 - gui->hidden_ratio)
+			/ HIDDEN_RATIO_DIVIDER + HIDDEN_RATION_ADDER;
 		if (gui->hidden_ratio > 1.0)
 			gui->hidden_ratio = 1.0;
 	}
-	else if (!gui->is_hidden && gui->hidden_ratio > 0.0)
+	else if (gui->is_hidden == false && gui->hidden_ratio > 0.0)
 	{
-		gui->hidden_ratio -= 0.015;
+		gui->hidden_ratio -= gui->hidden_ratio
+			/ HIDDEN_RATIO_DIVIDER + HIDDEN_RATION_ADDER;
 		if (gui->hidden_ratio < 0.0)
 			gui->hidden_ratio = 0.0;
 	}
@@ -35,7 +40,7 @@ static void	update_gui_hidden_ration(t_gui *gui)
 static int	get_y_decal(const t_gui_box *gui_box, const t_gui *gui)
 {
 	return ((int)-((gui_box->size.height + gui_box->position.y)
-		* gui->hidden_ratio));
+			* gui->hidden_ratio));
 }
 
 static int	get_x_decal(const t_gui_box *gui_box, const t_gui *gui)

@@ -9,7 +9,7 @@ void	default_gui_box_draw(t_gui_box *self, t_minirt *minirt,
 	size_t	i;
 
 	mlx_put_image_to_window(minirt->window.mlx, minirt->window.window,
-		self->image.image,
+		self->image.data,
 		self->position.x + x_offset,
 		self->position.y + y_offset);
 	i = self->children.size;
