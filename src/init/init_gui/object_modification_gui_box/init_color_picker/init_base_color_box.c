@@ -50,6 +50,8 @@ static void	base_color_picker_on_click(t_gui_box *self, t_minirt *minirt, int y,
 int	init_base_color_box(t_minirt *minirt, t_gui_box *gui_box,
 				t_gui_box *parent)
 {
+	int	y;
+
 	*gui_box = create_t_gui_box(minirt, parent, \
 		(t_point_int_2d){.x = 0,
 			.y = parent->size.height - parent->size.height / 2 + 4}, \
@@ -57,24 +59,33 @@ int	init_base_color_box(t_minirt *minirt, t_gui_box *gui_box,
 			.width = parent->size.width});
 	if (errno == EINVAL)
 		return (-1);
+	if (init_image(&gui_box->on_hover_image, &minirt->window,
+			parent->size.width, parent->size.height / 2 - 4) < 0)
+		return (-1); // TODO free above
 	gui_box->draw = &base_color_box_draw;
 	gui_box->on_click = &base_color_picker_on_click;
 	minirt->gui.color_picker_base_color = get_t_color_from_uint(COLOR_BLUE);
+	minirt->gui.color_picker_base_color_was_changed = true;
+	y = -1;
+	while (++y < gui_box->size.height)
+		write_color_row(&gui_box->image, y);
+	round_image_corners(&gui_box->image, 10);
 	return (0);
 }
 
 static void	base_color_box_draw(t_gui_box *self, t_minirt *minirt,
 				int x_offset, int y_offset)
 {
-	int	y;
-
-	y = -1;
-	while (++y < self->size.height)
-		write_color_row(&self->image, y);
-	round_image_corners(&self->image, 10);
-	add_hover_color_circle(self, minirt, x_offset, y_offset);
 	mlx_put_image_to_window(minirt->window.mlx, minirt->window.window,
 		self->image.data,
+		self->position.x + x_offset,
+		self->position.y + y_offset);
+	if (mouse_is_hovering_box(self, get_mouse_position(self, minirt,
+				x_offset, y_offset)) == false)
+		return ;
+	add_hover_color_circle(self, minirt, x_offset, y_offset);
+	mlx_put_image_to_window(minirt->window.mlx, minirt->window.window,
+		self->on_hover_image.data,
 		self->position.x + x_offset,
 		self->position.y + y_offset);
 }
@@ -165,4 +176,5 @@ static void	base_color_picker_on_click(t_gui_box *self, t_minirt *minirt, int y,
 	if (color == COLOR_TRANSPARENT)
 		return ;
 	minirt->gui.color_picker_base_color = get_t_color_from_uint(color);
+	minirt->gui.color_picker_base_color_was_changed = true;
 }

@@ -6,8 +6,8 @@ SRC_PATH		=	src/
 SRC				=\
 	hooks/button_press.c	\
 	hooks/key_press.c		\
-\
-\
+	\
+	\
 	init/init_gui/object_modification_gui_box/init_color_picker/add_hover_color_circle.c	\
 	init/init_gui/object_modification_gui_box/init_color_picker/color_getter_functions.c	\
 	init/init_gui/object_modification_gui_box/init_color_picker/init_base_color_box.c		\
@@ -46,12 +46,12 @@ SRC				=\
 	init/parsing/parsing.c				\
 		\
 	init/init_minirt.c		\
-\
-\
+	\
+	\
 	render_frame/render_frame.c				\
 	render_frame/render_user_interface.c	\
-\
-\
+	\
+	\
 	structs/image/destroy_t_image.c		\
 	structs/image/image.c				\
 	structs/image/round_image_corners.c	\
@@ -60,8 +60,8 @@ SRC				=\
 	structs/gui_box/default_gui_box_methods.c	\
 	structs/gui_box/destroy_t_gui_box.c			\
 	structs/gui_box/get_clicked_gui_box.c		\
-\
-\
+	\
+	\
 	close_miniRT.c	\
 	main.c			\
 	color.c

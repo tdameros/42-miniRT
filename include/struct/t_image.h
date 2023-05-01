@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef IMAGE_H
-# define IMAGE_H
+#ifndef T_IMAGE_H
+# define T_IMAGE_H
 
 # include "struct/t_window.h"
 
@@ -37,4 +37,4 @@ unsigned int	get_image_pixel_color(t_image *image, int y, int x);
 void			change_image_color(t_image *image, unsigned int color);
 void			round_image_corners(t_image *image, int radius);
 
-#endif //IMAGE_H
+#endif //T_IMAGE_H
