@@ -3,6 +3,7 @@
 
 #include "struct/t_gui_box.h"
 #include "init.h"
+#include "colors.h"
 
 static int	init_object_modification_gui_box_children(t_minirt *minirt,
 				t_gui_box *parent);
@@ -65,6 +66,7 @@ static int	init_rgb_picker(t_minirt *minirt, t_gui_box *gui_box,
 		return (-1); // TODO free previous gui_box
 	gui_box->draw = &default_gui_box_draw;
 	gui_box->on_click = &default_gui_box_on_click;
+	change_image_color(&gui_box->image, COLOR_TRANSPARENT);
 	return (0);
 }
 
