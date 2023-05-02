@@ -12,6 +12,7 @@ SRC				=\
 	init/init_gui/object_modification_gui_box/init_color_picker/color_getter_functions.c	\
 	init/init_gui/object_modification_gui_box/init_color_picker/init_base_color_box.c		\
 	init/init_gui/object_modification_gui_box/init_color_picker/init_color_picker_box.c		\
+	init/init_gui/object_modification_gui_box/init_color_picker/init_rgb_picker.c			\
 											 \
 	init/init_gui/object_modification_gui_box/init_object_modification_gui_box.c			\
 				 \

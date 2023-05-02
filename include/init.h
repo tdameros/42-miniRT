@@ -34,6 +34,9 @@ int				init_settings_icon(t_minirt *minirt, t_gui_box *gui_box);
 
 int				init_object_modification_gui_box(t_minirt *minirt,
 					t_gui_box *gui_box, const t_gui_box *object_creation_gui_box);
+
+int				init_rgb_picker(t_minirt *minirt, t_gui_box *gui_box,
+					t_gui_box *parent);
 int				init_base_color_box(t_minirt *minirt, t_gui_box *gui_box,
 					t_gui_box *parent);
 int				get_increasing_color(double color, double x, double decal,
