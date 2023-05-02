@@ -30,11 +30,11 @@ static void	put_colored_circle(t_image *on_hover_image,
 	int				x;
 	double			equation_result;
 
-	y = -1;
-	while (++y < on_hover_image->height)
+	y = on_hover_image->height;
+	while (y--)
 	{
-		x = -1;
-		while (++x < on_hover_image->width)
+		x = on_hover_image->width;
+		while (x--)
 		{
 			if (get_image_pixel_color(base_image, y, x) == COLOR_TRANSPARENT)
 				continue ;
