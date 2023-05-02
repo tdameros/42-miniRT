@@ -37,6 +37,7 @@ int	render_frame(t_minirt *minirt)
 	int		fps = round(1.0 / ((double)elasped_ms / 1000000.0));
 	char	*fps_string = ft_itoa(fps);
 	mlx_string_put(minirt->window.mlx, minirt->window.window, 40, 40, 0xFF0000, fps_string);
+	mlx_string_put(minirt->window.mlx, minirt->window.window, 80, 40, 0xFF0000, "Cool test string");
 	free(fps_string);
 	return (0);
 }

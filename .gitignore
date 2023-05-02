@@ -4,7 +4,6 @@
 .DS_Store
 .nfs*
 .vscode
-*.xpm
 
 # Norm
 .normignore
