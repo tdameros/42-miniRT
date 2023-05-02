@@ -17,13 +17,13 @@
 
 typedef struct s_image
 {
-	void	*data;
-	char	*address;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-	int		height;
-	int		width;
+	void			*data;
+	unsigned int	*address;
+	int				bits_per_pixel;
+	int				line_length;
+	int				endian;
+	int				height;
+	int				width;
 }	t_image;
 
 int				init_image(t_image *image, t_window *window, int width,

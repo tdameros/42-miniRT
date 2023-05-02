@@ -1,18 +1,19 @@
 #include <stddef.h>
 
 #include "mlx.h"
+#include "libft.h"
 
 #include "struct/t_image.h"
 #include "struct/t_window.h"
-#include "libft.h"
 
 int	init_image(t_image *image, t_window *window, int width, int height)
 {
 	image->data = mlx_new_image(window->mlx, width, height);
 	if (image->data == NULL)
 		return (-1);
-	image->address = mlx_get_data_addr(image->data, &image->bits_per_pixel,
-									   &image->line_length, &image->endian);
+	image->address = (unsigned int *)mlx_get_data_addr(image->data,
+			&image->bits_per_pixel, &image->line_length, &image->endian);
+	image->line_length /= 4;
 	image->height = height;
 	image->width = width;
 	return (0);
@@ -27,26 +28,21 @@ int	init_image_from_xpm(t_image *image, t_window *window, char *xmp_file)
 		ft_putstr_fd("Error: mlx_xpm_file_to_image failed\n", STDERR_FILENO);
 		return (1);
 	}
-	image->address = mlx_get_data_addr(image->data, &image->bits_per_pixel,
-									   &image->line_length, &image->endian);
+	image->address = (unsigned int *)mlx_get_data_addr(image->data,
+			&image->bits_per_pixel, &image->line_length, &image->endian);
+	image->line_length /= 4;
 	return (0);
 }
 
-void	put_pixel_on_image(t_image *image, int y, int x, unsigned int color)
+inline void    put_pixel_on_image(t_image *image, int y, int x,
+					unsigned int color)
 {
-	char	*destination;
-
-	destination = image->address
-		  + (y * image->line_length + x * (image->bits_per_pixel / 8));
-	*(unsigned int *)destination = color;
+	image->address[y * image->line_length + x] = color;
 }
 
-unsigned int	get_image_pixel_color(t_image *image, int y, int x)
+inline unsigned int	get_image_pixel_color(t_image *image, int y, int x)
 {
-	const char	*pixel = image->address
-			+ (y * image->line_length + x * (image->bits_per_pixel / 8));
-
-	return (*(const unsigned int *)pixel);
+	return (image->address[y * image->line_length + x]);
 }
 
 void	change_image_color(t_image *image, unsigned int color)
