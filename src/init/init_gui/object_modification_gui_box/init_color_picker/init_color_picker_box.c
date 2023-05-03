@@ -42,18 +42,17 @@ static void	color_picker_draw(t_gui_box *self, t_minirt *minirt,
 		update_image(self, minirt);
 		minirt->gui.color_picker_base_color_was_changed = false;
 	}
-	mlx_put_image_to_window(minirt->window.mlx, minirt->window.window,
-		self->image.data,
-		self->position.x + x_offset,
-		self->position.y + y_offset);
+	put_image_to_image(&minirt->main_image, &self->image, (t_point_int_2d){
+		.x = self->position.x + x_offset,
+		.y = self->position.y + y_offset});
 	if (mouse_is_hovering_box(self, get_mouse_position(self, minirt,
 				x_offset, y_offset)) == false)
 		return ;
 	add_hover_color_circle(self, minirt, x_offset, y_offset);
-	mlx_put_image_to_window(minirt->window.mlx, minirt->window.window,
-		self->on_hover_image.data,
-		self->position.x + x_offset,
-		self->position.y + y_offset);
+	put_image_to_image(&minirt->main_image, &self->on_hover_image,
+		(t_point_int_2d){\
+			.x = self->position.x + x_offset, \
+			.y = self->position.y + y_offset});
 }
 
 static void	update_image(t_gui_box *self, t_minirt *minirt)

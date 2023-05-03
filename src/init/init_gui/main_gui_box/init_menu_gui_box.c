@@ -64,15 +64,15 @@ static int	init_camera_icon_box(t_minirt *minirt, t_gui_box *gui_box,
 	const int	box_width = round(((double)parent->size.width - SEPERATOR * 4)
 								   / 3.0);
 
-	*gui_box = create_t_gui_box(minirt, NULL,
+	*gui_box = create_t_gui_box(minirt, NULL, \
 		(t_point_int_2d){
 			.x = SEPERATOR, \
 			.y = SEPERATOR
-		},
+		}, \
 		(t_size_int_2d){
-		.width = box_width, \
-		.height = parent->size.height - SEPERATOR * 2
-		}
+			.width = box_width, \
+			.height = parent->size.height - SEPERATOR * 2
+		} \
 	);
 	if (errno == EINVAL)
 		return (-1);
@@ -89,15 +89,15 @@ static int	init_saving_icon_box(t_minirt *minirt, t_gui_box *gui_box,
 	const int	box_width = round(((double)parent->size.width - SEPERATOR * 4)
 								   / 3.0);
 
-	*gui_box = create_t_gui_box(minirt, NULL,
+	*gui_box = create_t_gui_box(minirt, NULL, \
 		(t_point_int_2d){
 			.x = SEPERATOR * 2 + box_width, \
 			.y = SEPERATOR
-		},
+		}, \
 		(t_size_int_2d){
 			.width = box_width, \
 			.height = parent->size.height - SEPERATOR * 2
-		}
+		} \
 	);
 	if (errno == EINVAL)
 		return (-1);
@@ -114,15 +114,15 @@ static int	init_menu_settings_icon_box(t_minirt *minirt, t_gui_box *gui_box,
 	const int	box_width = round(((double)parent->size.width - SEPERATOR * 4)
 			/ 3.0);
 
-	*gui_box = create_t_gui_box(minirt, NULL,
+	*gui_box = create_t_gui_box(minirt, NULL, \
 		(t_point_int_2d){
 			.x = SEPERATOR * 3 + box_width * 2, \
 			.y = SEPERATOR
-		},
+		}, \
 		(t_size_int_2d){
 			.width = box_width, \
 			.height = parent->size.height - SEPERATOR * 2
-		}
+		} \
 	);
 	if (errno == EINVAL)
 		return (-1);

@@ -20,10 +20,11 @@ int	render_frame(t_minirt *minirt)
 	}
 
 	// Do ray tracing on minirt->main_image.image
-	mlx_put_image_to_window(minirt->window.mlx, minirt->window.window,
-							minirt->main_image.data, 0, 0);
+	put_image_to_image(&minirt->main_image, &minirt->tmp_background,
+		(t_point_int_2d){0, 0});
 	render_user_interface(minirt);
-
+	mlx_put_image_to_window(minirt->window.mlx, minirt->window.window,
+		minirt->main_image.data, 0, 0);
 
 	struct timeval	end_time;
 	gettimeofday(&end_time, NULL);
@@ -37,7 +38,6 @@ int	render_frame(t_minirt *minirt)
 	int		fps = round(1.0 / ((double)elasped_ms / 1000000.0));
 	char	*fps_string = ft_itoa(fps);
 	mlx_string_put(minirt->window.mlx, minirt->window.window, 40, 40, 0xFF0000, fps_string);
-	mlx_string_put(minirt->window.mlx, minirt->window.window, 80, 40, 0xFF0000, "Cool test string");
 	free(fps_string);
 	return (0);
 }

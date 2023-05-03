@@ -10,6 +10,7 @@
 #include "struct/t_window.h"
 #include "struct/t_minirt.h"
 #include "init.h"
+#include "colors.h"
 
 static void	init_hooks(t_minirt *minirt);
 
@@ -29,10 +30,12 @@ int	init_minirt(t_minirt *minirt, const char *start_up_scene)
 	print_scene_content(&minirt->raytracing_data);
 
 	if (WINDOW_HEIGHT == 1080)
-		init_image_from_xpm(&minirt->main_image, &minirt->window, "data/1080.xpm"); // TODO secure me
+		init_image_from_xpm(&minirt->tmp_background, &minirt->window, "data/1080.xpm"); // TODO secure me
 	else
-		init_image_from_xpm(&minirt->main_image, &minirt->window, "data/720.xpm"); // TODO secure me
+		init_image_from_xpm(&minirt->tmp_background, &minirt->window, "data/720.xpm"); // TODO secure me
 
+	init_image(&minirt->main_image, &minirt->window, WINDOW_WIDTH, WINDOW_HEIGHT); // TODO secure me
+	change_image_color(&minirt->main_image, COLOR_BLACK);
 
 	init_hooks(minirt);
 
@@ -44,21 +47,12 @@ int	init_minirt(t_minirt *minirt, const char *start_up_scene)
 	return (0);
 }
 
-static int	resize(t_minirt *minirt)
-{
-	(void)minirt;
-	ft_printf("resize\n");
-	return (0);
-}
-
 static void	init_hooks(t_minirt *minirt)
 {
 	mlx_hook(minirt->window.window, KEY_PRESS, KEY_PRESS_MASK,
 		&key_press_handler, minirt);
 //	mlx_hook(minirt->window.window, KEY_RELEASE, KEY_RELEASE_MASK,
 //		&key_release_handler, minirt);
-	mlx_hook(minirt->window.window, CONFIGURE_NOTIFY, STRUCTURE_NOTIFY_MASK,
-		&resize, minirt);
 	mlx_hook(minirt->window.window, BUTTON_PRESS, BUTTON_PRESS_MASK,
 		&button_press_handler, minirt);
 	mlx_hook(minirt->window.window, DESTROY_NOTIFY, STRUCTURE_NOTIFY_MASK,

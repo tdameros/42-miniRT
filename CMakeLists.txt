@@ -231,4 +231,4 @@ add_executable(miniRT
         src/render_frame/render_user_interface.c
         src/close_miniRT.c
         src/main.c
-        src/color.c src/init/init_gui/object_modification_gui_box/init_color_picker/add_hover_color_circle.c src/init/init_gui/mouse_in_box.c src/structs/image/destroy_t_image.c src/structs/gui_box/destroy_t_gui_box.c src/init/init_gui/object_modification_gui_box/init_color_picker/init_rgb_picker.c)
+        src/color.c src/init/init_gui/object_modification_gui_box/init_color_picker/add_hover_color_circle.c src/init/init_gui/mouse_in_box.c src/structs/image/destroy_t_image.c src/structs/gui_box/destroy_t_gui_box.c src/init/init_gui/object_modification_gui_box/init_color_picker/init_rgb_picker.c src/structs/image/put_image_to_image.c)

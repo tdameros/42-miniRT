@@ -11,6 +11,7 @@ typedef struct s_minirt
 	t_window			window;
 	t_gui				gui;
 	t_image				main_image;
+	t_image				tmp_background; // TODO remove this
 	t_raytracing_data	raytracing_data;
 }	t_minirt;
 

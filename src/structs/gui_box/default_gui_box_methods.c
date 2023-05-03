@@ -8,10 +8,9 @@ void	default_gui_box_draw(t_gui_box *self, t_minirt *minirt,
 {
 	size_t	i;
 
-	mlx_put_image_to_window(minirt->window.mlx, minirt->window.window,
-		self->image.data,
-		self->position.x + x_offset,
-		self->position.y + y_offset);
+	put_image_to_image(&minirt->main_image, &self->image, (t_point_int_2d){
+		.x = self->position.x + x_offset,
+		.y = self->position.y + y_offset});
 	i = self->children.size;
 	while (i--)
 		if (self->children.data[i].draw != NULL)

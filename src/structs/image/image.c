@@ -40,7 +40,8 @@ inline void    put_pixel_on_image(t_image *image, int y, int x,
 	image->address[y * image->line_length + x] = color;
 }
 
-inline unsigned int	get_image_pixel_color(t_image *image, int y, int x)
+inline unsigned int	get_image_pixel_color(const t_image *image, const int y,
+			const int x)
 {
 	return (image->address[y * image->line_length + x]);
 }

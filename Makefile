@@ -53,14 +53,15 @@ SRC				=\
 	render_frame/render_user_interface.c	\
 	\
 	\
-	structs/image/destroy_t_image.c		\
-	structs/image/image.c				\
-	structs/image/round_image_corners.c	\
-		   \
 	structs/gui_box/create_gui_box.c			\
 	structs/gui_box/default_gui_box_methods.c	\
 	structs/gui_box/destroy_t_gui_box.c			\
 	structs/gui_box/get_clicked_gui_box.c		\
+		   \
+	structs/image/destroy_t_image.c		\
+	structs/image/image.c				\
+	structs/image/put_image_to_image.c	\
+	structs/image/round_image_corners.c	\
 	\
 	\
 	close_miniRT.c	\
