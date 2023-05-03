@@ -83,7 +83,14 @@ LIBFT_A			=	$(LIBFT_PATH)libft.a
 LIBFT_A_DEBUG	=	$(LIBFT_PATH)libft_debug.a
 MAKE_LIBFT		=	$(MAKE) -C $(LIBFT_PATH)
 
-MINILIBX_PATH		=	lib/minilibx_opengl_20191021/
+OS	= $(shell uname -s)
+
+ifeq ($(OS), Linux)
+	MINILIBX_PATH		=	lib/minilibx-linux/
+endif
+ifeq ($(OS), Darwin)
+	MINILIBX_PATH		=	lib/minilibx_opengl_20191021/
+endif
 MINILIBX_INCLUDES	=	$(MINILIBX_PATH)
 MINILIBX_L			=	-L $(MINILIBX_PATH) -l mlx
 MINILIBX_A			=	$(MINILIBX_PATH)libmlx.a
@@ -96,13 +103,24 @@ DIR_INCS =\
 INCLUDES =\
 	$(addprefix -I , $(DIR_INCS))
 
-LIBS = \
-	-lm	\
-	$(LIBFT_L)	\
-	$(MINILIBX_L)
-FRAMEWORKS =\
-	-framework OpenGL	\
-	-framework AppKit
+ifeq ($(OS), Linux)
+	LIBS = \
+    	-lm	\
+    	$(LIBFT_L)	\
+    	$(MINILIBX_L)	\
+    	-lXext	\
+    	-lX11
+    FRAMEWORKS =
+endif
+ifeq ($(OS), Darwin)
+	LIBS = \
+    	-lm	\
+    	$(LIBFT_L)	\
+    	$(MINILIBX_L)
+    FRAMEWORKS =\
+    	-framework OpenGL	\
+    	-framework AppKit
+endif
 
 DEPENDENCIES =\
 	$(LIBFT_A)	\

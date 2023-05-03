@@ -87,6 +87,15 @@ enum e_mouse_buttons
 };
 # endif //__APPLE__
 
+# ifdef __linux__
+
+enum e_mouse_buttons
+{
+	BUTTON_LEFT = 1,
+	BUTTON_RIGHT = 3,
+};
+# endif //__linux__
+
 # ifdef __APPLE__
 
 enum e_key_codes
@@ -116,5 +125,35 @@ enum e_key_codes
 	KEY_SEMI_COLON = 41,
 };
 # endif //__APPLE__
+
+# ifdef __linux__
+
+enum e_key_codes
+{
+	KEY_ESC = 65307,
+	KEY_W = 119,
+	KEY_A = 97,
+	KEY_S = 115,
+	KEY_D = 100,
+	KEY_E = 101,
+	KEY_Q = 113,
+	KEY_H = 104,
+	KEY_SPACE = 32,
+	KEY_SLASH = 47,
+	KEY_L_SHIFT = 65505,
+	KEY_R_SHIFT = 65506,
+	KEY_R_CTRL = 65508,
+	KEY_UP = 65362,
+	KEY_DOWN = 65364,
+	KEY_LEFT = 65361,
+	KEY_RIGHT = 65363,
+	KEY_P = 112,
+	KEY_V = 118,
+	KEY_C = 99,
+	KEY_DOT = 46,
+	KEY_S_QUOTE = 39,
+	KEY_SEMI_COLON = 59,
+};
+# endif //__linux__
 
 #endif //MINIRT_X11_H

@@ -1,11 +1,26 @@
-#include "miniRT_X11.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   button_press.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vfries <vfries@student.1337.ma>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/03 17:55:00 by vfries            #+#    #+#             */
+/*   Updated: 2023/05/03 17:55:18 by vfries           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
 #include "struct/t_minirt.h"
 #include "struct/t_gui_box.h"
+#include "miniRT_X11.h"
 
 int	button_press_handler(int button, int x, int y, t_minirt *minirt)
 {
 	t_gui_box	*clicked_gui_box;
 
+	ft_printf("button_code == %d\n\n", button);
 	if (button != BUTTON_LEFT)
 		return (0);
 	clicked_gui_box = get_clicked_gui_box(minirt->gui.gui_boxes, &x, &y);
