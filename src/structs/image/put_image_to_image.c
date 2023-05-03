@@ -42,46 +42,31 @@ inline void	put_image_to_image(t_image *destination, const t_image *source,
 		y++;
 	}
 }
-//
-//static unsigned int	mix_colors(unsigned int added_color_int,
-//								unsigned int base_color_int)
-//{
-//	t_color		added_color;
-//	t_color		base_color;
-//	const float	transparency = 1.f - (float)(added_color_int >> 24) / 255.f;
-//
-//	if (transparency == 0.f)
-//		return (base_color_int);
-//	if (transparency == 1.f)
-//		return (added_color_int);
-//	added_color = get_t_color_from_uint(added_color_int);
-//	base_color = get_t_color_from_uint(base_color_int);
-//	return (rgb_to_uint((t_color){
-//		.r = round(((float)added_color.r + (float)base_color.r * transparency) / 2.f),
-//		.g = round(((float)added_color.g + (float)base_color.g * transparency) / 2.f),
-//		.b = round(((float)added_color.b + (float)base_color.b * transparency) / 2.f)
-//	}));
-//}
-
 
 static unsigned int	mix_colors(unsigned int added_color_int,
-								  unsigned int base_color_int)
+						unsigned int base_color_int)
 {
-	t_color	added_color;
-	t_color	base_color;
-	int		added_color_transparency = added_color_int >> 24;
-	float	transparency;
+	t_color			added_color;
+	t_color			base_color;
+	unsigned int	added_color_transparency;
+	float			transparency;
+	float			inverse_transparency;
 
+	added_color_transparency = added_color_int >> 24;
 	if (added_color_transparency == 255)
 		return (base_color_int);
 	if (added_color_transparency == 0)
 		return (added_color_int);
-	transparency = 1.f - (float)added_color_transparency / 255.f;
 	added_color = get_t_color_from_uint(added_color_int);
 	base_color = get_t_color_from_uint(base_color_int);
+	inverse_transparency = (float)added_color_transparency / 255.f;
+	transparency = 1.f - inverse_transparency;
 	return (rgb_to_uint((t_color){
-			.r = round(((float)added_color.r + (float)base_color.r * transparency) / 2.f),
-			.g = round(((float)added_color.g + (float)base_color.g * transparency) / 2.f),
-			.b = round(((float)added_color.b + (float)base_color.b * transparency) / 2.f)
-	}));
+			.r = round(transparency * (float)added_color.r
+				+ inverse_transparency * (float)base_color.r),
+			.g = round(transparency * (float)added_color.g
+				+ inverse_transparency * (float)base_color.g),
+			.b = round(transparency * (float)added_color.b
+				+ inverse_transparency * (float)base_color.b) \
+		}));
 }
