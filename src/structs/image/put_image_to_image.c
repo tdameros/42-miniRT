@@ -7,24 +7,27 @@ static int			get_counter(int *position_counter);
 static unsigned int	mix_colors(unsigned int added_color,
 						unsigned int base_color);
 
-inline void	put_image_to_image(t_image *destination, const t_image *source,
-				t_point_int_2d position)
+void	put_image_to_image(register t_image *destination, const t_image *source,
+						t_point_int_2d position)
 {
 	int				position_x_backup;
 	register int	y;
 	register int	x;
 
 	position_x_backup = position.x;
-	y = get_counter(&position.y);
+	y = (position.y < 0) * -position.y;
+	position.y = (position.y > 0) * position.y;
 	while (position.y < destination->height && y < source->height)
 	{
-		x = get_counter(&position.x);
+		x = (position.x < 0) * -position.x;
+		position.x = (position.x > 0) * position.x;
 		while (position.x < destination->width && x < source->width)
 		{
-			put_pixel_on_image(destination, position.y, position.x,
-				mix_colors(get_image_pixel_color(source, y, x++),
-					get_image_pixel_color(destination, position.y, position.x))
-				);
+			int tmp = position.y * destination->line_length + position.x;
+
+			destination->address[tmp] =	mix_colors(get_image_pixel_color(source, y, x++),
+												   destination->address[tmp]);
+
 			position.x++;
 		}
 		position.x = position_x_backup;
@@ -33,39 +36,42 @@ inline void	put_image_to_image(t_image *destination, const t_image *source,
 	}
 }
 
-static inline int	get_counter(int *position_counter)
+void	put_background(t_image *destination, const t_image *source)
 {
-	int	counter;
+	register unsigned int	*dest_end;
+	register unsigned int	*dest_curr;
+	register unsigned int	*source_curr;
 
-	if (*position_counter >= 0)
-		return (0);
-	counter = -*position_counter;
-	*position_counter = 0;
-	return (counter);
+	source_curr = source->address;
+	dest_curr = destination->address;
+	dest_end = destination->address + destination->height * destination->line_length + 1;
+
+	while (dest_curr < dest_end)
+		*dest_curr++ = *source_curr++;
 }
 
 static unsigned int	mix_colors(unsigned int added_color,
 						unsigned int base_color)
 {
 	const unsigned int	added_color_transparency = added_color >> 24;
-	float				transparency;
 	float				inverse_transparency;
+	float				transparency;
 
 	if (added_color_transparency == 255)
 		return (base_color);
 	if (added_color_transparency == 0)
 		return (added_color);
-	inverse_transparency = (float)added_color_transparency / 255.f;
+	inverse_transparency = added_color_transparency / 255.f;
 	transparency = 1.f - inverse_transparency;
 	return (
-		((unsigned int)roundf(\
-			transparency * (float)((added_color & 0x00FF0000) >> 16)
-			+ inverse_transparency * (float)((base_color & 0x00FF0000) >> 16)))
+		((unsigned int)(\
+			transparency * ((added_color & 0x00FF0000) >> 16)
+			+ inverse_transparency * ((base_color & 0x00FF0000) >> 16)))
 				<< 16
-		| ((unsigned int)roundf(
-			transparency * (float)((added_color & 0x0000FF00) >> 8)
-			+ inverse_transparency * (float)((base_color & 0x0000FF00) >> 8)))
+		| ((unsigned int)(
+			transparency * ((added_color & 0x0000FF00) >> 8)
+			+ inverse_transparency * ((base_color & 0x0000FF00) >> 8)))
 				<< 8
-		| (unsigned int)roundf(transparency * (float)(added_color & 0x000000FF)
-			+ inverse_transparency * (float)(base_color & 0x000000FF)));
+		| (unsigned int)(transparency * (added_color & 0x000000FF)
+			+ inverse_transparency * (base_color & 0x000000FF)));
 }

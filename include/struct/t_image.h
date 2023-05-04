@@ -39,4 +39,6 @@ void			change_image_color(t_image *image, unsigned int color);
 void			round_image_corners(t_image *image, int radius);
 void			put_image_to_image(t_image *destination, const t_image *source,
 					t_point_int_2d position);
+void			put_background(t_image *destination, const t_image *source);
+
 #endif //T_IMAGE_H

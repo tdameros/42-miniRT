@@ -22,8 +22,7 @@ int	render_frame(t_minirt *minirt)
 
 
 	// Do ray tracing on minirt->main_image.image
-	put_image_to_image(&minirt->main_image, &minirt->tmp_background,
-		(t_point_int_2d){0, 0});
+	put_background(&minirt->main_image, &minirt->tmp_background);
 	render_user_interface(minirt);
 	mlx_put_image_to_window(minirt->window.mlx, minirt->window.window,
 		minirt->main_image.data, 0, 0);
