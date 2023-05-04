@@ -21,6 +21,7 @@ inline void	put_image_to_image(register t_image *destination,
 		position.x = (position.x > 0) * position.x;
 		while (position.x < destination->width && x < source->width)
 		{
+			// TODO not precalculating tmp is faster on macOS, is it the same on linux?
 			tmp = position.y * destination->line_length + position.x;
 			destination->address[tmp]
 				= mix_colors(source->address[y * source->line_length + x++],
