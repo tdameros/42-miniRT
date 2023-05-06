@@ -21,11 +21,17 @@ int	render_frame(t_minirt *minirt)
 
 
 
-	// Do ray tracing on minirt->main_image.image
-	put_background(&minirt->main_image, &minirt->tmp_background);
-	render_user_interface(minirt);
-	mlx_put_image_to_window(minirt->window.mlx, minirt->window.window,
-		minirt->main_image.data, 0, 0);
+//	 Do ray tracing on minirt->main_image.image
+	if (minirt->gui.is_hidden && minirt->gui.hidden_ratio == 1.0)
+		mlx_put_image_to_window(minirt->window.mlx, minirt->window.window,
+			minirt->tmp_background.data, 0, 0);
+	else
+	{
+		put_background(&minirt->main_image, &minirt->tmp_background);
+		render_user_interface(minirt);
+		mlx_put_image_to_window(minirt->window.mlx, minirt->window.window,
+			minirt->main_image.data, 0, 0);
+	}
 
 
 

@@ -8,6 +8,7 @@
 
 int init_gui_boxes(t_minirt *minirt)
 {
+	minirt->gui.draw_gui_image = &put_image_to_image_unsafe;
 	minirt->gui.gui_boxes.size = 2;
 	minirt->gui.gui_boxes.data = malloc(sizeof(*minirt->gui.gui_boxes.data)
 										* minirt->gui.gui_boxes.size);

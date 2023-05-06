@@ -27,13 +27,17 @@ static void	update_gui_hidden_ration(t_gui *gui)
 			/ HIDDEN_RATIO_DIVIDER + HIDDEN_RATION_ADDER;
 		if (gui->hidden_ratio > 1.0)
 			gui->hidden_ratio = 1.0;
+		gui->draw_gui_image = &put_image_to_image;
 	}
 	else if (gui->is_hidden == false && gui->hidden_ratio > 0.0)
 	{
 		gui->hidden_ratio -= gui->hidden_ratio
 			/ HIDDEN_RATIO_DIVIDER + HIDDEN_RATION_ADDER;
-		if (gui->hidden_ratio < 0.0)
+		if (gui->hidden_ratio <= 0.0)
+		{
+			gui->draw_gui_image = &put_image_to_image_unsafe;
 			gui->hidden_ratio = 0.0;
+		}
 	}
 }
 

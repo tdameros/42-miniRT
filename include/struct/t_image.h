@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   image.h                                            :+:      :+:    :+:   */
+/*   t_image.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 10:45:43 by vfries            #+#    #+#             */
-/*   Updated: 2023/04/15 10:45:44 by vfries           ###   ########lyon.fr   */
+/*   Updated: 2023/05/06 20:05:19 by vfries           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void			change_image_color(t_image *image, unsigned int color);
 void			round_image_corners(t_image *image, int radius);
 void			put_image_to_image(t_image *destination, const t_image *source,
 					t_point_int_2d position);
+void			put_image_to_image_unsafe(register t_image *destination,
+					const t_image *source, t_point_int_2d position);
 void			put_background(t_image *destination, const t_image *source);
 
 #endif //T_IMAGE_H

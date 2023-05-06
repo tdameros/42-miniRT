@@ -199,10 +199,10 @@ add_executable(miniRT
         src/hooks/key_press.c
         src/structs/image/image.c
         src/structs/image/round_image_corners.c
-        src/init/init_gui/main_gui_box/icon_box_draw_method.c
+        src/init/init_gui/main_gui_box/menu_box/icon_box_draw_method.c
         src/init/init_gui/main_gui_box/init_main_gui_box.c
-        src/init/init_gui/main_gui_box/init_menu_gui_box.c
-        src/init/init_gui/main_gui_box/init_settings_icon.c
+        src/init/init_gui/main_gui_box/menu_box/init_menu_gui_box.c
+        src/init/init_gui/main_gui_box/menu_box/init_settings_icon.c
         src/init/init_gui/object_modification_gui_box/init_color_picker/color_getter_functions.c
         src/init/init_gui/object_modification_gui_box/init_color_picker/init_base_color_box.c
         src/init/init_gui/object_modification_gui_box/init_color_picker/init_color_picker_box.c
@@ -231,4 +231,4 @@ add_executable(miniRT
         src/render_frame/render_user_interface.c
         src/close_miniRT.c
         src/main.c
-        src/color.c src/init/init_gui/object_modification_gui_box/init_color_picker/add_hover_color_circle.c src/init/init_gui/mouse_in_box.c src/structs/image/destroy_t_image.c src/structs/gui_box/destroy_t_gui_box.c src/init/init_gui/object_modification_gui_box/init_color_picker/init_rgb_picker.c src/structs/image/put_image_to_image.c)
+        src/color.c src/init/init_gui/object_modification_gui_box/init_color_picker/add_hover_color_circle.c src/init/init_gui/mouse_in_box.c src/structs/image/destroy_t_image.c src/structs/gui_box/destroy_t_gui_box.c src/init/init_gui/object_modification_gui_box/init_color_picker/init_rgb_picker.c src/structs/image/put_image_to_image.c src/init/init_gui/main_gui_box/object_creation_box/init_object_creation_gui_box.c)

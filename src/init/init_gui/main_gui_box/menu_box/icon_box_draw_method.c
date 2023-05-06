@@ -8,7 +8,7 @@ void	icon_box_draw_method(t_gui_box *self, t_minirt *minirt,
 {
 	if (mouse_is_hovering_box(self,
 			get_mouse_position(self, minirt, x_offset, y_offset)))
-		put_image_to_image(&minirt->main_image, &self->image, (t_point_int_2d){
+		minirt->gui.draw_gui_image(&minirt->main_image, &self->image, (t_point_int_2d){
 			.x = self->position.x + x_offset,
 			.y = self->position.y + y_offset});
 	if (self->children.data != NULL && self->children.data->draw != NULL) // TODO remove if

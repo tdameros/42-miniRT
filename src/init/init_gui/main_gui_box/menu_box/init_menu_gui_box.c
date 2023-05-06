@@ -14,7 +14,7 @@ static int	init_saving_icon_box(t_minirt *minirt, t_gui_box *gui_box,
 static int	init_menu_settings_icon_box(t_minirt *minirt, t_gui_box *gui_box,
 				t_gui_box *parent);
 
-#define SEPERATOR 4
+#define SEPARATOR 4
 #define ICON_BOX_COLOR 0x40404040
 
 int	init_menu_gui_box(t_minirt *minirt, t_gui_box *gui_box,
@@ -61,17 +61,17 @@ static int	init_menu_gui_box_children(t_minirt *minirt, t_gui_box *gui_box)
 static int	init_camera_icon_box(t_minirt *minirt, t_gui_box *gui_box,
 				t_gui_box *parent)
 {
-	const int	box_width = round(((double)parent->size.width - SEPERATOR * 4)
+	const int	box_width = round(((double)parent->size.width - SEPARATOR * 4)
 								   / 3.0);
 
 	*gui_box = create_t_gui_box(minirt, NULL, \
 		(t_point_int_2d){
-			.x = SEPERATOR, \
-			.y = SEPERATOR
+			.x = SEPARATOR, \
+			.y = SEPARATOR
 		}, \
 		(t_size_int_2d){
 			.width = box_width, \
-			.height = parent->size.height - SEPERATOR * 2
+			.height = parent->size.height - SEPARATOR * 2
 		} \
 	);
 	if (errno == EINVAL)
@@ -86,17 +86,17 @@ static int	init_camera_icon_box(t_minirt *minirt, t_gui_box *gui_box,
 static int	init_saving_icon_box(t_minirt *minirt, t_gui_box *gui_box,
 				t_gui_box *parent)
 {
-	const int	box_width = round(((double)parent->size.width - SEPERATOR * 4)
+	const int	box_width = round(((double)parent->size.width - SEPARATOR * 4)
 								   / 3.0);
 
 	*gui_box = create_t_gui_box(minirt, NULL, \
 		(t_point_int_2d){
-			.x = SEPERATOR * 2 + box_width, \
-			.y = SEPERATOR
+			.x = SEPARATOR * 2 + box_width, \
+			.y = SEPARATOR
 		}, \
 		(t_size_int_2d){
 			.width = box_width, \
-			.height = parent->size.height - SEPERATOR * 2
+			.height = parent->size.height - SEPARATOR * 2
 		} \
 	);
 	if (errno == EINVAL)
@@ -111,17 +111,17 @@ static int	init_saving_icon_box(t_minirt *minirt, t_gui_box *gui_box,
 static int	init_menu_settings_icon_box(t_minirt *minirt, t_gui_box *gui_box,
 				t_gui_box *parent)
 {
-	const int	box_width = round(((double)parent->size.width - SEPERATOR * 4)
+	const int	box_width = round(((double)parent->size.width - SEPARATOR * 4)
 			/ 3.0);
 
 	*gui_box = create_t_gui_box(minirt, NULL, \
 		(t_point_int_2d){
-			.x = SEPERATOR * 3 + box_width * 2, \
-			.y = SEPERATOR
+			.x = SEPARATOR * 3 + box_width * 2, \
+			.y = SEPARATOR
 		}, \
 		(t_size_int_2d){
 			.width = box_width, \
-			.height = parent->size.height - SEPERATOR * 2
+			.height = parent->size.height - SEPARATOR * 2
 		} \
 	);
 	if (errno == EINVAL)

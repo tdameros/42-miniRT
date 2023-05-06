@@ -11,7 +11,7 @@ int	init_main_gui_box(t_minirt *minirt, t_gui_box *gui_box)
 {
 	*gui_box = create_t_gui_box(minirt, NULL,
 			(t_point_int_2d){.x = 12, \
-							 .y = 12},
+							.y = 12},
 			(t_size_int_2d){.width = WINDOW_WIDTH - 24, \
 							.height = WINDOW_HEIGHT / 8});
 	if (errno == EINVAL)
@@ -29,13 +29,17 @@ int	init_main_gui_box(t_minirt *minirt, t_gui_box *gui_box)
 static int	init_main_gui_box_children(t_minirt *minirt, t_gui_box *gui_box)
 
 {
-	gui_box->children.size = 1;
+	gui_box->children.size = 2;
 	gui_box->children.data = malloc(sizeof(*gui_box->children.data)
-		* gui_box->children.size);
+			* gui_box->children.size);
 	if (gui_box->children.data == NULL)
 		return (-1);
-	// init object creation gui box
-	if (init_menu_gui_box(minirt, gui_box->children.data, gui_box) < 0)
+	if (init_object_creation_gui_box(minirt, gui_box->children.data, gui_box) < 0)
+	{
+		free(gui_box->children.data);
+		return (-1);
+	}
+	if (init_menu_gui_box(minirt, gui_box->children.data + 1, gui_box) < 0)
 	{
 		// TODO free object creation gui box
 		free(gui_box->children.data);

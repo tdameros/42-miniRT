@@ -8,7 +8,7 @@ void	default_gui_box_draw(t_gui_box *self, t_minirt *minirt,
 {
 	size_t	i;
 
-	put_image_to_image(&minirt->main_image, &self->image, (t_point_int_2d){
+	minirt->gui.draw_gui_image(&minirt->main_image, &self->image, (t_point_int_2d){
 		.x = self->position.x + x_offset,
 		.y = self->position.y + y_offset});
 	i = self->children.size;

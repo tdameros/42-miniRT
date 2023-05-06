@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 01:50:32 by vfries            #+#    #+#             */
-/*   Updated: 2023/04/28 01:52:39 by vfries           ###   ########lyon.fr   */
+/*   Updated: 2023/05/06 20:30:01 by vfries           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,14 @@ int	init_base_color_box(t_minirt *minirt, t_gui_box *gui_box,
 static void	base_color_box_draw(t_gui_box *self, t_minirt *minirt,
 				int x_offset, int y_offset)
 {
-	put_image_to_image(&minirt->main_image, &self->image, (t_point_int_2d){
+	minirt->gui.draw_gui_image(&minirt->main_image, &self->image, (t_point_int_2d){
 		.x = self->position.x + x_offset,
 		.y = self->position.y + y_offset});
 	if (mouse_is_hovering_box(self, get_mouse_position(self, minirt,
 				x_offset, y_offset)) == false)
 		return ;
 	add_hover_color_circle(self, minirt, x_offset, y_offset);
-	put_image_to_image(&minirt->main_image, &self->on_hover_image,
+	minirt->gui.draw_gui_image(&minirt->main_image, &self->on_hover_image,
 		(t_point_int_2d){\
 			.x = self->position.x + x_offset, \
 			.y = self->position.y + y_offset});
