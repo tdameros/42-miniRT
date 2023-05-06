@@ -78,25 +78,25 @@
 # define GENERIC_EVENT		35
 # define LAST_EVENT			36
 
-# ifdef __APPLE__
+# if defined __APPLE__
 
 enum e_mouse_buttons
 {
 	BUTTON_LEFT = 1,
 	BUTTON_RIGHT = 2,
 };
-# endif //__APPLE__
-
-# ifdef __linux__
+# elif defined __linux__
 
 enum e_mouse_buttons
 {
 	BUTTON_LEFT = 1,
 	BUTTON_RIGHT = 3,
 };
-# endif //__linux__
+# else
+#  error "Unsuported OS"
+# endif
 
-# ifdef __APPLE__
+# if defined __APPLE__
 
 enum e_key_codes
 {
@@ -124,9 +124,7 @@ enum e_key_codes
 	KEY_S_QUOTE = 39,
 	KEY_SEMI_COLON = 41,
 };
-# endif //__APPLE__
-
-# ifdef __linux__
+# elif defined __linux__
 
 enum e_key_codes
 {
@@ -154,6 +152,8 @@ enum e_key_codes
 	KEY_S_QUOTE = 39,
 	KEY_SEMI_COLON = 59,
 };
-# endif //__linux__
+# else
+#  error "Unsuported OS"
+# endif
 
 #endif //MINIRT_X11_H

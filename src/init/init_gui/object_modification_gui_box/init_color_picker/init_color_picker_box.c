@@ -33,6 +33,7 @@ int	init_color_picker_box(t_minirt *minirt, t_gui_box *gui_box,
 	gui_box->draw = &color_picker_draw;
 	return (0);
 }
+#if defined __linux__
 
 static void	color_picker_draw(t_gui_box *self, t_minirt *minirt,
 				int x_offset, int y_offset)
@@ -42,9 +43,11 @@ static void	color_picker_draw(t_gui_box *self, t_minirt *minirt,
 		update_image(self, minirt);
 		minirt->gui.color_picker_base_color_was_changed = false;
 	}
-	minirt->gui.draw_gui_image(&minirt->main_image, &self->image, (t_point_int_2d){
-		.x = self->position.x + x_offset,
-		.y = self->position.y + y_offset});
+	minirt->gui.draw_gui_image(&minirt->main_image, &self->image,
+		(t_point_int_2d){\
+			.x = self->position.x + x_offset, \
+			.y = self->position.y + y_offset}
+	);
 	if (mouse_is_hovering_box(self, get_mouse_position(self, minirt,
 				x_offset, y_offset)) == false)
 		return ;
@@ -54,6 +57,30 @@ static void	color_picker_draw(t_gui_box *self, t_minirt *minirt,
 			.x = self->position.x + x_offset, \
 			.y = self->position.y + y_offset});
 }
+#elif defined __APPLE__
+
+static void	color_picker_draw(t_gui_box *self, t_minirt *minirt,
+				int x_offset, int y_offset)
+{
+	if (minirt->gui.color_picker_base_color_was_changed)
+	{
+		update_image(self, minirt);
+		minirt->gui.color_picker_base_color_was_changed = false;
+	}
+	mlx_put_image_to_window(minirt->window.mlx, minirt->window.window,
+		self->image.data, self->position.x + x_offset,
+		self->position.y + y_offset);
+	if (mouse_is_hovering_box(self, get_mouse_position(self, minirt,
+				x_offset, y_offset)) == false)
+		return ;
+	add_hover_color_circle(self, minirt, x_offset, y_offset);
+	mlx_put_image_to_window(minirt->window.mlx, minirt->window.window,
+		self->on_hover_image.data, self->position.x + x_offset,
+		self->position.y + y_offset);
+}
+#else
+# error "Unsuported OS"
+#endif
 
 static void	update_image(t_gui_box *self, t_minirt *minirt)
 {

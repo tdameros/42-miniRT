@@ -73,12 +73,16 @@ int	init_base_color_box(t_minirt *minirt, t_gui_box *gui_box,
 	return (0);
 }
 
+#if defined __linux__
+
 static void	base_color_box_draw(t_gui_box *self, t_minirt *minirt,
 				int x_offset, int y_offset)
 {
-	minirt->gui.draw_gui_image(&minirt->main_image, &self->image, (t_point_int_2d){
-		.x = self->position.x + x_offset,
-		.y = self->position.y + y_offset});
+	minirt->gui.draw_gui_image(&minirt->main_image, &self->image,
+		(t_point_int_2d){\
+			.x = self->position.x + x_offset, \
+			.y = self->position.y + y_offset}
+	);
 	if (mouse_is_hovering_box(self, get_mouse_position(self, minirt,
 				x_offset, y_offset)) == false)
 		return ;
@@ -88,6 +92,25 @@ static void	base_color_box_draw(t_gui_box *self, t_minirt *minirt,
 			.x = self->position.x + x_offset, \
 			.y = self->position.y + y_offset});
 }
+#elif defined __APPLE__
+
+static void	base_color_box_draw(t_gui_box *self, t_minirt *minirt,
+				int x_offset, int y_offset)
+{
+	mlx_put_image_to_window(minirt->window.mlx, minirt->window.window,
+		self->image.data, self->position.x + x_offset,
+		self->position.y + y_offset);
+	if (mouse_is_hovering_box(self, get_mouse_position(self, minirt,
+				x_offset, y_offset)) == false)
+		return ;
+	add_hover_color_circle(self, minirt, x_offset, y_offset);
+	mlx_put_image_to_window(minirt->window.mlx, minirt->window.window,
+		self->on_hover_image.data, self->position.x + x_offset,
+		self->position.y + y_offset);
+}
+#else
+# error "Unsuported OS"
+#endif
 
 static void	write_color_row(t_image *image, int y)
 {

@@ -25,10 +25,10 @@ static void	put_colored_circle(t_image *on_hover_image,
 				t_point_int_2d mouse_position, unsigned int color,
 				t_image *base_image)
 {
-	const double	radius_squared = pow(10, 2);
-	int				y;
-	int				x;
-	double			equation_result;
+	const float	radius_squared = powf(10.f, 2.f);
+	int			y;
+	int			x;
+	float		equation_result;
 
 	y = on_hover_image->height;
 	while (y--)
@@ -38,10 +38,10 @@ static void	put_colored_circle(t_image *on_hover_image,
 		{
 			if (get_image_pixel_color(base_image, y, x) == COLOR_TRANSPARENT)
 				continue ;
-			equation_result = pow(x - mouse_position.x, 2)
-				+ pow(y - mouse_position.y, 2);
-			if (equation_result > radius_squared - 10
-				&& equation_result < radius_squared + 10)
+			equation_result = powf(x - mouse_position.x, 2.f)
+				+ powf(y - mouse_position.y, 2.f);
+			if (equation_result > radius_squared - 10.f
+				&& equation_result < radius_squared + 10.f)
 				put_pixel_on_image(on_hover_image, y, x, COLOR_BLACK);
 			else if (equation_result < radius_squared)
 				put_pixel_on_image(on_hover_image, y, x, color);

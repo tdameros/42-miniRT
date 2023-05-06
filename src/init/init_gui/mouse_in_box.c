@@ -25,7 +25,7 @@ bool	mouse_is_hovering_box(t_gui_box *self, t_point_int_2d mouse_position)
 			mouse_position.x) != COLOR_TRANSPARENT);
 }
 
-#ifdef __APPLE__
+#if defined __APPLE__
 
 t_point_int_2d	get_mouse_position(t_gui_box *self, t_minirt *minirt,
 					int x_offset, int y_offset)
@@ -38,9 +38,7 @@ t_point_int_2d	get_mouse_position(t_gui_box *self, t_minirt *minirt,
 	mouse_position.y -= y_offset + self->position.y;
 	return (mouse_position);
 }
-#endif //__APPLE__
-
-#ifdef __linux__
+#elif defined __linux__
 
 t_point_int_2d	get_mouse_position(t_gui_box *self, t_minirt *minirt,
 					int x_offset, int y_offset)
@@ -53,4 +51,6 @@ t_point_int_2d	get_mouse_position(t_gui_box *self, t_minirt *minirt,
 	mouse_position.y -= y_offset + self->position.y;
 	return (mouse_position);
 }
+#else
+# error "Unsuport OS"
 #endif //__linux__
