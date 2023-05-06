@@ -54,7 +54,7 @@ static void	render_minirt(t_minirt *minirt)
 								minirt->ray_traced_image.data, 0, 0);
 	else
 	{
-		put_background(&minirt->main_image, &minirt->tmp_background);
+		put_background(&minirt->main_image, &minirt->ray_traced_image);
 		render_user_interface(minirt);
 		mlx_put_image_to_window(minirt->window.mlx, minirt->window.window,
 			minirt->main_image.data, 0, 0);
