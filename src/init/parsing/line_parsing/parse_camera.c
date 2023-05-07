@@ -31,10 +31,10 @@ int	parse_camera(t_minirt *minirt, char **scene_content_line,
 			&minirt->raytracing_data.camera.position) < 0)
 		return (error("Error\nFailed to get camera position\n"));
 	if (get_normalized_vector(scene_content_line[2],
-			&minirt->raytracing_data.camera.orientation) < 0)
+			&minirt->raytracing_data.camera.direction) < 0)
 		return (error("Error\nFailed to get camera orientation\n"));
 	if (get_camera_fov(scene_content_line[3],
-			&minirt->raytracing_data.camera.fov) < 0)
+			&minirt->raytracing_data.camera.vertical_fov) < 0)
 		return (error("Error\nFailed to get camera fov\n"));
 	rt_file_requirements->camera = true;
 	return (0);

@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   t_ambient_light.h                                  :+:      :+:    :+:   */
+/*   conversion.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vfries <vfries@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/07 18:41:57 by vfries            #+#    #+#             */
-/*   Updated: 2023/05/07 18:42:11 by vfries           ###   ########.fr       */
+/*   Created: 2023/05/04 13:41:00 by tdameros          #+#    #+#             */
+/*   Updated: 2023/05/04 13:41:00 by tdameros         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef T_AMBIENT_LIGHT_H
-#define T_AMBIENT_LIGHT_H
+#include <math.h>
 
-# include "struct/t_color.h"
-
-typedef struct s_ambient_light
+double	convert_degrees_to_radians(double degree)
 {
-	double	lighting_ratio;
-	t_color	color;
-}	t_ambient_light;
-
-#endif //T_AMBIENT_LIGHT_H
+	return (degree * M_PI / 180);
+}

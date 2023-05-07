@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   t_ambient_light.h                                  :+:      :+:    :+:   */
+/*   scene.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vfries <vfries@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/07 18:41:57 by vfries            #+#    #+#             */
-/*   Updated: 2023/05/07 18:42:11 by vfries           ###   ########.fr       */
+/*   Created: 2023/05/07 15:40:00 by tdameros          #+#    #+#             */
+/*   Updated: 2023/05/07 15:40:00 by tdameros         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef T_AMBIENT_LIGHT_H
-#define T_AMBIENT_LIGHT_H
+#ifndef SCENE_H
+# define SCENE_H
 
-# include "struct/t_color.h"
+# include "libft.h"
 
-typedef struct s_ambient_light
-{
-	double	lighting_ratio;
-	t_color	color;
-}	t_ambient_light;
+#include "object.h"
 
-#endif //T_AMBIENT_LIGHT_H
+typedef struct s_scene {
+	t_list	*spheres;
+}	t_scene;
+
+t_scene	*scene_create(void);
+int		scene_add_sphere(t_scene *scene, t_sphere *sphere);
+
+#endif

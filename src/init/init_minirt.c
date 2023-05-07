@@ -44,6 +44,8 @@ int	init_minirt(t_minirt *minirt, const char *start_up_scene)
 		// TODO: free everything
 		return (-1);
 	}
+	// TODO: secure me
+	camera_create(&minirt->camera, vector2_create(WINDOW_WIDTH, WINDOW_HEIGHT));
 	return (0);
 }
 
@@ -61,7 +63,7 @@ static void	init_hooks(t_minirt *minirt)
 }
 
 static void print_color(t_color *color);
-static void	print_vector(t_vector_3d *vector);
+static void	print_vector(t_vector3 *vector);
 static void	print_object(t_object *object);
 #include <stdio.h>
 static void	print_scene_content(t_raytracing_data *raytracing_data)
@@ -75,8 +77,8 @@ static void	print_scene_content(t_raytracing_data *raytracing_data)
 	printf("\tCamera position\n");
 	print_vector(&raytracing_data->camera.position);
 	printf("\tCamera orientation\n");
-	print_vector(&raytracing_data->camera.orientation);
-	printf("\tCamera FOV == %f\n", raytracing_data->camera.fov);
+	print_vector(&raytracing_data->camera.direction);
+	printf("\tCamera FOV == %f\n", raytracing_data->camera.vertical_fov);
 	printf("Light\n");
 	printf("\tLight position\n");
 	print_vector(&raytracing_data->light.position);
@@ -94,7 +96,7 @@ static void print_color(t_color *color)
 	printf("\t\t\tb == %d\n", color->b);
 }
 
-static void	print_vector(t_vector_3d *vector)
+static void	print_vector(t_vector3 *vector)
 {
 	printf("\t\t\tx == %f\n", vector->x);
 	printf("\t\t\ty == %f\n", vector->y);

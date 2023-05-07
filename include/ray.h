@@ -1,50 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_position.c                                     :+:      :+:    :+:   */
+/*   ray.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfries <vfries@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/07 18:40:51 by vfries            #+#    #+#             */
-/*   Updated: 2023/05/07 18:40:51 by vfries           ###   ########.fr       */
+/*   Created: 2023/05/07 18:39:16 by vfries            #+#    #+#             */
+/*   Updated: 2023/05/07 18:39:23 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_position.c                                     :+:      :+:    :+:   */
+/*   ray.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/21 03:19:25 by vfries            #+#    #+#             */
-/*   Updated: 2023/04/21 03:19:29 by vfries           ###   ########lyon.fr   */
+/*   Created: 2023/05/06 17:54:37 by tdameros          #+#    #+#             */
+/*   Updated: 2023/05/06 17:54:41 by tdameros         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <errno.h>
+#ifndef RAY_H
+# define RAY_H
 
-#include "libft.h"
+# include "vector.h"
 
-#include "struct/t_minirt.h"
-
-int	get_position(char *position_string, t_vector3 *position_destination)
+typedef struct s_ray
 {
-	char	**position_split;
+	t_vector3	origin;
+	t_vector3	direction;
+}	t_ray;
 
-	position_split = ft_split(position_string, ',');
-	if (position_split == NULL)
-		return (-1);
-	if (ft_split_len(position_split) != 3)
-	{
-		ft_free_split(position_split);
-		return (-1);
-	}
-	position_destination->x = ft_atof(position_split[0]);
-	position_destination->y = ft_atof(position_split[1]);
-	position_destination->z = ft_atof(position_split[2]);
-	ft_free_split(position_split);
-	if (errno == ERANGE || errno == EINVAL)
-		return (-1);
-	return (0);
-}
+//	ray.c
+t_ray		ray_create(t_vector3 origin, t_vector3 direction);
+//t_point_3d	ray_at(t_ray ray, double t);
+//
+//t_color		ray_color(t_ray r);
+
+#endif

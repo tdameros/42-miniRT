@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   get_normalized_vector.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: vfries <vfries@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/21 03:19:22 by vfries            #+#    #+#             */
-/*   Updated: 2023/04/21 03:31:39 by vfries           ###   ########lyon.fr   */
+/*   Created: 2023/05/07 18:43:00 by vfries            #+#    #+#             */
+/*   Updated: 2023/05/07 18:43:11 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "struct/t_vector_3d.h"
-#include "init.h"
+# include "init.h"
+# include "vector.h"
 
-int	get_normalized_vector(char *vector_string, t_vector_3d *vector_destination)
+int	get_normalized_vector(char *vector_string, t_vector3 *vector_destination)
 {
 	if (get_position(vector_string, vector_destination) < 0)
 		return (-1);

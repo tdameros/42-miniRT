@@ -3,6 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   init.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: vfries <vfries@student.1337.ma>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/07 18:41:14 by vfries            #+#    #+#             */
+/*   Updated: 2023/05/07 18:41:14 by vfries           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 03:24:55 by vfries            #+#    #+#             */
@@ -58,8 +70,8 @@ int		get_double(char *double_string, double *double_destination);
 int		get_lighting_ratio(char *lighting_ratio_string,
 			double *lighting_ratio_destination);
 int		get_normalized_vector(char *vector_string,
-			t_vector_3d *vector_destination);
-int		get_position(char *position_string, t_vector_3d *position_destination);
+								 t_vector3 *vector_destination);
+int		get_position(char *position_string, t_vector3 *position_destination);
 
 void	invalid_scene_content_line(char **scene_content_line);
 int		parse_ambient_light(t_minirt *minirt, char **scene_content_line,

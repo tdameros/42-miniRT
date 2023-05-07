@@ -1,19 +1,30 @@
 cmake_minimum_required(VERSION 3.25)
-project(miniRT C)
+project(miniRT)
 
-set(CMAKE_C_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 
 include_directories(include)
+include_directories(include/include)
+include_directories(include/struct)
 include_directories(lib/libft/include)
-include_directories(lib/minilibx_opengl_20191021)
+include_directories(lib/minilibx-linux)
 
 add_executable(miniRT
+        include/include/color.h
+        include/conversion.h
+        include/include/libx.h
+        include/matrix.h
+        include/object.h
+        include/include/point.h
+        include/ray.h
+        include/include/render.h
+        include/scene.h
         include/struct/t_ambient_light.h
-        include/struct/t_camera.h
         include/struct/t_color.h
         include/struct/t_gui.h
         include/struct/t_gui_box.h
         include/struct/t_gui_boxes.h
+        include/struct/t_image.h
         include/struct/t_light.h
         include/struct/t_minirt.h
         include/struct/t_object.h
@@ -23,14 +34,15 @@ add_executable(miniRT
         include/struct/t_size_int_2d.h
         include/struct/t_vector_3d.h
         include/struct/t_window.h
+        include/camera.h
         include/close_miniRT.h
         include/colors.h
         include/hooks.h
-        include/struct/t_image.h
         include/init.h
         include/miniRT_start_up.h
         include/miniRT_X11.h
         include/render_frame.h
+        include/vector.h
         lib/libft/include/ft_bitmask.h
         lib/libft/include/ft_bools.h
         lib/libft/include/ft_char.h
@@ -76,6 +88,7 @@ add_executable(miniRT
         lib/libft/src/io/printf/formating/format.c
         lib/libft/src/io/printf/formating/format_u_x.c
         lib/libft/src/io/printf/get_final_str.c
+        lib/libft/src/io/printf/Makefile
         lib/libft/src/io/printf/printf.c
         lib/libft/src/io/print_position_in_code.c
         lib/libft/src/io/putchar_fd.c
@@ -176,38 +189,58 @@ add_executable(miniRT
         lib/libft/src/string/strrstr.c
         lib/libft/src/string/strtrim.c
         lib/libft/src/string/substr.c
-        lib/minilibx_opengl_20191021/font.c
-        lib/minilibx_opengl_20191021/mlx.h
-        lib/minilibx_opengl_20191021/mlx_init_loop.m
-        lib/minilibx_opengl_20191021/mlx_int.h
-        lib/minilibx_opengl_20191021/mlx_int_str_to_wordtab.c
-        lib/minilibx_opengl_20191021/mlx_mouse.m
-        lib/minilibx_opengl_20191021/mlx_new_image.m
-        lib/minilibx_opengl_20191021/mlx_new_window.h
-        lib/minilibx_opengl_20191021/mlx_new_window.m
-        lib/minilibx_opengl_20191021/mlx_opengl.h
-        lib/minilibx_opengl_20191021/mlx_opengl.m
-        lib/minilibx_opengl_20191021/mlx_png.c
-        lib/minilibx_opengl_20191021/mlx_png.h
-        lib/minilibx_opengl_20191021/mlx_rgb.c
-        lib/minilibx_opengl_20191021/mlx_shaders.c
-        lib/minilibx_opengl_20191021/mlx_xpm.c
-        src/structs/gui_box/create_gui_box.c
-        src/structs/gui_box/default_gui_box_methods.c
-        src/structs/gui_box/get_clicked_gui_box.c
+        lib/minilibx-linux/test/main.c
+        lib/minilibx-linux/test/new_win.c
+        lib/minilibx-linux/mlx.h
+        lib/minilibx-linux/mlx_clear_window.c
+        lib/minilibx-linux/mlx_destroy_display.c
+        lib/minilibx-linux/mlx_destroy_image.c
+        lib/minilibx-linux/mlx_destroy_window.c
+        lib/minilibx-linux/mlx_expose_hook.c
+        lib/minilibx-linux/mlx_ext_randr.c
+        lib/minilibx-linux/mlx_flush_event.c
+        lib/minilibx-linux/mlx_get_color_value.c
+        lib/minilibx-linux/mlx_get_data_addr.c
+        lib/minilibx-linux/mlx_hook.c
+        lib/minilibx-linux/mlx_init.c
+        lib/minilibx-linux/mlx_int.h
+        lib/minilibx-linux/mlx_int_anti_resize_win.c
+        lib/minilibx-linux/mlx_int_do_nothing.c
+        lib/minilibx-linux/mlx_int_get_visual.c
+        lib/minilibx-linux/mlx_int_param_event.c
+        lib/minilibx-linux/mlx_int_set_win_event_mask.c
+        lib/minilibx-linux/mlx_int_str_to_wordtab.c
+        lib/minilibx-linux/mlx_int_wait_first_expose.c
+        lib/minilibx-linux/mlx_key_hook.c
+        lib/minilibx-linux/mlx_lib_xpm.c
+        lib/minilibx-linux/mlx_loop.c
+        lib/minilibx-linux/mlx_loop_hook.c
+        lib/minilibx-linux/mlx_mouse.c
+        lib/minilibx-linux/mlx_mouse_hook.c
+        lib/minilibx-linux/mlx_new_image.c
+        lib/minilibx-linux/mlx_new_window.c
+        lib/minilibx-linux/mlx_pixel_put.c
+        lib/minilibx-linux/mlx_put_image_to_window.c
+        lib/minilibx-linux/mlx_rgb.c
+        lib/minilibx-linux/mlx_screen_size.c
+        lib/minilibx-linux/mlx_set_font.c
+        lib/minilibx-linux/mlx_string_put.c
+        lib/minilibx-linux/mlx_xpm.c
         src/hooks/button_press.c
         src/hooks/key_press.c
-        src/structs/image/image.c
-        src/structs/image/round_image_corners.c
         src/init/init_gui/main_gui_box/menu_box/icon_box_draw_method.c
-        src/init/init_gui/main_gui_box/init_main_gui_box.c
         src/init/init_gui/main_gui_box/menu_box/init_menu_gui_box.c
         src/init/init_gui/main_gui_box/menu_box/init_settings_icon.c
+        src/init/init_gui/main_gui_box/object_creation_box/init_object_creation_gui_box.c
+        src/init/init_gui/main_gui_box/init_main_gui_box.c
+        src/init/init_gui/object_modification_gui_box/init_color_picker/add_hover_color_circle.c
         src/init/init_gui/object_modification_gui_box/init_color_picker/color_getter_functions.c
         src/init/init_gui/object_modification_gui_box/init_color_picker/init_base_color_box.c
         src/init/init_gui/object_modification_gui_box/init_color_picker/init_color_picker_box.c
+        src/init/init_gui/object_modification_gui_box/init_color_picker/init_rgb_picker.c
         src/init/init_gui/object_modification_gui_box/init_object_modification_gui_box.c
         src/init/init_gui/init_gui_boxes.c
+        src/init/init_gui/mouse_in_box.c
         src/init/parsing/line_parsing/utils/add_object_to_object_list.c
         src/init/parsing/line_parsing/utils/error.c
         src/init/parsing/line_parsing/utils/get_color.c
@@ -227,8 +260,40 @@ add_executable(miniRT
         src/init/parsing/parse_scene_content.c
         src/init/parsing/parsing.c
         src/init/init_minirt.c
+        src/ray_tracer/camera/create.c
+        src/ray_tracer/camera/movement.c
+        src/ray_tracer/camera/projection.c
+        src/ray_tracer/camera/ray.c
+        src/ray_tracer/camera/view.c
+        src/ray_tracer/math/matrix/matrix4.c
+        src/ray_tracer/math/matrix/matrix4_inverse.c
+        src/ray_tracer/math/matrix/matrix4_math.c
+        src/ray_tracer/math/vector/vector2.c
+        src/ray_tracer/math/vector/vector2_math.c
+        src/ray_tracer/math/vector/vector2_operations.c
+        src/ray_tracer/math/vector/vector3.c
+        src/ray_tracer/math/vector/vector3_math.c
+        src/ray_tracer/math/vector/vector3_operations.c
+        src/ray_tracer/math/vector/vector3_rotation.c
+        src/ray_tracer/math/vector/vector4.c
+        src/ray_tracer/math/vector/vector4_math.c
+        src/ray_tracer/math/vector/vector4_operations.c
+        src/ray_tracer/math/conversion.c
+        src/ray_tracer/object/sphere.c
+        src/ray_tracer/scene/create.c
+        src/ray_tracer/main.c
+        src/ray_tracer/ray.c
+        src/ray_tracer/render.c
         src/render_frame/render_frame.c
         src/render_frame/render_user_interface.c
+        src/structs/gui_box/create_gui_box.c
+        src/structs/gui_box/default_gui_box_methods.c
+        src/structs/gui_box/destroy_t_gui_box.c
+        src/structs/gui_box/get_clicked_gui_box.c
+        src/structs/image/destroy_t_image.c
+        src/structs/image/image.c
+        src/structs/image/put_image_to_image.c
+        src/structs/image/round_image_corners.c
         src/close_miniRT.c
-        src/main.c
-        src/color.c src/init/init_gui/object_modification_gui_box/init_color_picker/add_hover_color_circle.c src/init/init_gui/mouse_in_box.c src/structs/image/destroy_t_image.c src/structs/gui_box/destroy_t_gui_box.c src/init/init_gui/object_modification_gui_box/init_color_picker/init_rgb_picker.c src/structs/image/put_image_to_image.c src/init/init_gui/main_gui_box/object_creation_box/init_object_creation_gui_box.c)
+        src/color.c
+        src/main.c include/render.h)

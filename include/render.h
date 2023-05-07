@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   t_ambient_light.h                                  :+:      :+:    :+:   */
+/*   render.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfries <vfries@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/07 18:41:57 by vfries            #+#    #+#             */
-/*   Updated: 2023/05/07 18:42:11 by vfries           ###   ########.fr       */
+/*   Created: 2023/05/07 18:37:28 by vfries            #+#    #+#             */
+/*   Updated: 2023/05/07 18:37:46 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef T_AMBIENT_LIGHT_H
-#define T_AMBIENT_LIGHT_H
+#ifndef MINIRT_RENDER_H
+# define MINIRT_RENDER_H
 
-# include "struct/t_color.h"
+# include "vector.h"
 
-typedef struct s_ambient_light
-{
-	double	lighting_ratio;
-	t_color	color;
-}	t_ambient_light;
+t_vector3	render_pixel(t_vector3 ray_origin, t_vector3 ray_direction);
 
-#endif //T_AMBIENT_LIGHT_H
+#endif

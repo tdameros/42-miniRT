@@ -1,0 +1,33 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ray.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/06 17:57:44 by tdameros          #+#    #+#             */
+/*   Updated: 2023/05/06 17:57:45 by tdameros         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "ray.h"
+#include "vector.h"
+
+t_ray	ray_create(t_vector3 origin, t_vector3 direction)
+{
+	t_ray	ray;
+
+	ray.origin = origin;
+	ray.direction = direction;
+	return (ray);
+}
+
+// P(t) = A + tb
+// A is ray origin point
+// b is ray direction
+// t is real number
+// This fonction is equivalent of affine fonction in 3D f(x) = b + ax
+t_vector3 ray_at(t_ray ray, double t)
+{
+	return (vector3_add(ray.origin, vector3_multiply(ray.direction, t)));
+}

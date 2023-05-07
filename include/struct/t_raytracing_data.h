@@ -2,7 +2,7 @@
 # define T_RAYTRACING_DATA_H
 
 # include "struct/t_ambient_light.h"
-# include "struct/t_camera.h"
+# include "camera.h"
 # include "struct/t_light.h"
 # include "struct/t_object.h"
 
