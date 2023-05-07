@@ -52,6 +52,37 @@ SRC				=\
 	init/init_minirt.c		\
 	\
 	\
+	ray_tracer/camera/create.c		\
+	ray_tracer/camera/movement.c	\
+	ray_tracer/camera/projection.c	\
+	ray_tracer/camera/ray.c			\
+	ray_tracer/camera/view.c		\
+			  \
+	ray_tracer/math/matrix/matrix4.c			\
+	ray_tracer/math/matrix/matrix4_inverse.c	\
+	ray_tracer/math/matrix/matrix4_math.c		\
+				   \
+	ray_tracer/math/vector/vector2.c			\
+	ray_tracer/math/vector/vector2_math.c		\
+	ray_tracer/math/vector/vector2_operations.c	\
+	ray_tracer/math/vector/vector3.c			\
+	ray_tracer/math/vector/vector3_math.c		\
+	ray_tracer/math/vector/vector3_operations.c	\
+	ray_tracer/math/vector/vector3_rotation.c	\
+	ray_tracer/math/vector/vector4.c			\
+	ray_tracer/math/vector/vector4_math.c		\
+	ray_tracer/math/vector/vector4_operations.c	\
+				   \
+	ray_tracer/math/conversion.c	\
+			  \
+	ray_tracer/object/sphere.c	\
+			  \
+	ray_tracer/scene/create.c	\
+			  \
+	ray_tracer/ray.c	\
+	ray_tracer/render.c	\
+	\
+	\
 	render_frame/render_frame.c				\
 	render_frame/render_user_interface.c	\
 	\
@@ -69,39 +100,13 @@ SRC				=\
 	\
 	close_miniRT.c	\
 	main.c			\
-	color.c	\
-	\
-	\
-	\
-						ray_tracer/camera/create.c		\
-     					ray_tracer/camera/movement.c	\
-     					ray_tracer/camera/projection.c	\
-     					ray_tracer/camera/ray.c		\
-     					ray_tracer/camera/view.c		\
-     					ray_tracer/math/matrix/matrix4.c			\
-     					ray_tracer/math/matrix/matrix4_inverse.c	\
-     					ray_tracer/math/matrix/matrix4_math.c		\
-     					ray_tracer/math/vector/vector2.c				\
-     					ray_tracer/math/vector/vector2_math.c			\
-     					ray_tracer/math/vector/vector2_operations.c	\
-     					ray_tracer/math/vector/vector3.c				\
-     					ray_tracer/math/vector/vector3_math.c			\
-     					ray_tracer/math/vector/vector3_operations.c	\
-     					ray_tracer/math/vector/vector3_rotation.c		\
-     					ray_tracer/math/vector/vector4.c				\
-     					ray_tracer/math/vector/vector4_math.c			\
-     					ray_tracer/math/vector/vector4_operations.c	\
-     					ray_tracer/math/conversion.c	\
-     					ray_tracer/object/sphere.c	\
-     					ray_tracer/scene/create.c	\
-     					ray_tracer/ray.c \
-     					ray_tracer/render.c
+	color.c
 
 DIR_BUILD		=	.build/
 OBJS			=	$(patsubst %.c, $(DIR_BUILD)%.o, $(SRC))
 DEPS			=	$(patsubst %.c, $(DIR_BUILD)%.d, $(SRC))
 DEPS_FLAGS		=	-MMD -MP
-CFLAGS			=	-Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS			=	-Wall -Wextra -Werror -O3 #-g3 -fsanitize=address
 RM				=	rm -rf
 AR				=	ar rcs
 
