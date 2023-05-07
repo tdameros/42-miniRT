@@ -106,7 +106,12 @@ DIR_BUILD		=	.build/
 OBJS			=	$(patsubst %.c, $(DIR_BUILD)%.o, $(SRC))
 DEPS			=	$(patsubst %.c, $(DIR_BUILD)%.d, $(SRC))
 DEPS_FLAGS		=	-MMD -MP
-CFLAGS			=	-Wall -Wextra -Werror -O3 #-g3 -fsanitize=address
+BASE_CFLAGS		=	-Wall -Wextra -Werror
+DEBUG_CLFAGS	=	-g3 -fsanitize=address
+#-ffast-math reduces calculation precision, need to check behaviour before using
+OPTI_CFLAGS		=	-O3 -march=native #-ffast-math
+CFLAGS			=	$(BASE_CFLAGS) $(OPTI_CFLAGS)
+#CFLAGS			=	$(BASE_CFLAGS) $(DEBUG_CLFAGS)
 RM				=	rm -rf
 AR				=	ar rcs
 
