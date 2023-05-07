@@ -48,12 +48,12 @@ inline void	put_background(t_image *destination, const t_image *source)
 		*dest_curr++ = *source_curr++;
 }
 
-inline void	put_image_to_image_unsafe(register t_image *destination,
+inline void	put_image_to_image_unsafe(t_image *destination,
 				const t_image *source, t_point_int_2d position)
 {
-	register const unsigned int	*source_end
+	const unsigned int	*source_end
 		= source->address + source->height * source->line_length;
-	register const int			x_max = source->width + position.x;
+	const int			x_max = source->width + position.x;
 	register unsigned int		*source_curr;
 	register unsigned int		*dest_curr;
 	register int				x;
