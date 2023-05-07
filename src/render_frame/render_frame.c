@@ -99,7 +99,7 @@ void	draw(t_minirt *minirt)
 			t_vector3 pixel_color = render_pixel(ray.origin, ray.direction);
 			pixel_color = vector3_clamp(pixel_color, 0, 1);
 			pixel_color = vector3_multiply(pixel_color, 255);
-			put_pixel_on_image(img_ptr, WINDOW_HEIGHT - y, x, vec_rgb_to_uint(pixel_color));
+			put_pixel_on_image(img_ptr, img_ptr->height - y - 1, x, vec_rgb_to_uint(pixel_color));
 		}
 	}
 }

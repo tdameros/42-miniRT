@@ -101,7 +101,7 @@ DIR_BUILD		=	.build/
 OBJS			=	$(patsubst %.c, $(DIR_BUILD)%.o, $(SRC))
 DEPS			=	$(patsubst %.c, $(DIR_BUILD)%.d, $(SRC))
 DEPS_FLAGS		=	-MMD -MP
-CFLAGS			=	-Wall -Wextra -Werror -O3 #-g3 -fsanitize=address
+CFLAGS			=	-Wall -Wextra -Werror -g3 -fsanitize=address
 RM				=	rm -rf
 AR				=	ar rcs
 

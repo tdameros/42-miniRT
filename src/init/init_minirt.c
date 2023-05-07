@@ -29,10 +29,7 @@ int	init_minirt(t_minirt *minirt, const char *start_up_scene)
 		return (-1); // TODO free stuff
 	print_scene_content(&minirt->raytracing_data);
 
-	if (WINDOW_HEIGHT == 1080)
-		init_image_from_xpm(&minirt->ray_traced_image, &minirt->window, "data/1080.xpm"); // TODO secure me
-	else
-		init_image_from_xpm(&minirt->ray_traced_image, &minirt->window, "data/720.xpm"); // TODO secure me
+	init_image(&minirt->ray_traced_image, &minirt->window, WINDOW_WIDTH, WINDOW_HEIGHT); // TODO secure me
 
 	init_image(&minirt->main_image, &minirt->window, WINDOW_WIDTH, WINDOW_HEIGHT); // TODO secure me
 	change_image_color(&minirt->main_image, COLOR_BLACK);
