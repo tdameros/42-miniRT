@@ -63,7 +63,6 @@ int	render_frame(t_minirt *minirt)
 static void	render_minirt(t_minirt *minirt)
 {
 	draw(minirt);
-	//	 Do ray tracing on minirt->ray_traced_image.image
 	if (minirt->gui.is_hidden && minirt->gui.hidden_ratio == 1.0)
 		mlx_put_image_to_window(minirt->window.mlx, minirt->window.window,
 								minirt->ray_traced_image.data, 0, 0);
@@ -79,7 +78,7 @@ static void	render_minirt(t_minirt *minirt)
 
 static void	render_minirt(t_minirt *minirt)
 {
-	//	 Do ray tracing on minirt->ray_traced_image.image
+	draw(minirt);
 	mlx_put_image_to_window(minirt->window.mlx, minirt->window.window,
 		minirt->ray_traced_image.data, 0, 0);
 	render_user_interface(minirt);
