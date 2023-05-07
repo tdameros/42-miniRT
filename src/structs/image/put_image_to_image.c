@@ -64,7 +64,7 @@ inline void	put_image_to_image_unsafe(t_image *destination,
 	while (source_curr < source_end)
 	{
 		dest_curr[x]
-			= mix_colors(*source_curr++, dest_curr[position.x + x]);
+			= mix_colors(*source_curr++, dest_curr[x]);
 		x++;
 		if (x >= x_max)
 		{
