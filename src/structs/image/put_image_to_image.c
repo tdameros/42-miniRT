@@ -8,30 +8,30 @@ static unsigned int	mix_colors(unsigned int added_color,
 inline void	put_image_to_image(register t_image *destination,
 				const t_image *source, t_point_int_2d position)
 {
+	const int		y_max = source->height * source->line_length;
+	const int		position_y_max = destination->height
+		* destination->line_length;
 	int				position_x_backup;
 	register int	y;
 	register int	x;
-	int				tmp;
 
 	position_x_backup = position.x;
-	y = (position.y < 0) * -position.y;
-	position.y = (position.y > 0) * position.y;
-	while (position.y < destination->height && y < source->height)
+	y = (position.y < 0) * -position.y * source->line_length;
+	position.y = (position.y > 0) * position.y * destination->line_length;
+	while (position.y < position_y_max && y < y_max)
 	{
 		x = (position.x < 0) * -position.x;
 		position.x = (position.x > 0) * position.x;
-		tmp = position.y * destination->line_length + position.x;
 		while (position.x < destination->width && x < source->width)
 		{
-			destination->address[tmp]
-				= mix_colors(source->address[y * source->line_length + x++],
-					destination->address[tmp]);
+			destination->address[position.y + position.x]
+				= mix_colors(source->address[y + x++],
+					destination->address[position.y + position.x]);
 			position.x++;
-			tmp++;
 		}
 		position.x = position_x_backup;
-		position.y++;
-		y++;
+		position.y += destination->line_length;
+		y += source->line_length;
 	}
 }
 
@@ -53,22 +53,22 @@ inline void	put_image_to_image_unsafe(register t_image *destination,
 {
 	register const unsigned int	*source_end
 		= source->address + source->height * source->line_length;
+	register const int			x_max = source->width + position.x;
 	register unsigned int		*source_curr;
 	register unsigned int		*dest_curr;
 	register int				x;
 
-
 	dest_curr = destination->address + position.y * destination->line_length;
-	x = 0;
+	x = position.x;
 	source_curr = source->address;
 	while (source_curr < source_end)
 	{
-		dest_curr[position.x + x]
+		dest_curr[x]
 			= mix_colors(*source_curr++, dest_curr[position.x + x]);
 		x++;
-		if (x >= source->width)
+		if (x >= x_max)
 		{
-			x = 0;
+			x = position.x;
 			dest_curr += destination->line_length;
 		}
 	}
