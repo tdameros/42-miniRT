@@ -16,12 +16,12 @@ SRC				=\
 											 \
 	init/init_gui/object_modification_gui_box/init_object_modification_gui_box.c			\
 				 \
-	init/init_gui/main_gui_box/menu_box/icon_box_draw_method.c	\
 	init/init_gui/main_gui_box/menu_box/init_menu_gui_box.c		\
 	init/init_gui/main_gui_box/menu_box/init_settings_icon.c	\
 							  \
 	init/init_gui/main_gui_box/object_creation_box/init_object_creation_gui_box.c	\
 							  \
+	init/init_gui/main_gui_box/icon_box_draw_method.c	\
 	init/init_gui/main_gui_box/init_main_gui_box.c		\
 				 \
 	init/init_gui/init_gui_boxes.c	\

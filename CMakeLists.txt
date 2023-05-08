@@ -200,7 +200,7 @@ add_executable(miniRT
         lib/minilibx_opengl_20191021/mlx_xpm.c
         src/hooks/button_press.c
         src/hooks/key_press.c
-        src/init/init_gui/main_gui_box/menu_box/icon_box_draw_method.c
+        src/init/init_gui/main_gui_box/icon_box_draw_method.c
         src/init/init_gui/main_gui_box/menu_box/init_menu_gui_box.c
         src/init/init_gui/main_gui_box/menu_box/init_settings_icon.c
         src/init/init_gui/main_gui_box/object_creation_box/init_object_creation_gui_box.c

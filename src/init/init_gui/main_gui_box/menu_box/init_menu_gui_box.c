@@ -5,6 +5,7 @@
 #include "struct/t_minirt.h"
 #include "struct/t_gui_box.h"
 #include "init.h"
+#include "colors.h"
 
 static int	init_menu_gui_box_children(t_minirt *minirt, t_gui_box *gui_box);
 static int	init_camera_icon_box(t_minirt *minirt, t_gui_box *gui_box,
@@ -13,9 +14,6 @@ static int	init_saving_icon_box(t_minirt *minirt, t_gui_box *gui_box,
 				t_gui_box *parent);
 static int	init_menu_settings_icon_box(t_minirt *minirt, t_gui_box *gui_box,
 				t_gui_box *parent);
-
-#define SEPARATOR 4
-#define ICON_BOX_COLOR 0x40404040
 
 int	init_menu_gui_box(t_minirt *minirt, t_gui_box *gui_box,
 		t_gui_box *parent)
@@ -61,23 +59,28 @@ static int	init_menu_gui_box_children(t_minirt *minirt, t_gui_box *gui_box)
 static int	init_camera_icon_box(t_minirt *minirt, t_gui_box *gui_box,
 				t_gui_box *parent)
 {
-	const int	box_width = round(((double)parent->size.width - SEPARATOR * 4)
+	const int	box_width = round(((double)parent->size.width - ICON_BOX_SEPARATOR * 4)
 								   / 3.0);
 
 	*gui_box = create_t_gui_box(minirt, NULL, \
 		(t_point_int_2d){
-			.x = SEPARATOR, \
-			.y = SEPARATOR
+			.x = ICON_BOX_SEPARATOR, \
+			.y = ICON_BOX_SEPARATOR
 		}, \
 		(t_size_int_2d){
 			.width = box_width, \
-			.height = parent->size.height - SEPARATOR * 2
+			.height = parent->size.height - ICON_BOX_SEPARATOR * 2
 		} \
 	);
 	if (errno == EINVAL)
 		return (-1);
-	change_image_color(&gui_box->image, ICON_BOX_COLOR);
-	round_image_corners(&gui_box->image, 20);
+	if (init_image(&gui_box->on_hover_image, &minirt->window,
+			gui_box->size.width, gui_box->size.height) < 0)
+		return (-1); // TODO free stuff
+	change_image_color(&gui_box->image, COLOR_TRANSPARENT);
+	round_image_corners(&gui_box->image, ICON_BOX_ROUNDING_RADIUS);
+	change_image_color(&gui_box->on_hover_image, ICON_BOX_COLOR);
+	round_image_corners(&gui_box->on_hover_image, ICON_BOX_ROUNDING_RADIUS);
 	gui_box->draw = &icon_box_draw_method;
 	gui_box->on_click = &default_gui_box_on_click;
 	return (0);
@@ -86,23 +89,28 @@ static int	init_camera_icon_box(t_minirt *minirt, t_gui_box *gui_box,
 static int	init_saving_icon_box(t_minirt *minirt, t_gui_box *gui_box,
 				t_gui_box *parent)
 {
-	const int	box_width = round(((double)parent->size.width - SEPARATOR * 4)
+	const int	box_width = round(((double)parent->size.width - ICON_BOX_SEPARATOR * 4)
 								   / 3.0);
 
 	*gui_box = create_t_gui_box(minirt, NULL, \
 		(t_point_int_2d){
-			.x = SEPARATOR * 2 + box_width, \
-			.y = SEPARATOR
+			.x = ICON_BOX_SEPARATOR * 2 + box_width, \
+			.y = ICON_BOX_SEPARATOR
 		}, \
 		(t_size_int_2d){
 			.width = box_width, \
-			.height = parent->size.height - SEPARATOR * 2
+			.height = parent->size.height - ICON_BOX_SEPARATOR * 2
 		} \
 	);
 	if (errno == EINVAL)
 		return (-1);
-	change_image_color(&gui_box->image, ICON_BOX_COLOR);
-	round_image_corners(&gui_box->image, 20);
+	if (init_image(&gui_box->on_hover_image, &minirt->window,
+			gui_box->size.width, gui_box->size.height) < 0)
+		return (-1); // TODO free stuff
+	change_image_color(&gui_box->image, COLOR_TRANSPARENT);
+	round_image_corners(&gui_box->image, ICON_BOX_ROUNDING_RADIUS);
+	change_image_color(&gui_box->on_hover_image, ICON_BOX_COLOR);
+	round_image_corners(&gui_box->on_hover_image, ICON_BOX_ROUNDING_RADIUS);
 	gui_box->draw = &icon_box_draw_method;
 	gui_box->on_click = &default_gui_box_on_click;
 	return (0);
@@ -111,25 +119,25 @@ static int	init_saving_icon_box(t_minirt *minirt, t_gui_box *gui_box,
 static int	init_menu_settings_icon_box(t_minirt *minirt, t_gui_box *gui_box,
 				t_gui_box *parent)
 {
-	const int	box_width = round(((double)parent->size.width - SEPARATOR * 4)
+	const int	box_width = round(((double)parent->size.width - ICON_BOX_SEPARATOR * 4)
 			/ 3.0);
 
 	*gui_box = create_t_gui_box(minirt, NULL, \
 		(t_point_int_2d){
-			.x = SEPARATOR * 3 + box_width * 2, \
-			.y = SEPARATOR
+			.x = ICON_BOX_SEPARATOR * 3 + box_width * 2, \
+			.y = ICON_BOX_SEPARATOR
 		}, \
 		(t_size_int_2d){
 			.width = box_width, \
-			.height = parent->size.height - SEPARATOR * 2
+			.height = parent->size.height - ICON_BOX_SEPARATOR * 2
 		} \
 	);
 	if (errno == EINVAL)
 		return (-1);
-	if (init_settings_icon(minirt, gui_box) < 0)
-		return (-1); // TODO free icon_box
-	change_image_color(&gui_box->image, ICON_BOX_COLOR);
-	round_image_corners(&gui_box->image, 20);
+	if (init_image(&gui_box->on_hover_image, &minirt->window,
+			gui_box->size.width, gui_box->size.height) < 0)
+		return (-1); // TODO free stuff
+	init_settings_icon(gui_box);
 	gui_box->draw = &icon_box_draw_method;
 	gui_box->on_click = &default_gui_box_on_click;
 	return (0);

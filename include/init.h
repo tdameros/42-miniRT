@@ -3,18 +3,6 @@
 /*                                                        :::      ::::::::   */
 /*   init.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vfries <vfries@student.1337.ma>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/07 18:41:14 by vfries            #+#    #+#             */
-/*   Updated: 2023/05/07 18:41:14 by vfries           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   init.h                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 03:24:55 by vfries            #+#    #+#             */
@@ -31,6 +19,10 @@
 # include "struct/t_minirt.h"
 # include "struct/t_rt_file_requirements.h"
 
+# define ICON_BOX_SEPARATOR 4
+# define ICON_BOX_COLOR 0x40404040
+# define ICON_BOX_ROUNDING_RADIUS 20
+
 int				init_gui_boxes(t_minirt *minirt);
 bool			mouse_is_hovering_box(t_gui_box *self,
 					t_point_int_2d mouse_position);
@@ -44,7 +36,7 @@ int				init_menu_gui_box(t_minirt *minirt, t_gui_box *gui_box,
 					t_gui_box *parent);
 void			icon_box_draw_method(t_gui_box *self, t_minirt *minirt,
 					int x_offset, int y_offset);
-int				init_settings_icon(t_minirt *minirt, t_gui_box *gui_box);
+void			init_settings_icon(t_gui_box *gui_box);
 
 int				init_object_modification_gui_box(t_minirt *minirt,
 					t_gui_box *gui_box, const t_gui_box *object_creation_gui_box);

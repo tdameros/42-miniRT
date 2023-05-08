@@ -21,7 +21,7 @@ bool	mouse_is_hovering_box(t_gui_box *self, t_point_int_2d mouse_position)
 		&& mouse_position.x < self->size.width
 		&& mouse_position.y >= 0
 		&& mouse_position.y < self->size.height
-		&& get_image_pixel_color(&self->image, mouse_position.y,
+		&& get_image_pixel_color(&self->on_hover_image, mouse_position.y,
 			mouse_position.x) != COLOR_TRANSPARENT);
 }
 
