@@ -2,10 +2,17 @@
 # define T_GUI_H
 
 # include <stdbool.h>
+# include <sys/time.h>
 
 # include "struct/t_gui_boxes.h"
 # include "struct/t_image.h"
 # include "struct/t_point_int_2d.h"
+
+typedef struct s_fps
+{
+	struct timeval	last_update;
+	char			*fps_count;
+}	t_fps;
 
 typedef struct s_gui
 {
@@ -16,6 +23,7 @@ typedef struct s_gui
 	t_color		color_picker_base_color;
 	void		(*draw_gui_image)(t_image *destination, \
 					const t_image *source, t_point_int_2d position);
+	t_fps		fps;
 }	t_gui;
 
 #endif //T_GUI_H

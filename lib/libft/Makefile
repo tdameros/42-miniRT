@@ -162,7 +162,11 @@ SRC =\
 \
 	sort/msort_int.c				\
 	sort/msort_str.c				\
-	sort/msort_str_ignore_case.c
+	sort/msort_str_ignore_case.c	\
+\
+\
+	time/get_current_time.c	\
+	time/get_number_of_fps_in_string.c
 
 
 TEST_DIR = test/

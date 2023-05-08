@@ -24,5 +24,6 @@
 # include "ft_numbers.h"
 # include "ft_string.h"
 # include "ft_sort.h"
+# include "ft_time.h"
 
 #endif

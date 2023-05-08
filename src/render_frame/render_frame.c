@@ -27,34 +27,10 @@ void		draw(t_minirt *minirt);
 
 int	render_frame(t_minirt *minirt)
 {
-	struct timeval	start_time;
-	gettimeofday(&start_time, NULL);
-	if (start_time.tv_usec > 1000000)
-	{
-		start_time.tv_sec += start_time.tv_usec / 1000000;
-		start_time.tv_usec = start_time.tv_usec % 1000000;
-	}
-
-
+	const struct timeval	start_time = get_current_time();
 
 	render_minirt(minirt);
-
-
-
-
-	struct timeval	end_time;
-	gettimeofday(&end_time, NULL);
-	if (end_time.tv_usec > 1000000)
-	{
-		end_time.tv_sec += end_time.tv_usec / 1000000;
-		end_time.tv_usec = end_time.tv_usec % 1000000;
-	}
-	float elasped_ms = end_time.tv_usec - start_time.tv_usec
-						+ 1000000 * (end_time.tv_sec - start_time.tv_sec);
-	int		fps = roundf(1.f / (elasped_ms / 1000000.f));
-	char	*fps_string = ft_itoa(fps);
-	mlx_string_put(minirt->window.mlx, minirt->window.window, 40, 40, 0xFF0000, fps_string);
-	free(fps_string);
+	print_fps_counter(minirt, start_time);
 	return (0);
 }
 

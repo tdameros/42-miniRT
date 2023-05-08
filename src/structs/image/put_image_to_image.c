@@ -1,12 +1,11 @@
-#include <stddef.h>
 #include "struct/t_image.h"
 #include "struct/t_point_int_2d.h"
 
 static unsigned int	mix_colors(unsigned int added_color,
 						unsigned int base_color);
 
-inline void	put_image_to_image(register t_image *destination,
-				const t_image *source, t_point_int_2d position)
+void	put_image_to_image(register t_image *destination,
+			const t_image *source, t_point_int_2d position)
 {
 	const int		y_max = source->height * source->line_length;
 	const int		position_y_max = destination->height
@@ -35,7 +34,7 @@ inline void	put_image_to_image(register t_image *destination,
 	}
 }
 
-inline void	put_background(t_image *destination, const t_image *source)
+void	put_background(t_image *destination, const t_image *source)
 {
 	register const unsigned int	*dest_end
 		= destination->address + destination->height * destination->line_length;
@@ -48,8 +47,8 @@ inline void	put_background(t_image *destination, const t_image *source)
 		*dest_curr++ = *source_curr++;
 }
 
-inline void	put_image_to_image_unsafe(t_image *destination,
-				const t_image *source, t_point_int_2d position)
+void	put_image_to_image_unsafe(t_image *destination,
+			const t_image *source, t_point_int_2d position)
 {
 	const unsigned int	*source_end
 		= source->address + source->height * source->line_length;

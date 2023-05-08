@@ -12,6 +12,8 @@ int init_gui_boxes(t_minirt *minirt)
 	minirt->gui.gui_boxes.size = 2;
 	minirt->gui.gui_boxes.data = malloc(sizeof(*minirt->gui.gui_boxes.data)
 										* minirt->gui.gui_boxes.size);
+	minirt->gui.fps.fps_count = ft_itoa(0); // TODO secure me
+	minirt->gui.fps.last_update = get_current_time();
 	if (minirt->gui.gui_boxes.data == NULL)
 		return (-1);
 	if (init_main_gui_box(minirt,
