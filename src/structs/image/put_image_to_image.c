@@ -50,12 +50,12 @@ void	put_background(t_image *destination, const t_image *source)
 void	put_image_to_image_unsafe(t_image *destination,
 			const t_image *source, t_point_int_2d position)
 {
-	const unsigned int	*source_end
+	const unsigned int		*source_end
 		= source->address + source->height * source->line_length;
-	const int			x_max = source->width + position.x;
-	register unsigned int		*source_curr;
-	register unsigned int		*dest_curr;
-	register int				x;
+	const int				x_max = source->width + position.x;
+	register unsigned int	*source_curr;
+	register unsigned int	*dest_curr;
+	register int			x;
 
 	dest_curr = destination->address + position.y * destination->line_length;
 	x = position.x;
@@ -87,9 +87,9 @@ static unsigned int	mix_colors(unsigned int added_color,
 
 	// TODO check how it looks with this (Applies 0.25 transparency instead of calculating actual transparency)
 	//  								 (is faster but doesn't allow precise transparency)
-	return (((((added_color & 0x00FF0000) >> 16) / 4 * 3 + ((base_color & 0x00FF0000) / 4 >> 16))) << 16
-		| ((((added_color & 0x0000FF00) >> 8) / 4 * 3 + ((base_color & 0x0000FF00) >> 8) / 4)) << 8
-		| (((added_color & 0x000000FF) / 4 * 3 + (base_color & 0x000000FF) / 4)));
+	return ((((added_color & 0x00FF0000) >> 16) / 4 * 3 + ((base_color & 0x00FF0000) / 4 >> 16)) << 16
+		| (((added_color & 0x0000FF00) >> 8) / 4 * 3 + ((base_color & 0x0000FF00) >> 8) / 4) << 8
+		| ((added_color & 0x000000FF) / 4 * 3 + (base_color & 0x000000FF) / 4));
 
 
 //	inverse_transparency = added_color_transparency / 255.f;

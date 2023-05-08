@@ -14,7 +14,7 @@ typedef struct s_minirt
 	t_image				main_image;
 	t_image				ray_traced_image;
 	t_raytracing_data	raytracing_data;
-	t_camera 			camera;
+	t_camera			camera;
 }	t_minirt;
 
 #endif //T_MINIRT_H

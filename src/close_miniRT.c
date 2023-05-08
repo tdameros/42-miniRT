@@ -23,6 +23,7 @@ static void	destroy_gui(t_minirt *minirt)
 		destroy_t_gui_box(&minirt->window,
 			minirt->gui.gui_boxes.data + minirt->gui.gui_boxes.size);
 	free(minirt->gui.gui_boxes.data);
+	free(minirt->gui.fps.fps_count);
 }
 
 static void	destroy_raytracing_data(t_raytracing_data *raytracing_data)
