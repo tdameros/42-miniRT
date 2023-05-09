@@ -58,6 +58,9 @@ SRC				=\
 	ray_tracer/camera/ray.c			\
 	ray_tracer/camera/view.c		\
 			  \
+	ray_tracer/math/matrix/matrix3.c			\
+	ray_tracer/math/matrix/matrix3_math.c		\
+	ray_tracer/math/matrix/matrix3_rotation.c	\
 	ray_tracer/math/matrix/matrix4.c			\
 	ray_tracer/math/matrix/matrix4_inverse.c	\
 	ray_tracer/math/matrix/matrix4_math.c		\
@@ -113,7 +116,7 @@ DEBUG_CLFAGS	=	-g3 -fsanitize=address
 OPTI_CFLAGS		=	-O3 -march=native #-ffast-math
 #CFLAGS			=	$(BASE_CFLAGS) $(OPTI_CFLAGS)
 #CFLAGS			=	$(BASE_CFLAGS) $(DEBUG_CLFAGS)
-CFLAGS			=	$(BASE_CFLAGS) $(OPTI_CFLAGS) $(DEBUG_CLFAGS)
+CFLAGS			=	$(BASE_CFLAGS) $(OPTI_CFLAGS)
 RM				=	rm -rf
 AR				=	ar rcs
 

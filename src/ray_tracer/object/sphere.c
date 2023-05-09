@@ -17,16 +17,13 @@
 #include "object.h"
 #include "ray.h"
 
-t_sphere	*sphere_create(t_vector3 origin, double radius, t_vector3 color)
+t_sphere	sphere_create(t_vector3 origin, double radius, t_vector3 color)
 {
-	t_sphere	*sphere;
+	t_sphere	sphere;
 
-	sphere = malloc(sizeof(*sphere));
-	if (sphere == NULL)
-		return (NULL);
-	sphere->origin = origin;
-	sphere->radius = radius;
-	sphere->color = color;
+	sphere.origin = origin;
+	sphere.radius = radius;
+	sphere.color = color;
 	return (sphere);
 }
 

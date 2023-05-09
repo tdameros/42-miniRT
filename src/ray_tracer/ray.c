@@ -27,7 +27,7 @@ t_ray	ray_create(t_vector3 origin, t_vector3 direction)
 // b is ray direction
 // t is real number
 // This fonction is equivalent of affine fonction in 3D f(x) = b + ax
-t_vector3 ray_at(t_ray ray, double t)
+t_vector3	ray_at(t_ray ray, double t)
 {
 	return (vector3_add(ray.origin, vector3_multiply(ray.direction, t)));
 }

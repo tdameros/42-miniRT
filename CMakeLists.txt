@@ -267,4 +267,4 @@ add_executable(miniRT
         src/structs/image/round_image_corners.c
         src/close_miniRT.c
         src/color.c
-        src/main.c lib/libft/src/time/get_current_time.c lib/libft/src/time/get_current_time.c lib/libft/include/ft_time.h lib/libft/src/time/get_number_of_fps_in_string.c src/render_frame/print_fps_counter.c)
+        src/main.c lib/libft/src/time/get_current_time.c lib/libft/src/time/get_current_time.c lib/libft/include/ft_time.h lib/libft/src/time/get_number_of_fps_in_string.c src/render_frame/print_fps_counter.c src/ray_tracer/math/matrix/matrix3.c src/ray_tracer/math/matrix/matrix3_math.c src/ray_tracer/math/matrix/matrix3_rotation.c)
