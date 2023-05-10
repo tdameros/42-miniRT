@@ -178,6 +178,10 @@ all:
 			$(MAKE_MINILIBX)
 			$(MAKE) $(NAME)
 
+.PHONY:		run
+run:		all
+			./miniRT data/test.rt
+
 $(NAME):	$(OBJS)
 			$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) $(FRAMEWORKS) $(LIBS) -o $(NAME)
 

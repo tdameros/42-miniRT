@@ -65,7 +65,7 @@ static void	render_minirt(t_minirt *minirt)
 
 void	render_raytracing(t_minirt *minirt)
 {
-	const t_image	*img_ptr = &minirt->ray_traced_image;
+	t_image			*img_ptr = &minirt->ray_traced_image;
 	t_scene			scene;
 	t_objects		objects;
 	t_object		object;
