@@ -12,7 +12,7 @@
 
 #include <stdlib.h>
 
-#include "camera.h"
+#include "ray_tracer/camera.h"
 
 int	camera_create(t_camera *camera, t_vector2 viewport)
 {

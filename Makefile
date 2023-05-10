@@ -4,52 +4,86 @@ NAME			=	miniRT
 SRC_PATH		=	src/
 
 SRC				=\
+	gui/box/create_gui_box.c			\
+	gui/box/default_gui_box_methods.c	\
+	gui/box/destroy_t_gui_box.c			\
+	gui/box/get_clicked_gui_box.c		\
+	gui/box/mouse_in_box.c				\
+	\
+	gui/main_box/menu_box/init_menu_gui_box.c	\
+	gui/main_box/menu_box/init_settings_icon.c	\
+	\
+	gui/main_box/object_creation_box.c	\
+	\
+	gui/main_box/icon_box_draw_method.c \
+	gui/main_box/init_main_box.c		\
+	\
+	gui/object_modification_box/init_color_picker/add_hover_color_circle.c	\
+	gui/object_modification_box/init_color_picker/color_getter_functions.c	\
+	gui/object_modification_box/init_color_picker/init_base_color_box.c		\
+	gui/object_modification_box/init_color_picker/init_color_picker_box.c	\
+	gui/object_modification_box/init_color_picker/init_rgb_picker.c			\
+	\
+	gui/object_modification_box/init_color_picker/init_object_modification_box.c	\
+	\
+	gui/init_boxes.c	\
+	\
+	\
 	hooks/button_press.c	\
 	hooks/key_press.c		\
 	\
 	\
-	init/init_gui/object_modification_gui_box/init_color_picker/add_hover_color_circle.c	\
-	init/init_gui/object_modification_gui_box/init_color_picker/color_getter_functions.c	\
-	init/init_gui/object_modification_gui_box/init_color_picker/init_base_color_box.c		\
-	init/init_gui/object_modification_gui_box/init_color_picker/init_color_picker_box.c		\
-	init/init_gui/object_modification_gui_box/init_color_picker/init_rgb_picker.c			\
-											 \
-	init/init_gui/object_modification_gui_box/init_object_modification_gui_box.c			\
-				 \
-	init/init_gui/main_gui_box/menu_box/init_menu_gui_box.c		\
-	init/init_gui/main_gui_box/menu_box/init_settings_icon.c	\
-							  \
-	init/init_gui/main_gui_box/object_creation_box/init_object_creation_gui_box.c	\
-							  \
-	init/init_gui/main_gui_box/icon_box_draw_method.c	\
-	init/init_gui/main_gui_box/init_main_gui_box.c		\
-				 \
-	init/init_gui/init_gui_boxes.c	\
-	init/init_gui/mouse_in_box.c	\
-		\
-		\
-	init/parsing/line_parsing/utils/add_object_to_object_list.c	\
-	init/parsing/line_parsing/utils/error.c						\
-	init/parsing/line_parsing/utils/get_color.c					\
-	init/parsing/line_parsing/utils/get_double.c				\
-	init/parsing/line_parsing/utils/get_lighting_ratio.c		\
-	init/parsing/line_parsing/utils/get_normalized_vector.c		\
-	init/parsing/line_parsing/utils/get_position.c				\
-							 \
-	init/parsing/line_parsing/invalid_scene_content_line.c	\
-	init/parsing/line_parsing/parse_ambient_light.c			\
-	init/parsing/line_parsing/parse_camera.c				\
-	init/parsing/line_parsing/parse_cylinder.c				\
-	init/parsing/line_parsing/parse_light.c					\
-	init/parsing/line_parsing/parse_plane.c					\
-	init/parsing/line_parsing/parse_sphere.c				\
-				\
-	init/parsing/free_scene_content.c	\
-	init/parsing/get_scene_content.c	\
-	init/parsing/parse_scene_content.c	\
-	init/parsing/parsing.c				\
-		\
-	init/init_minirt.c		\
+	image/destroy_t_image.c		\
+	image/image.c				\
+	image/put_image_to_image.c	\
+	image/round_image_corners.c	\
+	\
+	\
+	math/matrix/matrix3.c			\
+	math/matrix/matrix3_math.c		\
+	math/matrix/matrix3_rotation.c	\
+	math/matrix/matrix4.c			\
+	math/matrix/matrix4_inverse.c	\
+	math/matrix/matrix4_math.c		\
+	\
+	math/vector/vector2.c				\
+	math/vector/vector2_math.c			\
+	math/vector/vector2_operations.c	\
+	math/vector/vector3.c				\
+	math/vector/vector3_math.c			\
+	math/vector/vector3_operations.c	\
+	math/vector/vector3_rotation.c		\
+	math/vector/vector4.c				\
+	math/vector/vector4_math.c			\
+	math/vector/vector4_operations.c	\
+	\
+	math/conversion.c	\
+	\
+	\
+	object/objects.c	\
+	object/sphere.c		\
+	\
+	\
+	parsing/line_parsing/utils/add_object_to_object_list.c	\
+	parsing/line_parsing/utils/error.c						\
+	parsing/line_parsing/utils/get_color.c					\
+	parsing/line_parsing/utils/get_double.c				\
+	parsing/line_parsing/utils/get_lighting_ratio.c		\
+	parsing/line_parsing/utils/get_normalized_vector.c		\
+	parsing/line_parsing/utils/get_position.c				\
+	\
+	parsing/line_parsing/invalid_scene_content_line.c	\
+	parsing/line_parsing/parse_ambient_light.c			\
+	parsing/line_parsing/parse_camera.c				\
+	parsing/line_parsing/parse_cylinder.c				\
+	parsing/line_parsing/parse_light.c					\
+	parsing/line_parsing/parse_plane.c					\
+	parsing/line_parsing/parse_sphere.c				\
+	\
+	parsing/free_scene_content.c	\
+	parsing/get_scene_content.c	\
+	parsing/parse_scene_content.c	\
+	parsing/parsing.c				\
 	\
 	\
 	ray_tracer/camera/create.c		\
@@ -57,32 +91,7 @@ SRC				=\
 	ray_tracer/camera/projection.c	\
 	ray_tracer/camera/ray.c			\
 	ray_tracer/camera/view.c		\
-			  \
-	ray_tracer/math/matrix/matrix3.c			\
-	ray_tracer/math/matrix/matrix3_math.c		\
-	ray_tracer/math/matrix/matrix3_rotation.c	\
-	ray_tracer/math/matrix/matrix4.c			\
-	ray_tracer/math/matrix/matrix4_inverse.c	\
-	ray_tracer/math/matrix/matrix4_math.c		\
-				   \
-	ray_tracer/math/vector/vector2.c			\
-	ray_tracer/math/vector/vector2_math.c		\
-	ray_tracer/math/vector/vector2_operations.c	\
-	ray_tracer/math/vector/vector3.c			\
-	ray_tracer/math/vector/vector3_math.c		\
-	ray_tracer/math/vector/vector3_operations.c	\
-	ray_tracer/math/vector/vector3_rotation.c	\
-	ray_tracer/math/vector/vector4.c			\
-	ray_tracer/math/vector/vector4_math.c		\
-	ray_tracer/math/vector/vector4_operations.c	\
-				   \
-	ray_tracer/math/conversion.c	\
-			  \
-	ray_tracer/object/objects.c \
-	ray_tracer/object/sphere.c	\
-			  \
-	ray_tracer/scene/create.c	\
-			  \
+	\
 	ray_tracer/ray.c	\
 	ray_tracer/render.c	\
 	\
@@ -92,20 +101,13 @@ SRC				=\
 	render_frame/render_user_interface.c	\
 	\
 	\
-	structs/gui_box/create_gui_box.c			\
-	structs/gui_box/default_gui_box_methods.c	\
-	structs/gui_box/destroy_t_gui_box.c			\
-	structs/gui_box/get_clicked_gui_box.c		\
-		   \
-	structs/image/destroy_t_image.c		\
-	structs/image/image.c				\
-	structs/image/put_image_to_image.c	\
-	structs/image/round_image_corners.c	\
+	scene/create.c	\
 	\
 	\
 	close_miniRT.c	\
-	main.c			\
-	color.c
+	color.c			\
+	init_minirt.c	\
+	main.c
 
 DIR_BUILD		=	.build/
 OBJS			=	$(patsubst %.c, $(DIR_BUILD)%.o, $(SRC))

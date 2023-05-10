@@ -60,7 +60,7 @@ mlx_img_ctx_t	*add_img_to_ctx(mlx_img_list_t *img, mlx_win_list_t *win)
   glTexImage2D(
 	       GL_TEXTURE_2D, 0,           /* target, level of detail */
 	       GL_RGBA8,                    /* internal format */
-	       img->width, img->height, 0,           /* width, height, border */
+	       img->width, img->height, 0,           /* x, y, border */
 	       GL_BGRA, GL_UNSIGNED_BYTE,   /* external format, type */
 	       img->buffer               /* pixels */
 	       );

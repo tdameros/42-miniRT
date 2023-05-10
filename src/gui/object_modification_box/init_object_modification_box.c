@@ -1,0 +1,47 @@
+#include <sys/errno.h>
+#include <stdlib.h>
+
+#include "struct/t_gui_box.h"
+#include "init.h"
+#include "colors.h"
+
+static int	init_object_modification_gui_box_children(t_minirt *minirt,
+				t_gui_box *parent);
+
+int	init_object_modification_gui_box(t_minirt *minirt, t_gui_box *gui_box,
+		const t_gui_box *object_creation_gui_box)
+{
+	*gui_box = create_t_gui_box(minirt, NULL, \
+		(t_vector2i){
+			.x = WINDOW_WIDTH - WINDOW_WIDTH / 4 \
+				- object_creation_gui_box->position.x,
+			.y = object_creation_gui_box->size.y \
+ + object_creation_gui_box->position.y * 2}, \
+		(t_size_int_2d){
+			.width = WINDOW_WIDTH / 4, \
+			.height = WINDOW_HEIGHT \
+				- (object_creation_gui_box->size.y \
+ + object_creation_gui_box->position.y * 3)});
+	if (errno == EINVAL)
+		return (-1);
+	change_image_color(&gui_box->image, 0x40000000);
+	round_image_corners(&gui_box->image, 20);
+	gui_box->draw = &default_gui_box_draw;
+	gui_box->on_click = &default_gui_box_on_click;
+	if (init_object_modification_gui_box_children(minirt, gui_box))
+		return (-1); // TODO free image
+	return (0);
+}
+
+static int	init_object_modification_gui_box_children(t_minirt *minirt,
+				t_gui_box *parent) {
+	parent->children.size = 1;
+	parent->children.data = malloc(sizeof(*parent->children.data)
+			* parent->children.size);
+	if (init_rgb_picker(minirt, parent->children.data, parent) < 0)
+	{
+		free(parent->children.data);
+		return (-1);
+	}
+	return (0);
+}

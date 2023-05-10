@@ -1,4 +1,4 @@
-#include "vector.h"
+#include "math/vector.h"
 #include <stdio.h>
 #include <math.h>
 
@@ -47,11 +47,11 @@
 //	return (vector3_create(0.27, 0.27, 0.27));
 //}
 
-#include "ray.h"
+#include "ray_tracer/ray.h"
 #include "scene.h"
 #include "object.h"
 #include "struct/t_color.h"
-#include "hit.h"
+#include "ray_tracer/hit.h"
 
 t_hit		trace_ray(t_ray ray, t_scene *scene);
 t_hit		calculate_hit(t_ray ray, t_scene *scene, double distance, size_t index);

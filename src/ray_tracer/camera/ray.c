@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "camera.h"
+#include "ray_tracer/camera.h"
 
 static t_vector3	get_ray_direction(t_camera *camera, int x, int y);
 

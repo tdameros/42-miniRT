@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.25)
-project(miniRT C)
+project(42_miniRT C)
 
 set(CMAKE_C_STANDARD 11)
 
@@ -7,36 +7,31 @@ include_directories(include)
 include_directories(lib/libft/include)
 include_directories(lib/minilibx_opengl_20191021)
 
-add_executable(miniRT
-        include/struct/t_ambient_light.h
-        include/struct/t_color.h
-        include/struct/t_gui.h
-        include/struct/t_gui_box.h
-        include/struct/t_gui_boxes.h
-        include/struct/t_image.h
-        include/struct/t_light.h
-        include/struct/t_minirt.h
-        include/struct/t_object.h
-        include/struct/t_point_int_2d.h
-        include/struct/t_raytracing_data.h
-        include/struct/t_rt_file_requirements.h
-        include/struct/t_size_int_2d.h
-        include/struct/t_window.h
-        include/camera.h
-        include/close_miniRT.h
+add_executable(42_miniRT
+        include/deprecated/t_ambient_light.h
+        include/deprecated/t_light.h
+        include/deprecated/t_raytracing_data.h
+        include/gui/box.h
+        include/gui/boxes.h
+        include/gui/gui.h
+        include/gui/main_gui_box.h
+        include/gui/object_modification_box.h
+        include/math/conversion.h
+        include/math/matrix.h
+        include/math/vector.h
+        include/ray_tracer/camera.h
+        include/ray_tracer/hit.h
+        include/ray_tracer/ray.h
+        include/ray_tracer/render.h
         include/colors.h
-        include/conversion.h
+        include/engine.h
+        include/events.h
         include/hooks.h
-        include/init.h
-        include/matrix.h
-        include/miniRT_start_up.h
-        include/miniRT_X11.h
+        include/image.h
         include/object.h
-        include/ray.h
-        include/render.h
+        include/parsing.h
         include/render_frame.h
         include/scene.h
-        include/vector.h
         lib/libft/include/ft_bitmask.h
         lib/libft/include/ft_bools.h
         lib/libft/include/ft_char.h
@@ -49,6 +44,7 @@ add_executable(miniRT
         lib/libft/include/ft_numbers.h
         lib/libft/include/ft_sort.h
         lib/libft/include/ft_string.h
+        lib/libft/include/ft_time.h
         lib/libft/include/libft.h
         lib/libft/src/bitmask/bitmask_free.c
         lib/libft/src/bitmask/bitmask_get.c
@@ -182,6 +178,8 @@ add_executable(miniRT
         lib/libft/src/string/strrstr.c
         lib/libft/src/string/strtrim.c
         lib/libft/src/string/substr.c
+        lib/libft/src/time/get_current_time.c
+        lib/libft/src/time/get_number_of_fps_in_string.c
         lib/minilibx_opengl_20191021/font.c
         lib/minilibx_opengl_20191021/mlx.h
         lib/minilibx_opengl_20191021/mlx_init_loop.m
@@ -198,73 +196,78 @@ add_executable(miniRT
         lib/minilibx_opengl_20191021/mlx_rgb.c
         lib/minilibx_opengl_20191021/mlx_shaders.c
         lib/minilibx_opengl_20191021/mlx_xpm.c
+        src/gui/box/create_gui_box.c
+        src/gui/box/default_gui_box_methods.c
+        src/gui/box/destroy_t_gui_box.c
+        src/gui/box/get_clicked_gui_box.c
+        src/gui/box/mouse_in_box.c
+        src/gui/main_box/menu_box/init_menu_box.c
+        src/gui/main_box/menu_box/init_settings_icon.c
+        src/gui/main_box/object_creation_box/init_object_creation_box.c
+        src/gui/main_box/icon_box_draw_method.c
+        src/gui/main_box/init_main_box.c
+        src/gui/object_modification_box/init_color_picker/add_hover_color_circle.c
+        src/gui/object_modification_box/init_color_picker/color_getter_functions.c
+        src/gui/object_modification_box/init_color_picker/init_base_color_box.c
+        src/gui/object_modification_box/init_color_picker/init_color_picker_box.c
+        src/gui/object_modification_box/init_color_picker/init_rgb_picker.c
+        src/gui/object_modification_box/init_object_modification_box.c
+        src/gui/init_boxes.c
         src/hooks/button_press.c
         src/hooks/key_press.c
-        src/init/init_gui/main_gui_box/icon_box_draw_method.c
-        src/init/init_gui/main_gui_box/menu_box/init_menu_gui_box.c
-        src/init/init_gui/main_gui_box/menu_box/init_settings_icon.c
-        src/init/init_gui/main_gui_box/object_creation_box/init_object_creation_gui_box.c
-        src/init/init_gui/main_gui_box/init_main_gui_box.c
-        src/init/init_gui/object_modification_gui_box/init_color_picker/add_hover_color_circle.c
-        src/init/init_gui/object_modification_gui_box/init_color_picker/color_getter_functions.c
-        src/init/init_gui/object_modification_gui_box/init_color_picker/init_base_color_box.c
-        src/init/init_gui/object_modification_gui_box/init_color_picker/init_color_picker_box.c
-        src/init/init_gui/object_modification_gui_box/init_color_picker/init_rgb_picker.c
-        src/init/init_gui/object_modification_gui_box/init_object_modification_gui_box.c
-        src/init/init_gui/init_gui_boxes.c
-        src/init/init_gui/mouse_in_box.c
-        src/init/parsing/line_parsing/utils/add_object_to_object_list.c
-        src/init/parsing/line_parsing/utils/error.c
-        src/init/parsing/line_parsing/utils/get_color.c
-        src/init/parsing/line_parsing/utils/get_double.c
-        src/init/parsing/line_parsing/utils/get_lighting_ratio.c
-        src/init/parsing/line_parsing/utils/get_normalized_vector.c
-        src/init/parsing/line_parsing/utils/get_position.c
-        src/init/parsing/line_parsing/invalid_scene_content_line.c
-        src/init/parsing/line_parsing/parse_ambient_light.c
-        src/init/parsing/line_parsing/parse_camera.c
-        src/init/parsing/line_parsing/parse_cylinder.c
-        src/init/parsing/line_parsing/parse_light.c
-        src/init/parsing/line_parsing/parse_plane.c
-        src/init/parsing/line_parsing/parse_sphere.c
-        src/init/parsing/free_scene_content.c
-        src/init/parsing/get_scene_content.c
-        src/init/parsing/parse_scene_content.c
-        src/init/parsing/parsing.c
-        src/init/init_minirt.c
+        src/image/destroy_t_image.c
+        src/image/image.c
+        src/image/put_image_to_image.c
+        src/image/round_image_corners.c
+        src/math/matrix/matrix3.c
+        src/math/matrix/matrix3_math.c
+        src/math/matrix/matrix3_rotation.c
+        src/math/matrix/matrix4.c
+        src/math/matrix/matrix4_inverse.c
+        src/math/matrix/matrix4_math.c
+        src/math/vector/vector2.c
+        src/math/vector/vector2_math.c
+        src/math/vector/vector2_operations.c
+        src/math/vector/vector3.c
+        src/math/vector/vector3_math.c
+        src/math/vector/vector3_operations.c
+        src/math/vector/vector3_rotation.c
+        src/math/vector/vector4.c
+        src/math/vector/vector4_math.c
+        src/math/vector/vector4_operations.c
+        src/math/conversion.c
+        src/object/objects.c
+        src/object/sphere.c
+        src/parsing/line_parsing/utils/add_object_to_object_list.c
+        src/parsing/line_parsing/utils/error.c
+        src/parsing/line_parsing/utils/get_color.c
+        src/parsing/line_parsing/utils/get_double.c
+        src/parsing/line_parsing/utils/get_lighting_ratio.c
+        src/parsing/line_parsing/utils/get_normalized_vector.c
+        src/parsing/line_parsing/utils/get_position.c
+        src/parsing/line_parsing/invalid_scene_content_line.c
+        src/parsing/line_parsing/parse_ambient_light.c
+        src/parsing/line_parsing/parse_camera.c
+        src/parsing/line_parsing/parse_cylinder.c
+        src/parsing/line_parsing/parse_light.c
+        src/parsing/line_parsing/parse_plane.c
+        src/parsing/line_parsing/parse_sphere.c
+        src/parsing/free_scene_content.c
+        src/parsing/get_scene_content.c
+        src/parsing/parse_scene_content.c
+        src/parsing/parsing.c
         src/ray_tracer/camera/create.c
         src/ray_tracer/camera/movement.c
         src/ray_tracer/camera/projection.c
         src/ray_tracer/camera/ray.c
         src/ray_tracer/camera/view.c
-        src/ray_tracer/math/matrix/matrix4.c
-        src/ray_tracer/math/matrix/matrix4_inverse.c
-        src/ray_tracer/math/matrix/matrix4_math.c
-        src/ray_tracer/math/vector/vector2.c
-        src/ray_tracer/math/vector/vector2_math.c
-        src/ray_tracer/math/vector/vector2_operations.c
-        src/ray_tracer/math/vector/vector3.c
-        src/ray_tracer/math/vector/vector3_math.c
-        src/ray_tracer/math/vector/vector3_operations.c
-        src/ray_tracer/math/vector/vector3_rotation.c
-        src/ray_tracer/math/vector/vector4.c
-        src/ray_tracer/math/vector/vector4_math.c
-        src/ray_tracer/math/vector/vector4_operations.c
-        src/ray_tracer/math/conversion.c
-        src/ray_tracer/object/sphere.c
-        src/ray_tracer/scene/create.c
         src/ray_tracer/ray.c
         src/ray_tracer/render.c
+        src/render_frame/print_fps_counter.c
         src/render_frame/render_frame.c
         src/render_frame/render_user_interface.c
-        src/structs/gui_box/create_gui_box.c
-        src/structs/gui_box/default_gui_box_methods.c
-        src/structs/gui_box/destroy_t_gui_box.c
-        src/structs/gui_box/get_clicked_gui_box.c
-        src/structs/image/destroy_t_image.c
-        src/structs/image/image.c
-        src/structs/image/put_image_to_image.c
-        src/structs/image/round_image_corners.c
+        src/scene/create.c
         src/close_miniRT.c
         src/color.c
-        src/main.c lib/libft/src/time/get_current_time.c lib/libft/src/time/get_current_time.c lib/libft/include/ft_time.h lib/libft/src/time/get_number_of_fps_in_string.c src/render_frame/print_fps_counter.c src/ray_tracer/math/matrix/matrix3.c src/ray_tracer/math/matrix/matrix3_math.c src/ray_tracer/math/matrix/matrix3_rotation.c src/ray_tracer/object/objects.c include/hit.h)
+        src/init_minirt.c
+        src/main.c include/gui/init_gui.h)

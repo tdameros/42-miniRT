@@ -2,22 +2,22 @@
 
 #include "mlx.h"
 
-#include "struct/t_minirt.h"
+#include "engine.h"
 #include "struct/t_gui_box.h"
 
-static void	destroy_gui(t_minirt *minirt);
+static void	destroy_gui(t_engine *minirt);
 static void	destroy_raytracing_data(t_raytracing_data *raytracing_data);
 
-int	close_minirt(t_minirt *minirt)
+int	close_engine(t_engine *engine)
 {
-	destroy_gui(minirt);
-	destroy_raytracing_data(&minirt->raytracing_data);
-	destroy_t_image(&minirt->window, &minirt->main_image);
-	mlx_destroy_window(minirt->window.mlx, minirt->window.window);
+	destroy_gui(engine);
+	destroy_raytracing_data(&engine->raytracing_data);
+	destroy_t_image(&engine->window, &engine->main_image);
+	mlx_destroy_window(engine->window.mlx, engine->window.window);
 	exit(0); // TODO: free everything
 }
 
-static void	destroy_gui(t_minirt *minirt)
+static void	destroy_gui(t_engine *minirt)
 {
 	while (minirt->gui.gui_boxes.size--)
 		destroy_t_gui_box(&minirt->window,

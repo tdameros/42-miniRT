@@ -8,7 +8,7 @@ MiniLibX - Manipulating images
 .fi
 .B mlx_new_image
 (
-.I void *mlx_ptr, int width, int height
+.I void *mlx_ptr, int x, int y
 );
 
 .nf
@@ -40,7 +40,7 @@ MiniLibX - Manipulating images
 .fi
 .B mlx_xpm_to_image
 (
-.I void *mlx_ptr, char **xpm_data, int *width, int *height
+.I void *mlx_ptr, char **xpm_data, int *x, int *y
 );
 
 .nf
@@ -48,7 +48,7 @@ MiniLibX - Manipulating images
 .fi
 .B mlx_xpm_file_to_image
 (
-.I void *mlx_ptr, char *filename, int *width, int *height
+.I void *mlx_ptr, char *filename, int *x, int *y
 );
 
 .nf
@@ -67,9 +67,9 @@ MiniLibX - Manipulating images
 .I void *
 identifier needed to manipulate this image later. It only needs
 the size of the image to be created, using the
-.I width
+.I x
 and
-.I height
+.I y
 parameters, and the
 .I mlx_ptr
 connection identifier (see the

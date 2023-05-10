@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "camera.h"
+#include "ray_tracer/camera.h"
 
 static t_matrix4	camera_look_at(t_vector3 eye,
 						t_vector3 center,

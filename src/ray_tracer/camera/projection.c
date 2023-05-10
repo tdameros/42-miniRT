@@ -12,8 +12,8 @@
 
 #include <math.h>
 
-#include "camera.h"
-#include "conversion.h"
+#include "ray_tracer/camera.h"
+#include "math/conversion.h"
 
 static t_matrix4	camera_perspective_fov(double fov,
 						t_vector2 viewport,

@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ray.h"
-#include "vector.h"
+#include "ray_tracer/ray.h"
+#include "math/vector.h"
 
 t_ray	ray_create(t_vector3 origin, t_vector3 direction)
 {

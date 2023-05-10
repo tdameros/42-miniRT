@@ -17,15 +17,15 @@
 #include "mlx.h"
 #include "libft.h"
 
-#include "struct/t_minirt.h"
+#include "engine.h"
 #include "struct/t_gui_box.h"
 #include "render_frame.h"
-#include "render.h"
+#include "ray_tracer/render.h"
 
-static void	render_minirt(t_minirt *minirt);
-static void	render_raytracing(t_minirt *minirt);
+static void	render_minirt(t_engine *minirt);
+static void	render_raytracing(t_engine *minirt);
 
-int	render_frame(t_minirt *minirt)
+int	render_frame(t_engine *minirt)
 {
 	const struct timeval	start_time = get_current_time();
 
@@ -36,7 +36,7 @@ int	render_frame(t_minirt *minirt)
 
 #if defined __linux__
 
-static void	render_minirt(t_minirt *minirt)
+static void	render_minirt(t_engine *minirt)
 {
 	draw(minirt);
 	if (minirt->gui.is_hidden && minirt->gui.hidden_ratio == 1.0)
@@ -52,7 +52,7 @@ static void	render_minirt(t_minirt *minirt)
 }
 #elif defined __APPLE__
 
-static void	render_minirt(t_minirt *minirt)
+static void	render_minirt(t_engine *minirt)
 {
 	render_raytracing(minirt);
 	mlx_put_image_to_window(minirt->window.mlx, minirt->window.window,
@@ -63,13 +63,14 @@ static void	render_minirt(t_minirt *minirt)
 # error "Unsuported OS"
 #endif
 
-void	render_raytracing(t_minirt *minirt)
+void	render_raytracing(t_engine *minirt)
 {
 	t_image			*img_ptr = &minirt->ray_traced_image;
 	t_scene			scene;
 	t_objects		objects;
 	t_object		object;
 
+	// TODO: dont regenerate scene every frame
 	initialize_objects_array(&objects, 10);
 	object = sphere_create(vector3_create(0, 0, 0), 0.5, vector3_create(1, 0, 1));
 	add_object_in_objects(&objects, object);

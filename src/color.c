@@ -1,5 +1,5 @@
 #include "struct/t_color.h"
-#include "vector.h"
+#include "math/vector.h"
 
 inline unsigned int	rgb_to_uint(const t_color color)
 {

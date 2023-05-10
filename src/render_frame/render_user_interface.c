@@ -1,11 +1,11 @@
-#include "struct/t_minirt.h"
+#include "engine.h"
 #include "struct/t_gui_box.h"
 
 static void	update_gui_hidden_ration(t_gui *gui);
 static int	get_y_decal(const t_gui_box *gui_box, const t_gui *gui);
 static int	get_x_decal(const t_gui_box *gui_box, const t_gui *gui);
 
-void	render_user_interface(t_minirt *minirt)
+void	render_user_interface(t_engine *minirt)
 {
 	update_gui_hidden_ration(&minirt->gui);
 	if (minirt->gui.hidden_ratio == 1.0)
@@ -43,7 +43,7 @@ static void	update_gui_hidden_ration(t_gui *gui)
 
 static int	get_y_decal(const t_gui_box *gui_box, const t_gui *gui)
 {
-	return ((int)-((gui_box->size.height + gui_box->position.y)
+	return ((int)-((gui_box->size.y + gui_box->position.y)
 			* gui->hidden_ratio));
 }
 

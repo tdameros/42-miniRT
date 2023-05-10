@@ -3,12 +3,12 @@
 #include "libft.h"
 #include "mlx.h"
 
-#include "struct/t_minirt.h"
+#include "engine.h"
 #include "close_miniRT.h"
 
 static bool	should_update_fps(struct timeval last_update);
 
-void	print_fps_counter(t_minirt *minirt, const struct timeval start_time)
+void	print_fps_counter(t_engine *minirt, const struct timeval start_time)
 {
 	if (should_update_fps(minirt->gui.fps.last_update))
 	{
@@ -18,7 +18,7 @@ void	print_fps_counter(t_minirt *minirt, const struct timeval start_time)
 		{
 			ft_putstr_fd("Error: Failed to malloc minirt->gui.fps.fps_count\n",
 				STDERR_FILENO);
-			close_minirt(minirt);
+			close_engine(minirt);
 		}
 		minirt->gui.fps.last_update = get_current_time();
 	}

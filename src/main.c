@@ -13,7 +13,7 @@
 #include "mlx.h"
 #include "libft.h"
 
-#include "struct/t_minirt.h"
+#include "engine.h"
 #include "miniRT_start_up.h"
 
 #define EXPECTED_EXECUTION_COMMAND "./miniRT *.rt"
@@ -22,11 +22,11 @@ static bool	arguments_are_bad(int argc, char **argv);
 
 int	main(int argc, char **argv)
 {
-	t_minirt	minirt;
+	t_engine	minirt;
 
 	if (arguments_are_bad(argc, argv))
 		return (1);
-	if (init_minirt(&minirt, argv[1]) < 0)
+	if (init_engine(&minirt, argv[1]) < 0)
 	{
 		ft_putstr_fd("Error: Failed to init miniRT\n", STDERR_FILENO);
 		return (2);

@@ -13,13 +13,13 @@
 #ifndef RENDER_FRAME_H
 # define RENDER_FRAME_H
 
-# include "struct/t_minirt.h"
+# include "engine.h"
 
-int		render_frame(t_minirt *minirt);
+int		render_frame(t_engine *minirt);
 
-void	render_user_interface(t_minirt *minirt);
+void	render_user_interface(t_engine *minirt);
 
-void	print_fps_counter(t_minirt *minirt, struct timeval start_time);
+void	print_fps_counter(t_engine *minirt, struct timeval start_time);
 
 
 #endif //RENDER_FRAME_H

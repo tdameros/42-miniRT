@@ -212,7 +212,7 @@ int	mipng_data(mlx_img_list_t *img, unsigned char *dat, png_info_t *pi)
   inflateEnd(&z_strm);
   if (b_pos != img->width*img->height*pi->bpp+img->height)
     {
-      //      printf("pb : bpos %d vs expected %d\n", b_pos, img->width*img->height*pi->bpp+img->height);
+      //      printf("pb : bpos %d vs expected %d\n", b_pos, img->x*img->y*pi->bpp+img->y);
       return (ERR_DATA_MISMATCH);
     }
   if ((ret = mipng_fill_img(img, buffer, pi)))
@@ -340,7 +340,7 @@ int	mipng_verif_hdr(unsigned char *hdr, png_info_t *pi)
   if (pi->color == 6)
     pi->bpp *= 4;
   //  printf("hdr info : %d x %d, depth %d, col type %d, comp %d, filter %d, interlace %d\nbpp is %d\n",
-  //	 pi->width, pi->height, pi->depth, pi->color, compress, filter, pi->interlace, pi->bpp);
+  //	 pi->x, pi->y, pi->depth, pi->color, compress, filter, pi->interlace, pi->bpp);
   return (0);
 }
 

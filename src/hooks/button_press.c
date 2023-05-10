@@ -12,11 +12,11 @@
 
 #include "libft.h"
 
-#include "struct/t_minirt.h"
+#include "engine.h"
 #include "struct/t_gui_box.h"
-#include "miniRT_X11.h"
+#include "events.h"
 
-int	button_press_handler(int button, int x, int y, t_minirt *minirt)
+int	button_press_handler(int button, int x, int y, t_engine *minirt)
 {
 	t_gui_box	*clicked_gui_box;
 

@@ -15,7 +15,7 @@
 
 # include "libft.h"
 
-# include "struct/t_object.h"
+# include "object.h"
 
 typedef struct s_scene {
 	t_objects	objects;

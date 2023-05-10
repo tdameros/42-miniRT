@@ -13,6 +13,8 @@
 #ifndef COLORS_H
 # define COLORS_H
 
+# include "math/vector.h"
+
 enum
 {
 	COLOR_TRANSPARENT = 0xFF000000,
@@ -28,5 +30,11 @@ enum
 	COLOR_SNOW_WHITE = 0x00FFFAFA,
 	COLOR_RED = 0x00FF0000,
 };
+
+typedef t_vector3	t_color;
+
+unsigned int	rgb_to_uint(t_color color);
+unsigned int	vec_rgb_to_uint(t_color color);
+t_color			get_t_color_from_uint(unsigned int color);
 
 #endif

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "camera.h"
+#include "ray_tracer/camera.h"
 
 void	camera_move_forward(t_camera *camera, double distance)
 {
