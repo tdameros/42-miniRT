@@ -133,9 +133,9 @@ static void	write_color_row(t_image *image, int y)
 	{
 		put_pixel_on_image(image, y, position.x, rgb_to_uint(\
 			(t_color){\
-				.r = 255, \
-				.g = 0, \
-				.b = 0}));
+				.x = 255, \
+				.y = 0, \
+				.z = 0}));
 		position.x++;
 	}
 }
@@ -175,13 +175,13 @@ static void	put_color_segment(t_image *image, t_point_int_2d *position,
 	{
 		put_pixel_on_image(image, position->y, position->x,
 			rgb_to_uint((t_color){
-				.r = color_getter.get_red(color_getter.red,
+				.x = color_getter.get_red(color_getter.red,
 					position->x, color_separator->previous_max,
 					color_separator->color_segment_width),
-				.g = color_getter.get_green(color_getter.green,
+				.y = color_getter.get_green(color_getter.green,
 					position->x, color_separator->previous_max,
 					color_separator->color_segment_width),
-				.b = color_getter.get_blue(color_getter.blue,
+				.z = color_getter.get_blue(color_getter.blue,
 					position->x, color_separator->previous_max,
 					color_separator->color_segment_width)}));
 		position->x++;

@@ -22,8 +22,9 @@ typedef struct s_sphere {
 	t_vector3	color;
 }	t_sphere;
 
-t_sphere	sphere_create(t_vector3 origin, double radius, t_vector3 color);
-bool		hit_sphere(t_ray ray, t_sphere sphere);
-double		get_hit_scalar_sphere(t_ray ray, t_sphere sphere);
+//t_sphere	sphere_create(t_vector3 origin, double radius, t_vector3 color);
+//bool		hit_sphere(t_ray ray, t_sphere sphere);
+//double		get_hit_scalar_sphere(t_ray ray, t_sphere sphere);
+double	hit_sphere(t_ray ray, t_object sphere);
 
 #endif

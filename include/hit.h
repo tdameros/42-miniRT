@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scene.h                                            :+:      :+:    :+:   */
+/*   hit.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/07 15:40:00 by tdameros          #+#    #+#             */
-/*   Updated: 2023/05/07 15:40:00 by tdameros         ###   ########lyon.fr   */
+/*   Created: 2023/05/10 16:10:00 by tdameros          #+#    #+#             */
+/*   Updated: 2023/05/10 16:10:00 by tdameros         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCENE_H
-# define SCENE_H
+#ifndef HIT_H
+# define HIT_H
 
-# include "libft.h"
+# include <stdlib.h>
+# include <stdbool.h>
 
-# include "struct/t_object.h"
+# include "ray.h"
 
-typedef struct s_scene {
-	t_objects	objects;
-}	t_scene;
-
-t_scene	*scene_create(void);
-//int		scene_add_sphere(t_scene *scene, t_sphere *sphere);
-
+typedef struct s_hit {
+	bool		hit;
+	double		distance;
+	size_t		object_index;
+	t_vector3	position;
+	t_vector3	normal;
+}	t_hit;
 #endif

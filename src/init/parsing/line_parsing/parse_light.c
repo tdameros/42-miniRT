@@ -32,7 +32,7 @@ int	parse_light(t_minirt *minirt, char **scene_content_line,
 		return (error("Error\nFailed to get light ratio\n"));
 	if (get_color(scene_content_line[3],
 			&minirt->raytracing_data.light.color) < 0)
-		return (error("Error\nFailed to get light color\n"));
+		return (error("Error\nFailed to get light albedo\n"));
 	rt_file_requirements->light = true;
 	return (0);
 }

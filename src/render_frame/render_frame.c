@@ -23,7 +23,7 @@
 #include "render.h"
 
 static void	render_minirt(t_minirt *minirt);
-void		draw(t_minirt *minirt);
+static void	render_raytracing(t_minirt *minirt);
 
 int	render_frame(t_minirt *minirt)
 {
@@ -54,7 +54,7 @@ static void	render_minirt(t_minirt *minirt)
 
 static void	render_minirt(t_minirt *minirt)
 {
-	draw(minirt);
+	render_raytracing(minirt);
 	mlx_put_image_to_window(minirt->window.mlx, minirt->window.window,
 		minirt->ray_traced_image.data, 0, 0);
 	render_user_interface(minirt);
@@ -63,16 +63,25 @@ static void	render_minirt(t_minirt *minirt)
 # error "Unsuported OS"
 #endif
 
-void	draw(t_minirt *minirt)
+void	render_raytracing(t_minirt *minirt)
 {
-	t_image	*img_ptr = &minirt->ray_traced_image;
+	const t_image	*img_ptr = &minirt->ray_traced_image;
+	t_scene			scene;
+	t_objects		objects;
+	t_object		object;
 
+	initialize_objects_array(&objects, 10);
+	object = sphere_create(vector3_create(0, 0, 0), 0.5, vector3_create(1, 0, 1));
+	add_object_in_objects(&objects, object);
+	object = sphere_create(vector3_create(-2, 0, 0), 0.5, vector3_create(0, 1, 1));
+	add_object_in_objects(&objects, object);
+	scene.objects = objects;
 	for (int y = 0; y < img_ptr->height; y++)
 	{
 		for (int x = 0; x < img_ptr->width; x++)
 		{
 			t_ray ray = minirt->camera.rays[x + y * (int) minirt->camera.viewport.x];
-			t_vector3 pixel_color = render_pixel(ray.origin, ray.direction);
+			t_vector3 pixel_color = render_pixel(ray, &scene);
 			pixel_color = vector3_clamp(pixel_color, 0, 1);
 			pixel_color = vector3_multiply(pixel_color, 255);
 			put_pixel_on_image(img_ptr, img_ptr->height - y - 1, x, vec_rgb_to_uint(pixel_color));

@@ -31,11 +31,11 @@ int	parse_cylinder(t_minirt *minirt, char **scene_content_line,
 		return (error("Error\nFailed to get cylinder position\n"));
 	if (get_normalized_vector(scene_content_line[2], &cylinder.normal) < 0)
 		return (error("Error\nFailed to get cylinder orientation\n"));
-	if (get_double(scene_content_line[3], &cylinder.diameter) < 0)
-		return (error("Error\nFailed to get cylinder diameter\n"));
+	if (get_double(scene_content_line[3], &cylinder.radius) < 0)
+		return (error("Error\nFailed to get cylinder radius\n"));
 	if (get_double(scene_content_line[4], &cylinder.height) < 0)
 		return (error("Error\nFailed to get cylinder height\n"));
-	if (get_color(scene_content_line[5], &cylinder.color) < 0)
-		return (error("Error\nFailed to get cylinder color\n"));
+	if (get_color(scene_content_line[5], &cylinder.albedo) < 0)
+		return (error("Error\nFailed to get cylinder albedo\n"));
 	return (add_object_to_object_list(object_list, cylinder));
 }

@@ -10,41 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdbool.h>
-#include <stdlib.h>
 #include <math.h>
 
-#include "object.h"
+#include "struct/t_object.h"
 #include "ray.h"
 
-t_sphere	sphere_create(t_vector3 origin, double radius, t_vector3 color)
+t_object	sphere_create(t_vector3 origin, double radius, t_vector3 albedo)
 {
-	t_sphere	sphere;
+	t_object	sphere;
 
-	sphere.origin = origin;
+	sphere.position = origin;
 	sphere.radius = radius;
-	sphere.color = color;
+	sphere.albedo = albedo;
 	return (sphere);
 }
 
-bool	hit_sphere(t_ray ray, t_sphere sphere)
+double	hit_sphere(t_ray ray, t_object sphere)
 {
-	const t_vector3	origin = vector3_subtract(ray.origin, sphere.origin);
+	const t_vector3	origin = vector3_subtract(ray.origin, sphere.position);
 	const double	a = vector3_dot(ray.direction, ray.direction);
 	const double	b = 2 * vector3_dot(origin, ray.direction);
 	const double	c = vector3_dot(origin, origin)
 		- sphere.radius * sphere.radius;
+	const double	discriminant = b * b - 4 * a * c;
 
-	return (b * b - 4 * a * c > 0);
-}
-
-double	get_hit_scalar_sphere(t_ray ray, t_sphere sphere)
-{
-	const t_vector3	origin = vector3_subtract(ray.origin, sphere.origin);
-	const double	a = vector3_dot(ray.direction, ray.direction);
-	const double	b = 2 * vector3_dot(origin, ray.direction);
-	const double	c = vector3_dot(origin, origin)
-		- sphere.radius * sphere.radius;
-
-	return ((-b - sqrt(b * b - 4 * a * c)) / (2 * a));
+	if (discriminant < 0)
+		return (-1);
+	return ((-b - sqrt(discriminant)) / (a * 2));
 }

@@ -68,7 +68,7 @@ static void	print_scene_content(t_raytracing_data *raytracing_data)
 	printf("Ambient lightning\n");
 	printf("\tAmbient lightning ratio == %f\n",
 		raytracing_data->ambient_light.lighting_ratio);
-	printf("\tAmbient lightning color\n");
+	printf("\tAmbient lightning albedo\n");
 	print_color(&raytracing_data->ambient_light.color);
 	printf("Camera\n");
 	printf("\tCamera position\n");
@@ -80,7 +80,7 @@ static void	print_scene_content(t_raytracing_data *raytracing_data)
 	printf("\tLight position\n");
 	print_vector(&raytracing_data->light.position);
 	printf("\tLight brightness == %f\n", raytracing_data->light.brightness);
-	printf("\tLight color\n");
+	printf("\tLight albedo\n");
 	print_color(&raytracing_data->light.color);
 	for (size_t i = 0; i < raytracing_data->objects.length; i++)
 		print_object(&raytracing_data->objects.data[i]);
@@ -88,9 +88,9 @@ static void	print_scene_content(t_raytracing_data *raytracing_data)
 
 static void print_color(t_color *color)
 {
-	printf("\t\t\tr == %d\n", color->r);
-	printf("\t\t\tg == %d\n", color->g);
-	printf("\t\t\tb == %d\n", color->b);
+	printf("\t\t\tr == %f\n", color->x);
+	printf("\t\t\tg == %f\n", color->y);
+	printf("\t\t\tb == %f\n", color->z);
 }
 
 static void	print_vector(t_vector3 *vector)
@@ -111,9 +111,9 @@ static void	print_object(t_object *object)
 	printf("\tPosition\n");
 	print_vector(&object->position);
 	printf("\tColor\n");
-	print_color(&object->color);
+	print_color(&object->albedo);
 	if (object->type == SPHERE || object->type == CYLINDER)
-		printf("\tDiameter == %f\n", object->diameter);
+		printf("\tDiameter == %f\n", object->radius);
 	if (object->type == CYLINDER)
 		printf("\tHeight == %f\n", object->height);
 	if (object->type == PLANE || object->type == CYLINDER)

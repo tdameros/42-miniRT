@@ -29,7 +29,7 @@ int	parse_ambient_light(t_minirt *minirt, char **scene_content_line,
 		return (error("Error\nFailed to get ambient light ratio\n"));
 	if (get_color(scene_content_line[2],
 			&minirt->raytracing_data.ambient_light.color) < 0)
-		return (error("Error\nFailed to get ambient light color\n"));
+		return (error("Error\nFailed to get ambient light albedo\n"));
 	rt_file_requirements->ambient_light = true;
 	return (0);
 }

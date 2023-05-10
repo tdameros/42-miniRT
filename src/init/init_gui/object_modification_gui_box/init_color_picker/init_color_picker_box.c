@@ -109,9 +109,9 @@ static unsigned int	get_darker_color(double x, double limit,
 						t_color base_color)
 {
 	const t_color	color = {
-		.r = (int)round((double)base_color.r * x / limit),
-		.g = (int)round((double)base_color.g * x / limit),
-		.b = (int)round((double)base_color.b * x / limit),
+		.x = (int)round((double)base_color.x * x / limit),
+		.y = (int)round((double)base_color.y * x / limit),
+		.z = (int)round((double)base_color.z * x / limit),
 	};
 
 	return (rgb_to_uint(color));
@@ -121,12 +121,12 @@ static unsigned int	get_lighter_color(double x, double limit, double start,
 						t_color base_color)
 {
 	const t_color	color = {
-		.r = (int)round((double)base_color.r
-			+ (255.0 - (double)base_color.r) * (x - start) / (limit - start)),
-		.g = (int)round((double)base_color.g
-			+ (255.0 - (double)base_color.g) * (x - start) / (limit - start)),
-		.b = (int)round((double)base_color.b
-			+ (255.0 - (double)base_color.b) * (x - start) / (limit - start)),
+		.x = (int)round((double)base_color.x
+			+ (255.0 - (double)base_color.x) * (x - start) / (limit - start)),
+		.y = (int)round((double)base_color.y
+			+ (255.0 - (double)base_color.y) * (x - start) / (limit - start)),
+		.z = (int)round((double)base_color.z
+			+ (255.0 - (double)base_color.z) * (x - start) / (limit - start)),
 	};
 
 	return (rgb_to_uint(color));

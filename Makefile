@@ -78,6 +78,7 @@ SRC				=\
 				   \
 	ray_tracer/math/conversion.c	\
 			  \
+	ray_tracer/object/objects.c \
 	ray_tracer/object/sphere.c	\
 			  \
 	ray_tracer/scene/create.c	\
@@ -116,7 +117,7 @@ DEBUG_CLFAGS	=	-g3 -fsanitize=address
 OPTI_CFLAGS		=	-O3 -march=native #-ffast-math
 #CFLAGS			=	$(BASE_CFLAGS) $(OPTI_CFLAGS)
 #CFLAGS			=	$(BASE_CFLAGS) $(DEBUG_CLFAGS)
-CFLAGS			=	$(BASE_CFLAGS) $(OPTI_CFLAGS)
+CFLAGS			=	$(BASE_CFLAGS) $(OPTI_CFLAGS) #$(DEBUG_CLFAGS)
 RM				=	rm -rf
 AR				=	ar rcs
 

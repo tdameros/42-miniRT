@@ -29,9 +29,9 @@ int	parse_sphere(t_minirt *minirt, char **scene_content_line,
 		return (error("Error\nFailed to get sphere line\n"));
 	if (get_position(scene_content_line[1], &sphere.position) < 0)
 		return (error("Error\nFailed to get sphere position\n"));
-	if (get_double(scene_content_line[2], &sphere.diameter) < 0)
+	if (get_double(scene_content_line[2], &sphere.radius) < 0)
 		return (error("Error\nFailed to get sphere radius\n"));
-	if (get_color(scene_content_line[3], &sphere.color) < 0)
-		return (error("Error\nFailed to get sphere color\n"));
+	if (get_color(scene_content_line[3], &sphere.albedo) < 0)
+		return (error("Error\nFailed to get sphere albedo\n"));
 	return (add_object_to_object_list(object_list, sphere));
 }
