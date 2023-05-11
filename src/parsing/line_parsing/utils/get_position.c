@@ -28,7 +28,7 @@
 
 #include "engine.h"
 
-int	get_position(char *position_string, t_vector3 *position_destination)
+int	get_position(char *position_string, t_vector3f *position_destination)
 {
 	char	**position_split;
 

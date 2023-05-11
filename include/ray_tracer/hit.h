@@ -22,7 +22,7 @@ typedef struct s_hit {
 	bool		hit;
 	float		distance;
 	size_t		object_index;
-	t_vector3	position;
-	t_vector3	normal;
+	t_vector3f	position;
+	t_vector3f	normal;
 }	t_hit;
 #endif

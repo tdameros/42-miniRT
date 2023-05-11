@@ -16,9 +16,9 @@
 #include "math/conversion.h"
 
 static t_matrix4	camera_perspective_fov(float fov,
-						t_vector2 viewport,
-						float near_clip,
-						float far_clip);
+										   t_vector2f viewport,
+										   float near_clip,
+										   float far_clip);
 
 void	camera_recalculate_projection(t_camera *camera)
 {
@@ -30,8 +30,8 @@ void	camera_recalculate_projection(t_camera *camera)
 	camera->inverse_projection = matrix4_inverse(camera->projection);
 }
 
-static t_matrix4	camera_perspective_fov(float fov, t_vector2 viewport,
-										float near_clip, float far_clip)
+static t_matrix4	camera_perspective_fov(float fov, t_vector2f viewport,
+										   float near_clip, float far_clip)
 {
 	t_matrix4		result;
 	const float	rad = fov;

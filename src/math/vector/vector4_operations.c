@@ -14,7 +14,7 @@
 
 #include "math/vector.h"
 
-float	vector4_length_squared(t_vector4 vector)
+float	vector4f_length_squared(t_vector4f vector)
 {
 	return (vector.x * vector.x
 		+ vector.y * vector.y
@@ -22,17 +22,17 @@ float	vector4_length_squared(t_vector4 vector)
 		+ vector.w * vector.w);
 }
 
-float	vector4_length(t_vector4 vector)
+float	vector4f_length(t_vector4f vector)
 {
-	return (sqrt(vector4_length_squared(vector)));
+	return (sqrtf(vector4f_length_squared(vector)));
 }
 
-t_vector4	vector4_unit(t_vector4 vector)
+t_vector4f	vector4f_unit(t_vector4f vector)
 {
-	return (vector4_divide(vector, vector4_length(vector)));
+	return (vector4f_divide(vector, vector4f_length(vector)));
 }
 
-float	vector4_dot(t_vector4 v1, t_vector4 v4)
+float	vector4f_dot(t_vector4f v1, t_vector4f v2)
 {
-	return (v1.x * v4.x + v1.y * v4.y + v1.z * v4.z + v1.w * v4.w);
+	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z + v1.w * v2.w);
 }

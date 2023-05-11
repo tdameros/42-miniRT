@@ -14,31 +14,31 @@
 
 #include "math/vector.h"
 
-float	vector3_length_squared(t_vector3 vector)
+float	vector3f_length_squared(t_vector3f vector)
 {
 	return (vector.x * vector.x + vector.y * vector.y + vector.z * vector.z);
 }
 
-float	vector3_length(t_vector3 vector)
+float	vector3f_length(t_vector3f vector)
 {
-	return (sqrt(vector3_length_squared(vector)));
+	return (sqrtf(vector3f_length_squared(vector)));
 }
 
-t_vector3	vector3_unit(t_vector3 vector)
+t_vector3f	vector3f_unit(t_vector3f vector)
 {
-	return (vector3_divide(vector, vector3_length(vector)));
+	return (vector3f_divide(vector, vector3f_length(vector)));
 }
 
-float	vector3_dot(t_vector3 v1, t_vector3 v2)
+float	vector3f_dot(t_vector3f v1, t_vector3f v2)
 {
 	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
 }
 
-t_vector3	vector3_cross(t_vector3 v1, t_vector3 v2)
+t_vector3f	vector3f_cross(t_vector3f v1, t_vector3f v2)
 {
-	t_vector3	result;
+	t_vector3f	result;
 
-	result = vector3_create(0, 0, 0);
+	result = vector3f_create(0, 0, 0);
 	result.x = v1.y * v2.z - v1.z * v2.y;
 	result.y = v1.z * v2.x - v1.x * v2.z;
 	result.z = v1.x * v2.y - v1.y * v2.x;

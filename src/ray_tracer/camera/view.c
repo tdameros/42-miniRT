@@ -12,30 +12,31 @@
 
 #include "ray_tracer/camera.h"
 
-static t_matrix4	camera_look_at(t_vector3 eye,
-						t_vector3 center,
-						t_vector3 up);
+static t_matrix4	camera_look_at(t_vector3f eye,
+								   t_vector3f center,
+								   t_vector3f up);
 
 void	camera_recalculate_view(t_camera *camera)
 {
 	camera->view = camera_look_at(camera->position,
-			vector3_add(camera->position, camera->direction),
-			vector3_create(0, 1, 0));
+								  vector3f_add(camera->position,
+											   camera->direction),
+								  vector3f_create(0, 1, 0));
 	camera->inverse_view = matrix4_inverse(camera->view);
 }
 
-static t_matrix4	camera_look_at(t_vector3 eye,
-									t_vector3 center,
-									t_vector3 up)
+static t_matrix4	camera_look_at(t_vector3f eye,
+								   t_vector3f center,
+								   t_vector3f up)
 {
-	t_vector3	f;
-	t_vector3	s;
-	t_vector3	u;
+	t_vector3f	f;
+	t_vector3f	s;
+	t_vector3f	u;
 	t_matrix4	result;
 
-	f = vector3_unit(vector3_subtract(center, eye));
-	s = vector3_unit(vector3_cross(f, up));
-	u = vector3_cross(s, f);
+	f = vector3f_unit(vector3f_subtract(center, eye));
+	s = vector3f_unit(vector3f_cross(f, up));
+	u = vector3f_cross(s, f);
 	result = matrix4_create(0);
 	result.matrix[0][0] = s.x;
 	result.matrix[1][0] = s.y;
@@ -46,8 +47,8 @@ static t_matrix4	camera_look_at(t_vector3 eye,
 	result.matrix[0][2] = -f.x;
 	result.matrix[1][2] = -f.y;
 	result.matrix[2][2] = -f.z;
-	result.matrix[3][0] = -vector3_dot(s, eye);
-	result.matrix[3][1] = -vector3_dot(u, eye);
-	result.matrix[3][2] = vector3_dot(f, eye);
+	result.matrix[3][0] = -vector3f_dot(s, eye);
+	result.matrix[3][1] = -vector3f_dot(u, eye);
+	result.matrix[3][2] = vector3f_dot(f, eye);
 	return (result);
 }

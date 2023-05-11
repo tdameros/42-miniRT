@@ -50,11 +50,11 @@ static float	multiply_row_column(t_matrix4 m1, t_matrix4 m2, int y, int x)
 	return (result);
 }
 
-t_vector4	matrix4_multiply_vector4(t_matrix4 matrix, t_vector4 vector)
+t_vector4f	matrix4_multiply_vector4(t_matrix4 matrix, t_vector4f vector)
 {
-	t_vector4	result;
+	t_vector4f	result;
 
-	result = vector4_create(0, 0, 0, 0);
+	result = vector4f_create(0, 0, 0, 0);
 	result.x = matrix.matrix[0][0] * vector.x
 		+ matrix.matrix[1][0] * vector.y
 		+ matrix.matrix[2][0] * vector.z

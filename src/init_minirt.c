@@ -43,7 +43,7 @@ int	init_engine(t_engine *minirt, const char *start_up_scene)
 		return (-1);
 	}
 	// TODO: secure me
-	camera_create(&minirt->camera, vector2_create(WINDOW_WIDTH, WINDOW_HEIGHT));
+	camera_create(&minirt->camera, vector2f_create(WINDOW_WIDTH, WINDOW_HEIGHT));
 	return (0);
 }
 
@@ -61,7 +61,7 @@ static void	init_hooks(t_engine *minirt)
 }
 
 static void print_color(t_color *color);
-static void	print_vector(t_vector3 *vector);
+static void	print_vector(t_vector3f *vector);
 static void	print_object(t_object *object);
 #include <stdio.h>
 static void	print_scene_content(t_raytracing_data *raytracing_data)
@@ -94,7 +94,7 @@ static void print_color(t_color *color)
 	printf("\t\t\tb == %f\n", color->z);
 }
 
-static void	print_vector(t_vector3 *vector)
+static void	print_vector(t_vector3f *vector)
 {
 	printf("\t\t\tx == %f\n", vector->x);
 	printf("\t\t\ty == %f\n", vector->y);

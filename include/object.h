@@ -29,11 +29,11 @@ enum e_object_type
 typedef struct s_object
 {
 	enum e_object_type	type;
-	t_vector3			position;
+	t_vector3f			position;
 	t_color				albedo;
 	float				radius;
 	float				height;
-	t_vector3			normal;
+	t_vector3f			normal;
 }	t_object;
 
 typedef struct s_objects
@@ -44,12 +44,12 @@ typedef struct s_objects
 }	t_objects;
 
 typedef struct s_sphere {
-	t_vector3	origin;
+	t_vector3f	origin;
 	float		radius;
-	t_vector3	color;
+	t_vector3f	color;
 }	t_sphere;
 
-//t_sphere	sphere_create(t_vector3 origin, float radius, t_vector3 color);
+//t_sphere	sphere_create(t_vector3f origin, float radius, t_vector3f color);
 //bool		hit_sphere(t_ray ray, t_sphere sphere);
 //float		get_hit_scalar_sphere(t_ray ray, t_sphere sphere);
 float	hit_sphere(t_ray ray, t_object sphere);
@@ -59,7 +59,7 @@ int	add_object_in_objects(t_objects *objects, t_object object);
 int	remove_object_in_objects(t_objects *objects, size_t index);
 int	free_objects(t_objects *objects);
 
-t_object	sphere_create(t_vector3 origin, float radius, t_vector3 albedo);
+t_object	sphere_create(t_vector3f origin, float radius, t_vector3f albedo);
 
 void	print_object2(t_object object);
 #endif //OBJECT_H

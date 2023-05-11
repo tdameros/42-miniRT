@@ -19,15 +19,15 @@
 
 typedef struct s_camera {
 
-	t_vector3	position;
-	t_vector3	direction;
+	t_vector3f	position;
+	t_vector3f	direction;
 
 	t_matrix4	view;
 	t_matrix4	inverse_view;
 	t_matrix4	projection;
 	t_matrix4	inverse_projection;
 
-	t_vector2	viewport;
+	t_vector2f	viewport;
 	float		vertical_fov;
 	float		near_clip;
 	float		far_clip;
@@ -36,7 +36,7 @@ typedef struct s_camera {
 }	t_camera;
 
 //	create.c
-int			camera_create(t_camera *camera, t_vector2 viewport);
+int			camera_create(t_camera *camera, t_vector2f viewport);
 
 //	movement.c
 void		camera_move_forward(t_camera *camera, float distance);

@@ -17,6 +17,6 @@
 # include "scene.h"
 
 t_color	render_pixel(t_ray ray, t_scene *scene);
-//t_vector3	render_pixel(t_vector3 ray_origin, t_vector3 ray_direction);
+//t_vector3f	render_pixel(t_vector3f ray_origin, t_vector3f ray_direction);
 
 #endif

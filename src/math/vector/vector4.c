@@ -14,9 +14,9 @@
 
 #include "math/vector.h"
 
-t_vector4	vector4_create(float x, float y, float z, float w)
+t_vector4f	vector4f_create(float x, float y, float z, float w)
 {
-	t_vector4	vector;
+	t_vector4f	vector;
 
 	vector.x = x;
 	vector.y = y;
@@ -25,7 +25,7 @@ t_vector4	vector4_create(float x, float y, float z, float w)
 	return (vector);
 }
 
-void	vector4_print(t_vector4 vector)
+void	vector4f_print(t_vector4f vector)
 {
 	printf("Vector4 => x:%f y:%f z:%f w:%f\n",
 		vector.x,

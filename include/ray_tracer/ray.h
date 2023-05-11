@@ -29,12 +29,12 @@
 
 typedef struct s_ray
 {
-	t_vector3	origin;
-	t_vector3	direction;
+	t_vector3f	origin;
+	t_vector3f	direction;
 }	t_ray;
 
 //	ray.c
-t_ray		ray_create(t_vector3 origin, t_vector3 direction);
+t_ray		ray_create(t_vector3f origin, t_vector3f direction);
 //t_point_3d	ray_at(t_ray ray, float t);
 //
 //t_color		ray_color(t_ray r);

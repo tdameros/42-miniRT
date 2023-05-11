@@ -12,16 +12,16 @@
 
 #include "math/vector.h"
 
-t_vector4	vector4_add(t_vector4 v1, t_vector4 v4)
+t_vector4f	vector4f_add(t_vector4f v1, t_vector4f v2)
 {
-	v1.x += v4.x;
-	v1.y += v4.y;
-	v1.z += v4.z;
-	v1.w += v4.w;
+	v1.x += v2.x;
+	v1.y += v2.y;
+	v1.z += v2.z;
+	v1.w += v2.w;
 	return (v1);
 }
 
-t_vector4	vector4_subtract(t_vector4 v1, t_vector4 v4)
+t_vector4f	vector4f_subtract(t_vector4f v1, t_vector4f v4)
 {
 	v1.x -= v4.x;
 	v1.y -= v4.y;
@@ -30,7 +30,7 @@ t_vector4	vector4_subtract(t_vector4 v1, t_vector4 v4)
 	return (v1);
 }
 
-t_vector4	vector4_multiply(t_vector4 v1, float value)
+t_vector4f	vector4f_multiply(t_vector4f v1, float value)
 {
 	v1.x *= value;
 	v1.y *= value;
@@ -39,7 +39,7 @@ t_vector4	vector4_multiply(t_vector4 v1, float value)
 	return (v1);
 }
 
-t_vector4	vector4_divide(t_vector4 v1, float value)
+t_vector4f	vector4f_divide(t_vector4f v1, float value)
 {
 	v1.x /= value;
 	v1.y /= value;

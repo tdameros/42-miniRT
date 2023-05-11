@@ -14,10 +14,10 @@
 
 #include "ray_tracer/camera.h"
 
-int	camera_create(t_camera *camera, t_vector2 viewport)
+int	camera_create(t_camera *camera, t_vector2f viewport)
 {
-	camera->position = vector3_create(0, 0, 3);
-	camera->direction = vector3_create(0, 0, -1);
+	camera->position = vector3f_create(0, 0, 3);
+	camera->direction = vector3f_create(0, 0, -1);
 	camera->view = matrix4_create(1);
 	camera->inverse_view = matrix4_create(1);
 	camera->projection = matrix4_create(1);

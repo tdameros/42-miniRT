@@ -12,28 +12,28 @@
 
 #include "math/vector.h"
 
-t_vector2	vector2_add(t_vector2 v1, t_vector2 v2)
+t_vector2f	vector2f_add(t_vector2f v1, t_vector2f v2)
 {
 	v1.x += v2.x;
 	v1.y += v2.y;
 	return (v1);
 }
 
-t_vector2	vector2_subtract(t_vector2 v1, t_vector2 v2)
+t_vector2f	vector2f_subtract(t_vector2f v1, t_vector2f v2)
 {
 	v1.x -= v2.x;
 	v1.y -= v2.y;
 	return (v1);
 }
 
-t_vector2	vector2_multiply(t_vector2 v1, float value)
+t_vector2f	vector2f_multiply(t_vector2f v1, float value)
 {
 	v1.x *= value;
 	v1.y *= value;
 	return (v1);
 }
 
-t_vector2	vector2_divide(t_vector2 v1, float value)
+t_vector2f	vector2f_divide(t_vector2f v1, float value)
 {
 	v1.x /= value;
 	v1.y /= value;

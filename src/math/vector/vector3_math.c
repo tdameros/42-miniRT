@@ -12,7 +12,7 @@
 
 #include "math/vector.h"
 
-t_vector3	vector3_add(t_vector3 v1, t_vector3 v2)
+t_vector3f	vector3f_add(t_vector3f v1, t_vector3f v2)
 {
 	v1.x += v2.x;
 	v1.y += v2.y;
@@ -20,7 +20,7 @@ t_vector3	vector3_add(t_vector3 v1, t_vector3 v2)
 	return (v1);
 }
 
-t_vector3	vector3_subtract(t_vector3 v1, t_vector3 v2)
+t_vector3f	vector3f_subtract(t_vector3f v1, t_vector3f v2)
 {
 	v1.x -= v2.x;
 	v1.y -= v2.y;
@@ -28,7 +28,7 @@ t_vector3	vector3_subtract(t_vector3 v1, t_vector3 v2)
 	return (v1);
 }
 
-t_vector3	vector3_multiply(t_vector3 v1, float value)
+t_vector3f	vector3f_multiply(t_vector3f v1, float value)
 {
 	v1.x *= value;
 	v1.y *= value;
@@ -36,7 +36,7 @@ t_vector3	vector3_multiply(t_vector3 v1, float value)
 	return (v1);
 }
 
-t_vector3	vector3_divide(t_vector3 v1, float value)
+t_vector3f	vector3f_divide(t_vector3f v1, float value)
 {
 	v1.x /= value;
 	v1.y /= value;

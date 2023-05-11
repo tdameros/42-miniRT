@@ -12,11 +12,11 @@
 
 #include "math/matrix.h"
 
-t_vector3	matrix3_dot_vector3(t_matrix3 matrix, t_vector3 vector)
+t_vector3f	matrix3_dot_vector3(t_matrix3 matrix, t_vector3f vector)
 {
-	t_vector3	result;
+	t_vector3f	result;
 
-	result = vector3_create(0, 0, 0);
+	result = vector3f_create(0, 0, 0);
 	result.x = matrix.matrix[0][0] * vector.x
 		+ matrix.matrix[0][1] * vector.y
 		+ matrix.matrix[0][2] * vector.z;

@@ -15,7 +15,7 @@
 #include "math/matrix.h"
 #include "math/conversion.h"
 
-t_matrix3	matrix3_rodrigues_rotation(t_vector3 axe, float degrees)
+t_matrix3	matrix3_rodrigues_rotation(t_vector3f axe, float degrees)
 {
 	const float	radians = convert_degrees_to_radians(degrees);
 	const float	cos_result = cosf(radians);

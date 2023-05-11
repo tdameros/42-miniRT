@@ -31,7 +31,7 @@ enum
 	COLOR_RED = 0x00FF0000,
 };
 
-typedef t_vector3	t_color;
+typedef t_vector3f	t_color;
 
 unsigned int	rgb_to_uint(t_color color);
 unsigned int	vec_rgb_to_uint(t_color color);

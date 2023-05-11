@@ -30,8 +30,8 @@ int		get_float(char *float_string, float *float_destination);
 int		get_lighting_ratio(char *lighting_ratio_string,
 							  float *lighting_ratio_destination);
 int		get_normalized_vector(char *vector_string,
-								 t_vector3 *vector_destination);
-int		get_position(char *position_string, t_vector3 *position_destination);
+								 t_vector3f *vector_destination);
+int		get_position(char *position_string, t_vector3f *position_destination);
 
 void	invalid_scene_content_line(char **scene_content_line);
 int		parse_ambient_light(t_engine *minirt, char **scene_content_line,
