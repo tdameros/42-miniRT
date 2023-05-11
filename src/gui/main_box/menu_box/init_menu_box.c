@@ -2,30 +2,30 @@
 #include <stdlib.h>
 #include <math.h>
 
+#include "gui/box.h"
+#include "gui/main_gui_box.h"
 #include "engine.h"
-#include "struct/t_gui_box.h"
-#include "init.h"
 #include "colors.h"
 
 static int	init_menu_gui_box_children(t_engine *minirt, t_gui_box *gui_box);
 static int	init_camera_icon_box(t_engine *minirt, t_gui_box *gui_box,
-								   t_gui_box *parent);
+				t_gui_box *parent);
 static int	init_saving_icon_box(t_engine *minirt, t_gui_box *gui_box,
-								   t_gui_box *parent);
+				t_gui_box *parent);
 static int	init_menu_settings_icon_box(t_engine *minirt, t_gui_box *gui_box,
-										  t_gui_box *parent);
+				t_gui_box *parent);
 
 int	init_menu_gui_box(t_engine *minirt, t_gui_box *gui_box,
-						 t_gui_box *parent)
+		t_gui_box *parent)
 {
-	*gui_box = create_t_gui_box(minirt, NULL,
+	*gui_box = create_t_gui_box(minirt, NULL, \
 		(t_vector2i){
 			.x = parent->size.x - parent->size.x / 4, \
-			.y = 8},
-		(t_size_int_2d){
-			.width = parent->size.x / 4 - 8, \
-			.height = parent->size.y - 16
-		}
+			.y = 8}, \
+		(t_vector2i){
+			.x = parent->size.x / 4 - 8, \
+			.y = parent->size.y - 16
+		} \
 	);
 	if (errno == EINVAL)
 		return (-1);
@@ -57,7 +57,7 @@ static int	init_menu_gui_box_children(t_engine *minirt, t_gui_box *gui_box)
 }
 
 static int	init_camera_icon_box(t_engine *minirt, t_gui_box *gui_box,
-								   t_gui_box *parent)
+				t_gui_box *parent)
 {
 	const int	box_width = round(((double)parent->size.x - ICON_BOX_SEPARATOR * 4)
 								   / 3.0);
@@ -67,9 +67,9 @@ static int	init_camera_icon_box(t_engine *minirt, t_gui_box *gui_box,
 			.x = ICON_BOX_SEPARATOR, \
 			.y = ICON_BOX_SEPARATOR
 		}, \
-		(t_size_int_2d){
-			.width = box_width, \
-			.height = parent->size.y - ICON_BOX_SEPARATOR * 2
+		(t_vector2i){
+			.x = box_width, \
+			.y = parent->size.y - ICON_BOX_SEPARATOR * 2
 		} \
 	);
 	if (errno == EINVAL)
@@ -97,9 +97,9 @@ static int	init_saving_icon_box(t_engine *minirt, t_gui_box *gui_box,
 			.x = ICON_BOX_SEPARATOR * 2 + box_width, \
 			.y = ICON_BOX_SEPARATOR
 		}, \
-		(t_size_int_2d){
-			.width = box_width, \
-			.height = parent->size.y - ICON_BOX_SEPARATOR * 2
+		(t_vector2i){
+			.x = box_width, \
+			.y = parent->size.y - ICON_BOX_SEPARATOR * 2
 		} \
 	);
 	if (errno == EINVAL)
@@ -127,9 +127,9 @@ static int	init_menu_settings_icon_box(t_engine *minirt, t_gui_box *gui_box,
 			.x = ICON_BOX_SEPARATOR * 3 + box_width * 2, \
 			.y = ICON_BOX_SEPARATOR
 		}, \
-		(t_size_int_2d){
-			.width = box_width, \
-			.height = parent->size.y - ICON_BOX_SEPARATOR * 2
+		(t_vector2i){
+			.x = box_width, \
+			.y = parent->size.y - ICON_BOX_SEPARATOR * 2
 		} \
 	);
 	if (errno == EINVAL)

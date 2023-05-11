@@ -16,19 +16,19 @@ struct s_limit
 };
 
 static bool	can_gui_box_be_placed(t_gui_boxes main_gui_boxes,
-									 const t_gui_box *parent, t_vector2i position,
-									 t_size_int_2d size);
-static bool	is_gui_box_too_big_to_fit_in_parent(t_size_int_2d parent_size,
-												   t_vector2i position, t_size_int_2d size);
+				const t_gui_box *parent, t_vector2i position,
+				t_vector2i size);
+static bool	is_gui_box_too_big_to_fit_in_parent(t_vector2i parent_size,
+				t_vector2i position, t_vector2i size);
 static bool	does_gui_box_overlap_with_another_on_the_same_level(
-		t_gui_boxes same_level_gui_boxes,
-		t_vector2i position, t_size_int_2d size);
+				t_gui_boxes same_level_gui_boxes,
+				t_vector2i position, t_vector2i size);
 static bool	do_gui_boxes_overlap(struct s_limit new_gui_box_limit,
 				const t_gui_box *gui_box_to_compare);
 
 t_gui_box	create_t_gui_box(t_engine *minirt,
-							  t_gui_box *parent, const t_vector2i position,
-							  const t_size_int_2d size)
+				t_gui_box *parent, const t_vector2i position,
+				const t_vector2i size)
 {
 	t_gui_box	gui_box;
 
@@ -48,11 +48,11 @@ t_gui_box	create_t_gui_box(t_engine *minirt,
 }
 
 static bool	can_gui_box_be_placed(t_gui_boxes main_gui_boxes,
-									 const t_gui_box *parent, t_vector2i position,
-									 t_size_int_2d size)
+				const t_gui_box *parent, t_vector2i position,
+				t_vector2i size)
 {
 	t_gui_boxes	same_level_gui_boxes;
-	t_size_int_2d	parent_size;
+	t_vector2i parent_size;
 
 	if (parent != NULL)
 	{
@@ -62,18 +62,18 @@ static bool	can_gui_box_be_placed(t_gui_boxes main_gui_boxes,
 	else
 	{
 		same_level_gui_boxes = main_gui_boxes;
-		parent_size = (t_size_int_2d){.width = WINDOW_WIDTH,
-				.height = WINDOW_HEIGHT};
+		parent_size = (t_vector2i){.x = WINDOW_WIDTH,
+			.y = WINDOW_HEIGHT};
 	}
-	return (!
-		(is_gui_box_too_big_to_fit_in_parent(parent_size, position, size)
-		 || does_gui_box_overlap_with_another_on_the_same_level(
+	return (
+		!(is_gui_box_too_big_to_fit_in_parent(parent_size, position, size)
+			|| does_gui_box_overlap_with_another_on_the_same_level(
 				same_level_gui_boxes, position, size)));
 }
 
 static bool	is_gui_box_too_big_to_fit_in_parent(
-		t_size_int_2d parent_size, t_vector2i position,
-		t_size_int_2d size)
+		t_vector2i parent_size, t_vector2i position,
+		t_vector2i size)
 {
 	return (position.y + size.y > parent_size.y
 		|| position.x + size.x > parent_size.x);
@@ -81,7 +81,7 @@ static bool	is_gui_box_too_big_to_fit_in_parent(
 
 static bool	does_gui_box_overlap_with_another_on_the_same_level(
 		t_gui_boxes same_level_gui_boxes,
-		t_vector2i position, t_size_int_2d size)
+		t_vector2i position, t_vector2i size)
 {
 	size_t					i;
 	const struct s_limit	new_gui_box_limit = {

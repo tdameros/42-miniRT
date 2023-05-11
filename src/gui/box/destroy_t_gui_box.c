@@ -3,7 +3,7 @@
 #include "mlx.h"
 
 #include "window.h"
-#include "struct/t_gui_box.h"
+#include "gui/box.h"
 
 void	destroy_t_gui_box(t_window *window, t_gui_box *gui_box)
 {

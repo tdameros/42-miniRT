@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "init.h"
 # include "math/vector.h"
+# include "parsing.h"
 
 int	get_normalized_vector(char *vector_string, t_vector3 *vector_destination)
 {

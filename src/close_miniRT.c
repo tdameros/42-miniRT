@@ -3,7 +3,7 @@
 #include "mlx.h"
 
 #include "engine.h"
-#include "struct/t_gui_box.h"
+#include "gui/box.h"
 
 static void	destroy_gui(t_engine *minirt);
 static void	destroy_raytracing_data(t_raytracing_data *raytracing_data);

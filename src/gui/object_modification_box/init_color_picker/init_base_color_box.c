@@ -13,8 +13,7 @@
 #include <errno.h>
 
 #include "engine.h"
-#include "struct/t_gui_box.h"
-#include "init.h"
+#include "gui/box.h"
 #include "colors.h"
 
 typedef struct s_color_getter
@@ -34,38 +33,40 @@ typedef struct s_color_separator
 	int	previous_max;
 }	t_color_separator;
 
-static void	base_color_box_draw(t_gui_box *self, t_engine *minirt,
+static void	base_color_box_draw(t_gui_box *self, t_engine *engine,
 								   int x_offset, int y_offset);
 static void	put_color_segment(t_image *image, t_vector2i *position,
 								 t_color_separator *color_separator,
 								 t_color_getter color_getter);
 static void	init_color_getters(t_color_getter *color_getters);
 static void	write_color_row(t_image *image, int y);
-static void	base_color_picker_on_click(t_gui_box *self, t_engine *minirt, int y,
+static void	base_color_picker_on_click(t_gui_box *self, t_engine *engine, int y,
 										  int x);
 
 #include "mlx.h"
+#include "gui/object_modification_box.h"
+#include "gui/utils.h"
 
 
-int	init_base_color_box(t_engine *minirt, t_gui_box *gui_box,
+int	init_base_color_box(t_engine *engine, t_gui_box *gui_box,
 						   t_gui_box *parent)
 {
 	int	y;
 
-	*gui_box = create_t_gui_box(minirt, parent, \
+	*gui_box = create_t_gui_box(engine, parent, \
 		(t_vector2i){.x = 0,
 			.y = parent->size.y - parent->size.y / 2 + 4}, \
-		(t_size_int_2d){.height = parent->size.y / 2 - 4, \
-			.width = parent->size.x});
+		(t_vector2i){.y = parent->size.y / 2 - 4, \
+			.x = parent->size.x});
 	if (errno == EINVAL)
 		return (-1);
-	if (init_image(&gui_box->on_hover_image, &minirt->window,
+	if (init_image(&gui_box->on_hover_image, &engine->window,
 				   parent->size.x, parent->size.y / 2 - 4) < 0)
 		return (-1); // TODO free above
 	gui_box->draw = &base_color_box_draw;
 	gui_box->on_click = &base_color_picker_on_click;
-	minirt->gui.color_picker_base_color = get_t_color_from_uint(COLOR_BLUE);
-	minirt->gui.color_picker_base_color_was_changed = true;
+	engine->gui.color_picker_base_color = get_t_color_from_uint(COLOR_BLUE);
+	engine->gui.color_picker_base_color_was_changed = true;
 	y = -1;
 	while (++y < gui_box->size.y)
 		write_color_row(&gui_box->image, y);
@@ -75,36 +76,36 @@ int	init_base_color_box(t_engine *minirt, t_gui_box *gui_box,
 
 #if defined __linux__
 
-static void	base_color_box_draw(t_gui_box *self, t_engine *minirt,
+static void	base_color_box_draw(t_gui_box *self, t_engine *engine,
 				int x_offset, int y_offset)
 {
-	minirt->gui.draw_gui_image(&minirt->main_image, &self->image,
+	engine->gui.draw_gui_image(&engine->main_image, &self->image,
 		(t_vector2i){\
 			.x = self->position.x + x_offset, \
 			.y = self->position.y + y_offset}
 	);
-	if (mouse_is_hovering_box(self, get_mouse_position(self, minirt,
+	if (mouse_is_hovering_box(self, get_mouse_position(self, engine,
 				x_offset, y_offset)) == false)
 		return ;
-	add_hover_color_circle(self, minirt, x_offset, y_offset);
-	minirt->gui.draw_gui_image(&minirt->main_image, &self->on_hover_image,
+	add_hover_color_circle(self, engine, x_offset, y_offset);
+	engine->gui.draw_gui_image(&engine->main_image, &self->on_hover_image,
 		(t_vector2i){\
 			.x = self->position.x + x_offset, \
 			.y = self->position.y + y_offset});
 }
 #elif defined __APPLE__
 
-static void	base_color_box_draw(t_gui_box *self, t_engine *minirt,
+static void	base_color_box_draw(t_gui_box *self, t_engine *engine,
 								   int x_offset, int y_offset)
 {
-	mlx_put_image_to_window(minirt->window.mlx, minirt->window.window,
+	mlx_put_image_to_window(engine->window.mlx, engine->window.window,
 		self->image.data, self->position.x + x_offset,
 		self->position.y + y_offset);
-	if (mouse_is_hovering_box(self, get_mouse_position(self, minirt,
+	if (mouse_is_hovering_box(self, get_mouse_position(self, engine,
 				x_offset, y_offset)) == false)
 		return ;
-	add_hover_color_circle(self, minirt, x_offset, y_offset);
-	mlx_put_image_to_window(minirt->window.mlx, minirt->window.window,
+	add_hover_color_circle(self, engine, x_offset, y_offset);
+	mlx_put_image_to_window(engine->window.mlx, engine->window.window,
 		self->on_hover_image.data, self->position.x + x_offset,
 		self->position.y + y_offset);
 }
@@ -190,13 +191,13 @@ static void	put_color_segment(t_image *image, t_vector2i *position,
 	color_separator->max += color_separator->color_segment_width;
 }
 
-static void	base_color_picker_on_click(t_gui_box *self, t_engine *minirt, int y,
+static void	base_color_picker_on_click(t_gui_box *self, t_engine *engine, int y,
 										  int x)
 {
 	const unsigned int	color = get_image_pixel_color(&self->image, y, x);
 
 	if (color == COLOR_TRANSPARENT)
 		return ;
-	minirt->gui.color_picker_base_color = get_t_color_from_uint(color);
-	minirt->gui.color_picker_base_color_was_changed = true;
+	engine->gui.color_picker_base_color = get_t_color_from_uint(color);
+	engine->gui.color_picker_base_color_was_changed = true;
 }

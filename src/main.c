@@ -14,7 +14,6 @@
 #include "libft.h"
 
 #include "engine.h"
-#include "miniRT_start_up.h"
 
 #define EXPECTED_EXECUTION_COMMAND "./miniRT *.rt"
 

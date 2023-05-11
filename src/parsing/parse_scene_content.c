@@ -17,8 +17,7 @@
 #include "libft.h"
 
 #include "engine.h"
-#include "struct/t_rt_file_requirements.h"
-#include "init.h"
+#include "parsing.h"
 
 static int	parse_scene_content_line(t_engine *minirt,
 									   char **scene_content_line,

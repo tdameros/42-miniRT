@@ -13,6 +13,9 @@
 #ifndef GUI_H
 # define GUI_H
 
+# include <sys/time.h>
+# include <stdbool.h>
+
 # include "gui/boxes.h"
 # include "image.h"
 # include "engine.h"

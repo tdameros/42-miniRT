@@ -4,7 +4,6 @@
 #include "mlx.h"
 
 #include "engine.h"
-#include "close_miniRT.h"
 
 static bool	should_update_fps(struct timeval last_update);
 

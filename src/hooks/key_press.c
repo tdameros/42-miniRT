@@ -2,7 +2,6 @@
 
 #include "events.h"
 #include "engine.h"
-#include "close_miniRT.h"
 
 int	key_press_handler(int key_code, t_engine *minirt)
 {

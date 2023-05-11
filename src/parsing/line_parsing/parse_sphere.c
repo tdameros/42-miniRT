@@ -13,8 +13,7 @@
 #include "libft.h"
 
 #include "engine.h"
-#include "struct/t_rt_file_requirements.h"
-#include "init.h"
+#include "parsing.h"
 
 int	parse_sphere(t_engine *minirt, char **scene_content_line,
 					t_rt_file_requirements *rt_file_requirements, t_list **object_list)

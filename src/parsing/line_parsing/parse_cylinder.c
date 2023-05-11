@@ -13,8 +13,7 @@
 #include "libft.h"
 
 #include "engine.h"
-#include "struct/t_rt_file_requirements.h"
-#include "init.h"
+#include "parsing.h"
 
 int	parse_cylinder(t_engine *minirt, char **scene_content_line,
 					  t_rt_file_requirements *rt_file_requirements, t_list **object_list)
@@ -33,7 +32,7 @@ int	parse_cylinder(t_engine *minirt, char **scene_content_line,
 		return (error("Error\nFailed to get cylinder orientation\n"));
 	if (get_double(scene_content_line[3], &cylinder.radius) < 0)
 		return (error("Error\nFailed to get cylinder radius\n"));
-	if (get_double(scene_content_line[4], &cylinder.y) < 0)
+	if (get_double(scene_content_line[4], &cylinder.height) < 0)
 		return (error("Error\nFailed to get cylinder y\n"));
 	if (get_color(scene_content_line[5], &cylinder.albedo) < 0)
 		return (error("Error\nFailed to get cylinder albedo\n"));

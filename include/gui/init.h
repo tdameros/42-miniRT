@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INIT_GUI_H
-# define INIT_GUI_H
+#ifndef INIT_H
+# define INIT_H
 
 # include "engine.h"
 

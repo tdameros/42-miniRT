@@ -1,15 +1,16 @@
+#include <stdio.h>
 #include <stddef.h>
 
 #include "libft.h"
 #include "mlx.h"
 
+#include "gui/init.h"
 #include "events.h"
+#include "parsing.h"
 #include "hooks.h"
 #include "render_frame.h"
-#include "close_miniRT.h"
 #include "window.h"
 #include "engine.h"
-#include "init.h"
 #include "colors.h"
 
 static void	init_hooks(t_engine *minirt);
@@ -115,7 +116,7 @@ static void	print_object(t_object *object)
 	if (object->type == SPHERE || object->type == CYLINDER)
 		printf("\tDiameter == %f\n", object->radius);
 	if (object->type == CYLINDER)
-		printf("\tHeight == %f\n", object->y);
+		printf("\tHeight == %f\n", object->height);
 	if (object->type == PLANE || object->type == CYLINDER)
 	{
 		printf("\tNormal\n");

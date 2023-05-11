@@ -14,9 +14,10 @@
 #include <stdio.h>
 #include <unistd.h>
 
-#include "engine.h"
-#include "init.h"
 #include "libft.h"
+
+#include "engine.h"
+#include "parsing.h"
 
 int	parse_scene(t_engine *minirt, const char *start_up_scene)
 {

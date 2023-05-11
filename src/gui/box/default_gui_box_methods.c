@@ -1,6 +1,6 @@
 #include "mlx.h"
 
-#include "struct/t_gui_box.h"
+#include "gui/box.h"
 #include "engine.h"
 
 #if defined __linux__
@@ -24,7 +24,7 @@ void	default_gui_box_draw(t_gui_box *self, t_engine *minirt,
 #elif defined __APPLE__
 
 void	default_gui_box_draw(t_gui_box *self, t_engine *minirt,
-							 int x_offset, int y_offset)
+			int x_offset, int y_offset)
 {
 	size_t	i;
 
@@ -42,7 +42,7 @@ void	default_gui_box_draw(t_gui_box *self, t_engine *minirt,
 #endif
 
 void	default_gui_box_on_click(t_gui_box *self, t_engine *minirt, int y,
-								 int x)
+			int x)
 {
 	t_gui_box	*clicked_gui_box;
 

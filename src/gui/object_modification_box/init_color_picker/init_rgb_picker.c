@@ -2,9 +2,9 @@
 #include <stdlib.h>
 
 #include "engine.h"
-#include "struct/t_gui_box.h"
+#include "gui/box.h"
 #include "colors.h"
-#include "init.h"
+#include "gui/object_modification_box.h"
 
 static int	init_rgb_picker_children(t_engine *minirt, t_gui_boxes *gui_boxes,
 									   t_gui_box *parent);
@@ -15,9 +15,9 @@ int	init_rgb_picker(t_engine *minirt, t_gui_box *gui_box, t_gui_box *parent)
 		(t_vector2i){
 			.x = 8,
 			.y = parent->size.y - parent->size.y / 6}, \
-		(t_size_int_2d){
-			.width = parent->size.x - 16,
-			.height = parent->size.y / 6 - 8});
+		(t_vector2i){
+			.x = parent->size.x - 16,
+			.y = parent->size.y / 6 - 8});
 	if (errno == EINVAL)
 		return (-1);
 	if (init_rgb_picker_children(minirt, &gui_box->children, gui_box) < 0)

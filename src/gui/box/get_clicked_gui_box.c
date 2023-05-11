@@ -1,6 +1,6 @@
 #include <stdbool.h>
 
-#include "struct/t_gui_box.h"
+#include "gui/box.h"
 
 static bool	is_point_in_gui_box(const t_gui_box *gui_box, int x, int y);
 

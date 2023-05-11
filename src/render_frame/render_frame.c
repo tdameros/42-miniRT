@@ -18,7 +18,7 @@
 #include "libft.h"
 
 #include "engine.h"
-#include "struct/t_gui_box.h"
+#include "gui/box.h"
 #include "render_frame.h"
 #include "ray_tracer/render.h"
 

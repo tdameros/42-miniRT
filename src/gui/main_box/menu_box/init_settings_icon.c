@@ -2,16 +2,16 @@
 
 #include "libft.h"
 
+#include "gui/box.h"
+#include "gui/main_gui_box.h"
 #include "engine.h"
-#include "struct/t_gui_box.h"
 #include "colors.h"
-#include "init.h"
 
 #define CIRCLE_COLOR 0x00666666
 
 static void	write_setting_icon(t_image *image, unsigned int color);
 static void	draw_circle(t_image *image, t_vector2i circle_center,
-						   float radius, unsigned int color);
+				float radius, unsigned int color);
 
 void	init_settings_icon(t_gui_box *gui_box)
 {

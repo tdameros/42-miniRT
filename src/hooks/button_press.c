@@ -13,7 +13,7 @@
 #include "libft.h"
 
 #include "engine.h"
-#include "struct/t_gui_box.h"
+#include "gui/box.h"
 #include "events.h"
 
 int	button_press_handler(int button, int x, int y, t_engine *minirt)

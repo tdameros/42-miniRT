@@ -2,9 +2,9 @@
 #include <math.h>
 #include "errno.h"
 
+#include "gui/box.h"
+#include "gui/main_gui_box.h"
 #include "engine.h"
-#include "struct/t_gui_box.h"
-#include "init.h"
 #include "colors.h"
 
 static int	init_object_creation_children(t_engine *minirt, t_gui_box *gui_box);
@@ -19,8 +19,8 @@ int	init_object_creation_gui_box(t_engine *minirt, t_gui_box *gui_box,
 									t_gui_box *parent)
 {
 	*gui_box = create_t_gui_box(minirt, parent, (t_vector2i){8, 8},
-			(t_size_int_2d){.height = parent->size.y - 16, \
-							.width = parent->size.x / 4 * 3 - 16});
+			(t_vector2i){.y = parent->size.y - 16, \
+							.x = parent->size.x / 4 * 3 - 16});
 	if (errno == EINVAL)
 		return (-1);
 	if (gui_box->image.data == NULL)
@@ -75,9 +75,9 @@ static int	init_sphere_icon_box(t_engine *minirt, t_gui_box *gui_box,
 			.x = ICON_BOX_SEPARATOR, \
 			.y = ICON_BOX_SEPARATOR
 		}, \
-		(t_size_int_2d){
-			.width = box_width, \
-			.height = parent->size.y - ICON_BOX_SEPARATOR * 2
+		(t_vector2i){
+			.x = box_width, \
+			.y = parent->size.y - ICON_BOX_SEPARATOR * 2
 		} \
 	);
 	if (errno == EINVAL)
@@ -107,9 +107,9 @@ static int	init_cylinder_icon_box(t_engine *minirt, t_gui_box *gui_box,
 			.x = ICON_BOX_SEPARATOR * 2 + box_width, \
 			.y = ICON_BOX_SEPARATOR
 		}, \
-		(t_size_int_2d){
-			.width = box_width, \
-			.height = parent->size.y - ICON_BOX_SEPARATOR * 2
+		(t_vector2i){
+			.x = box_width, \
+			.y = parent->size.y - ICON_BOX_SEPARATOR * 2
 		} \
 	);
 	if (errno == EINVAL)
@@ -139,9 +139,9 @@ static int	init_plane_icon_box(t_engine *minirt, t_gui_box *gui_box,
 			.x = ICON_BOX_SEPARATOR * 3 + box_width * 2, \
 			.y = ICON_BOX_SEPARATOR
 		}, \
-		(t_size_int_2d){
-			.width = box_width, \
-			.height = parent->size.y - ICON_BOX_SEPARATOR * 2
+		(t_vector2i){
+			.x = box_width, \
+			.y = parent->size.y - ICON_BOX_SEPARATOR * 2
 		} \
 	);
 	if (errno == EINVAL)

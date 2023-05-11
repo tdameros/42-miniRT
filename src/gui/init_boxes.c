@@ -2,9 +2,11 @@
 #include <errno.h>
 
 #include "engine.h"
-#include "struct/t_gui_box.h"
+#include "gui/box.h"
+#include "gui/main_gui_box.h"
 #include "window.h"
-#include "init.h"
+#include "libft.h"
+#include "gui/object_modification_box.h"
 
 int init_gui_boxes(t_engine *minirt)
 {

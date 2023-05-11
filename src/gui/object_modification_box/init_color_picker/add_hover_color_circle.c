@@ -1,17 +1,17 @@
 #include <math.h>
 
-#include "struct/t_gui_box.h"
-#include "init.h"
+#include "gui/box.h"
 #include "colors.h"
+#include "gui/utils.h"
 
 static void	put_colored_circle(t_image *on_hover_image,
 								  t_vector2i mouse_position, unsigned int color,
 								  t_image *base_image);
 
-void	add_hover_color_circle(t_gui_box *self, t_minirt *minirt,
+void	add_hover_color_circle(t_gui_box *self, t_engine *engine,
 			int x_offset, int y_offset)
 {
-	const t_vector2i	mouse_position = get_mouse_position(self, minirt,
+	const t_vector2i	mouse_position = get_mouse_position(self, engine,
 															x_offset, y_offset);
 	unsigned int			color;
 
@@ -30,10 +30,10 @@ static void	put_colored_circle(t_image *on_hover_image,
 	int			x;
 	float		equation_result;
 
-	y = on_hover_image->y;
+	y = on_hover_image->height;
 	while (y--)
 	{
-		x = on_hover_image->x;
+		x = on_hover_image->width;
 		while (x--)
 		{
 			if (get_image_pixel_color(base_image, y, x) == COLOR_TRANSPARENT)

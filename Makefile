@@ -10,10 +10,10 @@ SRC				=\
 	gui/box/get_clicked_gui_box.c		\
 	gui/box/mouse_in_box.c				\
 	\
-	gui/main_box/menu_box/init_menu_gui_box.c	\
+	gui/main_box/menu_box/init_menu_box.c	\
 	gui/main_box/menu_box/init_settings_icon.c	\
 	\
-	gui/main_box/object_creation_box.c	\
+	gui/main_box/object_creation_box/init_object_creation_box.c	\
 	\
 	gui/main_box/icon_box_draw_method.c \
 	gui/main_box/init_main_box.c		\
@@ -24,7 +24,7 @@ SRC				=\
 	gui/object_modification_box/init_color_picker/init_color_picker_box.c	\
 	gui/object_modification_box/init_color_picker/init_rgb_picker.c			\
 	\
-	gui/object_modification_box/init_color_picker/init_object_modification_box.c	\
+	gui/object_modification_box/init_object_modification_box.c	\
 	\
 	gui/init_boxes.c	\
 	\

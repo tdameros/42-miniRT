@@ -1,5 +1,5 @@
 #include "image.h"
-#include "math/t_point_int_2d.h"
+#include "math/vector.h"
 
 static unsigned int	mix_colors(unsigned int added_color,
 						unsigned int base_color);

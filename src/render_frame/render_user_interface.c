@@ -1,5 +1,5 @@
 #include "engine.h"
-#include "struct/t_gui_box.h"
+#include "gui/box.h"
 
 static void	update_gui_hidden_ration(t_gui *gui);
 static int	get_y_decal(const t_gui_box *gui_box, const t_gui *gui);

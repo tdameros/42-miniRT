@@ -15,7 +15,7 @@
 
 #include "libft.h"
 
-#include "init.h"
+#include "parsing.h"
 
 static t_list	*get_all_lines(int fd);
 static int		add_line(t_list **lines, char *line);

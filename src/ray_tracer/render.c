@@ -1,6 +1,7 @@
-#include "math/vector.h"
 #include <stdio.h>
 #include <math.h>
+
+#include "math/vector.h"
 
 // (bx^2 + by^2)t^2 + (2(axbx + ayby))t + (ax^2 + ay^2 - r^2) = 0
 // a = ray origin
@@ -50,7 +51,7 @@
 #include "ray_tracer/ray.h"
 #include "scene.h"
 #include "object.h"
-#include "struct/t_color.h"
+#include "colors.h"
 #include "ray_tracer/hit.h"
 
 t_hit		trace_ray(t_ray ray, t_scene *scene);

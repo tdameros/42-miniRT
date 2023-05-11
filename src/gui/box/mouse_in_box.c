@@ -12,7 +12,7 @@
 
 #include "mlx.h"
 
-#include "struct/t_gui_box.h"
+#include "gui/box.h"
 #include "colors.h"
 
 bool	mouse_is_hovering_box(t_gui_box *self, t_vector2i mouse_position)
@@ -27,12 +27,12 @@ bool	mouse_is_hovering_box(t_gui_box *self, t_vector2i mouse_position)
 
 #if defined __APPLE__
 
-t_vector2i	get_mouse_position(t_gui_box *self, t_minirt *minirt,
-								 int x_offset, int y_offset)
+t_vector2i	get_mouse_position(t_gui_box *self, t_engine *engine,
+				int x_offset, int y_offset)
 {
 	t_vector2i	mouse_position;
 
-	mlx_mouse_get_pos(minirt->window.window,
+	mlx_mouse_get_pos(engine->window.window,
 		&mouse_position.x, &mouse_position.y);
 	mouse_position.x -= x_offset + self->position.x;
 	mouse_position.y -= y_offset + self->position.y;
@@ -40,12 +40,12 @@ t_vector2i	get_mouse_position(t_gui_box *self, t_minirt *minirt,
 }
 #elif defined __linux__
 
-t_vector2i	get_mouse_position(t_gui_box *self, t_engine *minirt,
+t_vector2i	get_mouse_position(t_gui_box *self, t_engine *engine,
 					int x_offset, int y_offset)
 {
 	t_vector2i	mouse_position;
 
-	mlx_mouse_get_pos(minirt->window.mlx, minirt->window.window,
+	mlx_mouse_get_pos(engine->window.mlx, engine->window.window,
 		&mouse_position.x, &mouse_position.y);
 	mouse_position.x -= x_offset + self->position.x;
 	mouse_position.y -= y_offset + self->position.y;

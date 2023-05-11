@@ -14,8 +14,7 @@
 #include "libft.h"
 
 #include "engine.h"
-#include "struct/t_rt_file_requirements.h"
-#include "init.h"
+#include "parsing.h"
 
 static int	get_camera_fov(char *fov_string, double *fov_destination);
 
