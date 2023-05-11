@@ -5,7 +5,7 @@
 
 int	key_press_handler(int key_code, t_engine *minirt)
 {
-	ft_printf("key_code == %d\n\n", key_code);
+//	ft_printf("key_code == %d\n\n", key_code);
 	if (key_code == KEY_ESC)
 		close_engine(minirt);
 	if (key_code == KEY_H)

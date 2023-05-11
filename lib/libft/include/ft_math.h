@@ -13,6 +13,6 @@
 #ifndef FT_MATH_H
 # define FT_MATH_H
 
-double	ft_angle_to_theta(double angle);
+float	ft_angle_to_theta(float angle);
 
 #endif

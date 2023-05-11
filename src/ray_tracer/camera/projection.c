@@ -15,10 +15,10 @@
 #include "ray_tracer/camera.h"
 #include "math/conversion.h"
 
-static t_matrix4	camera_perspective_fov(double fov,
+static t_matrix4	camera_perspective_fov(float fov,
 						t_vector2 viewport,
-						double near_clip,
-						double far_clip);
+						float near_clip,
+						float far_clip);
 
 void	camera_recalculate_projection(t_camera *camera)
 {
@@ -30,13 +30,13 @@ void	camera_recalculate_projection(t_camera *camera)
 	camera->inverse_projection = matrix4_inverse(camera->projection);
 }
 
-static t_matrix4	camera_perspective_fov(double fov, t_vector2 viewport,
-										double near_clip, double far_clip)
+static t_matrix4	camera_perspective_fov(float fov, t_vector2 viewport,
+										float near_clip, float far_clip)
 {
 	t_matrix4		result;
-	const double	rad = fov;
-	const double	h = cos(0.5 * rad) / sin(0.5 * rad);
-	const double	w = h * viewport.y / viewport.x;
+	const float	rad = fov;
+	const float	h = cosf(0.5 * rad) / sinf(0.5 * rad);
+	const float	w = h * viewport.y / viewport.x;
 
 	result = matrix4_create(0);
 	result.matrix[0][0] = w;

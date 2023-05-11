@@ -10,17 +10,17 @@
 // t = hit distance
 //t_vector3	render_pixel(t_vector3 ray_origin, t_vector3 ray_direction)
 //{
-//	double radius = 0.5;
+//	float radius = 0.5;
 //
-//	double a = vector3_dot(ray_direction, ray_direction);
-//	double b = 2 * vector3_dot(ray_origin, ray_direction);
-//	double c = vector3_dot(ray_origin, ray_origin) - radius * radius;
+//	float a = vector3_dot(ray_direction, ray_direction);
+//	float b = 2 * vector3_dot(ray_origin, ray_direction);
+//	float c = vector3_dot(ray_origin, ray_origin) - radius * radius;
 //
-//	double discriminant = b * b - 4 * a * c;
+//	float discriminant = b * b - 4 * a * c;
 //	if (discriminant > 0)
 //	{
-////		double x1 = (-b + sqrt(discriminant)) / (2 * a);
-//		double x2 = (-b - sqrt(discriminant)) / (2 * a);
+////		float x1 = (-b + sqrt(discriminant)) / (2 * a);
+//		float x2 = (-b - sqrt(discriminant)) / (2 * a);
 //
 //		if (x2 < 0)
 //			return (vector3_create(0.27, 0.27, 0.27));
@@ -34,7 +34,7 @@
 ////		t_vector3 light_direction = vector3_unit(vector3_create(1, -1, -1));
 //		t_vector3 light_direction = vector3_create(1, -1, -1);
 //
-//		double light_intensity = vector3_dot(normal,
+//		float light_intensity = vector3_dot(normal,
 //											 vector3_multiply(light_direction,
 //															  -1));
 //		if (light_intensity < 0)
@@ -55,14 +55,14 @@
 #include "ray_tracer/hit.h"
 
 t_hit		trace_ray(t_ray ray, t_scene *scene);
-t_hit		calculate_hit(t_ray ray, t_scene *scene, double distance, size_t index);
+t_hit		calculate_hit(t_ray ray, t_scene *scene, float distance, size_t index);
 t_vector3	miss_hit(t_ray ray);
 
 t_color	render_pixel(t_ray ray, t_scene *scene)
 {
 	t_hit			ray_hit;
 	const t_vector3	light_direction = vector3_create(1, -1, -1);
-	double			light_intensity;
+	float			light_intensity;
 	t_object		sphere;
 
 	ray_hit = trace_ray(ray, scene);
@@ -78,8 +78,8 @@ t_hit	trace_ray(t_ray ray, t_scene *scene)
 {
 	ssize_t		near_object_index;
 	size_t		index;
-	double		near_distance;
-	double		distance;
+	float		near_distance;
+	float		distance;
 
 	near_object_index = -1;
 	near_distance = -1;
@@ -100,7 +100,7 @@ t_hit	trace_ray(t_ray ray, t_scene *scene)
 	return (calculate_hit(ray, scene, near_distance, near_object_index));
 }
 
-t_hit	calculate_hit(t_ray ray, t_scene *scene, double distance, size_t index)
+t_hit	calculate_hit(t_ray ray, t_scene *scene, float distance, size_t index)
 {
 	t_object	sphere;
 	t_vector3	origin;

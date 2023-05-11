@@ -17,7 +17,7 @@
 
 typedef struct s_ambient_light
 {
-	double	lighting_ratio;
+	float	lighting_ratio;
 	t_color	color;
 }	t_ambient_light;
 

@@ -10,9 +10,9 @@
 static void			color_picker_draw(t_gui_box *self, t_engine *minirt,
 						int x_offset, int y_offset);
 static void			update_image(t_gui_box *self, t_engine *minirt);
-static unsigned int	get_darker_color(double x, double limit,
+static unsigned int	get_darker_color(float x, float limit,
 						t_color base_color);
-static unsigned int	get_lighter_color(double x, double limit, double start,
+static unsigned int	get_lighter_color(float x, float limit, float start,
 						t_color base_color);
 
 int	init_color_picker_box(t_engine *minirt, t_gui_box *gui_box,
@@ -93,7 +93,7 @@ static void	update_image(t_gui_box *self, t_engine *minirt)
 	while (++y < self->image.height)
 	{
 		x = -1;
-		limit = (int)round((double)self->image.width / 2);
+		limit = (int)roundf((float)self->image.width / 2);
 		while (++x < limit)
 			put_pixel_on_image(&self->image, y, x, get_darker_color(x, limit,
 					minirt->gui.color_picker_base_color));
@@ -106,28 +106,28 @@ static void	update_image(t_gui_box *self, t_engine *minirt)
 	round_image_corners(&self->image, 10);
 }
 
-static unsigned int	get_darker_color(double x, double limit,
+static unsigned int	get_darker_color(float x, float limit,
 						t_color base_color)
 {
 	const t_color	color = {
-		.x = (int)round((double)base_color.x * x / limit),
-		.y = (int)round((double)base_color.y * x / limit),
-		.z = (int)round((double)base_color.z * x / limit),
+		.x = (int)roundf((float)base_color.x * x / limit),
+		.y = (int)roundf((float)base_color.y * x / limit),
+		.z = (int)roundf((float)base_color.z * x / limit),
 	};
 
 	return (rgb_to_uint(color));
 }
 
-static unsigned int	get_lighter_color(double x, double limit, double start,
+static unsigned int	get_lighter_color(float x, float limit, float start,
 						t_color base_color)
 {
 	const t_color	color = {
-		.x = (int)round((double)base_color.x
-			+ (255.0 - (double)base_color.x) * (x - start) / (limit - start)),
-		.y = (int)round((double)base_color.y
-			+ (255.0 - (double)base_color.y) * (x - start) / (limit - start)),
-		.z = (int)round((double)base_color.z
-			+ (255.0 - (double)base_color.z) * (x - start) / (limit - start)),
+		.x = (int)roundf((float)base_color.x
+			+ (255.0 - (float)base_color.x) * (x - start) / (limit - start)),
+		.y = (int)roundf((float)base_color.y
+			+ (255.0 - (float)base_color.y) * (x - start) / (limit - start)),
+		.z = (int)roundf((float)base_color.z
+			+ (255.0 - (float)base_color.z) * (x - start) / (limit - start)),
 	};
 
 	return (rgb_to_uint(color));

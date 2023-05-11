@@ -16,17 +16,17 @@
 # include "vector.h"
 
 typedef struct s_matrix3 {
-	double	matrix[3][3];
+	float	matrix[3][3];
 	int		size;
 }	t_matrix3;
 
 typedef struct s_matrix4 {
-	double	matrix[4][4];
+	float	matrix[4][4];
 	int		size;
 }	t_matrix4;
 
 //	matrix3.c
-t_matrix3	matrix3_create(double value);
+t_matrix3	matrix3_create(float value);
 t_matrix3	matrix3_create_identity(void);
 void		matrix3_print(t_matrix3 matrix);
 
@@ -34,10 +34,10 @@ void		matrix3_print(t_matrix3 matrix);
 t_vector3	matrix3_dot_vector3(t_matrix3 matrix, t_vector3 vector);
 
 //	matrix3_rotation.c
-t_matrix3	matrix3_rodrigues_rotation(t_vector3 axe, double degrees);
+t_matrix3	matrix3_rodrigues_rotation(t_vector3 axe, float degrees);
 
 //	matrix4.c
-t_matrix4	matrix4_create(double value);
+t_matrix4	matrix4_create(float value);
 t_matrix4	matrix4_create_identity(void);
 void		matrix4_print(t_matrix4 matrix);
 

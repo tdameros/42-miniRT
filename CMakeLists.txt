@@ -136,7 +136,7 @@ add_executable(42_miniRT
         lib/libft/src/mem/memcpy.c
         lib/libft/src/mem/memmove.c
         lib/libft/src/mem/memset.c
-        lib/libft/src/numbers/swap/swap_double.c
+        lib/libft/src/numbers/swap/swap_float.c
         lib/libft/src/numbers/swap/swap_int.c
         lib/libft/src/numbers/swap/swap_long.c
         lib/libft/src/numbers/swap/swap_size_t.c
@@ -241,7 +241,7 @@ add_executable(42_miniRT
         src/parsing/line_parsing/utils/add_object_to_object_list.c
         src/parsing/line_parsing/utils/error.c
         src/parsing/line_parsing/utils/get_color.c
-        src/parsing/line_parsing/utils/get_double.c
+        src/parsing/line_parsing/utils/get_float.c
         src/parsing/line_parsing/utils/get_lighting_ratio.c
         src/parsing/line_parsing/utils/get_normalized_vector.c
         src/parsing/line_parsing/utils/get_position.c

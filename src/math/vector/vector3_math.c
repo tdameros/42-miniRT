@@ -28,7 +28,7 @@ t_vector3	vector3_subtract(t_vector3 v1, t_vector3 v2)
 	return (v1);
 }
 
-t_vector3	vector3_multiply(t_vector3 v1, double value)
+t_vector3	vector3_multiply(t_vector3 v1, float value)
 {
 	v1.x *= value;
 	v1.y *= value;
@@ -36,7 +36,7 @@ t_vector3	vector3_multiply(t_vector3 v1, double value)
 	return (v1);
 }
 
-t_vector3	vector3_divide(t_vector3 v1, double value)
+t_vector3	vector3_divide(t_vector3 v1, float value)
 {
 	v1.x /= value;
 	v1.y /= value;

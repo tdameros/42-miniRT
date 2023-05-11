@@ -14,7 +14,7 @@
 
 #include "math/vector.h"
 
-t_vector3	vector3_create(double x, double y, double z)
+t_vector3	vector3_create(float x, float y, float z)
 {
 	t_vector3	vector;
 
@@ -29,7 +29,7 @@ void	vector3_print(t_vector3 vector)
 	printf("Vector3 => x:%f y:%f, z:%f\n", vector.x, vector.y, vector.z);
 }
 
-t_vector3	vector3_clamp(t_vector3 vector, double min, double max)
+t_vector3	vector3_clamp(t_vector3 vector, float min, float max)
 {
 	if (vector.x < min)
 		vector.x = min;

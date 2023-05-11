@@ -12,7 +12,7 @@
 
 #include "math/matrix.h"
 
-static double	multiply_row_column(t_matrix4 m1, t_matrix4 m2, int y, int x);
+static float	multiply_row_column(t_matrix4 m1, t_matrix4 m2, int y, int x);
 
 t_matrix4	matrix4_multiply(t_matrix4 m1, t_matrix4 m2)
 {
@@ -35,9 +35,9 @@ t_matrix4	matrix4_multiply(t_matrix4 m1, t_matrix4 m2)
 	return (result);
 }
 
-static double	multiply_row_column(t_matrix4 m1, t_matrix4 m2, int y, int x)
+static float	multiply_row_column(t_matrix4 m1, t_matrix4 m2, int y, int x)
 {
-	double	result;
+	float	result;
 	int		i;
 
 	result = 0;

@@ -26,9 +26,9 @@ typedef struct s_rt_file_requirements
 int		add_object_to_object_list(t_list **object_list, t_object object);
 int		error(const char *error_message);
 int		get_color(char *color_string, t_color *color_destination);
-int		get_double(char *double_string, double *double_destination);
+int		get_float(char *float_string, float *float_destination);
 int		get_lighting_ratio(char *lighting_ratio_string,
-							  double *lighting_ratio_destination);
+							  float *lighting_ratio_destination);
 int		get_normalized_vector(char *vector_string,
 								 t_vector3 *vector_destination);
 int		get_position(char *position_string, t_vector3 *position_destination);

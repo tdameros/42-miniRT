@@ -14,12 +14,12 @@
 
 #include "math/vector.h"
 
-double	vector2_length_squared(t_vector2 vector)
+float	vector2_length_squared(t_vector2 vector)
 {
 	return (vector.x * vector.x + vector.y * vector.y);
 }
 
-double	vector2_length(t_vector2 vector)
+float	vector2_length(t_vector2 vector)
 {
 	return (sqrt(vector2_length_squared(vector)));
 }
@@ -29,7 +29,7 @@ t_vector2	vector2_unit(t_vector2 vector)
 	return (vector2_divide(vector, vector2_length(vector)));
 }
 
-double	vector2_dot(t_vector2 v1, t_vector2 v2)
+float	vector2_dot(t_vector2 v1, t_vector2 v2)
 {
 	return (v1.x * v2.x + v1.y * v2.y);
 }

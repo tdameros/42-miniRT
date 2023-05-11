@@ -14,6 +14,6 @@
 # define CONVERSION_H
 
 //	conversion.c
-double	convert_degrees_to_radians(double degree);
+float	convert_degrees_to_radians(float degree);
 
 #endif

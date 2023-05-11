@@ -114,7 +114,7 @@ SRC =\
 	mem/memset.c	\
 \
 \
-	numbers/swap/swap_double.c	\
+	numbers/swap/swap_float.c	\
 	numbers/swap/swap_int.c		\
 	numbers/swap/swap_long.c	\
 	numbers/swap/swap_size_t.c	\

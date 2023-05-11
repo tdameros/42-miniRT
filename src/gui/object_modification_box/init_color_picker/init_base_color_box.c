@@ -19,11 +19,11 @@
 typedef struct s_color_getter
 {
 	int	red;
-	int	(*get_red)(double color, double x, double decal, double ratio);
+	int	(*get_red)(float color, float x, float decal, float ratio);
 	int	green;
-	int	(*get_green)(double color, double x, double decal, double ratio);
+	int	(*get_green)(float color, float x, float decal, float ratio);
 	int	blue;
-	int	(*get_blue)(double color, double x, double decal, double ratio);
+	int	(*get_blue)(float color, float x, float decal, float ratio);
 }	t_color_getter;
 
 typedef struct s_color_separator

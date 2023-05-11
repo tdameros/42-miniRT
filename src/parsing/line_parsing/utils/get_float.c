@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   swap_double.c                                      :+:      :+:    :+:   */
+/*   get_float.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/28 14:49:52 by vfries            #+#    #+#             */
-/*   Updated: 2023/01/09 01:03:19 by vfries           ###   ########lyon.fr   */
+/*   Created: 2023/04/21 03:19:18 by vfries            #+#    #+#             */
+/*   Updated: 2023/04/21 03:19:18 by vfries           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_swap_double(double *a, double *b)
-{
-	double	tmp;
+#include <errno.h>
 
-	tmp = *a;
-	*a = *b;
-	*b = tmp;
+#include "libft.h"
+
+int	get_float(char *float_string, float *float_destination)
+{
+	const float	float_value = ft_atof(float_string);
+
+	if (errno == ERANGE || errno == EINVAL)
+		return (-1);
+	*float_destination = float_value;
+	return (0);
 }

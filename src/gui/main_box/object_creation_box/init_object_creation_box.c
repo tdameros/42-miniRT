@@ -99,7 +99,7 @@ static int	init_sphere_icon_box(t_engine *minirt, t_gui_box *gui_box,
 static int	init_cylinder_icon_box(t_engine *minirt, t_gui_box *gui_box,
 									 t_gui_box *parent)
 {
-	const int	box_width = round(((double)parent->size.x - ICON_BOX_SEPARATOR * 4)
+	const int	box_width = roundf(((float)parent->size.x - ICON_BOX_SEPARATOR * 4)
 			/ 3.0);
 
 	*gui_box = create_t_gui_box(minirt, NULL, \
@@ -131,7 +131,7 @@ static int	init_cylinder_icon_box(t_engine *minirt, t_gui_box *gui_box,
 static int	init_plane_icon_box(t_engine *minirt, t_gui_box *gui_box,
 								  t_gui_box *parent)
 {
-	const int	box_width = round(((double)parent->size.x - ICON_BOX_SEPARATOR * 4)
+	const int	box_width = roundf(((float)parent->size.x - ICON_BOX_SEPARATOR * 4)
 			/ 3.0);
 
 	*gui_box = create_t_gui_box(minirt, NULL, \

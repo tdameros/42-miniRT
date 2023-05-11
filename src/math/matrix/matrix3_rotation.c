@@ -15,11 +15,11 @@
 #include "math/matrix.h"
 #include "math/conversion.h"
 
-t_matrix3	matrix3_rodrigues_rotation(t_vector3 axe, double degrees)
+t_matrix3	matrix3_rodrigues_rotation(t_vector3 axe, float degrees)
 {
-	const double	radians = convert_degrees_to_radians(degrees);
-	const double	cos_result = cos(radians);
-	const double	sin_result = sin(radians);
+	const float	radians = convert_degrees_to_radians(degrees);
+	const float	cos_result = cosf(radians);
+	const float	sin_result = sinf(radians);
 	t_matrix3		result;
 
 	result = matrix3_create(0);

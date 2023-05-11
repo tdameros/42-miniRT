@@ -15,11 +15,11 @@
 #include "math/vector.h"
 #include "math/conversion.h"
 
-t_vector3	vector3_rotate_x(t_vector3 vector, double degrees)
+t_vector3	vector3_rotate_x(t_vector3 vector, float degrees)
 {
-	const double	radians = convert_degrees_to_radians(degrees);
-	const double	cos_result = cos(radians);
-	const double	sin_result = sin(radians);
+	const float	radians = convert_degrees_to_radians(degrees);
+	const float	cos_result = cosf(radians);
+	const float	sin_result = sinf(radians);
 	t_vector3		result;
 
 	result = vector3_create(0, 0, 0);
@@ -29,11 +29,11 @@ t_vector3	vector3_rotate_x(t_vector3 vector, double degrees)
 	return (result);
 }
 
-t_vector3	vector3_rotate_y(t_vector3 vector, double degrees)
+t_vector3	vector3_rotate_y(t_vector3 vector, float degrees)
 {
-	const double	radians = convert_degrees_to_radians(degrees);
-	const double	cos_result = cos(radians);
-	const double	sin_result = sin(radians);
+	const float	radians = convert_degrees_to_radians(degrees);
+	const float	cos_result = cosf(radians);
+	const float	sin_result = sinf(radians);
 	t_vector3		result;
 
 	result = vector3_create(0, 0, 0);
@@ -43,11 +43,11 @@ t_vector3	vector3_rotate_y(t_vector3 vector, double degrees)
 	return (result);
 }
 
-t_vector3	vector3_rotate_z(t_vector3 vector, double degrees)
+t_vector3	vector3_rotate_z(t_vector3 vector, float degrees)
 {
-	const double	radians = convert_degrees_to_radians(degrees);
-	const double	cos_result = cos(radians);
-	const double	sin_result = sin(radians);
+	const float	radians = convert_degrees_to_radians(degrees);
+	const float	cos_result = cosf(radians);
+	const float	sin_result = sinf(radians);
 	t_vector3		result;
 
 	result = vector3_create(0, 0, 0);

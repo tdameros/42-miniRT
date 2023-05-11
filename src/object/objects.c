@@ -59,6 +59,13 @@ int	remove_object_in_objects(t_objects *objects, size_t index)
 	return (0);
 }
 
+int	free_objects(t_objects *objects)
+{
+	free(objects->data);
+	objects->size = 0;
+	objects->length = 0;
+	return (0);
+}
 
 void	print_object2(t_object object)
 {

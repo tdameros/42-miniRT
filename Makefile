@@ -10,7 +10,7 @@ SRC				=\
 	gui/box/get_clicked_gui_box.c		\
 	gui/box/mouse_in_box.c				\
 	\
-	gui/main_box/menu_box/init_menu_box.c	\
+	gui/main_box/menu_box/init_menu_box.c		\
 	gui/main_box/menu_box/init_settings_icon.c	\
 	\
 	gui/main_box/object_creation_box/init_object_creation_box.c	\
@@ -67,21 +67,21 @@ SRC				=\
 	parsing/line_parsing/utils/add_object_to_object_list.c	\
 	parsing/line_parsing/utils/error.c						\
 	parsing/line_parsing/utils/get_color.c					\
-	parsing/line_parsing/utils/get_double.c				\
-	parsing/line_parsing/utils/get_lighting_ratio.c		\
+	parsing/line_parsing/utils/get_float.c					\
+	parsing/line_parsing/utils/get_lighting_ratio.c			\
 	parsing/line_parsing/utils/get_normalized_vector.c		\
 	parsing/line_parsing/utils/get_position.c				\
 	\
 	parsing/line_parsing/invalid_scene_content_line.c	\
 	parsing/line_parsing/parse_ambient_light.c			\
-	parsing/line_parsing/parse_camera.c				\
+	parsing/line_parsing/parse_camera.c					\
 	parsing/line_parsing/parse_cylinder.c				\
 	parsing/line_parsing/parse_light.c					\
 	parsing/line_parsing/parse_plane.c					\
-	parsing/line_parsing/parse_sphere.c				\
+	parsing/line_parsing/parse_sphere.c					\
 	\
 	parsing/free_scene_content.c	\
-	parsing/get_scene_content.c	\
+	parsing/get_scene_content.c		\
 	parsing/parse_scene_content.c	\
 	parsing/parsing.c				\
 	\

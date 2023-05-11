@@ -12,19 +12,19 @@
 
 #include <math.h>
 
-int	get_increasing_color(double color, double x, double decal,
-				double ratio)
+int	get_increasing_color(float color, float x, float decal,
+				float ratio)
 {
-	return ((int)round(color * ((x - decal) / ratio)));
+	return ((int)roundf(color * ((x - decal) / ratio)));
 }
 
-int	get_decreasing_color(double color, double x, double decal,
-				double ratio)
+int	get_decreasing_color(float color, float x, float decal,
+				float ratio)
 {
-	return ((int)round(color * (1.0 - ((x - decal) / ratio))));
+	return ((int)roundf(color * (1.0 - ((x - decal) / ratio))));
 }
 
-int	get_base_color(double color, double x, double decal, double ratio)
+int	get_base_color(float color, float x, float decal, float ratio)
 {
 	(void)x;
 	(void)decal;

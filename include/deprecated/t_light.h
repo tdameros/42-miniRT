@@ -7,7 +7,7 @@
 typedef struct s_light
 {
 	t_vector3	position;
-	double		brightness;
+	float		brightness;
 	t_color		color;
 }	t_light;
 

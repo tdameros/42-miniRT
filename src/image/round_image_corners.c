@@ -34,26 +34,26 @@ void round_image_corners(t_image *image, int radius)
 static bool is_in_top_left_corner(int x, int y, int radius)
 {
 	return (y < radius && x < radius
-		&& pow(y - radius, 2) + pow(x - radius, 2) > pow(radius, 2));
+		&& powf(y - radius, 2) + powf(x - radius, 2) > powf(radius, 2));
 }
 
 static bool is_in_top_right_corner(int x, int y, int radius, t_image *image)
 {
 	return (y < radius && x >= image->width - radius
-		&& pow(y - radius, 2) + pow(x - image->width + radius, 2)
-		> pow(radius, 2));
+		&& powf(y - radius, 2) + powf(x - image->width + radius, 2)
+		> powf(radius, 2));
 }
 
 static bool is_in_bottom_left_corner(int x, int y, int radius, t_image *image)
 {
 	return (y >= image->height - radius && x < radius
-		&& pow(y - image->height + radius, 2)
-		+ pow(x - radius, 2) > pow(radius, 2));
+		&& powf(y - image->height + radius, 2)
+		+ powf(x - radius, 2) > powf(radius, 2));
 }
 
 static bool is_in_bottom_right_corner(int x, int y, int radius, t_image *image)
 {
 	return (y >= image->height - radius && x >= image->width - radius
-		&& pow(y - image->height + radius, 2)
-		+ pow(x - image->width + radius, 2) > pow(radius, 2));
+		&& powf(y - image->height + radius, 2)
+		+ powf(x - image->width + radius, 2) > powf(radius, 2));
 }

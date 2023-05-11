@@ -14,7 +14,7 @@
 
 #include "math/matrix.h"
 
-t_matrix3	matrix3_create(double value)
+t_matrix3	matrix3_create(float value)
 {
 	t_matrix3	result;
 	int			y;

@@ -23,11 +23,11 @@ int				init_rgb_picker(t_engine *minirt, t_gui_box *gui_box,
 								   t_gui_box *parent);
 int				init_base_color_box(t_engine *minirt, t_gui_box *gui_box,
 									   t_gui_box *parent);
-int				get_increasing_color(double color, double x, double decal,
-										double ratio);
-int				get_decreasing_color(double color, double x, double decal,
-										double ratio);
-int				get_base_color(double color, double x, double decal, double ratio);
+int				get_increasing_color(float color, float x, float decal,
+										float ratio);
+int				get_decreasing_color(float color, float x, float decal,
+										float ratio);
+int				get_base_color(float color, float x, float decal, float ratio);
 int				init_color_picker_box(t_engine *minirt, t_gui_box *gui_box,
 										 t_gui_box *parent);
 void			add_hover_color_circle(t_gui_box *self, t_engine *minirt,

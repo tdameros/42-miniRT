@@ -72,20 +72,20 @@ static char	*add_word(char *arg, char **ret, int ret_index)
 static int	get_word_size(char *arg)
 {
 	int		size;
-	bool	is_in_double_quote;
+	bool	is_in_float_quote;
 	bool	is_in_simple_quote;
 
 	size = 0;
-	is_in_double_quote = false;
+	is_in_float_quote = false;
 	is_in_simple_quote = false;
 	while (arg[size] != '\0')
 	{
 		if (arg[size] == '\"' && is_in_simple_quote == false)
-			ft_reverse_bool(&is_in_double_quote);
-		else if (arg[size] == '\'' && is_in_double_quote == false)
+			ft_reverse_bool(&is_in_float_quote);
+		else if (arg[size] == '\'' && is_in_float_quote == false)
 			ft_reverse_bool(&is_in_simple_quote);
 		else if (arg[size] == ' '
-			&& is_in_double_quote == false && is_in_simple_quote == false)
+			&& is_in_float_quote == false && is_in_simple_quote == false)
 			break ;
 		size++;
 	}

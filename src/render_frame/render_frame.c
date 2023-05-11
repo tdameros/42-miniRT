@@ -88,4 +88,5 @@ void	render_raytracing(t_engine *minirt)
 			put_pixel_on_image(img_ptr, img_ptr->height - y - 1, x, vec_rgb_to_uint(pixel_color));
 		}
 	}
+	free_objects(&objects);
 }

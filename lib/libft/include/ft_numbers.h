@@ -18,13 +18,13 @@
 
 int			ft_abs(int i);
 
-double		ft_atof(const char *string);
+float		ft_atof(const char *string);
 int			ft_atoi(const char *str);
 long long	ft_atoll(const char *str);
 int			ft_get_smallest_int(int a, int b);
 char		*ft_itoa(int n);
 
-void		ft_swap_double(double *a, double *b);
+void		ft_swap_float(float *a, float *b);
 void		ft_swap_int(int *a, int *b);
 void		ft_swap_long(long *a, long *b);
 void		ft_swap_size_t(size_t *a, size_t *b);

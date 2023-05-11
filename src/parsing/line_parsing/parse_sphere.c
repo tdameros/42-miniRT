@@ -28,7 +28,7 @@ int	parse_sphere(t_engine *minirt, char **scene_content_line,
 		return (error("Error\nFailed to get sphere line\n"));
 	if (get_position(scene_content_line[1], &sphere.position) < 0)
 		return (error("Error\nFailed to get sphere position\n"));
-	if (get_double(scene_content_line[2], &sphere.radius) < 0)
+	if (get_float(scene_content_line[2], &sphere.radius) < 0)
 		return (error("Error\nFailed to get sphere radius\n"));
 	if (get_color(scene_content_line[3], &sphere.albedo) < 0)
 		return (error("Error\nFailed to get sphere albedo\n"));

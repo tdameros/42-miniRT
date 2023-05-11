@@ -30,9 +30,9 @@ int	parse_cylinder(t_engine *minirt, char **scene_content_line,
 		return (error("Error\nFailed to get cylinder position\n"));
 	if (get_normalized_vector(scene_content_line[2], &cylinder.normal) < 0)
 		return (error("Error\nFailed to get cylinder orientation\n"));
-	if (get_double(scene_content_line[3], &cylinder.radius) < 0)
+	if (get_float(scene_content_line[3], &cylinder.radius) < 0)
 		return (error("Error\nFailed to get cylinder radius\n"));
-	if (get_double(scene_content_line[4], &cylinder.height) < 0)
+	if (get_float(scene_content_line[4], &cylinder.height) < 0)
 		return (error("Error\nFailed to get cylinder y\n"));
 	if (get_color(scene_content_line[5], &cylinder.albedo) < 0)
 		return (error("Error\nFailed to get cylinder albedo\n"));

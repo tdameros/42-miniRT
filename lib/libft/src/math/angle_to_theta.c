@@ -12,7 +12,7 @@
 
 #include <math.h>
 
-double	ft_angle_to_theta(double angle)
+float	ft_angle_to_theta(float angle)
 {
 	return (angle * M_PI / 180.0);
 }

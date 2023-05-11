@@ -12,17 +12,17 @@
 
 #include "math/matrix.h"
 
-static double	get_factor_to_one(double number);
+static float	get_factor_to_one(float number);
 static void		set_column_to_zero(t_matrix4 *matrix,
 					t_matrix4 *identity_matrix, int x);
-static void		multiply_row(t_matrix4 *matrix, int row, double factor);
-static void		sum_column(t_matrix4 *matrix, int x, int y, double factor);
+static void		multiply_row(t_matrix4 *matrix, int row, float factor);
+static void		sum_column(t_matrix4 *matrix, int x, int y, float factor);
 
 t_matrix4	matrix4_inverse(t_matrix4 matrix)
 {
 	t_matrix4	identity_matrix;
 	int			x;
-	double		factor;
+	float		factor;
 
 	identity_matrix = matrix4_create_identity();
 	x = 0;
@@ -37,7 +37,7 @@ t_matrix4	matrix4_inverse(t_matrix4 matrix)
 	return (identity_matrix);
 }
 
-static double	get_factor_to_one(double number)
+static float	get_factor_to_one(float number)
 {
 	if (number == 0)
 		return (0);
@@ -61,7 +61,7 @@ static void	set_column_to_zero(t_matrix4 *matrix, t_matrix4 *identity_matrix,
 	}
 }
 
-static void	multiply_row(t_matrix4 *matrix, int row, double factor)
+static void	multiply_row(t_matrix4 *matrix, int row, float factor)
 {
 	int	i;
 
@@ -73,7 +73,7 @@ static void	multiply_row(t_matrix4 *matrix, int row, double factor)
 	}
 }
 
-static void	sum_column(t_matrix4 *matrix, int x, int y, double factor)
+static void	sum_column(t_matrix4 *matrix, int x, int y, float factor)
 {
 	int	i;
 

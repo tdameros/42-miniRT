@@ -14,7 +14,7 @@
 
 #include "math/vector.h"
 
-t_vector2	vector2_create(double x, double y)
+t_vector2	vector2_create(float x, float y)
 {
 	t_vector2	vector;
 
@@ -28,7 +28,7 @@ void	vector2_print(t_vector2 vector)
 	printf("Vector2 => x:%f y:%f\n", vector.x, vector.y);
 }
 
-t_vector2	vector2_clamp(t_vector2 vector, double min, double max)
+t_vector2	vector2_clamp(t_vector2 vector, float min, float max)
 {
 	if (vector.x < min)
 		vector.x = min;

@@ -30,7 +30,7 @@ t_vector4	vector4_subtract(t_vector4 v1, t_vector4 v4)
 	return (v1);
 }
 
-t_vector4	vector4_multiply(t_vector4 v1, double value)
+t_vector4	vector4_multiply(t_vector4 v1, float value)
 {
 	v1.x *= value;
 	v1.y *= value;
@@ -39,7 +39,7 @@ t_vector4	vector4_multiply(t_vector4 v1, double value)
 	return (v1);
 }
 
-t_vector4	vector4_divide(t_vector4 v1, double value)
+t_vector4	vector4_divide(t_vector4 v1, float value)
 {
 	v1.x /= value;
 	v1.y /= value;

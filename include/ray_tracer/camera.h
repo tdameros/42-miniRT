@@ -28,9 +28,9 @@ typedef struct s_camera {
 	t_matrix4	inverse_projection;
 
 	t_vector2	viewport;
-	double		vertical_fov;
-	double		near_clip;
-	double		far_clip;
+	float		vertical_fov;
+	float		near_clip;
+	float		far_clip;
 
 	t_ray		*rays;
 }	t_camera;
@@ -39,10 +39,10 @@ typedef struct s_camera {
 int			camera_create(t_camera *camera, t_vector2 viewport);
 
 //	movement.c
-void		camera_move_forward(t_camera *camera, double distance);
-void		camera_move_left(t_camera *camera, double distance);
-void		camera_rotate_left(t_camera *camera, double degrees);
-void		camera_rotate_up(t_camera *camera, double degrees);
+void		camera_move_forward(t_camera *camera, float distance);
+void		camera_move_left(t_camera *camera, float distance);
+void		camera_rotate_left(t_camera *camera, float degrees);
+void		camera_rotate_up(t_camera *camera, float degrees);
 
 //	projection.c
 void		camera_recalculate_projection(t_camera *camera);

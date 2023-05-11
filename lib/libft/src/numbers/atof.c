@@ -3,12 +3,12 @@
 
 #include "libft.h"
 
-static int	get_pre_decimal(const char **string, double *result);
-static int	get_post_decimal(const char **string, double *result);
+static int	get_pre_decimal(const char **string, float *result);
+static int	get_post_decimal(const char **string, float *result);
 
-double	ft_atof(const char *string)
+float	ft_atof(const char *string)
 {
-	double	result;
+	float	result;
 	int		new_errno_value;
 	bool	is_negative;
 
@@ -34,7 +34,7 @@ double	ft_atof(const char *string)
 	return (result * (-is_negative + !is_negative));
 }
 
-static int	get_pre_decimal(const char **string, double *result)
+static int	get_pre_decimal(const char **string, float *result)
 {
 	*result = 0;
 	while (ft_isdigit(**string))
@@ -47,7 +47,7 @@ static int	get_pre_decimal(const char **string, double *result)
 	return (ERANGE * (isinf(*result) != 0));
 }
 
-static int	get_post_decimal(const char **string, double *result)
+static int	get_post_decimal(const char **string, float *result)
 {
 	size_t	post_decimal;
 
@@ -57,7 +57,7 @@ static int	get_post_decimal(const char **string, double *result)
 	post_decimal = 10;
 	while (ft_isdigit(**string))
 	{
-		(*result) += (double)(**string - '0') / (double)post_decimal;
+		(*result) += (float)(**string - '0') / (float)post_decimal;
 		post_decimal *= 10;
 		(*string)++;
 	}

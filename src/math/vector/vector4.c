@@ -14,7 +14,7 @@
 
 #include "math/vector.h"
 
-t_vector4	vector4_create(double x, double y, double z, double w)
+t_vector4	vector4_create(float x, float y, float z, float w)
 {
 	t_vector4	vector;
 

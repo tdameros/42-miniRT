@@ -16,7 +16,7 @@
 #include "engine.h"
 #include "parsing.h"
 
-static int	get_camera_fov(char *fov_string, double *fov_destination);
+static int	get_camera_fov(char *fov_string, float *fov_destination);
 
 int	parse_camera(t_engine *minirt, char **scene_content_line,
 					t_rt_file_requirements *rt_file_requirements, t_list **object_list)
@@ -39,9 +39,9 @@ int	parse_camera(t_engine *minirt, char **scene_content_line,
 	return (0);
 }
 
-static int	get_camera_fov(char *fov_string, double *fov_destination)
+static int	get_camera_fov(char *fov_string, float *fov_destination)
 {
-	const double	fov = ft_atof(fov_string);
+	const float	fov = ft_atof(fov_string);
 
 	if (errno == EINVAL || errno == ERANGE || fov < 0 || fov > 180)
 		return (-1);
