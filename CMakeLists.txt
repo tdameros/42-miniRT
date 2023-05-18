@@ -270,4 +270,4 @@ add_executable(42_miniRT
         src/close_miniRT.c
         src/color.c
         src/init_minirt.c
-        src/main.c include/gui/init.h include/gui/utils.h)
+        src/main.c include/gui/init.h include/gui/utils.h src/object/plane.c src/object/hit.c)

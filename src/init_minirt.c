@@ -44,6 +44,7 @@ int	init_engine(t_engine *minirt, const char *start_up_scene)
 	}
 	// TODO: secure me
 	camera_create(&minirt->camera, vector2f_create(WINDOW_WIDTH, WINDOW_HEIGHT));
+	init_scene(&minirt->scene);
 	return (0);
 }
 

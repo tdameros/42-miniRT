@@ -66,29 +66,16 @@ static void	render_minirt(t_engine *minirt)
 void	render_raytracing(t_engine *minirt)
 {
 	t_image			*img_ptr = &minirt->ray_traced_image;
-	t_scene			scene;
-	t_objects		objects;
-	t_object		object;
 
-	// TODO: dont regenerate scene every frame
-	initialize_objects_array(&objects, 10);
-	object = sphere_create(vector3f_create(0, 0, 0), 0.5,
-						   vector3f_create(1, 0, 1));
-	add_object_in_objects(&objects, object);
-	object = sphere_create(vector3f_create(-2, 0, 0), 0.5,
-						   vector3f_create(0, 1, 1));
-	add_object_in_objects(&objects, object);
-	scene.objects = objects;
 	for (int y = 0; y < img_ptr->height; y++)
 	{
 		for (int x = 0; x < img_ptr->width; x++)
 		{
 			t_ray ray = minirt->camera.rays[x + y * (int) minirt->camera.viewport.x];
-			t_vector3f pixel_color = render_pixel(ray, &scene);
+			t_vector3f pixel_color = render_pixel(ray, &minirt->scene);
 			pixel_color = vector3f_clamp(pixel_color, 0, 1);
 			pixel_color = vector3f_multiply(pixel_color, 255);
 			put_pixel_on_image(img_ptr, img_ptr->height - y - 1, x, vec_rgb_to_uint(pixel_color));
 		}
 	}
-	free_objects(&objects);
 }
