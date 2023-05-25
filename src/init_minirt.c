@@ -43,7 +43,13 @@ int	init_engine(t_engine *minirt, const char *start_up_scene)
 		return (-1);
 	}
 	// TODO: secure me
-	camera_create(&minirt->camera, vector2f_create(WINDOW_WIDTH, WINDOW_HEIGHT));
+  camera_create(&minirt->camera, vector2f_create(WINDOW_WIDTH, WINDOW_HEIGHT));
+	if (ttf_parser(&minirt->gui.font,
+				   "data/fonts/inconsolata/Inconsolata-VariableFont_wdth,wght.ttf")
+		< 0)
+//	if (ttf_parser(&minirt.gui.font,
+//			"data/fonts/Envy Code R PR7/Envy Code R.ttf") < 0)
+		return (-1); // TODO free everything
 	return (0);
 }
 

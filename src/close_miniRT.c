@@ -14,6 +14,7 @@ int	close_engine(t_engine *engine)
 	destroy_raytracing_data(&engine->raytracing_data);
 	destroy_t_image(&engine->window, &engine->main_image);
 	mlx_destroy_window(engine->window.mlx, engine->window.window);
+	// TODO destroy font
 	exit(0); // TODO: free everything
 }
 

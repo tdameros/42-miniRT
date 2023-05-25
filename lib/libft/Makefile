@@ -42,17 +42,19 @@ SRC =\
 	io/get_next_line/get_next_line_utils.c			\
 	io/get_next_line/get_next_line.c				\
 \
+	io/printf/printf.c			\
+	io/printf/get_final_str.c	\
+	io/printf/formating/format.c		\
+	io/printf/formating/format_u_x.c	\
+	\
+	io/print_error.c			\
 	io/print_position_in_code.c	\
 	io/putchar_fd.c				\
 	io/putendl_fd.c				\
 	io/putnbr_fd.c				\
 	io/putstr_fd.c				\
 	io/putstr.c					\
-\
-	io/printf/printf.c			\
-	io/printf/get_final_str.c	\
-	io/printf/formating/format.c		\
-	io/printf/formating/format_u_x.c	\
+	io/read_file.c				\
 \
 \
 	linked_list/doubly_linked_void_ptr/dlst_get_next_free_current.c	\
@@ -86,6 +88,7 @@ SRC =\
 \
 	linked_list/void_ptr/lst_get_next_free_current.c	\
 	linked_list/void_ptr/lst_join_strs.c				\
+	linked_list/void_ptr/lst_join_t_strings.c			\
 	linked_list/void_ptr/lst_of_lst_clear.c				\
 	linked_list/void_ptr/lst_push.c						\
 	linked_list/void_ptr/lst_reverse.c					\
@@ -158,6 +161,7 @@ SRC =\
 	string/strrchr.c			\
 	string/strtrim.c			\
 	string/substr.c				\
+	string/t_string_free.c		\
 \
 \
 	sort/msort_int.c				\

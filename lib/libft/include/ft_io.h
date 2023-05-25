@@ -15,18 +15,20 @@
 
 # include <unistd.h>
 
-char	*get_next_line_multi_fd(int fd);
-char	*get_next_line(int fd);
+char		*get_next_line_multi_fd(int fd);
+char		*get_next_line(int fd);
 
-void	ft_print_position_in_code(const char *file, const char *function,
-			const int line);
-ssize_t	ft_putchar_fd(const char c, int fd);
-ssize_t	ft_putendl_fd(const char *s, int fd);
-ssize_t	ft_putnbr_fd(int n, int fd);
-ssize_t	ft_putstr_fd(const char *s, int fd);
+ssize_t		ft_print_error(const char *str);
+void		ft_print_position_in_code(const char *file, const char *function,
+				const int line);
+ssize_t		ft_putchar_fd(const char c, int fd);
+ssize_t		ft_putendl_fd(const char *s, int fd);
+ssize_t		ft_putnbr_fd(int n, int fd);
+ssize_t		ft_putstr_fd(const char *s, int fd);
 
 // Bonus
-ssize_t	ft_putstr(const char *s);
-int		ft_printf(const char *format, ...);
+ssize_t		ft_putstr(const char *s);
+int			ft_printf(const char *format, ...);
+t_string	ft_read_file(char *file_name);
 
 #endif

@@ -48,7 +48,7 @@ void	put_background(t_image *destination, const t_image *source)
 }
 
 void	put_image_to_image_unsafe(t_image *destination,
-								  const t_image *source, t_vector2i position)
+			const t_image *source, t_vector2i position)
 {
 	const unsigned int		*source_end
 		= source->address + source->height * source->line_length;

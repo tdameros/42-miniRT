@@ -19,6 +19,7 @@
 # include "gui/boxes.h"
 # include "image.h"
 # include "engine.h"
+# include "ttf.h"
 
 typedef struct s_fps
 {
@@ -28,6 +29,7 @@ typedef struct s_fps
 
 typedef struct s_gui
 {
+	t_font		font;
 	bool		is_hidden;
 	float		hidden_ratio;
 	t_gui_boxes	gui_boxes;

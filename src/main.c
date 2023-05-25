@@ -14,10 +14,14 @@
 #include "libft.h"
 
 #include "engine.h"
+#include "ttf.h"
 
 #define EXPECTED_EXECUTION_COMMAND "./miniRT *.rt"
 
 static bool	arguments_are_bad(int argc, char **argv);
+
+#include "stdio.h"
+#include "stdlib.h"
 
 int	main(int argc, char **argv)
 {

@@ -15,6 +15,8 @@
 
 # include <stddef.h>
 
+# include "ft_string.h"
+
 // Doubly linked void *
 typedef struct s_dlist
 {
@@ -46,6 +48,7 @@ typedef struct s_list
 
 t_list		*ft_lst_get_next_free_current(t_list **lst, void (*del)(void *));
 char		*ft_lst_join_strs(t_list *str_list);
+t_string	lst_join_t_strings(t_list *list, t_string separator);
 void		ft_lst_of_lst_clear(t_list **lst, void (*del)(void *));
 void		ft_lst_push(t_list **dst, t_list **src);
 t_list		*ft_lst_reverse(t_list **lst);
