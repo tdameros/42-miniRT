@@ -16,6 +16,12 @@
 # include <stddef.h>
 # include <stdbool.h>
 
+typedef struct s_string
+{
+	char	*data;
+	size_t	len;
+}	t_string;
+
 char	**ft_split_set(char const *s, char *set);
 char	**ft_split(char const *s, char c);
 size_t	ft_split_len(char **strs);
@@ -46,5 +52,7 @@ char	*ft_strrstr(const char *haystack, const char *needle);
 char	*ft_strrchr(const char *s, int c);
 char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
+
+void	t_string_free(void *string);
 
 #endif

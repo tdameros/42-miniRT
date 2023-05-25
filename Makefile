@@ -106,6 +106,21 @@ SRC				=\
 	scene/create.c	\
 	\
 	\
+	ttf_parser/get_glyph_offset.c				\
+	ttf_parser/get_glyph_outlines.c				\
+	ttf_parser/read_cmap.c						\
+	ttf_parser/read_file.c						\
+	ttf_parser/read_font_directory.c			\
+	ttf_parser/read_format4.c					\
+	ttf_parser/read_glyph_outline.c				\
+	ttf_parser/read_glyph_outline_coordinates.c	\
+	ttf_parser/read_head.c						\
+	ttf_parser/read_loca.c						\
+	ttf_parser/read_maxp.c						\
+	ttf_parser/ttf_get_table_offset.c			\
+	ttf_parser/ttf_parser.c						\
+	\
+	\
 	close_miniRT.c	\
 	color.c			\
 	init_minirt.c	\
@@ -183,8 +198,9 @@ all:
 			$(MAKE) $(NAME)
 
 .PHONY:		run
-run:		all
-			./miniRT data/test.rt
+run:
+			$(MAKE) -j
+			./miniRT data/test.rt || true
 
 $(NAME):	$(OBJS)
 			$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) $(FRAMEWORKS) $(LIBS) -o $(NAME)
@@ -203,6 +219,10 @@ fclean:	clean
 			$(MAKE_LIBFT) fclean
 			$(MAKE_MINILIBX) clean # MINILIBX has no fclean
 			$(RM) $(NAME)
+
+.PHONY:	debug
+debug: fclean
+			$(MAKE) run -j CFLAGS="$(DEBUG_CLFAGS)"
 
 .PHONY:	re
 re:		fclean

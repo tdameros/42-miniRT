@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.25)
-project(42_miniRT C)
+project(miniRT C)
 
 set(CMAKE_C_STANDARD 11)
 
@@ -7,15 +7,17 @@ include_directories(include)
 include_directories(lib/libft/include)
 include_directories(lib/minilibx_opengl_20191021)
 
-add_executable(42_miniRT
+add_executable(miniRT
         include/deprecated/t_ambient_light.h
         include/deprecated/t_light.h
         include/deprecated/t_raytracing_data.h
         include/gui/box.h
         include/gui/boxes.h
         include/gui/gui.h
+        include/gui/init.h
         include/gui/main_gui_box.h
         include/gui/object_modification_box.h
+        include/gui/utils.h
         include/math/conversion.h
         include/math/matrix.h
         include/math/vector.h
@@ -32,6 +34,8 @@ add_executable(42_miniRT
         include/parsing.h
         include/render_frame.h
         include/scene.h
+        include/ttf.h
+        include/window.h
         lib/libft/include/ft_bitmask.h
         lib/libft/include/ft_bools.h
         lib/libft/include/ft_char.h
@@ -79,12 +83,14 @@ add_executable(42_miniRT
         lib/libft/src/io/printf/formating/format_u_x.c
         lib/libft/src/io/printf/get_final_str.c
         lib/libft/src/io/printf/printf.c
+        lib/libft/src/io/print_error.c
         lib/libft/src/io/print_position_in_code.c
         lib/libft/src/io/putchar_fd.c
         lib/libft/src/io/putendl_fd.c
         lib/libft/src/io/putnbr_fd.c
         lib/libft/src/io/putstr.c
         lib/libft/src/io/putstr_fd.c
+        lib/libft/src/io/read_file.c
         lib/libft/src/linked_list/doubly_linked_void_ptr/dlst_get_next_free_current.c
         lib/libft/src/linked_list/doubly_linked_void_ptr/dlst_of_dlst_clear.c
         lib/libft/src/linked_list/doubly_linked_void_ptr/dlst_push.c
@@ -114,6 +120,7 @@ add_executable(42_miniRT
         lib/libft/src/linked_list/int/lsti_size.c
         lib/libft/src/linked_list/void_ptr/lst_get_next_free_current.c
         lib/libft/src/linked_list/void_ptr/lst_join_strs.c
+        lib/libft/src/linked_list/void_ptr/lst_join_t_strings.c
         lib/libft/src/linked_list/void_ptr/lst_of_lst_clear.c
         lib/libft/src/linked_list/void_ptr/lst_push.c
         lib/libft/src/linked_list/void_ptr/lst_remove_if.c
@@ -178,6 +185,7 @@ add_executable(42_miniRT
         lib/libft/src/string/strrstr.c
         lib/libft/src/string/strtrim.c
         lib/libft/src/string/substr.c
+        lib/libft/src/string/t_string_free.c
         lib/libft/src/time/get_current_time.c
         lib/libft/src/time/get_number_of_fps_in_string.c
         lib/minilibx_opengl_20191021/font.c
@@ -236,7 +244,9 @@ add_executable(42_miniRT
         src/math/vector/vector4_math.c
         src/math/vector/vector4_operations.c
         src/math/conversion.c
+        src/object/hit.c
         src/object/objects.c
+        src/object/plane.c
         src/object/sphere.c
         src/parsing/line_parsing/utils/add_object_to_object_list.c
         src/parsing/line_parsing/utils/error.c
@@ -267,7 +277,20 @@ add_executable(42_miniRT
         src/render_frame/render_frame.c
         src/render_frame/render_user_interface.c
         src/scene/create.c
+        src/ttf_parser/get_glyph_offset.c
+        src/ttf_parser/get_glyph_outlines.c
+        src/ttf_parser/read_cmap.c
+        src/ttf_parser/read_file.c
+        src/ttf_parser/read_font_directory.c
+        src/ttf_parser/read_format4.c
+        src/ttf_parser/read_glyph_outline.c
+        src/ttf_parser/read_glyph_outline_coordinates.c
+        src/ttf_parser/read_head.c
+        src/ttf_parser/read_loca.c
+        src/ttf_parser/read_maxp.c
+        src/ttf_parser/ttf_get_table_offset.c
+        src/ttf_parser/ttf_parser.c
         src/close_miniRT.c
         src/color.c
         src/init_minirt.c
-        src/main.c include/gui/init.h include/gui/utils.h src/object/plane.c src/object/hit.c)
+        src/main.c)

@@ -15,6 +15,6 @@
 
 # include "engine.h"
 
-int				init_gui_boxes(t_engine *engine);
+int	init_gui_boxes(t_engine *engine);
 
 #endif
