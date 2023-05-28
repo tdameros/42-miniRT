@@ -55,6 +55,7 @@ SRC =\
 	io/putstr_fd.c				\
 	io/putstr.c					\
 	io/read_file.c				\
+	io/read_file_to_c_string.c	\
 \
 \
 	linked_list/doubly_linked_void_ptr/dlst_get_next_free_current.c	\
@@ -142,26 +143,27 @@ SRC =\
 	string/join/strjoin.c		\
 	string/join/strjoin_three.c	\
 \
-	string/is_number.c			\
-	string/skip_char.c			\
-	string/skip_set.c			\
-	string/str_is_in_strs.c		\
-	string/strchr.c				\
-	string/strcmp.c				\
-	string/strcmp_ignore_case.c	\
-	string/strdup.c				\
-	string/striteri.c			\
-	string/strlcat.c			\
-	string/strlcpy.c			\
-	string/strlen.c				\
-	string/strmapi.c			\
-	string/strncmp.c			\
-	string/strnstr.c			\
-	string/strrstr.c			\
-	string/strrchr.c			\
-	string/strtrim.c			\
-	string/substr.c				\
-	string/t_string_free.c		\
+	string/is_number.c				\
+	string/skip_char.c				\
+	string/skip_set.c				\
+	string/str_is_in_strs.c			\
+	string/strchr.c					\
+	string/strcmp.c					\
+	string/strcmp_ignore_case.c		\
+	string/strdup.c					\
+	string/striteri.c				\
+	string/strlcat.c				\
+	string/strlcpy.c				\
+	string/strlen.c					\
+	string/strmapi.c				\
+	string/strncmp.c				\
+	string/strnstr.c				\
+	string/strrstr.c				\
+	string/strrchr.c				\
+	string/strtrim.c				\
+	string/substr.c					\
+	string/t_string_free.c			\
+	string/t_string_to_c_string.c	\
 \
 \
 	sort/msort_int.c				\

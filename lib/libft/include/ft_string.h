@@ -53,6 +53,8 @@ char	*ft_strrchr(const char *s, int c);
 char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 
-void	t_string_free(void *string);
+void	ft_t_string_free(void *string);
+char	*ft_t_string_to_c_string(t_string *string);
+
 
 #endif

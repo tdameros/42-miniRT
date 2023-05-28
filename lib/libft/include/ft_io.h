@@ -15,6 +15,8 @@
 
 # include <unistd.h>
 
+# include "ft_string.h"
+
 char		*get_next_line_multi_fd(int fd);
 char		*get_next_line(int fd);
 
@@ -30,5 +32,6 @@ ssize_t		ft_putstr_fd(const char *s, int fd);
 ssize_t		ft_putstr(const char *s);
 int			ft_printf(const char *format, ...);
 t_string	ft_read_file(char *file_name);
+char		*ft_read_file_to_c_string(char *file_name);
 
 #endif

@@ -41,8 +41,8 @@ t_string	ft_read_file(char *file_name)
 	close(fd);
 	if (errno != 0)
 		return ((t_string){.data = NULL, .len = 0});
-	result = lst_join_t_strings(lines, (t_string){.data = NULL, .len = 0});
-	ft_lstclear(&lines, &t_string_free);
+	result = ft_lst_join_t_strings(lines, (t_string){.data = NULL, .len = 0});
+	ft_lstclear(&lines, &ft_t_string_free);
 	return (result);
 }
 
@@ -58,7 +58,7 @@ static t_list	*read_file_content(int fd)
 	{
 		if (add_string_to_list(&list, buf, tmp) < 0)
 		{
-			ft_lstclear(&list, &t_string_free);
+			ft_lstclear(&list, &ft_t_string_free);
 			return (NULL);
 		}
 		tmp = read(fd, buf, BUFFER_SIZE);

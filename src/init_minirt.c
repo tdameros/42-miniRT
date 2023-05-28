@@ -28,18 +28,16 @@ static int	init_opencl(t_opencl *opencl)
 
 static int	init_raytracing_kernel(t_engine *engine)
 {
-	t_string	kernel_file;
+	char	*kernel_file;
 
-	kernel_file = ft_read_file(RAYTRACER_KERNEL);
-	if (kernel_file.data == NULL)
+	kernel_file = ft_read_file_to_c_string(RAYTRACER_KERNEL);
+	if (kernel_file == NULL)
 	{
 		perror("Failed to read kernel "RAYTRACER_KERNEL);
 		return (-1);
 	}
-//	ft_print_error(kernel_file.data);
-//	return (-1);
-	engine->raytracing_program = clCreateProgramWithSource(engine->opencl.context, 1, (const char **)&kernel_file.data, &kernel_file.len, NULL);
-	free(kernel_file.data);
+	engine->raytracing_program = clCreateProgramWithSource(engine->opencl.context, 1, (const char **)&kernel_file, NULL, NULL);
+	free(kernel_file);
 	clBuildProgram(engine->raytracing_program, 1, &engine->opencl.deviceID, NULL, NULL, NULL);
 
 	cl_build_status buildStatus;

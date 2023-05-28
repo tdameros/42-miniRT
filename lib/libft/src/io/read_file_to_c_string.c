@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   t_string_free.c                                    :+:      :+:    :+:   */
+/*   read_file_to_c_string.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/12 02:47:00 by vfries            #+#    #+#             */
-/*   Updated: 2023/05/12 02:47:00 by vfries           ###   ########lyon.fr   */
+/*   Created: 2023/05/29 01:03:00 by vfries            #+#    #+#             */
+/*   Updated: 2023/05/29 01:03:00 by vfries           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-#include "ft_string.h"
+#include "ft_io.h"
 
-void	ft_t_string_free(void *string)
+char	*ft_read_file_to_c_string(char *file_name)
 {
-	free(((t_string *)string)->data);
-	free(string);
+	char		*result;
+	t_string	string;
+
+	string = ft_read_file(file_name);
+	result = ft_t_string_to_c_string(&string);
+	free(string.data);
+	return (result);
 }

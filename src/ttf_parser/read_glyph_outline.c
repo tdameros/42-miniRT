@@ -98,7 +98,7 @@ static int	read_flags(const t_string *file, size_t *file_cursor,
 	size_t			i;
 	uint8_t			repeat_count;
 
-	outline->flags = malloc(size);
+	outline->flags = malloc(size * sizeof(*outline->flags));
 	if (outline->flags == NULL)
 		return (-1);
 	i = -1;
@@ -110,7 +110,7 @@ static int	read_flags(const t_string *file, size_t *file_cursor,
 		{
 			if (read_uint8_move(file, file_cursor, &repeat_count) < 0)
 				return (free(outline->flags), -1);
-			while (repeat_count-- > 0)
+			while (repeat_count-- && i + 1 < size) // TODO fixed overflow with this condition, need to check if it works correctly
 			{
 				i++;
 				outline->flags[i] = outline->flags[i - 1];

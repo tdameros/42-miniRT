@@ -19,7 +19,7 @@
 static size_t	get_len(t_list *list, t_string separator);
 static void		fill_data(t_string *dest, t_list *list, t_string separator);
 
-t_string	lst_join_t_strings(t_list *list, const t_string separator)
+t_string	ft_lst_join_t_strings(t_list *list, const t_string separator)
 {
 	t_string	result;
 
