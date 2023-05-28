@@ -60,7 +60,9 @@ SRC				=\
 	math/conversion.c	\
 	\
 	\
+	object/hit.c		\
 	object/objects.c	\
+	object/plane.c		\
 	object/sphere.c		\
 	\
 	\

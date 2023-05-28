@@ -92,7 +92,8 @@ int	init_engine(t_engine *engine, const char *start_up_scene)
 		return (-1);
 	}
 	// TODO: secure me
-  camera_create(&engine->camera, vector2f_create(WINDOW_WIDTH, WINDOW_HEIGHT));
+	camera_create(&engine->camera, vector2f_create(WINDOW_WIDTH, WINDOW_HEIGHT));
+	init_scene(&engine->scene);
 	if (ttf_parser(&engine->gui.font,
 				   "data/fonts/inconsolata/Inconsolata-VariableFont_wdth,wght.ttf")
 		< 0)
