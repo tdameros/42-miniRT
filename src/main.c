@@ -25,16 +25,16 @@ static bool	arguments_are_bad(int argc, char **argv);
 
 int	main(int argc, char **argv)
 {
-	t_engine	minirt;
+	t_engine	engine;
 
 	if (arguments_are_bad(argc, argv))
 		return (1);
-	if (init_engine(&minirt, argv[1]) < 0)
+	if (init_engine(&engine, argv[1]) < 0)
 	{
 		ft_putstr_fd("Error: Failed to init miniRT\n", STDERR_FILENO);
 		return (2);
 	}
-	mlx_loop(minirt.window.mlx);
+	mlx_loop(engine.window.mlx);
 }
 
 static bool	arguments_are_bad(int argc, char **argv)

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stddef.h>
+#include <stdlib.h>
 
 #include "libft.h"
 #include "mlx.h"
@@ -12,44 +13,78 @@
 #include "window.h"
 #include "engine.h"
 #include "colors.h"
+#include "opencl_kernel_names.h"
 
 static void	init_hooks(t_engine *minirt);
 
-static void	print_scene_content(t_raytracing_data *raytracing_data);
-int	init_engine(t_engine *minirt, const char *start_up_scene)
+static int	init_opencl(t_opencl *opencl)
 {
-	ft_bzero(minirt, sizeof(t_engine));
-	minirt->window.mlx = mlx_init();
-	if (minirt->window.mlx == NULL)
+	// TODO secure stuff
+	clGetDeviceIDs(NULL, CL_DEVICE_TYPE_GPU, 1, &opencl->deviceID, NULL);
+	opencl->context = clCreateContext(NULL, 1, &opencl->deviceID, NULL, NULL, NULL);
+	opencl->commandQueue = clCreateCommandQueue(opencl->context, opencl->deviceID, 0, NULL);
+	return (0);
+}
+
+static int	init_raytracing_kernel(t_engine *engine)
+{
+	t_string	kernel_file;
+
+	kernel_file = ft_read_file(RAYTRACER_KERNEL);
+	if (kernel_file.data == NULL)
+	{
+		perror("Failed to read kernel "RAYTRACER_KERNEL);
 		return (-1);
-	minirt->window.window = mlx_new_window(minirt->window.mlx, WINDOW_WIDTH,
-			WINDOW_HEIGHT, "miniRT");
-	if (minirt->window.window == NULL)
+	}
+	engine->raytracing_program = clCreateProgramWithSource(engine->opencl.context, 1, (const char **)&kernel_file.data, &kernel_file.len, NULL);
+	free(kernel_file.data);
+	clBuildProgram(engine->raytracing_program, 1, &engine->opencl.deviceID, NULL, NULL, NULL);
+	engine->raytracing_kernel = clCreateKernel(engine->raytracing_program, "main", NULL);
+	// Set the kernel arguments
+	clSetKernelArg(engine->raytracing_kernel, 0, sizeof(t_engine), engine);
+	return (0);
+}
+
+static void	print_scene_content(t_raytracing_data *raytracing_data);
+int	init_engine(t_engine *engine, const char *start_up_scene)
+{
+	ft_bzero(engine, sizeof(*engine));
+	init_opencl(&engine->opencl);
+	engine->window.mlx = mlx_init();
+	if (engine->window.mlx == NULL)
+		return (-1);
+	engine->window.window = mlx_new_window(engine->window.mlx, WINDOW_WIDTH,
+										   WINDOW_HEIGHT, "miniRT");
+	if (engine->window.window == NULL)
 		return (-1); // TODO: free mlx
-	if (parse_scene(minirt, start_up_scene) < 0)
+	if (parse_scene(engine, start_up_scene) < 0)
 		return (-1); // TODO free stuff
-	print_scene_content(&minirt->raytracing_data);
+	print_scene_content(&engine->raytracing_data);
 
-	init_image(&minirt->ray_traced_image, &minirt->window, WINDOW_WIDTH, WINDOW_HEIGHT); // TODO secure me
+	init_image(&engine->ray_traced_image, &engine->window, WINDOW_WIDTH, WINDOW_HEIGHT); // TODO secure me
+	engine->ray_traced_image_gpu_buffer = clCreateBuffer(engine->opencl.context, CL_MEM_READ_WRITE | CL_MEM_HOST_NO_ACCESS, engine->ray_traced_image.size, NULL, NULL);
 
-	init_image(&minirt->main_image, &minirt->window, WINDOW_WIDTH, WINDOW_HEIGHT); // TODO secure me
-	change_image_color(&minirt->main_image, COLOR_BLACK);
+	init_image(&engine->main_image, &engine->window, WINDOW_WIDTH, WINDOW_HEIGHT); // TODO secure me
+	change_image_color(&engine->main_image, COLOR_BLACK);
 
-	init_hooks(minirt);
+	init_hooks(engine);
 
-	if (init_gui_boxes(minirt))
+	if (init_raytracing_kernel(engine) < 0)
+		return (-1);
+	if (init_gui_boxes(engine))
 	{
 		// TODO: free everything
 		return (-1);
 	}
 	// TODO: secure me
-  camera_create(&minirt->camera, vector2f_create(WINDOW_WIDTH, WINDOW_HEIGHT));
-	if (ttf_parser(&minirt->gui.font,
+  camera_create(&engine->camera, vector2f_create(WINDOW_WIDTH, WINDOW_HEIGHT));
+	if (ttf_parser(&engine->gui.font,
 				   "data/fonts/inconsolata/Inconsolata-VariableFont_wdth,wght.ttf")
 		< 0)
 //	if (ttf_parser(&minirt.gui.font,
 //			"data/fonts/Envy Code R PR7/Envy Code R.ttf") < 0)
 		return (-1); // TODO free everything
+
 	return (0);
 }
 

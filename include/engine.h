@@ -6,6 +6,7 @@
 # include "image.h"
 # include "ray_tracer/camera.h"
 # include "window.h"
+# include "opencl.h"
 
 typedef struct s_engine
 {
@@ -13,8 +14,12 @@ typedef struct s_engine
 	t_gui				gui;
 	t_image				main_image;
 	t_image				ray_traced_image;
+	cl_mem				ray_traced_image_gpu_buffer;
+	cl_program			raytracing_program;
+	cl_kernel			raytracing_kernel;
 	t_raytracing_data	raytracing_data;
 	t_camera			camera;
+	t_opencl			opencl;
 }	t_engine;
 
 int		init_engine(t_engine *engine, const char *start_up_scene);

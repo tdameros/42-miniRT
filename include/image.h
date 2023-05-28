@@ -13,6 +13,8 @@
 #ifndef IMAGE_H
 # define IMAGE_H
 
+# include <stddef.h>
+
 # include "window.h"
 # include "math/vector.h"
 
@@ -25,6 +27,7 @@ typedef struct s_image
 	int				endian;
 	int				height;
 	int				width;
+	size_t			size;
 }	t_image;
 
 int				init_image(t_image *image, t_window *window, int width,
@@ -38,9 +41,9 @@ unsigned int	get_image_pixel_color(const t_image *image, int y, int x);
 void			change_image_color(t_image *image, unsigned int color);
 void			round_image_corners(t_image *image, int radius);
 void			put_image_to_image(t_image *destination, const t_image *source,
-								   t_vector2i position);
+					t_vector2i position);
 void			put_image_to_image_unsafe(register t_image *destination,
-										  const t_image *source, t_vector2i position);
+					const t_image *source, t_vector2i position);
 void			put_background(t_image *destination, const t_image *source);
 
 #endif //IMAGE_H

@@ -6,6 +6,7 @@ set(CMAKE_C_STANDARD 11)
 include_directories(include)
 include_directories(lib/libft/include)
 include_directories(lib/minilibx_opengl_20191021)
+include_directories(/opt/homebrew/opt/opencl-headers/include)
 
 add_executable(42_miniRT
         include/deprecated/t_ambient_light.h
@@ -270,4 +271,4 @@ add_executable(42_miniRT
         src/close_miniRT.c
         src/color.c
         src/init_minirt.c
-        src/main.c include/gui/init.h include/gui/utils.h lib/libft/src/io/read_file.c lib/libft/src/string/t_string_free.c lib/libft/src/linked_list/void_ptr/lst_join_t_strings.c src/ttf_parser/ttf_parser.c src/ttf_parser/read_file.c src/ttf_parser/read_font_directory.c src/ttf_parser/read_cmap.c src/ttf_parser/read_format4.c src/ttf_parser/get_glyph_offset.c src/ttf_parser/ttf_get_table_offset.c lib/libft/src/io/print_error.c src/ttf_parser/read_head.c src/ttf_parser/read_maxp.c src/ttf_parser/read_loca.c src/ttf_parser/read_glyph_outline.c src/ttf_parser/read_glyph_outline_coordinates.c src/ttf_parser/get_glyph_outlines.c)
+        src/main.c include/gui/init.h include/gui/utils.h lib/libft/src/io/read_file.c lib/libft/src/string/t_string_free.c lib/libft/src/linked_list/void_ptr/lst_join_t_strings.c src/ttf_parser/ttf_parser.c src/ttf_parser/read_file.c src/ttf_parser/read_font_directory.c src/ttf_parser/read_cmap.c src/ttf_parser/read_format4.c src/ttf_parser/get_glyph_offset.c src/ttf_parser/ttf_get_table_offset.c lib/libft/src/io/print_error.c src/ttf_parser/read_head.c src/ttf_parser/read_maxp.c src/ttf_parser/read_loca.c src/ttf_parser/read_glyph_outline.c src/ttf_parser/read_glyph_outline_coordinates.c src/ttf_parser/get_glyph_outlines.c include/opencl.h)

@@ -159,31 +159,42 @@ MINILIBX_L			=	-L $(MINILIBX_PATH) -l mlx
 MINILIBX_A			=	$(MINILIBX_PATH)libmlx.a
 MAKE_MINILIBX		=	$(MAKE) -C $(MINILIBX_PATH)
 
-DIR_INCS =\
-	include/			\
-	$(LIBFT_INCLUDES)	\
-	$(MINILIBX_INCLUDES)
+ifeq ($(OS), Linux)
+	DIR_INCS =\
+    	include/			\
+    	$(LIBFT_INCLUDES)	\
+    	$(MINILIBX_INCLUDES)
+endif
+ifeq ($(OS), Darwin)
+	DIR_INCS =\
+		include/				\
+		$(LIBFT_INCLUDES)		\
+		$(MINILIBX_INCLUDES)	\
+		-I /opt/homebrew/opt/opencl-headers/include
+endif
 INCLUDES =\
 	$(addprefix -I , $(DIR_INCS))
 
 ifeq ($(OS), Linux)
 	LIBS = \
-    	-lm	\
-    	$(LIBFT_L)	\
-    	$(MINILIBX_L)	\
-    	-lXext	\
-    	-lX11
-    FRAMEWORKS =
+		-lm	\
+		$(LIBFT_L)	\
+		$(MINILIBX_L)	\
+		-lXext	\
+		-lX11
+	FRAMEWORKS =
 endif
 ifeq ($(OS), Darwin)
 	LIBS = \
-    	-lm	\
-    	$(LIBFT_L)	\
-    	$(MINILIBX_L)
-    FRAMEWORKS =\
-    	-framework OpenGL	\
-    	-framework AppKit
+		-lm	\
+		$(LIBFT_L)	\
+		$(MINILIBX_L)
+	FRAMEWORKS =\
+		-framework OpenGL	\
+		-framework AppKit	\
+		-framework opencl
 endif
+PREPROCESSOR = -D CL_TARGET_OPENCL_VERSION=120
 
 DEPENDENCIES =\
 	$(LIBFT_A)	\
@@ -201,7 +212,7 @@ run:
 			./miniRT data/test.rt || true
 
 $(NAME):	$(OBJS)
-			$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) $(FRAMEWORKS) $(LIBS) -o $(NAME)
+			$(CC) $(PREPROCESSOR) $(CFLAGS) $(INCLUDES) $(OBJS) $(FRAMEWORKS) $(LIBS) -o $(NAME)
 
 .PHONY:	bonus
 bonus:		all
@@ -229,4 +240,4 @@ re:		fclean
 -include $(DEPS)
 $(DIR_BUILD)%.o : $(SRC_PATH)%.c $(LIBFT_A)
 			@mkdir -p $(shell dirname $@)
-			$(CC) $(CFLAGS) $(DEPS_FLAGS) $(INCLUDES) -c $< -o $@
+			$(CC) $(PREPROCESSOR) $(CFLAGS) $(DEPS_FLAGS) $(INCLUDES) -c $< -o $@

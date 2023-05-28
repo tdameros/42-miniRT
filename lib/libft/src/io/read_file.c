@@ -36,9 +36,10 @@ t_string	ft_read_file(char *file_name)
 	fd = open(file_name, O_RDONLY);
 	if (fd < 0)
 		return ((t_string){.data = NULL, .len = 0});
+	errno = 0;
 	lines = read_file_content(fd);
 	close(fd);
-	if (lines == NULL)
+	if (errno != 0)
 		return ((t_string){.data = NULL, .len = 0});
 	result = lst_join_t_strings(lines, (t_string){.data = NULL, .len = 0});
 	ft_lstclear(&lines, &t_string_free);

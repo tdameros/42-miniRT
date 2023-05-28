@@ -24,7 +24,7 @@ t_string	lst_join_t_strings(t_list *list, const t_string separator)
 	t_string	result;
 
 	if (list == NULL)
-		return ((t_string){.data = NULL, .len = 0});
+		return ((t_string){.data = ft_strdup(""), .len = 0});
 	ft_bzero(&result, sizeof(result));
 	result.len = get_len(list, separator);
 	result.data = malloc(result.len);
