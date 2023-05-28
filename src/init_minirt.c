@@ -36,12 +36,27 @@ static int	init_raytracing_kernel(t_engine *engine)
 		perror("Failed to read kernel "RAYTRACER_KERNEL);
 		return (-1);
 	}
+//	ft_print_error(kernel_file.data);
+//	return (-1);
 	engine->raytracing_program = clCreateProgramWithSource(engine->opencl.context, 1, (const char **)&kernel_file.data, &kernel_file.len, NULL);
 	free(kernel_file.data);
 	clBuildProgram(engine->raytracing_program, 1, &engine->opencl.deviceID, NULL, NULL, NULL);
-	engine->raytracing_kernel = clCreateKernel(engine->raytracing_program, "main", NULL);
-	// Set the kernel arguments
-	clSetKernelArg(engine->raytracing_kernel, 0, sizeof(t_engine), engine);
+
+	cl_build_status buildStatus;
+	clGetProgramBuildInfo(engine->raytracing_program, engine->opencl.deviceID, CL_PROGRAM_BUILD_STATUS, sizeof(cl_build_status), &buildStatus, NULL);
+
+	if (buildStatus == CL_BUILD_ERROR)
+	{
+		size_t logSize;
+		clGetProgramBuildInfo(engine->raytracing_program, engine->opencl.deviceID, CL_PROGRAM_BUILD_LOG, 0, NULL, &logSize);
+		char* log = malloc(logSize);
+		if (log != NULL)
+			clGetProgramBuildInfo(engine->raytracing_program, engine->opencl.deviceID, CL_PROGRAM_BUILD_LOG, logSize, log, NULL);
+		printf("Compilation failed:\n%s\n", log != NULL ? log : "Failed to allocate memory for compilation error message");
+		free(log);
+		return (-1);
+	}
+	engine->raytracing_kernel = clCreateKernel(engine->raytracing_program, "raytracer", NULL);
 	return (0);
 }
 
@@ -62,7 +77,7 @@ int	init_engine(t_engine *engine, const char *start_up_scene)
 	print_scene_content(&engine->raytracing_data);
 
 	init_image(&engine->ray_traced_image, &engine->window, WINDOW_WIDTH, WINDOW_HEIGHT); // TODO secure me
-	engine->ray_traced_image_gpu_buffer = clCreateBuffer(engine->opencl.context, CL_MEM_READ_WRITE | CL_MEM_HOST_NO_ACCESS, engine->ray_traced_image.size, NULL, NULL);
+	engine->ray_traced_image_gpu_buffer = clCreateBuffer(engine->opencl.context, CL_MEM_READ_WRITE | CL_MEM_HOST_READ_ONLY, engine->ray_traced_image.size * sizeof(unsigned int), NULL, NULL);
 
 	init_image(&engine->main_image, &engine->window, WINDOW_WIDTH, WINDOW_HEIGHT); // TODO secure me
 	change_image_color(&engine->main_image, COLOR_BLACK);
