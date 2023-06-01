@@ -14,8 +14,20 @@
 # define HOOKS_H
 
 # include "engine.h"
+# include "gui/box.h"
 
-int	button_press_handler(int button, int x, int y, t_engine *minirt);
+int	button_press_handler(int button, int x, int y, t_engine *engine);
 int	key_press_handler(int key_code, t_engine *minirt);
+
+int	update_object_attributes_modification_box(t_engine *engine);
+int	init_cylinder_attributes_modification_box(t_engine *engine,
+		t_gui_box *gui_box);
+int	init_plane_attributes_modification_box(t_engine *engine,
+		t_gui_box *gui_box);
+int	init_sphere_attributes_modification_box(t_engine *engine,
+		t_gui_box *gui_box);
+
+int	add_position_box(t_engine *engine, t_gui_box *gui_box, int *i,
+		t_gui_box *parent);
 
 #endif //HOOKS_H

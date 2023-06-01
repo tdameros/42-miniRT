@@ -16,12 +16,12 @@ int	init_object_modification_gui_box(t_engine *engine, t_gui_box *gui_box,
 			.x = WINDOW_WIDTH - WINDOW_WIDTH / 4 \
 				- object_creation_gui_box->position.x,
 			.y = object_creation_gui_box->size.y \
- + object_creation_gui_box->position.y * 2}, \
+				+ object_creation_gui_box->position.y * 2}, \
 		(t_vector2i){
 			.x = WINDOW_WIDTH / 4, \
 			.y = WINDOW_HEIGHT \
 				- (object_creation_gui_box->size.y \
- + object_creation_gui_box->position.y * 3)});
+				+ object_creation_gui_box->position.y * 3)});
 	if (errno == EINVAL)
 		return (-1);
 	change_image_color(&gui_box->image, 0x40000000);
@@ -35,12 +35,20 @@ int	init_object_modification_gui_box(t_engine *engine, t_gui_box *gui_box,
 
 static int	init_object_modification_gui_box_children(t_engine *engine,
 				t_gui_box *parent) {
-	parent->children.size = 1;
+	parent->children.size = 2;
 	parent->children.data = malloc(sizeof(*parent->children.data)
 			* parent->children.size);
+	if (parent->children.data == NULL)
+		return (ft_print_error("Failed to allocate gui_box children"), -1);
 	if (init_rgb_picker(engine, parent->children.data, parent) < 0)
 	{
 		free(parent->children.data);
+		return (-1);
+	}
+	if (init_object_attributes_modification_box(engine,
+			parent->children.data + 1, parent) < 0)
+	{
+		free(parent->children.data); // TODO free previous box
 		return (-1);
 	}
 	return (0);

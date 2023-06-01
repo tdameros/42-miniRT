@@ -24,10 +24,18 @@ SRC				=\
 	gui/object_modification_box/init_color_picker/init_color_picker_box.c	\
 	gui/object_modification_box/init_color_picker/init_rgb_picker.c			\
 	\
-	gui/object_modification_box/init_object_modification_box.c	\
+	gui/object_modification_box/init_object_attributes_modification_box.c	\
+	gui/object_modification_box/init_object_modification_box.c				\
 	\
 	gui/init_boxes.c	\
 	\
+	\
+	hooks/update_object_attributes_modification_box/add_boxes/add_position_box.c	\
+	\
+	hooks/update_object_attributes_modification_box/init_cylinder_attributes_modification_box.c	\
+	hooks/update_object_attributes_modification_box/init_plane_attributes_modification_box.c	\
+	hooks/update_object_attributes_modification_box/init_sphere_attributes_modification_box.c	\
+	hooks/update_object_attributes_modification_box/update_object_attributes_modification_box.c	\
 	\
 	hooks/button_press.c	\
 	hooks/key_press.c		\

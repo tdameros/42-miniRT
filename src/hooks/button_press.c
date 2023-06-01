@@ -16,27 +16,28 @@
 #include "gui/box.h"
 #include "events.h"
 #include "ray_tracer_gui_api.h"
+#include "hooks.h"
 
-int	button_press_handler(int button, int x, int y, t_engine *minirt)
+int	button_press_handler(int button, int x, int y, t_engine *engine)
 {
 	t_gui_box	*clicked_gui_box;
 
 	ft_printf("button_code == %d\n\n", button);
 	if (button != BUTTON_LEFT)
 		return (0);
-	clicked_gui_box = get_clicked_gui_box(minirt->gui.gui_boxes, &x, &y);
+	clicked_gui_box = get_clicked_gui_box(engine->gui.gui_boxes, &x, &y);
 	if (clicked_gui_box == NULL)
 	{
-		minirt->gui.selected_object = get_clicked_object(minirt, x, y);
+		engine->gui.selected_object = get_clicked_object(engine, x, y);
 
 		// Testing
 		char *tmp;
-		if (minirt->gui.selected_object == NULL)
+		if (engine->gui.selected_object == NULL)
 		{
 			ft_printf("Clicked no objects\n\n");
-			return (0);
+			return (update_object_attributes_modification_box(engine));
 		}
-		switch (minirt->gui.selected_object->type)
+		switch (engine->gui.selected_object->type)
 		{
 			case SPHERE: tmp = "SPHERE"; break;
 			case PLANE: tmp = "PLANE"; break;
@@ -46,11 +47,10 @@ int	button_press_handler(int button, int x, int y, t_engine *minirt)
 		ft_printf("selected object %s\n\n", tmp);
 		//!Testing
 
-		// TODO update gui
-		return (0);
+		return (update_object_attributes_modification_box(engine));
 	}
 	if (clicked_gui_box->on_click != NULL)
-		clicked_gui_box->on_click(clicked_gui_box, minirt, y, x);
+		clicked_gui_box->on_click(clicked_gui_box, engine, y, x);
 	ft_printf("Clicked gui box\n\n");
 	return (0);
 }
