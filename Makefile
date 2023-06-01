@@ -98,6 +98,9 @@ SRC				=\
 	ray_tracer/render.c	\
 	\
 	\
+	ray_tracer_gui_api/get_clicker_object.c	\
+	\
+	\
 	render_frame/print_fps_counter.c		\
 	render_frame/render_frame.c				\
 	render_frame/render_user_interface.c	\
@@ -134,9 +137,9 @@ BASE_CFLAGS		=	-Wall -Wextra -Werror
 DEBUG_CLFAGS	=	-g3 -fsanitize=address
 #-ffast-math reduces calculation precision, need to check behaviour before using
 OPTI_CFLAGS		=	-O3 -march=native #-ffast-math
-#CFLAGS			=	$(BASE_CFLAGS) $(OPTI_CFLAGS)
+CFLAGS			=	$(BASE_CFLAGS) $(OPTI_CFLAGS)
 #CFLAGS			=	$(BASE_CFLAGS) $(DEBUG_CLFAGS)
-CFLAGS			=	$(BASE_CFLAGS) $(OPTI_CFLAGS) #$(DEBUG_CLFAGS)
+#CFLAGS			=	$(BASE_CFLAGS) $(OPTI_CFLAGS) $(DEBUG_CLFAGS)
 RM				=	rm -rf
 AR				=	ar rcs
 

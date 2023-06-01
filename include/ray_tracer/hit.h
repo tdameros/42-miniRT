@@ -25,4 +25,7 @@ typedef struct s_hit {
 	t_vector3f	position;
 	t_vector3f	normal;
 }	t_hit;
+
+t_hit	trace_ray(t_ray ray, t_scene *scene);
+
 #endif

@@ -28,7 +28,7 @@ int	init_color_picker_box(t_engine *minirt, t_gui_box *gui_box,
 	if (errno == EINVAL)
 		return (-1);
 	if (init_image(&gui_box->on_hover_image,
-				   &minirt->window, parent->size.x, parent->size.y / 2 - 4)
+			&minirt->window, parent->size.x, parent->size.y / 2 - 4)
 		< 0)
 		return (-1); // TODO free previous image
 	gui_box->draw = &color_picker_draw;
@@ -49,7 +49,7 @@ static void	color_picker_draw(t_gui_box *self, t_engine *minirt,
 			.x = self->position.x + x_offset, \
 			.y = self->position.y + y_offset}
 	);
-	if (mouse_is_hovering_box(self, get_mouse_position(self, minirt,
+	if (mouse_is_hovering_box(&self->image, get_mouse_position(self, minirt,
 				x_offset, y_offset)) == false)
 		return ;
 	add_hover_color_circle(self, minirt, x_offset, y_offset);
@@ -71,7 +71,7 @@ static void	color_picker_draw(t_gui_box *self, t_engine *minirt,
 	mlx_put_image_to_window(minirt->window.mlx, minirt->window.window,
 		self->image.data, self->position.x + x_offset,
 		self->position.y + y_offset);
-	if (mouse_is_hovering_box(self, get_mouse_position(self, minirt,
+	if (mouse_is_hovering_box(&self->image, get_mouse_position(self, minirt,
 				x_offset, y_offset)) == false)
 		return ;
 	add_hover_color_circle(self, minirt, x_offset, y_offset);
@@ -100,8 +100,8 @@ static void	update_image(t_gui_box *self, t_engine *minirt)
 		x--;
 		while (++x < self->image.width)
 			put_pixel_on_image(&self->image, y, x, get_lighter_color(x,
-																	 self->image.width, limit,
-																	 minirt->gui.color_picker_base_color));
+					self->image.width, limit,
+					minirt->gui.color_picker_base_color));
 	}
 	round_image_corners(&self->image, 10);
 }

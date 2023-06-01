@@ -8,7 +8,7 @@
 void	icon_box_draw_method(t_gui_box *self, t_engine *engine,
 			int x_offset, int y_offset)
 {
-	if (mouse_is_hovering_box(self,
+	if (mouse_is_hovering_box(&self->on_hover_image,
 			get_mouse_position(self, engine, x_offset, y_offset)))
 		engine->gui.draw_gui_image(&engine->main_image, &self->on_hover_image,
 			(t_vector2i){\
@@ -28,7 +28,7 @@ void	icon_box_draw_method(t_gui_box *self, t_engine *engine,
 void	icon_box_draw_method(t_gui_box *self, t_engine *engine,
 			int x_offset, int y_offset)
 {
-	if (mouse_is_hovering_box(self,
+	if (mouse_is_hovering_box(&self->on_hover_image,
 			get_mouse_position(self, engine, x_offset, y_offset)))
 		mlx_put_image_to_window(engine->window.mlx, engine->window.window,
 			self->on_hover_image.data, self->position.x + x_offset,

@@ -38,6 +38,7 @@ typedef struct s_gui
 	void		(*draw_gui_image)(t_image *destination, \
 					const t_image *source, t_vector2i position);
 	t_fps		fps;
+	t_object	*selected_object;
 }	t_gui;
 
 #endif

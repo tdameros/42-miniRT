@@ -12,9 +12,13 @@
 
 #include <errno.h>
 
+#include "mlx.h"
+
 #include "engine.h"
 #include "gui/box.h"
 #include "colors.h"
+#include "gui/object_modification_box.h"
+#include "gui/utils.h"
 
 typedef struct s_color_getter
 {
@@ -34,22 +38,17 @@ typedef struct s_color_separator
 }	t_color_separator;
 
 static void	base_color_box_draw(t_gui_box *self, t_engine *engine,
-								   int x_offset, int y_offset);
+				int x_offset, int y_offset);
 static void	put_color_segment(t_image *image, t_vector2i *position,
-								 t_color_separator *color_separator,
-								 t_color_getter color_getter);
+				t_color_separator *color_separator,
+				t_color_getter color_getter);
 static void	init_color_getters(t_color_getter *color_getters);
 static void	write_color_row(t_image *image, int y);
 static void	base_color_picker_on_click(t_gui_box *self, t_engine *engine, int y,
-										  int x);
-
-#include "mlx.h"
-#include "gui/object_modification_box.h"
-#include "gui/utils.h"
-
+				int x);
 
 int	init_base_color_box(t_engine *engine, t_gui_box *gui_box,
-						   t_gui_box *parent)
+		t_gui_box *parent)
 {
 	int	y;
 
@@ -61,7 +60,7 @@ int	init_base_color_box(t_engine *engine, t_gui_box *gui_box,
 	if (errno == EINVAL)
 		return (-1);
 	if (init_image(&gui_box->on_hover_image, &engine->window,
-				   parent->size.x, parent->size.y / 2 - 4) < 0)
+			parent->size.x, parent->size.y / 2 - 4) < 0)
 		return (-1); // TODO free above
 	gui_box->draw = &base_color_box_draw;
 	gui_box->on_click = &base_color_picker_on_click;
@@ -84,7 +83,7 @@ static void	base_color_box_draw(t_gui_box *self, t_engine *engine,
 			.x = self->position.x + x_offset, \
 			.y = self->position.y + y_offset}
 	);
-	if (mouse_is_hovering_box(self, get_mouse_position(self, engine,
+	if (mouse_is_hovering_box(&self->image, get_mouse_position(self, engine,
 				x_offset, y_offset)) == false)
 		return ;
 	add_hover_color_circle(self, engine, x_offset, y_offset);
@@ -96,12 +95,12 @@ static void	base_color_box_draw(t_gui_box *self, t_engine *engine,
 #elif defined __APPLE__
 
 static void	base_color_box_draw(t_gui_box *self, t_engine *engine,
-								   int x_offset, int y_offset)
+				int x_offset, int y_offset)
 {
 	mlx_put_image_to_window(engine->window.mlx, engine->window.window,
 		self->image.data, self->position.x + x_offset,
 		self->position.y + y_offset);
-	if (mouse_is_hovering_box(self, get_mouse_position(self, engine,
+	if (mouse_is_hovering_box(&self->image, get_mouse_position(self, engine,
 				x_offset, y_offset)) == false)
 		return ;
 	add_hover_color_circle(self, engine, x_offset, y_offset);
@@ -116,7 +115,7 @@ static void	base_color_box_draw(t_gui_box *self, t_engine *engine,
 static void	write_color_row(t_image *image, int y)
 {
 	t_color_separator	color_separator;
-	t_vector2i		position;
+	t_vector2i			position;
 	t_color_getter		color_getters[6];
 
 	init_color_getters(color_getters);
@@ -170,7 +169,7 @@ static void	init_color_getters(t_color_getter *color_getters)
 }
 
 static void	put_color_segment(t_image *image, t_vector2i *position,
-								 t_color_separator *color_separator, t_color_getter color_getter)
+				t_color_separator *color_separator, t_color_getter color_getter)
 {
 	while (position->x < color_separator->max)
 	{
@@ -192,7 +191,7 @@ static void	put_color_segment(t_image *image, t_vector2i *position,
 }
 
 static void	base_color_picker_on_click(t_gui_box *self, t_engine *engine, int y,
-										  int x)
+				int x)
 {
 	const unsigned int	color = get_image_pixel_color(&self->image, y, x);
 

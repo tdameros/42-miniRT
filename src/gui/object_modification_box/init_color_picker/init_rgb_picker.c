@@ -7,7 +7,7 @@
 #include "gui/object_modification_box.h"
 
 static int	init_rgb_picker_children(t_engine *minirt, t_gui_boxes *gui_boxes,
-									   t_gui_box *parent);
+				t_gui_box *parent);
 
 int	init_rgb_picker(t_engine *minirt, t_gui_box *gui_box, t_gui_box *parent)
 {
@@ -29,7 +29,7 @@ int	init_rgb_picker(t_engine *minirt, t_gui_box *gui_box, t_gui_box *parent)
 }
 
 static int	init_rgb_picker_children(t_engine *minirt, t_gui_boxes *gui_boxes,
-									   t_gui_box *parent)
+				t_gui_box *parent)
 {
 	gui_boxes->size = 2;
 	gui_boxes->data = malloc(sizeof(*gui_boxes->data) * gui_boxes->size);
@@ -42,5 +42,7 @@ static int	init_rgb_picker_children(t_engine *minirt, t_gui_boxes *gui_boxes,
 	}
 	if (init_color_picker_box(minirt, gui_boxes->data + 1, parent) < 0)
 		return (-1); //TODO free previous
+	change_image_color(&gui_boxes->data[0].on_hover_image, COLOR_TRANSPARENT);
+	change_image_color(&gui_boxes->data[1].on_hover_image, COLOR_TRANSPARENT);
 	return (0);
 }

@@ -15,13 +15,14 @@
 #include "gui/box.h"
 #include "colors.h"
 
-bool	mouse_is_hovering_box(t_gui_box *self, t_vector2i mouse_position)
+bool	mouse_is_hovering_box(const t_image *image_to_check_for_hover,
+			t_vector2i mouse_position)
 {
 	return (mouse_position.x >= 0
-		&& mouse_position.x < self->size.x
+		&& mouse_position.x < image_to_check_for_hover->width
 		&& mouse_position.y >= 0
-		&& mouse_position.y < self->size.y
-		&& get_image_pixel_color(&self->on_hover_image, mouse_position.y,
+		&& mouse_position.y < image_to_check_for_hover->height
+		&& get_image_pixel_color(image_to_check_for_hover, mouse_position.y,
 			mouse_position.x) != COLOR_TRANSPARENT);
 }
 
