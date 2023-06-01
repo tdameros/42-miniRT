@@ -199,4 +199,10 @@ static void	base_color_picker_on_click(t_gui_box *self, t_engine *engine, int y,
 		return ;
 	engine->gui.color_picker_base_color = get_t_color_from_uint(color);
 	engine->gui.color_picker_base_color_was_changed = true;
+	if (engine->gui.selected_object == NULL)
+		return ;
+	engine->gui.selected_object->albedo = engine->gui.color_picker_base_color;
+	engine->gui.selected_object->albedo.x /= 255.f;
+	engine->gui.selected_object->albedo.y /= 255.f;
+	engine->gui.selected_object->albedo.z /= 255.f;
 }
