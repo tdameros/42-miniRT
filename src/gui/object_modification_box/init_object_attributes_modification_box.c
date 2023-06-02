@@ -27,8 +27,11 @@ int	init_object_attributes_modification_box(t_engine *engine,
 		(t_vector2i){
 			.x = parent->size.x - 16,
 			.y = parent->size.y - parent->size.y / 6 - 16});
-	if (errno == EINVAL)
+	if (errno == EINVAL || errno == ENOMEM)
+	{
+		ft_bzero(gui_box, sizeof(*gui_box));
 		return (-1);
+	}
 	gui_box->draw = &object_attributes_modification_box_draw;
 	engine->gui.object_attributes_modification_box = gui_box;
 	return (0);

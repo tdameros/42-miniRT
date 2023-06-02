@@ -20,8 +20,8 @@ static int	create_boxes(t_engine *engine, t_gui_box *gui_box, int n,
 static void	free_gui_boxes_on_error(t_engine *engine, t_gui_boxes *gui_boxes,
 				int nb);
 
-int	create_n_horizontal_boxes(t_engine *engine, t_gui_box *gui_box, int n,
-		int offset)
+int	create_n_horizontal_boxes(t_engine *engine, t_gui_box *gui_box, const int n,
+		const int offset)
 {
 	if (n <= 0 || offset < 0 || gui_box == NULL
 		|| (gui_box->size.x - (n + 1) * offset) / n <= 0)
@@ -33,7 +33,7 @@ int	create_n_horizontal_boxes(t_engine *engine, t_gui_box *gui_box, int n,
 	if (gui_box->children.data == NULL)
 		return (-1);
 	gui_box->children.size = n;
-	if (create_boxes(engine, gui_box, n, offset) == 0)
+	if (create_boxes(engine, gui_box, n, offset) >= 0)
 		return (0);
 	free(gui_box->children.data);
 	ft_bzero(&gui_box->children, sizeof(gui_box->children));
@@ -56,9 +56,9 @@ static int	create_boxes(t_engine *engine, t_gui_box *gui_box, int n,
 			(t_vector2i){
 				.x = (gui_box->size.x - (n + 1) * offset) / n,
 				.y = gui_box->size.y});
-		if (errno == EINVAL)
+		if (errno == EINVAL || errno == ENOMEM)
 		{
-			free_gui_boxes_on_error(engine, &gui_box->children, i);
+			free_gui_boxes_on_error(engine, &gui_box->children, i + 1);
 			return (-1);
 		}
 	}

@@ -35,8 +35,13 @@ int	init_sphere_attributes_modification_box(t_engine *engine,
 	gui_box->children.data = malloc(sizeof(*gui_box->children.data)
 			* gui_box->children.size);
 	i = 0;
-	if (add_position_box(engine, gui_box->children.data, &i, gui_box))
+	if (add_position_box(engine, gui_box->children.data, &i, gui_box) < 0)
+	{
+		gui_box->children.size = 0;
+		free(gui_box->children.data);
+		gui_box->children.data = NULL;
 		return (-1);
+	}
 //	if (add_radius_box(engine, gui_box->children.data + 1, &i, gui_box))
 //		return (-1); // TODO free previous
 	return (0);

@@ -35,7 +35,7 @@ t_gui_box	create_t_gui_box(t_engine *minirt,
 	errno = 0;
 	ft_bzero(&gui_box, sizeof(gui_box));
 	if (can_gui_box_be_placed(minirt->gui.gui_boxes, parent, position,
-							  size) == false)
+			size) == false)
 	{
 		errno = EINVAL;
 		return (gui_box);
@@ -43,7 +43,12 @@ t_gui_box	create_t_gui_box(t_engine *minirt,
 	gui_box.parent = parent;
 	gui_box.position = position;
 	gui_box.size = size;
-	init_image(&gui_box.image, &minirt->window, size.x, size.y); // TODO can this fail?
+	init_image(&gui_box.image, &minirt->window, size.x, size.y);
+	if (gui_box.image.data == NULL)
+	{
+		ft_bzero(&gui_box, sizeof(gui_box));
+		errno = ENOMEM;
+	}
 	return (gui_box);
 }
 
@@ -52,7 +57,7 @@ static bool	can_gui_box_be_placed(t_gui_boxes main_gui_boxes,
 				t_vector2i size)
 {
 	t_gui_boxes	same_level_gui_boxes;
-	t_vector2i parent_size;
+	t_vector2i	parent_size;
 
 	if (parent != NULL)
 	{
@@ -94,7 +99,7 @@ static bool	does_gui_box_overlap_with_another_on_the_same_level(
 	i = same_level_gui_boxes.size;
 	while (i--)
 		if (do_gui_boxes_overlap(new_gui_box_limit,
-								 same_level_gui_boxes.data + i))
+				same_level_gui_boxes.data + i))
 			return (true);
 	return (false);
 }
@@ -112,8 +117,8 @@ static bool	do_gui_boxes_overlap(struct s_limit new_gui_box_limit,
 	};
 
 	return ((new_gui_box_limit.bottom > gui_box_to_compare_limit.top
-			 || new_gui_box_limit.top < gui_box_to_compare_limit.bottom
-			 || new_gui_box_limit.left > gui_box_to_compare_limit.right
-			 || new_gui_box_limit.right < gui_box_to_compare_limit.left)
+			|| new_gui_box_limit.top < gui_box_to_compare_limit.bottom
+			|| new_gui_box_limit.left > gui_box_to_compare_limit.right
+			|| new_gui_box_limit.right < gui_box_to_compare_limit.left)
 		== false);
 }

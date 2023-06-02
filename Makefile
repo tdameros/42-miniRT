@@ -27,6 +27,8 @@ SRC				=\
 	gui/object_modification_box/init_object_attributes_modification_box.c	\
 	gui/object_modification_box/init_object_modification_box.c				\
 	\
+	gui/create_float_input_box.c	\
+	gui/create_horizontal_boxes.c	\
 	gui/create_n_horizontal_boxes.c	\
 	gui/init_boxes.c				\
 	\

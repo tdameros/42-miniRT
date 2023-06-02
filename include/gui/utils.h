@@ -12,17 +12,22 @@
 #ifndef UTILS_H
 # define UTILS_H
 
-#include <stdbool.h>
+# include <stdbool.h>
 
-#include "math/vector.h"
-#include "box.h"
+# include "math/vector.h"
+# include "box.h"
 
 bool		mouse_is_hovering_box(const t_image *image_to_check_for_hover,
 				t_vector2i mouse_position);
 t_vector2i	get_mouse_position(t_gui_box *self, t_engine *engine,
 				int x_offset, int y_offset);
 
+int			create_horizontal_boxes(t_engine *engine, t_gui_box *gui_box,
+				const char *boxes_setup);
 int			create_n_horizontal_boxes(t_engine *engine, t_gui_box *gui_box,
 				int n, int offset);
+
+int			create_float_input_box(t_engine *engine, t_gui_box *gui_box,
+				void (*on_click)(struct s_gui_box *, t_engine *, int, int));
 
 #endif
