@@ -29,6 +29,8 @@ int		init_sphere_attributes_modification_box(t_engine *engine,
 
 int		add_position_box(t_engine *engine, t_gui_box *gui_box, int *i,
 			t_gui_box *parent);
+int		add_radius_box(t_engine *engine, t_gui_box *gui_box, int *i,
+			t_gui_box *parent);
 
 void	position_input_box_x_on_click_plus(struct s_gui_box *self,
 			t_engine *engine, int y, int x);

@@ -31,9 +31,14 @@ int	init_sphere_attributes_modification_box(t_engine *engine,
 {
 	int	i;
 
-	gui_box->children.size = 1;
+	gui_box->children.size = 2;
 	gui_box->children.data = malloc(sizeof(*gui_box->children.data)
 			* gui_box->children.size);
+	if (gui_box->children.data == NULL)
+	{
+		gui_box->children.size = 0;
+		return (-1);
+	}
 	i = 0;
 	if (add_position_box(engine, gui_box->children.data, &i, gui_box) < 0)
 	{
@@ -42,7 +47,11 @@ int	init_sphere_attributes_modification_box(t_engine *engine,
 		gui_box->children.data = NULL;
 		return (-1);
 	}
-//	if (add_radius_box(engine, gui_box->children.data + 1, &i, gui_box))
-//		return (-1); // TODO free previous
+	if (add_radius_box(engine, gui_box->children.data + 1, &i, gui_box) < 0)
+	{
+		gui_box->children.size = 1;
+		destroy_t_gui_box(&engine->window, gui_box);
+		return (-1);
+	}
 	return (0);
 }

@@ -39,6 +39,7 @@ typedef struct s_gui
 							const t_image *source, t_vector2i position);
 	t_fps				fps;
 	t_object			*selected_object;
+	float				object_modification_amount;
 	struct s_gui_box	*object_attributes_modification_box;
 }	t_gui;
 

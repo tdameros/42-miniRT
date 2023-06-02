@@ -21,7 +21,8 @@ void	position_input_box_y_on_click_plus(struct s_gui_box *self,
 	(void)x;
 	if (engine->gui.selected_object == NULL)
 		return ;
-	engine->gui.selected_object->position.y += 0.1f;
+	engine->gui.selected_object->position.y
+		+= engine->gui.object_modification_amount;
 }
 
 void	position_input_box_y_on_click_minus(struct s_gui_box *self,
@@ -32,5 +33,6 @@ void	position_input_box_y_on_click_minus(struct s_gui_box *self,
 	(void)x;
 	if (engine->gui.selected_object == NULL)
 		return ;
-	engine->gui.selected_object->position.y -= 0.1f;
+	engine->gui.selected_object->position.y
+		-= engine->gui.object_modification_amount;
 }
