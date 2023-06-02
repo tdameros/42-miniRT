@@ -14,13 +14,13 @@
 #include "gui/utils.h"
 
 int	create_float_input_box(t_engine *engine, t_gui_box *gui_box,
-		void (*on_click)(struct s_gui_box *, t_engine *, int, int))
+		t_float_input_box_on_click on_click)
 {
 	if (create_horizontal_boxes(engine, gui_box, "20 60 20") < 0)
 		return (-1);
-	gui_box->children.data[0].on_click = on_click;
-	gui_box->children.data[1].on_click = on_click;
-	gui_box->children.data[2].on_click = on_click;
+	gui_box->children.data[0].on_click = on_click.minus;
+	gui_box->children.data[1].on_click = on_click.text_box;
+	gui_box->children.data[2].on_click = on_click.plus;
 	gui_box->children.data[0].draw = &default_gui_box_draw;
 	gui_box->children.data[1].draw = &default_gui_box_draw;
 	gui_box->children.data[2].draw = &default_gui_box_draw;

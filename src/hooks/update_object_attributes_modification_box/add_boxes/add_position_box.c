@@ -11,18 +11,17 @@
 /* ************************************************************************** */
 
 #include <errno.h>
-#include <stdlib.h>
 
 #include "gui/box.h"
 #include "gui/utils.h"
+#include "hooks.h"
 
 static int	init_position_box_children(t_engine *engine, t_gui_box *gui_box);
-static int	add_position_text_box(t_engine *engine, t_gui_box *gui_box,
-				t_gui_box *parent);
-static int	add_position_buttons(t_engine *engine, t_gui_box *gui_box,
-				t_gui_box *parent);
+static int	add_position_buttons(t_engine *engine, t_gui_box *gui_box);
 static int	init_position_buttons_children(t_engine *engine,
 				t_gui_box *gui_box);
+static int	create_position_input_box(t_engine *engine, t_gui_box *gui_box,
+				const char *type);
 
 int	add_position_box(t_engine *engine, t_gui_box *gui_box, int *i,
 		t_gui_box *parent)
@@ -52,60 +51,19 @@ int	add_position_box(t_engine *engine, t_gui_box *gui_box, int *i,
 
 static int	init_position_box_children(t_engine *engine, t_gui_box *gui_box)
 {
-	gui_box->children.size = 2;
-	gui_box->children.data = malloc(sizeof(*gui_box->children.data)
-			* gui_box->children.size);
-	if (gui_box->children.data == NULL)
-	{
-		gui_box->children.size = 0;
+	// TODO leaks
+	if (create_vertical_boxes(engine, gui_box, "40 60") < 0)
 		return (-1);
-	}
-	if (add_position_text_box(engine, gui_box->children.data, gui_box) < 0)
-	{
-		free(gui_box->children.data);
-		gui_box->children.data = NULL;
-		gui_box->children.size = 0;
+	if (add_position_buttons(engine, gui_box->children.data + 1) < 0)
 		return (-1);
-	}
-	if (add_position_buttons(engine, gui_box->children.data + 1, gui_box)
-		>= 0)
-		return (0);
-	// TODO destroy position_text_box
-	free(gui_box->children.data);
-	gui_box->children.data = NULL;
-	gui_box->children.size = 0;
-	return (-1);
-}
-
-static int	add_position_text_box(t_engine *engine, t_gui_box *gui_box,
-				t_gui_box *parent)
-{
-	*gui_box = create_t_gui_box(engine, parent, \
-		(t_vector2i){
-			.x = 4,
-			.y = 2}, \
-		(t_vector2i){
-			.x = parent->size.x - 8,
-			.y = parent->size.y / 3 - 2});
-	if (errno == EINVAL || errno == ENOMEM)
-		return (-1);
-	change_image_color(&gui_box->image, COLOR_TRANSPARENT);
-	gui_box->draw = &default_gui_box_draw;
+	change_image_color(&gui_box->children.data[0].image, COLOR_TRANSPARENT);
+//	write_centered_string_to_image(engine, &gui_box->children.data[0].image,
+//		"Position");
 	return (0);
 }
 
-static int	add_position_buttons(t_engine *engine, t_gui_box *gui_box,
-				t_gui_box *parent)
+static int	add_position_buttons(t_engine *engine, t_gui_box *gui_box)
 {
-	*gui_box = create_t_gui_box(engine, parent, \
-		(t_vector2i){
-			.x = 0,
-			.y = parent->size.y / 3 + 4}, \
-		(t_vector2i){
-			.x = parent->size.x,
-			.y = parent->size.y / 3 * 2 - 8});
-	if (errno == EINVAL || errno == ENOMEM)
-		return (-1);
 	if (init_position_buttons_children(engine, gui_box) < 0)
 	{
 		destroy_t_image(&engine->window, &gui_box->image);
@@ -121,21 +79,53 @@ static int	add_position_buttons(t_engine *engine, t_gui_box *gui_box,
 
 static int	init_position_buttons_children(t_engine *engine, t_gui_box *gui_box)
 {
+	// TODO leaks
 	if (create_n_horizontal_boxes(engine, gui_box, 3, 4) < 0)
 		return (ft_print_error("create n horizontal box failed"), -1);
-	if (create_float_input_box(engine, gui_box->children.data,
-			&default_gui_box_on_click) < 0)
-	{
-		destroy_t_image(&engine->window, &gui_box->children.data[0].image);
-		destroy_t_image(&engine->window, &gui_box->children.data[1].image);
-		destroy_t_image(&engine->window, &gui_box->children.data[2].image);
-		ft_bzero(gui_box->children.data + 0, sizeof(*gui_box->children.data));
-		ft_bzero(gui_box->children.data + 1, sizeof(*gui_box->children.data));
-		ft_bzero(gui_box->children.data + 2, sizeof(*gui_box->children.data));
+	if (create_position_input_box(engine, gui_box->children.data + 0, "x") < 0)
 		return (-1);
+	if (create_position_input_box(engine, gui_box->children.data + 1, "y") < 0)
+		return (-1);
+	if (create_position_input_box(engine, gui_box->children.data + 2, "z") < 0)
+		return (-1);
+	gui_box->draw = &default_gui_box_draw;
+	return (0);
+}
+
+static int	create_position_input_box(t_engine *engine, t_gui_box *gui_box,
+				const char *type)
+{
+	// TODO leaks
+	t_float_input_box_on_click	on_click = {0};
+
+	(void)type;
+	if (type[0] == 'x')
+	{
+		on_click.plus = &position_input_box_x_on_click_plus;
+		on_click.minus = &position_input_box_x_on_click_minus;
 	}
-	gui_box->children.data[0].draw = &default_gui_box_draw;
+	if (type[0] == 'y')
+	{
+		on_click.plus = &position_input_box_y_on_click_plus;
+		on_click.minus = &position_input_box_y_on_click_minus;
+	}
+	if (type[0] == 'z')
+	{
+		on_click.plus = &position_input_box_z_on_click_plus;
+		on_click.minus = &position_input_box_z_on_click_minus;
+	}
+	if (create_vertical_boxes(engine, gui_box, "40 55 5") < 0)
+		return (-1);
+	if (create_float_input_box(engine,
+			gui_box->children.data + 1, on_click) < 0)
+		return (-1);
+	change_image_color(&gui_box->image, COLOR_TRANSPARENT);
+	change_image_color(&gui_box->children.data[0].image, COLOR_SAND);
+	change_image_color(&gui_box->children.data[2].image, COLOR_TRANSPARENT);
+//	write_centered_string_to_image(engine, &gui_box->children.data[0].image,
+//		type);
+	gui_box->draw = &default_gui_box_draw;
+//	gui_box->children.data[0].draw = &default_gui_box_draw;
 	gui_box->children.data[1].draw = &default_gui_box_draw;
-	gui_box->children.data[2].draw = &default_gui_box_draw;
 	return (0);
 }

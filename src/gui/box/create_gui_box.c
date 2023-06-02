@@ -40,15 +40,17 @@ t_gui_box	create_t_gui_box(t_engine *minirt,
 		errno = EINVAL;
 		return (gui_box);
 	}
-	gui_box.parent = parent;
-	gui_box.position = position;
-	gui_box.size = size;
 	init_image(&gui_box.image, &minirt->window, size.x, size.y);
 	if (gui_box.image.data == NULL)
 	{
 		ft_bzero(&gui_box, sizeof(gui_box));
 		errno = ENOMEM;
 	}
+	gui_box.parent = parent;
+	gui_box.position = position;
+	gui_box.size = size;
+	gui_box.draw = &default_gui_box_draw;
+	gui_box.on_click = &default_gui_box_on_click;
 	return (gui_box);
 }
 

@@ -27,13 +27,19 @@ SRC				=\
 	gui/object_modification_box/init_object_attributes_modification_box.c	\
 	gui/object_modification_box/init_object_modification_box.c				\
 	\
+	gui/create_boxes_utils.c		\
 	gui/create_float_input_box.c	\
 	gui/create_horizontal_boxes.c	\
 	gui/create_n_horizontal_boxes.c	\
+	gui/create_vertical_boxes.c		\
 	gui/init_boxes.c				\
 	\
 	\
 	hooks/update_object_attributes_modification_box/add_boxes/add_position_box.c	\
+	\
+	hooks/update_object_attributes_modification_box/add_boxes/position_input_box_on_clicks/x.c	\
+	hooks/update_object_attributes_modification_box/add_boxes/position_input_box_on_clicks/y.c	\
+	hooks/update_object_attributes_modification_box/add_boxes/position_input_box_on_clicks/z.c	\
 	\
 	hooks/update_object_attributes_modification_box/init_cylinder_attributes_modification_box.c	\
 	hooks/update_object_attributes_modification_box/init_plane_attributes_modification_box.c	\

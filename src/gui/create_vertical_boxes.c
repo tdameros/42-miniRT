@@ -27,7 +27,7 @@ static int	create_boxes(t_engine *engine, t_gui_box *gui_box,
 /// of the available place. The sum of all numbers numbers needs to be > 0
 ///  && <= 100
 /// \return
-int	create_horizontal_boxes(t_engine *engine, t_gui_box *gui_box,
+int	create_vertical_boxes(t_engine *engine, t_gui_box *gui_box,
 		const char *boxes_setup)
 {
 	size_t	nb_of_boxes;
@@ -69,17 +69,17 @@ static int	create_boxes(t_engine *engine, t_gui_box *gui_box,
 	{
 		gui_box->children.data[i] = create_t_gui_box(engine, gui_box,
 				(t_vector2i){\
-					.x = position, \
-					.y = 0}, \
+					.x = 0, \
+					.y = position}, \
 				(t_vector2i){\
-					.x = (i + 1 == box_count) \
-							* (gui_box->size.x - position) \
+					.x = gui_box->size.x, \
+					.y = (i + 1 == box_count) \
+							* (gui_box->size.y - position) \
 						+ (i + 1 != box_count) \
-							* (gui_box->size.x * (boxes_size[i] / 100.f)), \
-					.y = gui_box->size.y});
+							* (gui_box->size.y * (boxes_size[i] / 100.f))});
 		if (errno == EINVAL || errno == ENOMEM)
 			return (failed_to_create_all_boxes(engine, &gui_box->children, i));
-		position += gui_box->children.data[i].size.x;
+		position += gui_box->children.data[i].size.y;
 	}
 	return (0);
 }

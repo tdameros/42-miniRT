@@ -16,18 +16,31 @@
 # include "engine.h"
 # include "gui/box.h"
 
-int	button_press_handler(int button, int x, int y, t_engine *engine);
-int	key_press_handler(int key_code, t_engine *minirt);
+int		button_press_handler(int button, int x, int y, t_engine *engine);
+int		key_press_handler(int key_code, t_engine *minirt);
 
-int	update_object_attributes_modification_box(t_engine *engine);
-int	init_cylinder_attributes_modification_box(t_engine *engine,
-		t_gui_box *gui_box);
-int	init_plane_attributes_modification_box(t_engine *engine,
-		t_gui_box *gui_box);
-int	init_sphere_attributes_modification_box(t_engine *engine,
-		t_gui_box *gui_box);
+int		update_object_attributes_modification_box(t_engine *engine);
+int		init_cylinder_attributes_modification_box(t_engine *engine,
+			t_gui_box *gui_box);
+int		init_plane_attributes_modification_box(t_engine *engine,
+			t_gui_box *gui_box);
+int		init_sphere_attributes_modification_box(t_engine *engine,
+			t_gui_box *gui_box);
 
-int	add_position_box(t_engine *engine, t_gui_box *gui_box, int *i,
-		t_gui_box *parent);
+int		add_position_box(t_engine *engine, t_gui_box *gui_box, int *i,
+			t_gui_box *parent);
+
+void	position_input_box_x_on_click_plus(struct s_gui_box *self,
+			t_engine *engine, int y, int x);
+void	position_input_box_x_on_click_minus(struct s_gui_box *self,
+			t_engine *engine, int y, int x);
+void	position_input_box_y_on_click_plus(struct s_gui_box *self,
+			t_engine *engine, int y, int x);
+void	position_input_box_y_on_click_minus(struct s_gui_box *self,
+			t_engine *engine, int y, int x);
+void	position_input_box_z_on_click_plus(struct s_gui_box *self,
+			t_engine *engine, int y, int x);
+void	position_input_box_z_on_click_minus(struct s_gui_box *self,
+			t_engine *engine, int y, int x);
 
 #endif //HOOKS_H
