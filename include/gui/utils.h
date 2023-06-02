@@ -22,4 +22,7 @@ bool		mouse_is_hovering_box(const t_image *image_to_check_for_hover,
 t_vector2i	get_mouse_position(t_gui_box *self, t_engine *engine,
 				int x_offset, int y_offset);
 
+int			create_n_horizontal_boxes(t_engine *engine, t_gui_box *gui_box,
+				int n, int offset);
+
 #endif

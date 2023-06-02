@@ -27,7 +27,8 @@ SRC				=\
 	gui/object_modification_box/init_object_attributes_modification_box.c	\
 	gui/object_modification_box/init_object_modification_box.c				\
 	\
-	gui/init_boxes.c	\
+	gui/create_n_horizontal_boxes.c	\
+	gui/init_boxes.c				\
 	\
 	\
 	hooks/update_object_attributes_modification_box/add_boxes/add_position_box.c	\

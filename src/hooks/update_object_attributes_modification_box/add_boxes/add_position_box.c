@@ -14,10 +14,15 @@
 #include <stdlib.h>
 
 #include "gui/box.h"
+#include "gui/utils.h"
 
 static int	init_position_box_children(t_engine *engine, t_gui_box *gui_box);
 static int	add_position_text_box(t_engine *engine, t_gui_box *gui_box,
 				t_gui_box *parent);
+static int	add_position_buttons(t_engine *engine, t_gui_box *gui_box,
+				t_gui_box *parent);
+static int	init_position_buttons_children(t_engine *engine,
+				t_gui_box *gui_box);
 
 int	add_position_box(t_engine *engine, t_gui_box *gui_box, int *i,
 		t_gui_box *parent)
@@ -51,6 +56,8 @@ static int	init_position_box_children(t_engine *engine, t_gui_box *gui_box)
 		return (-1);
 	if (add_position_text_box(engine, gui_box->children.data, gui_box) < 0)
 		return (free(gui_box->children.data), -1);
+	if (add_position_buttons(engine, gui_box->children.data + 1, gui_box) < 0)
+		return (free(gui_box->children.data), -1); // TODO free gui_box content
 	return (0);
 }
 
@@ -59,11 +66,50 @@ static int	add_position_text_box(t_engine *engine, t_gui_box *gui_box,
 {
 	*gui_box = create_t_gui_box(engine, parent, \
 		(t_vector2i){
+			.x = 4,
+			.y = 2}, \
+		(t_vector2i){
+			.x = parent->size.x - 8,
+			.y = parent->size.y / 3 - 2});
+	if (errno == EINVAL)
+		return (-1);
+	// TODO check image creation
+	change_image_color(&gui_box->image, COLOR_TRANSPARENT);
+	gui_box->draw = &default_gui_box_draw;
+	return (0);
+}
+
+static int	add_position_buttons(t_engine *engine, t_gui_box *gui_box,
+				t_gui_box *parent)
+{
+	*gui_box = create_t_gui_box(engine, parent, \
+		(t_vector2i){
 			.x = 0,
-			.y = 0}, \
+			.y = parent->size.y / 3 + 4}, \
 		(t_vector2i){
 			.x = parent->size.x,
-			.y = parent->size.y / 3});
-	(void)engine;(void)parent;(void)gui_box;
+			.y = parent->size.y / 3 * 2 - 8});
+	if (errno == EINVAL)
+		return (-1);
+	// TODO check image creation
+	change_image_color(&gui_box->image, COLOR_TRANSPARENT);
+	round_image_corners(&gui_box->image, 10);
+	gui_box->draw = &default_gui_box_draw;
+	gui_box->on_click = &default_gui_box_on_click;
+	if (init_position_buttons_children(engine, gui_box) < 0)
+		return (-1); // TODO free gui_box content
+	return (0);
+}
+
+static int	init_position_buttons_children(t_engine *engine, t_gui_box *gui_box)
+{
+	if (create_n_horizontal_boxes(engine, gui_box, 3, 4) < 0)
+		return (ft_print_error("create n horizontal box failed"), -1);
+	gui_box->children.data[0].draw = &default_gui_box_draw;
+	gui_box->children.data[1].draw = &default_gui_box_draw;
+	gui_box->children.data[2].draw = &default_gui_box_draw;
+	change_image_color(&gui_box->children.data[0].image, COLOR_WHITE);
+	change_image_color(&gui_box->children.data[1].image, COLOR_WHITE);
+	change_image_color(&gui_box->children.data[2].image, COLOR_WHITE);
 	return (0);
 }
