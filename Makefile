@@ -35,12 +35,19 @@ SRC				=\
 	gui/init_boxes.c				\
 	\
 	\
-	hooks/update_object_attributes_modification_box/add_boxes/add_position_box.c	\
-	hooks/update_object_attributes_modification_box/add_boxes/add_radius_box.c		\
+	hooks/update_object_attributes_modification_box/add_boxes/normal_input_box_on_clicks/x.c	\
+	hooks/update_object_attributes_modification_box/add_boxes/normal_input_box_on_clicks/y.c	\
+	hooks/update_object_attributes_modification_box/add_boxes/normal_input_box_on_clicks/z.c	\
 	\
 	hooks/update_object_attributes_modification_box/add_boxes/position_input_box_on_clicks/x.c	\
 	hooks/update_object_attributes_modification_box/add_boxes/position_input_box_on_clicks/y.c	\
 	hooks/update_object_attributes_modification_box/add_boxes/position_input_box_on_clicks/z.c	\
+	\
+	hooks/update_object_attributes_modification_box/add_boxes/add_normal_box.c		\
+	hooks/update_object_attributes_modification_box/add_boxes/add_position_box.c	\
+	hooks/update_object_attributes_modification_box/add_boxes/add_radius_box.c		\
+	hooks/update_object_attributes_modification_box/add_boxes/add_x_y_z_box.c		\
+	hooks/update_object_attributes_modification_box/add_boxes/get_x_y_z_input_box.c	\
 	\
 	hooks/update_object_attributes_modification_box/init_cylinder_attributes_modification_box.c	\
 	hooks/update_object_attributes_modification_box/init_plane_attributes_modification_box.c	\
