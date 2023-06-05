@@ -13,23 +13,27 @@
 #include <stdlib.h>
 
 #include "gui/box.h"
+#include "gui/utils.h"
 
-int	*get_boxes_size(const char *boxes_setup, size_t *nb_of_boxes)
+t_boxes_to_create	get_boxes_size(const char *boxes_setup)
 {
-	char	**boxes;
-	int		*result;
-	size_t	i;
+	char				**boxes;
+	t_boxes_to_create	result;
+	size_t				i;
 
 	boxes = ft_split(boxes_setup, ' ');
 	if (boxes == NULL)
-		return (NULL);
-	*nb_of_boxes = ft_split_len(boxes);
-	result = malloc(sizeof(*result) * *nb_of_boxes);
-	if (result == NULL)
-		return (ft_free_split(boxes), NULL);
-	i = *nb_of_boxes;
+		return ((t_boxes_to_create){NULL, 0});
+	result.nb_of_boxes = ft_split_len(boxes);
+	result.box_size = malloc(sizeof(*result.box_size) * result.nb_of_boxes);
+	if (result.box_size == NULL)
+	{
+		ft_free_split(boxes);
+		return ((t_boxes_to_create){NULL, 0});
+	}
+	i = result.nb_of_boxes;
 	while (i--)
-		result[i] = ft_atoi(boxes[i]);
+		result.box_size[i] = ft_atoi(boxes[i]);
 	ft_free_split(boxes);
 	return (result);
 }

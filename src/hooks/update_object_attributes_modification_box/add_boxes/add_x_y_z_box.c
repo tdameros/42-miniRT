@@ -50,7 +50,7 @@ int	add_x_y_z_box(t_engine *engine, t_gui_box *gui_box, int *i,
 static int	init_x_y_z_box_children(t_engine *engine, t_gui_box *gui_box)
 {
 	// TODO leaks
-	if (create_vertical_boxes(engine, gui_box, "40 60") < 0)
+	if (create_vertical_boxes(engine, gui_box, "40 60", 0) < 0)
 		return (-1);
 	if (add_x_y_z_buttons(engine, gui_box->children.data + 1) < 0)
 		return (-1);
@@ -89,7 +89,7 @@ static int	create_x_y_z_input_box(t_engine *engine, t_gui_box *gui_box,
 				const char *type)
 {
 	// TODO leaks
-	if (create_vertical_boxes(engine, gui_box, "40 55 5") < 0)
+	if (create_vertical_boxes(engine, gui_box, "40 55 5", 0) < 0)
 		return (-1);
 	if (create_float_input_box(engine,
 			gui_box->children.data + 1, (t_float_input_box_on_click){0}) < 0)

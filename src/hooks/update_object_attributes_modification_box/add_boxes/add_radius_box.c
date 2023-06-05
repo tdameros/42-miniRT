@@ -53,7 +53,7 @@ static int	init_radius_box_children(t_engine *engine, t_gui_box *gui_box)
 		.plus = &radius_input_box_on_click_plus,
 		.minus = &radius_input_box_on_click_minus};
 
-	if (create_horizontal_boxes(engine, gui_box, "65 35") < 0)
+	if (create_horizontal_boxes(engine, gui_box, "65 35", 0) < 0)
 		return (-1);
 	if (create_float_input_box(engine, gui_box->children.data + 1, on_click)
 		< 0)

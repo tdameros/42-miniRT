@@ -16,7 +16,7 @@
 int	create_float_input_box(t_engine *engine, t_gui_box *gui_box,
 		t_float_input_box_on_click on_click)
 {
-	if (create_horizontal_boxes(engine, gui_box, "20 60 20") < 0)
+	if (create_horizontal_boxes(engine, gui_box, "20 60 20", 0) < 0)
 		return (-1);
 	gui_box->children.data[0].on_click = on_click.minus;
 	gui_box->children.data[1].on_click = on_click.text_box;
