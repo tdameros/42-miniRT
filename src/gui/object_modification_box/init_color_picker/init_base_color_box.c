@@ -100,8 +100,8 @@ static void	base_color_box_draw(t_gui_box *self, t_engine *engine,
 	mlx_put_image_to_window(engine->window.mlx, engine->window.window,
 		self->image.data, self->position.x + x_offset,
 		self->position.y + y_offset);
-	if (mouse_is_hovering_box(&self->image, get_mouse_position(self, engine,
-				x_offset, y_offset)) == false)
+	if (mouse_is_hovering_box(&self->image, get_mouse_position_in_box(self, engine,
+																	  x_offset, y_offset)) == false)
 		return ;
 	add_hover_color_circle(self, engine, x_offset, y_offset);
 	mlx_put_image_to_window(engine->window.mlx, engine->window.window,

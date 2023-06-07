@@ -10,8 +10,6 @@
 #define CIRCLE_COLOR 0x00666666
 
 static void	write_setting_icon(t_image *image, unsigned int color);
-static void	draw_circle(t_image *image, t_vector2i circle_center,
-				float radius, unsigned int color);
 
 void	init_settings_icon(t_gui_box *gui_box)
 {
@@ -46,25 +44,4 @@ static void	write_setting_icon(t_image *image, const unsigned int color)
 		.x = image->width / 2,
 		.y = image->height / 2},
 		circle_diameter / 2.4f, color);
-}
-
-static void	draw_circle(t_image *image, t_vector2i circle_center,
-						   float radius, unsigned int color)
-{
-	const float	radius_squared = radius * radius;
-	int			y_offset;
-	int			y;
-	int			x;
-
-	y_offset = 0;
-	y = -1;
-	while (++y < image->height)
-	{
-		x = -1;
-		while (++x < image->width)
-			if (powf(x - circle_center.x, 2.f) + powf(y - circle_center.y, 2.f)
-				<= radius_squared)
-				image->address[y_offset + x] = color;
-		y_offset += image->line_length;
-	}
 }

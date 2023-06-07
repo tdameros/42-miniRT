@@ -8,12 +8,13 @@ SRC				=\
 	gui/box/default_gui_box_methods.c	\
 	gui/box/destroy_t_gui_box.c			\
 	gui/box/get_clicked_gui_box.c		\
-	gui/box/mouse_in_box.c				\
+	gui/box/mouse_utils.c				\
 	\
 	gui/main_box/menu_box/init_menu_box.c		\
 	gui/main_box/menu_box/init_settings_icon.c	\
 	\
-	gui/main_box/object_creation_box/init_object_creation_box.c	\
+	gui/main_box/object_creation_box/init_object_creation_box.c		\
+	gui/main_box/object_creation_box/object_creation_on_clicks.c	\
 	\
 	gui/main_box/icon_box_draw_method.c \
 	gui/main_box/init_main_box.c		\
@@ -59,6 +60,7 @@ SRC				=\
 	\
 	\
 	image/destroy_t_image.c		\
+	image/draw.c				\
 	image/image.c				\
 	image/put_image_to_image.c	\
 	image/round_image_corners.c	\

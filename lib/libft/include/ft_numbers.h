@@ -31,4 +31,6 @@ void		ft_swap_size_t(size_t *a, size_t *b);
 void		ft_swap_ssize_t(ssize_t *a, ssize_t *b);
 void		ft_swap_uint(unsigned int *a, unsigned int *b);
 
+float		ft_minf(float a, float b);
+
 #endif

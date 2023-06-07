@@ -19,14 +19,18 @@
 #include "hooks.h"
 
 static void	update_color_picker_color(t_gui *gui);
+static int	placing_object(int button, t_engine *engine);
 
 int	button_press_handler(int button, int x, int y, t_engine *engine)
 {
 	t_gui_box	*clicked_gui_box;
 
 	ft_printf("button_code == %d\n\n", button);
-	if (button != BUTTON_LEFT)
+	if (button != BUTTON_LEFT && button != SCROLL_DOWN &&  button != SCROLL_UP)
 		return (0);
+
+	if (engine->object_being_placed != NULL)
+		return (placing_object(button, engine));
 	clicked_gui_box = get_clicked_gui_box(engine->gui.gui_boxes, &x, &y);
 	if (clicked_gui_box == NULL)
 	{
@@ -55,6 +59,25 @@ int	button_press_handler(int button, int x, int y, t_engine *engine)
 		clicked_gui_box->on_click(clicked_gui_box, engine, y, x);
 	ft_printf("Clicked gui box\n\n");
 	return (0);
+}
+
+static int	placing_object(int button, t_engine *engine)
+{
+	if (button == SCROLL_DOWN)
+	{
+		engine->object_being_placed_distance -= 0.5f;
+		return (0);
+	}
+	else if (button == SCROLL_UP)
+	{
+		engine->object_being_placed_distance += 0.5f;
+		return (0);
+	}
+	else if (button != BUTTON_LEFT)
+		return (0);
+	engine->gui.selected_object = engine->object_being_placed;
+	engine->object_being_placed = NULL;
+	return (update_object_attributes_modification_box(engine));
 }
 
 static void	update_color_picker_color(t_gui *gui)

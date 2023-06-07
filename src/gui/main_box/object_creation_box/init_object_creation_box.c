@@ -4,24 +4,22 @@
 
 #include "gui/box.h"
 #include "gui/main_gui_box.h"
+#include "gui/utils.h"
 #include "engine.h"
 #include "colors.h"
 
-static int	init_object_creation_children(t_engine *minirt, t_gui_box *gui_box);
-static int	init_sphere_icon_box(t_engine *minirt, t_gui_box *gui_box,
-								   t_gui_box *parent);
-static int	init_cylinder_icon_box(t_engine *minirt, t_gui_box *gui_box,
-									 t_gui_box *parent);
-static int	init_plane_icon_box(t_engine *minirt, t_gui_box *gui_box,
-								  t_gui_box *parent);
+#define NUMBER_OF_OBJECT_TYPES 3
+
+static int	init_object_creation_children(t_engine *engine, t_gui_box *gui_box);
+static void	init_sphere_creation_box(t_gui_box *gui_box);
 
 int	init_object_creation_gui_box(t_engine *minirt, t_gui_box *gui_box,
-									t_gui_box *parent)
+		t_gui_box *parent)
 {
 	*gui_box = create_t_gui_box(minirt, parent, (t_vector2i){8, 8},
 			(t_vector2i){.y = parent->size.y - 16, \
 							.x = parent->size.x / 4 * 3 - 16});
-	if (errno == EINVAL)
+	if (errno == EINVAL || errno == ENOMEM)
 		return (-1);
 	if (gui_box->image.data == NULL)
 		return (-1);
@@ -31,131 +29,51 @@ int	init_object_creation_gui_box(t_engine *minirt, t_gui_box *gui_box,
 	round_image_corners(&gui_box->image, 20);
 	if (init_object_creation_children(minirt, gui_box) < 0)
 	{
-		// TODO free
+		destroy_t_image(&minirt->window, &gui_box->image);
+		ft_bzero(gui_box, sizeof(*gui_box));
 		return (-1);
 	}
 	return (0);
 }
 
-static int	init_object_creation_children(t_engine *minirt, t_gui_box *gui_box)
+static int	init_object_creation_children(t_engine *engine, t_gui_box *gui_box)
 {
-	gui_box->children.size = 3;
-	gui_box->children.data = malloc(sizeof(*gui_box->children.data)
-			* gui_box->children.size);
-	if (gui_box->children.data == NULL)
+	int	i;
+
+	if (create_n_horizontal_boxes(engine, gui_box, NUMBER_OF_OBJECT_TYPES,
+			(t_boxes_offsets){ICON_BOX_SEPARATOR, ICON_BOX_SEPARATOR}) < 0)
 		return (-1);
-	if (init_sphere_icon_box(minirt, gui_box->children.data, gui_box) < 0)
+	i = -1;
+	while (++i < NUMBER_OF_OBJECT_TYPES)
 	{
-		free(gui_box->children.data);
-		return (-1);
+		if (init_image(&gui_box->children.data[i].on_hover_image, &engine->window,
+				gui_box->children.data[i].size.x, gui_box->children.data[i].size.y) < 0)
+			return (-1); // TODO free stuff
+		change_image_color(&gui_box->children.data[i].image, COLOR_TRANSPARENT);
+		round_image_corners(&gui_box->children.data[i].image, ICON_BOX_ROUNDING_RADIUS);
+		change_image_color(&gui_box->children.data[i].on_hover_image, ICON_BOX_COLOR);
+		round_image_corners(&gui_box->children.data[i].on_hover_image, ICON_BOX_ROUNDING_RADIUS);
+		gui_box->children.data[i].draw = &icon_box_draw_method;
 	}
-	if (init_cylinder_icon_box(minirt, gui_box->children.data + 1, gui_box) < 0)
-	{
-		// TODO free previous
-		free(gui_box->children.data);
-		return (-1);
-	}
-	if (init_plane_icon_box(minirt, gui_box->children.data + 2, gui_box) < 0)
-	{
-		// TODO free previous
-		free(gui_box->children.data);
-		return (-1);
-	}
+	init_sphere_creation_box(gui_box->children.data + 0);
 	return (0);
 }
 
-static int	init_sphere_icon_box(t_engine *minirt, t_gui_box *gui_box,
-								   t_gui_box *parent)
+static void	init_sphere_creation_box(t_gui_box *gui_box)
 {
-	const int	box_width = roundf(((float)parent->size.x - ICON_BOX_SEPARATOR * 4)
-			/ 3.f);
-
-	*gui_box = create_t_gui_box(minirt, NULL, \
-		(t_vector2i){
-			.x = ICON_BOX_SEPARATOR, \
-			.y = ICON_BOX_SEPARATOR
-		}, \
-		(t_vector2i){
-			.x = box_width, \
-			.y = parent->size.y - ICON_BOX_SEPARATOR * 2
-		} \
-	);
-	if (errno == EINVAL)
-		return (-1);
-	if (init_image(&gui_box->on_hover_image, &minirt->window,
-				   gui_box->size.x, gui_box->size.y) < 0)
-		return (-1); // TODO free stuff
 	change_image_color(&gui_box->image, COLOR_TRANSPARENT);
-	round_image_corners(&gui_box->image, ICON_BOX_ROUNDING_RADIUS);
 	change_image_color(&gui_box->on_hover_image, ICON_BOX_COLOR);
+
+	draw_circle_with_shadow(&gui_box->image,
+		(t_vector2i){gui_box->size.x / 2, gui_box->size.y / 2},
+		gui_box->size.y / 2 - gui_box->size.y / 10, get_t_color_from_uint(COLOR_BLUE));
+
+	draw_circle_with_shadow(&gui_box->on_hover_image,
+		(t_vector2i){gui_box->size.x / 2, gui_box->size.y / 2},
+		gui_box->size.y / 2 - gui_box->size.y / 10, get_t_color_from_uint(COLOR_BLUE));
+
 	round_image_corners(&gui_box->on_hover_image, ICON_BOX_ROUNDING_RADIUS);
-//	if (init_sphere_icon(minirt, gui_box) < 0)
-//		return (-1); // TODO free icon_box image
-	gui_box->draw = &icon_box_draw_method;
-	gui_box->on_click = &default_gui_box_on_click;
-	return (0);
-}
-
-static int	init_cylinder_icon_box(t_engine *minirt, t_gui_box *gui_box,
-									 t_gui_box *parent)
-{
-	const int	box_width = roundf(((float)parent->size.x - ICON_BOX_SEPARATOR * 4)
-			/ 3.0);
-
-	*gui_box = create_t_gui_box(minirt, NULL, \
-		(t_vector2i){
-			.x = ICON_BOX_SEPARATOR * 2 + box_width, \
-			.y = ICON_BOX_SEPARATOR
-		}, \
-		(t_vector2i){
-			.x = box_width, \
-			.y = parent->size.y - ICON_BOX_SEPARATOR * 2
-		} \
-	);
-	if (errno == EINVAL)
-		return (-1);
-	if (init_image(&gui_box->on_hover_image, &minirt->window,
-				   gui_box->size.x, gui_box->size.y) < 0)
-		return (-1); // TODO free stuff
-	change_image_color(&gui_box->image, COLOR_TRANSPARENT);
 	round_image_corners(&gui_box->image, ICON_BOX_ROUNDING_RADIUS);
-	change_image_color(&gui_box->on_hover_image, ICON_BOX_COLOR);
-	round_image_corners(&gui_box->on_hover_image, ICON_BOX_ROUNDING_RADIUS);
-//	if (init_settings_icon(minirt, gui_box) < 0)
-//		return (-1); // TODO free icon_box image
-	gui_box->draw = &icon_box_draw_method;
-	gui_box->on_click = &default_gui_box_on_click;
-	return (0);
-}
 
-static int	init_plane_icon_box(t_engine *minirt, t_gui_box *gui_box,
-								  t_gui_box *parent)
-{
-	const int	box_width = roundf(((float)parent->size.x - ICON_BOX_SEPARATOR * 4)
-			/ 3.0);
-
-	*gui_box = create_t_gui_box(minirt, NULL, \
-		(t_vector2i){
-			.x = ICON_BOX_SEPARATOR * 3 + box_width * 2, \
-			.y = ICON_BOX_SEPARATOR
-		}, \
-		(t_vector2i){
-			.x = box_width, \
-			.y = parent->size.y - ICON_BOX_SEPARATOR * 2
-		} \
-	);
-	if (errno == EINVAL)
-		return (-1);
-	if (init_image(&gui_box->on_hover_image, &minirt->window,
-				   gui_box->size.x, gui_box->size.y) < 0)
-		return (-1); // TODO free stuff
-	change_image_color(&gui_box->image, COLOR_TRANSPARENT);
-	round_image_corners(&gui_box->image, ICON_BOX_ROUNDING_RADIUS);
-	change_image_color(&gui_box->on_hover_image, ICON_BOX_COLOR);
-	round_image_corners(&gui_box->on_hover_image, ICON_BOX_ROUNDING_RADIUS);
-//	if (init_settings_icon(minirt, gui_box) < 0)
-//		return (-1); // TODO free icon_box image
-	gui_box->draw = &icon_box_draw_method;
-	gui_box->on_click = &default_gui_box_on_click;
-	return (0);
+	gui_box->on_click = &sphere_create_on_click;
 }

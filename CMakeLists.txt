@@ -208,7 +208,7 @@ add_executable(miniRT
         src/gui/box/default_gui_box_methods.c
         src/gui/box/destroy_t_gui_box.c
         src/gui/box/get_clicked_gui_box.c
-        src/gui/box/mouse_in_box.c
+        src/gui/box/mouse_utils.c
         src/gui/main_box/menu_box/init_menu_box.c
         src/gui/main_box/menu_box/init_settings_icon.c
         src/gui/main_box/object_creation_box/init_object_creation_box.c
@@ -309,4 +309,4 @@ add_executable(miniRT
         src/hooks/update_object_attributes_modification_box/add_boxes/position_input_box_on_clicks/x.c
         src/hooks/update_object_attributes_modification_box/add_boxes/position_input_box_on_clicks/y.c
         src/hooks/update_object_attributes_modification_box/add_boxes/position_input_box_on_clicks/z.c
-        src/hooks/update_object_attributes_modification_box/add_boxes/add_radius_box.c src/hooks/update_object_attributes_modification_box/add_boxes/add_normal_box.c src/hooks/update_object_attributes_modification_box/add_boxes/add_x_y_z_box.c src/hooks/update_object_attributes_modification_box/add_boxes/get_x_y_z_input_box.c src/hooks/update_object_attributes_modification_box/add_boxes/normal_input_box_on_clicks/x.c src/hooks/update_object_attributes_modification_box/add_boxes/normal_input_box_on_clicks/y.c src/hooks/update_object_attributes_modification_box/add_boxes/normal_input_box_on_clicks/z.c)
+        src/hooks/update_object_attributes_modification_box/add_boxes/add_radius_box.c src/hooks/update_object_attributes_modification_box/add_boxes/add_normal_box.c src/hooks/update_object_attributes_modification_box/add_boxes/add_x_y_z_box.c src/hooks/update_object_attributes_modification_box/add_boxes/get_x_y_z_input_box.c src/hooks/update_object_attributes_modification_box/add_boxes/normal_input_box_on_clicks/x.c src/hooks/update_object_attributes_modification_box/add_boxes/normal_input_box_on_clicks/y.c src/hooks/update_object_attributes_modification_box/add_boxes/normal_input_box_on_clicks/z.c src/image/draw.c lib/libft/src/numbers/min/minf.c src/gui/main_box/object_creation_box/object_creation_on_clicks.c src/gui/main_box/object_creation_box/object_creation_on_clicks.c)

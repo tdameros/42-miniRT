@@ -43,4 +43,9 @@ void			put_image_to_image_unsafe(register t_image *destination,
 										  const t_image *source, t_vector2i position);
 void			put_background(t_image *destination, const t_image *source);
 
+void			draw_circle(t_image *image, t_vector2i circle_center,
+					float radius, unsigned int color);
+void			draw_circle_with_shadow(t_image *image,
+					t_vector2i circle_center, float radius, t_vector3f color);
+
 #endif //IMAGE_H

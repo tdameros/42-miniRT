@@ -21,9 +21,11 @@
 #include "gui/box.h"
 #include "render_frame.h"
 #include "ray_tracer/render.h"
+#include "gui/utils.h"
 
 static void	render_minirt(t_engine *minirt);
 static void	render_raytracing(t_engine *minirt);
+static void	update_placed_object_position(t_engine *engine);
 
 int	render_frame(t_engine *minirt)
 {
@@ -52,16 +54,41 @@ static void	render_minirt(t_engine *minirt)
 }
 #elif defined __APPLE__
 
-static void	render_minirt(t_engine *minirt)
+static void	render_minirt(t_engine *engine)
 {
-	render_raytracing(minirt);
-	mlx_put_image_to_window(minirt->window.mlx, minirt->window.window,
-		minirt->ray_traced_image.data, 0, 0);
-	render_user_interface(minirt);
+	update_placed_object_position(engine);
+	render_raytracing(engine);
+	mlx_put_image_to_window(engine->window.mlx, engine->window.window,
+		engine->ray_traced_image.data, 0, 0);
+	render_user_interface(engine);
 }
 #else
 # error "Unsuported OS"
 #endif
+
+static void	update_placed_object_position(t_engine *engine)
+{
+	t_vector2i	mouse_position;
+	size_t		ray_index;
+	t_vector3f	direction;
+
+	if (engine->object_being_placed == NULL)
+		return ;
+	mouse_position = get_mouse_position(engine);
+	ray_index = mouse_position.x
+		+ (engine->ray_traced_image.height - mouse_position.y - 1) \
+			* (int)engine->camera.viewport.x;
+	direction = engine->camera.rays[ray_index].direction;
+	engine->object_being_placed->position = (t_vector3f){
+		.x = engine->camera.position.x + engine->object_being_placed_distance \
+			* direction.x,
+		.y = engine->camera.position.y + engine->object_being_placed_distance \
+			* direction.y,
+		.z = engine->camera.position.z + engine->object_being_placed_distance \
+			* direction.z
+	};
+}
+
 
 void	render_raytracing(t_engine *minirt)
 {

@@ -74,7 +74,8 @@ static int	add_x_y_z_buttons(t_engine *engine, t_gui_box *gui_box)
 static int	init_x_y_z_buttons_children(t_engine *engine, t_gui_box *gui_box)
 {
 	// TODO leaks
-	if (create_n_horizontal_boxes(engine, gui_box, 3, 4) < 0)
+	if (create_n_horizontal_boxes(engine, gui_box, 3,
+			(t_boxes_offsets){4, 0}) < 0)
 		return (ft_print_error("create n horizontal box failed"), -1);
 	if (create_x_y_z_input_box(engine, gui_box->children.data + 0, "x") < 0)
 		return (-1);

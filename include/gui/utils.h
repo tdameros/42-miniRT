@@ -30,11 +30,18 @@ typedef struct s_boxes_to_create
 	size_t	nb_of_boxes;
 }	t_boxes_to_create;
 
+typedef struct s_boxes_offsets
+{
+	int	x;
+	int	y;
+}	t_boxes_offsets;
+
 bool				mouse_is_hovering_box(
 						const t_image *image_to_check_for_hover,
 						t_vector2i mouse_position);
-t_vector2i			get_mouse_position(t_gui_box *self, t_engine *engine,
+t_vector2i			get_mouse_position_in_box(t_gui_box *self, t_engine *engine,
 						int x_offset, int y_offset);
+t_vector2i			get_mouse_position(t_engine *engine);
 
 t_boxes_to_create	get_boxes_size(const char *boxes_setup);
 int					failed_to_create_all_boxes(t_engine *engine,
@@ -43,7 +50,7 @@ int					create_horizontal_boxes(t_engine *engine,
 						t_gui_box *gui_box, const char *boxes_setup,
 						int side_offset);
 int					create_n_horizontal_boxes(t_engine *engine,
-						t_gui_box *gui_box, int n, int offset);
+						t_gui_box *gui_box, int n, t_boxes_offsets offsets);
 int					create_vertical_boxes(t_engine *engine, t_gui_box *gui_box,
 						const char *boxes_setup, int side_offset);
 

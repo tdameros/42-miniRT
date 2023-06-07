@@ -17,6 +17,8 @@ typedef struct s_engine
 	t_raytracing_data	raytracing_data;
 	t_camera			camera;
 	t_scene				scene;
+	t_object			*object_being_placed;
+	float				object_being_placed_distance;
 }	t_engine;
 
 int		init_engine(t_engine *engine, const char *start_up_scene);
