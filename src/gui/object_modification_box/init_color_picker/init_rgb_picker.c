@@ -9,17 +9,8 @@
 static int	init_rgb_picker_children(t_engine *minirt, t_gui_boxes *gui_boxes,
 				t_gui_box *parent);
 
-int	init_rgb_picker(t_engine *minirt, t_gui_box *gui_box, t_gui_box *parent)
+int	init_rgb_picker(t_engine *minirt, t_gui_box *gui_box)
 {
-	*gui_box = create_t_gui_box(minirt, parent, \
-		(t_vector2i){
-			.x = 8,
-			.y = parent->size.y - parent->size.y / 6}, \
-		(t_vector2i){
-			.x = parent->size.x - 16,
-			.y = parent->size.y / 6 - 8});
-	if (errno == EINVAL)
-		return (-1);
 	if (init_rgb_picker_children(minirt, &gui_box->children, gui_box) < 0)
 		return (-1); // TODO free previous gui_box
 	gui_box->draw = &default_gui_box_draw;
