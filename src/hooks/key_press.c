@@ -2,7 +2,7 @@
 
 #include "events.h"
 #include "engine.h"
-
+#include <printf.h>
 int	key_press_handler(int key_code, t_engine *minirt)
 {
 //	ft_printf("key_code == %d\n\n", key_code);
@@ -26,10 +26,11 @@ int	key_press_handler(int key_code, t_engine *minirt)
 		camera_rotate_up(&minirt->camera, 2);
 	else if (key_code == KEY_DOWN)
 		camera_rotate_up(&minirt->camera, -2);
-//	else if (key_code == KEY_P)
-//	{
-//		printf("Camera:\n\tx: %f\n\ty: %f\n\tz: %f\n", minirt->camera.)
-//	}
+	else if (key_code == KEY_P)
+	{
+		printf("Camera:\n\tPostion:\n\t\tx: %f\n\t\ty: %f\n\t\tz: %f\n\tDirection:\n\t\tx: %f\n\t\ty: %f\n\t\tz: %f\n", minirt->camera.position.x, minirt->camera.position.y, minirt->camera.position.z, minirt->camera.direction.x, minirt->camera.direction.y, minirt->camera.direction.z);
+		return (0);
+	}
 	else
 		return (0);
 	camera_recalculate_view(&minirt->camera);
