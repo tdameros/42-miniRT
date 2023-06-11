@@ -24,7 +24,6 @@
 #include "gui/utils.h"
 
 static void	render_minirt(t_engine *minirt);
-static void	render_raytracing(t_engine *minirt);
 static void	update_placed_object_position(t_engine *engine);
 
 int	render_frame(t_engine *minirt)
@@ -40,7 +39,7 @@ int	render_frame(t_engine *minirt)
 
 static void	render_minirt(t_engine *minirt)
 {
-	draw(minirt);
+	render_raytracing(minirt);
 	if (minirt->gui.is_hidden && minirt->gui.hidden_ratio == 1.0)
 		mlx_put_image_to_window(minirt->window.mlx, minirt->window.window,
 								minirt->ray_traced_image.data, 0, 0);
@@ -87,22 +86,4 @@ static void	update_placed_object_position(t_engine *engine)
 		.z = engine->camera.position.z + engine->object_being_placed_distance \
 			* direction.z
 	};
-}
-
-
-void	render_raytracing(t_engine *minirt)
-{
-	t_image			*img_ptr = &minirt->ray_traced_image;
-
-	for (int y = 0; y < img_ptr->height; y++)
-	{
-		for (int x = 0; x < img_ptr->width; x++)
-		{
-			t_ray ray = minirt->camera.rays[x + y * (int) minirt->camera.viewport.x];
-			t_vector3f pixel_color = render_pixel(ray, &minirt->scene);
-			pixel_color = vector3f_clamp(pixel_color, 0, 1);
-			pixel_color = vector3f_multiply(pixel_color, 255);
-			put_pixel_on_image(img_ptr, img_ptr->height - y - 1, x, vec_rgb_to_uint(pixel_color));
-		}
-	}
 }

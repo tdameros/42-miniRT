@@ -23,6 +23,7 @@ int			ft_atoi(const char *str);
 long long	ft_atoll(const char *str);
 int			ft_get_smallest_int(int a, int b);
 char		*ft_itoa(int n);
+float		ft_minf_positive(float a, float b);
 
 void		ft_swap_float(float *a, float *b);
 void		ft_swap_int(int *a, int *b);

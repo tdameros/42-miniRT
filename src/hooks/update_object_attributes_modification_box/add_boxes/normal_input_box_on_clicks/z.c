@@ -31,8 +31,6 @@ void	normal_input_box_z_on_click_plus(struct s_gui_box *self,
 			.y = object->normal.y, \
 			.z = object->normal.z + change
 	});
-	if (object->type == PLANE)
-		object->d = -vector3f_dot(object->normal, object->position);
 }
 
 void	normal_input_box_z_on_click_minus(struct s_gui_box *self,
@@ -53,6 +51,4 @@ void	normal_input_box_z_on_click_minus(struct s_gui_box *self,
 			.y = object->normal.y, \
 			.z = object->normal.z - change
 	});
-	if (object->type == PLANE)
-		object->d = -vector3f_dot(object->normal, object->position);
 }

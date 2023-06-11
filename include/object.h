@@ -15,15 +15,16 @@
 
 # include <stddef.h>
 
-#include "math/vector.h"
-#include "colors.h"
-#include "ray_tracer/ray.h"
+# include "math/vector.h"
+# include "colors.h"
+//# include "ray_tracer/ray.h"
 
 enum e_object_type
 {
 	SPHERE,
 	PLANE,
 	CYLINDER,
+	CYLINDER_INF,
 };
 
 typedef struct s_object
@@ -34,7 +35,6 @@ typedef struct s_object
 	float				radius;
 	float				height;
 	t_vector3f			normal;
-	float				d;
 }	t_object;
 
 typedef struct s_objects
@@ -44,21 +44,18 @@ typedef struct s_objects
 	size_t				size;
 }	t_objects;
 
-//t_sphere	sphere_create(t_vector3f origin, float radius, t_vector3f color);
-//bool		hit_sphere(t_ray ray, t_sphere sphere);
-//float		get_hit_scalar_sphere(t_ray ray, t_sphere sphere);
-float	hit_sphere(t_ray ray, t_object sphere);
-float	hit_plane(t_ray ray, t_object plane);
-float	hit_object(t_ray ray, t_object object);
 
-t_object	plane_create(t_vector3f position, t_vector3f normal, t_vector3f albedo);
 int	initialize_objects_array(t_objects *objects, size_t size);
 int	add_object_in_objects(t_objects *objects, t_object object);
 int	remove_object_in_objects(t_objects *objects, size_t index);
 int	free_objects(t_objects *objects);
 
 t_object	sphere_create(t_vector3f origin, float radius, t_vector3f albedo);
+t_object	plane_create(t_vector3f position, t_vector3f normal, t_vector3f albedo);
+t_object cylinder_infinite_create(t_vector3f origin, t_vector3f axe,
+								  float radius, t_vector3f albedo);
 
+t_object cylinder_create(t_vector3f origin, t_vector3f axe, float radius, float height, t_vector3f albedo);
 void	print_object2(t_object object);
 
 #endif //OBJECT_H

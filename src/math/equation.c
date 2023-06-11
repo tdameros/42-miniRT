@@ -1,20 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   conversion.h                                       :+:      :+:    :+:   */
+/*   quadratic.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/04 13:41:00 by tdameros          #+#    #+#             */
-/*   Updated: 2023/05/04 13:41:00 by tdameros         ###   ########lyon.fr   */
+/*   Created: 2023/06/09 18:09:00 by tdameros          #+#    #+#             */
+/*   Updated: 2023/06/09 18:09:00 by tdameros         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CONVERSION_H
-# define CONVERSION_H
+#include <math.h>
+#include <stdbool.h>
 
-//	conversion.c
-float	convert_degrees_to_radians(float degree);
-float	convert_radians_to_degrees(float radians);
+bool	solve_quadratic_equation(float a, float b, float c, float result[2])
+{
+	float	delta;
 
-#endif
+	delta = b * b - 4 * a * c;
+	if (delta < 0)
+		return (false);
+	delta = sqrtf(delta);
+	result[0] = (-b + delta) / (2 * a);
+	result[1] = (-b - delta) / (2 * a);
+	return (true);
+}

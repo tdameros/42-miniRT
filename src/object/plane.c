@@ -12,8 +12,10 @@
 
 #include "object.h"
 #include "math/vector.h"
+#include "ray_tracer/rays.h"
 
-t_object	plane_create(t_vector3f position, t_vector3f normal, t_vector3f albedo)
+t_object	plane_create(t_vector3f position, t_vector3f normal,
+						t_vector3f albedo)
 {
 	t_object	plane;
 
@@ -21,17 +23,37 @@ t_object	plane_create(t_vector3f position, t_vector3f normal, t_vector3f albedo)
 	plane.position = position;
 	plane.normal = normal;
 	plane.albedo = albedo;
-	plane.d = -vector3f_dot(normal, position);
 	return (plane);
 }
 
-float	hit_plane(t_ray ray, t_object plane)
+
+t_hit	hit_plane(const t_ray *ray, const t_object *plane, float distance)
 {
-	const float	scalar_product = vector3f_dot(ray.direction, plane.normal);
+	t_hit		hit;
+
+	hit.distance = distance;
+	if (hit.distance < 0)
+	{
+		hit.hit = false;
+		return (hit);
+	}
+	hit.position = ray_at(ray, hit.distance);
+	hit.normal = vector3f_unit(plane->normal);
+	hit.object = plane;
+	hit.ray = *ray;
+	hit.hit = true;
+	return (hit);
+}
+
+float	calculate_plane_distance(const t_ray *ray, const t_object *plane)
+{
+	const float	scalar_product = vector3f_dot(ray->direction, plane->normal);
+	const float	d = -vector3f_dot(plane->normal, plane->position);
 	float		t;
 
 	if (scalar_product == 0)
 		return (-1);
-	t = (-vector3f_dot(plane.normal, ray.origin) - plane.d) / vector3f_dot(plane.normal, ray.direction);
+	t = (-vector3f_dot(plane->normal, ray->origin) - d)
+		/ vector3f_dot(plane->normal, ray->direction);
 	return (t);
 }

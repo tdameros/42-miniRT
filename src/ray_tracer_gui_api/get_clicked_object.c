@@ -12,7 +12,7 @@
 
 #include "ray_tracer_gui_api.h"
 #include "object.h"
-#include "ray_tracer/hit.h"
+#include "ray_tracer/rays.h"
 #include "engine.h"
 
 
@@ -21,9 +21,9 @@ t_object	*get_clicked_object(t_engine *engine, int x, int y)
 	const t_ray	*ray = engine->camera.rays + x
 		+ (engine->ray_traced_image.height - y - 1)
 		* engine->ray_traced_image.width;
-	const t_hit	ray_hit = trace_ray(*ray, &engine->scene);
+	const t_hit	ray_hit = calculate_ray_intersection(ray, &engine->scene);
 
 	if (!ray_hit.hit)
 		return (NULL);
-	return (engine->scene.objects.data + ray_hit.object_index);
+	return ((t_object *)ray_hit.object);
 }

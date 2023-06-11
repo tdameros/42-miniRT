@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.25)
-project(miniRT C)
+project(42_miniRT C)
 
 set(CMAKE_C_STANDARD 11)
 
@@ -7,7 +7,7 @@ include_directories(include)
 include_directories(lib/libft/include)
 include_directories(lib/minilibx_opengl_20191021)
 
-add_executable(miniRT
+add_executable(42_miniRT
         include/deprecated/t_ambient_light.h
         include/deprecated/t_light.h
         include/deprecated/t_raytracing_data.h
@@ -19,11 +19,13 @@ add_executable(miniRT
         include/gui/object_modification_box.h
         include/gui/utils.h
         include/math/conversion.h
+        include/math/equation.h
         include/math/matrix.h
         include/math/vector.h
         include/ray_tracer/camera.h
         include/ray_tracer/hit.h
-        include/ray_tracer/ray.h
+        include/ray_tracer/lights.h
+        include/ray_tracer/rays.h
         include/ray_tracer/render.h
         include/colors.h
         include/engine.h
@@ -157,6 +159,7 @@ add_executable(miniRT
         lib/libft/src/numbers/atoll.c
         lib/libft/src/numbers/get_smallest_int.c
         lib/libft/src/numbers/itoa.c
+        lib/libft/src/numbers/min.c
         lib/libft/src/sort/msort_int.c
         lib/libft/src/sort/msort_str.c
         lib/libft/src/sort/msort_str_ignore_case.c
@@ -262,6 +265,7 @@ add_executable(miniRT
         src/math/vector/vector2_math.c
         src/math/vector/vector2_operations.c
         src/math/vector/vector3.c
+        src/math/vector/vector3_angle.c
         src/math/vector/vector3_math.c
         src/math/vector/vector3_operations.c
         src/math/vector/vector3_rotation.c
@@ -269,7 +273,9 @@ add_executable(miniRT
         src/math/vector/vector4_math.c
         src/math/vector/vector4_operations.c
         src/math/conversion.c
-        src/object/hit.c
+        src/math/equation.c
+        src/object/cylinder.c
+        src/object/cylinder_infinite.c
         src/object/objects.c
         src/object/plane.c
         src/object/sphere.c
@@ -296,9 +302,11 @@ add_executable(miniRT
         src/ray_tracer/camera/projection.c
         src/ray_tracer/camera/ray.c
         src/ray_tracer/camera/view.c
-        src/ray_tracer/ray.c
+        src/ray_tracer/rays/collision.c
+        src/ray_tracer/rays/rays.c
+        src/ray_tracer/lights.c
         src/ray_tracer/render.c
-        src/ray_tracer_gui_api/get_clicker_object.c
+        src/ray_tracer_gui_api/get_clicked_object.c
         src/render_frame/print_fps_counter.c
         src/render_frame/render_frame.c
         src/render_frame/render_user_interface.c

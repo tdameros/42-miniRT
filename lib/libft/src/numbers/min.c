@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   conversion.h                                       :+:      :+:    :+:   */
+/*   min.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/04 13:41:00 by tdameros          #+#    #+#             */
-/*   Updated: 2023/05/04 13:41:00 by tdameros         ###   ########lyon.fr   */
+/*   Created: 2023/06/09 15:35:00 by tdameros          #+#    #+#             */
+/*   Updated: 2023/06/09 15:35:00 by tdameros         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CONVERSION_H
-# define CONVERSION_H
-
-//	conversion.c
-float	convert_degrees_to_radians(float degree);
-float	convert_radians_to_degrees(float radians);
-
-#endif
+float	ft_minf_positive(float a, float b)
+{
+	return (((a < 0) * (a * (a >= b) + b * (b > a)))
+		+ ((b < 0 && a > 0) * (b * (b >= a) + a * (a > b)))
+		+ (a > 0 && b > 0) * (a * (a <= b) + b * (b < a)));
+}

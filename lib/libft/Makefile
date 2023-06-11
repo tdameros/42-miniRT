@@ -132,6 +132,7 @@ SRC =\
 	numbers/atoll.c				\
 	numbers/get_smallest_int.c	\
 	numbers/itoa.c				\
+	numbers/min.c				\
 \
 \
 	string/split/free_split.c				\
