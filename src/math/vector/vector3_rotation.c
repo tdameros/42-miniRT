@@ -17,9 +17,9 @@
 
 t_vector3f	vector3f_rotate_x(t_vector3f vector, float degrees)
 {
-	const float	radians = convert_degrees_to_radians(degrees);
-	const float	cos_result = cosf(radians);
-	const float	sin_result = sinf(radians);
+	const float		radians = convert_degrees_to_radians(degrees);
+	const float		cos_result = cosf(radians);
+	const float		sin_result = sinf(radians);
 	t_vector3f		result;
 
 	result = vector3f_create(0, 0, 0);
@@ -31,9 +31,9 @@ t_vector3f	vector3f_rotate_x(t_vector3f vector, float degrees)
 
 t_vector3f	vector3f_rotate_y(t_vector3f vector, float degrees)
 {
-	const float	radians = convert_degrees_to_radians(degrees);
-	const float	cos_result = cosf(radians);
-	const float	sin_result = sinf(radians);
+	const float		radians = convert_degrees_to_radians(degrees);
+	const float		cos_result = cosf(radians);
+	const float		sin_result = sinf(radians);
 	t_vector3f		result;
 
 	result = vector3f_create(0, 0, 0);
@@ -45,9 +45,9 @@ t_vector3f	vector3f_rotate_y(t_vector3f vector, float degrees)
 
 t_vector3f	vector3f_rotate_z(t_vector3f vector, float degrees)
 {
-	const float	radians = convert_degrees_to_radians(degrees);
-	const float	cos_result = cosf(radians);
-	const float	sin_result = sinf(radians);
+	const float		radians = convert_degrees_to_radians(degrees);
+	const float		cos_result = cosf(radians);
+	const float		sin_result = sinf(radians);
 	t_vector3f		result;
 
 	result = vector3f_create(0, 0, 0);

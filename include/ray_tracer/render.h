@@ -16,7 +16,9 @@
 # include "math/vector.h"
 # include "scene.h"
 
-t_color	render_pixel(t_ray ray, t_scene *scene);
-//t_vector3f	render_pixel(t_vector3f ray_origin, t_vector3f ray_direction);
+t_color	render_pixel(t_engine *engine, int x, int y);
+t_color	render_ray(t_ray ray, t_scene *scene);
+void	render_raytracing(t_engine *minirt);
+//t_vector3f	render_ray(t_vector3f ray_origin, t_vector3f ray_direction);
 
 #endif

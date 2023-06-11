@@ -16,3 +16,8 @@ float	convert_degrees_to_radians(float degree)
 {
 	return (degree * M_PI / 180);
 }
+
+float	convert_radians_to_degrees(float radians)
+{
+	return (radians * 180 / M_PI);
+}

@@ -15,5 +15,6 @@
 
 //	conversion.c
 float	convert_degrees_to_radians(float degree);
+float	convert_radians_to_degrees(float radians);
 
 #endif

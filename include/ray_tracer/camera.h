@@ -15,7 +15,7 @@
 
 # include "math/vector.h"
 # include "math/matrix.h"
-# include "ray.h"
+# include "ray_tracer/rays.h"
 
 typedef struct s_camera {
 

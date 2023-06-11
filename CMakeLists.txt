@@ -21,7 +21,7 @@ add_executable(42_miniRT
         include/math/vector.h
         include/ray_tracer/camera.h
         include/ray_tracer/hit.h
-        include/ray_tracer/ray.h
+        include/ray_tracer/rays.h
         include/ray_tracer/render.h
         include/colors.h
         include/engine.h
@@ -261,7 +261,7 @@ add_executable(42_miniRT
         src/ray_tracer/camera/projection.c
         src/ray_tracer/camera/ray.c
         src/ray_tracer/camera/view.c
-        src/ray_tracer/ray.c
+        src/ray_tracer/rays/rays.c
         src/ray_tracer/render.c
         src/render_frame/print_fps_counter.c
         src/render_frame/render_frame.c
@@ -270,4 +270,4 @@ add_executable(42_miniRT
         src/close_miniRT.c
         src/color.c
         src/init_minirt.c
-        src/main.c include/gui/init.h include/gui/utils.h src/object/plane.c src/object/hit.c)
+        src/main.c include/gui/init.h include/gui/utils.h src/object/plane.c src/ray_tracer/lights.c src/ray_tracer/rays/collision.c src/object/cylinder.c lib/libft/src/numbers/min.c src/math/equation.c include/math/equation.h src/object/cylinder_infinite.c)

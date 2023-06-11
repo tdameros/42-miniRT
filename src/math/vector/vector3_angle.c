@@ -1,33 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray.c                                              :+:      :+:    :+:   */
+/*   vector3_angle.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/06 17:57:44 by tdameros          #+#    #+#             */
-/*   Updated: 2023/05/06 17:57:45 by tdameros         ###   ########lyon.fr   */
+/*   Created: 2023/06/08 16:46:00 by tdameros          #+#    #+#             */
+/*   Updated: 2023/06/08 16:46:00 by tdameros         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ray_tracer/ray.h"
+#include <math.h>
+
 #include "math/vector.h"
+#include "math/conversion.h"
 
-t_ray	ray_create(t_vector3f origin, t_vector3f direction)
+float	vector3f_get_angle(t_vector3f a, t_vector3f b)
 {
-	t_ray	ray;
+	float	cos;
 
-	ray.origin = origin;
-	ray.direction = direction;
-	return (ray);
-}
-
-// P(t) = A + tb
-// A is ray origin point
-// b is ray direction
-// t is real number
-// This fonction is equivalent of affine fonction in 3D f(x) = b + ax
-t_vector3f	ray_at(t_ray ray, float t)
-{
-	return (vector3f_add(ray.origin, vector3f_multiply(ray.direction, t)));
+	cos = vector3f_dot(a, b) / (vector3f_length(a) * vector3f_length(b));
+	return (convert_radians_to_degrees(acosf(cos)));
 }

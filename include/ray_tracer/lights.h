@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hit.c                                              :+:      :+:    :+:   */
+/*   lights.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/18 21:46:00 by tdameros          #+#    #+#             */
-/*   Updated: 2023/05/18 21:46:00 by tdameros         ###   ########lyon.fr   */
+/*   Created: 2023/05/19 23:34:00 by tdameros          #+#    #+#             */
+/*   Updated: 2023/05/19 23:34:00 by tdameros         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ray_tracer/ray.h"
-#include "object.h"
+#ifndef LIGHTS_H
+# define LIGHTS_H
 
-float	hit_object(t_ray ray, t_object object)
-{
-	if (object.type == SPHERE)
-		return (hit_sphere(ray, object));
-	else if (object.type == PLANE)
-		return (hit_plane(ray, object));
-	return (-1);
-}
+t_vector3f	calculate_color(t_scene *scene, t_hit ray_hit);
+float		calculate_light_intensity(t_scene *scene, t_hit ray_hit);
+#endif

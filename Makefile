@@ -50,6 +50,7 @@ SRC				=\
 	math/vector/vector2_math.c			\
 	math/vector/vector2_operations.c	\
 	math/vector/vector3.c				\
+	math/vector/vector3_angle.c			\
 	math/vector/vector3_math.c			\
 	math/vector/vector3_operations.c	\
 	math/vector/vector3_rotation.c		\
@@ -58,12 +59,14 @@ SRC				=\
 	math/vector/vector4_operations.c	\
 	\
 	math/conversion.c	\
+	math/equation.c		\
 	\
 	\
-	object/hit.c		\
-	object/objects.c	\
-	object/plane.c		\
-	object/sphere.c		\
+	object/cylinder.c			\
+	object/cylinder_infinite.c	\
+	object/objects.c			\
+	object/plane.c				\
+	object/sphere.c				\
 	\
 	\
 	parsing/line_parsing/utils/add_object_to_object_list.c	\
@@ -94,7 +97,10 @@ SRC				=\
 	ray_tracer/camera/ray.c			\
 	ray_tracer/camera/view.c		\
 	\
-	ray_tracer/ray.c	\
+	ray_tracer/rays/rays.c			\
+	ray_tracer/rays/collision.c		\
+	\
+	ray_tracer/lights.c	\
 	ray_tracer/render.c	\
 	\
 	\

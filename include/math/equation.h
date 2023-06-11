@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hit.h                                              :+:      :+:    :+:   */
+/*   quadratic.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/10 16:10:00 by tdameros          #+#    #+#             */
-/*   Updated: 2023/05/10 16:10:00 by tdameros         ###   ########lyon.fr   */
+/*   Created: 2023/06/09 18:16:00 by tdameros          #+#    #+#             */
+/*   Updated: 2023/06/09 18:16:00 by tdameros         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HIT_H
-# define HIT_H
+#ifndef EQUATION_H
+# define EQUATION_H
 
-# include <stdlib.h>
 # include <stdbool.h>
 
-# include "ray_tracer/rays.h"
+bool	solve_quadratic_equation(float a, float b, float c, float result[2]);
 
 #endif

@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hit.h                                              :+:      :+:    :+:   */
+/*   min.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/10 16:10:00 by tdameros          #+#    #+#             */
-/*   Updated: 2023/05/10 16:10:00 by tdameros         ###   ########lyon.fr   */
+/*   Created: 2023/06/09 15:35:00 by tdameros          #+#    #+#             */
+/*   Updated: 2023/06/09 15:35:00 by tdameros         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HIT_H
-# define HIT_H
-
-# include <stdlib.h>
-# include <stdbool.h>
-
-# include "ray_tracer/rays.h"
-
-#endif
+float	ft_minf_positive(float a, float b)
+{
+	return (((a < 0) * (a * (a >= b) + b * (b > a)))
+		+ ((b < 0 && a > 0) * (b * (b >= a) + a * (a > b)))
+		+ (a > 0 && b > 0) * (a * (a <= b) + b * (b < a)));
+}
