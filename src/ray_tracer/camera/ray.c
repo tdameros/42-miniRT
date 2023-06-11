@@ -27,7 +27,8 @@ void	camera_recalculate_rays(t_camera *camera)
 		while (x < (int) camera->viewport.size.x)
 		{
 			ray = ray_create(camera->position, get_ray_direction(camera, x, y));
-			camera->rays[x + y * (int) camera->viewport.size.x] = ray;
+			camera->rays[x + (int)((camera->viewport.size.y - y - 1)
+					* camera->viewport.size.x)] = ray;
 			x++;
 		}
 		x = 0;

@@ -35,7 +35,7 @@ void	render_raytracing(t_engine *minirt)
 		while (x < img->width)
 		{
 			color = vec_rgb_to_uint(render_pixel(minirt, x, y));
-			put_pixel_on_image(img, img->height - y - 1, x, color);
+			put_pixel_on_image(img, y, x, color);
 			x++;
 		}
 		x = 0;

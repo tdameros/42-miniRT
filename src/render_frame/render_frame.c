@@ -76,8 +76,7 @@ static void	update_placed_object_position(t_engine *engine)
 		return ;
 	mouse_position = get_mouse_position(engine);
 	update_mouse_position(engine, &mouse_position);
-	ray_index = mouse_position.x
-		+ (engine->ray_traced_image.height - mouse_position.y - 1) \
+	ray_index = mouse_position.x + mouse_position.y \
 			* (int)engine->camera.viewport.size.x;
 	direction = engine->camera.rays[ray_index].direction;
 	engine->object_being_placed->position = (t_vector3f){

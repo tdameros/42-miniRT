@@ -258,7 +258,7 @@ fclean:	clean
 
 .PHONY:	debug
 debug: fclean
-			$(MAKE) run -j CFLAGS="$(BASE_CFLAGS) $(DEBUG_CLFAGS) $(OPTI_CFLAGS)"
+			$(MAKE) run -j CFLAGS="$(DEBUG_CLFAGS)"
 
 .PHONY:	re
 re:		fclean
