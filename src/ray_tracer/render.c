@@ -63,7 +63,7 @@ static t_vector3f	render_ray(t_ray ray, const t_scene *scene)
 	t_vector3f		color;
 	float			light_intensity;
 	float			multiplier = 1.0f;
-	int				bounces_per_pixel = 1;
+	int				bounces_per_pixel = 2;
 
 	result = vector3f_create(0, 0, 0);
 	for (int i = 0; i < bounces_per_pixel; i++)
@@ -74,11 +74,8 @@ static t_vector3f	render_ray(t_ray ray, const t_scene *scene)
 		object = ray_hit.object;
 
 		// Lights
-//		if (object.type == CYLINDER)
-//			light_intensity = 1;
-//		else
-			light_intensity = calculate_light_intensity(scene, ray_hit);
-//		light_intensity *= multiplier;
+		light_intensity = calculate_light_intensity(scene, ray_hit);
+		light_intensity *= multiplier;
 
 		// Color
 		color = vector3f_multiply(object->albedo, light_intensity);

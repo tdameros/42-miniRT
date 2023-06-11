@@ -40,7 +40,7 @@ float	calculate_light_intensity(const t_scene *scene, t_hit ray_hit)
 	light_ray = ray_create(vector3f_add(ray_hit.position, vector3f_multiply(ray_hit.normal, 0.001f)),
 						   vector3f_multiply(light_direction, -1));
 	light_hit = calculate_ray_intersection(&light_ray, scene);
-	if (light_hit.hit)
+	if (light_hit.hit && light_hit.object != ray_hit.object)
 		return (0);
 //		color = vector3f_multiply(color, 0.1f);
 	light_intensity = vector3f_dot(ray_hit.normal,
