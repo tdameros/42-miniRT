@@ -34,6 +34,8 @@ int	button_press_handler(int button, int x, int y, t_engine *engine)
 	clicked_gui_box = get_clicked_gui_box(engine->gui.gui_boxes, &x, &y);
 	if (clicked_gui_box == NULL)
 	{
+		if (x < 0 || y < 0 || x >= engine->ray_traced_image.width || y >= engine->ray_traced_image.height)
+			return (0);
 		engine->gui.selected_object = get_clicked_object(engine, x, y);
 
 		// Testing
