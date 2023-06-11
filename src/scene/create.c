@@ -17,24 +17,24 @@
 #include "scene.h"
 #include "object.h"
 
-//t_scene	*scene_create(void)
-//{
-//	t_scene	*scene;
-//
-//	scene = malloc(sizeof(*scene));
-//	if (scene == NULL)
-//		return (NULL);
-//	scene->spheres = NULL;
-//	return (scene);
-//}
-//
-//int	scene_add_sphere(t_scene *scene, t_sphere *sphere)
-//{
-//	t_list	*new_node;
-//
-//	new_node = ft_lstnew(sphere);
-//	if (new_node == NULL)
-//		return (-1);
-//	ft_lstadd_front(&scene->spheres, new_node);
-//	return (0);
-//}
+int	init_scene(t_scene *scene)
+{
+	t_objects		objects;
+	t_object		object;
+
+	initialize_objects_array(&objects, 10);
+	object = sphere_create(vector3f_create(0, 0, 0), 0.5f,
+						   vector3f_create(1, 0, 1));
+	add_object_in_objects(&objects, object);
+	object = sphere_create(vector3f_create(-4, 1, 0), 1.5f,
+						   vector3f_create(0.2f, 0.3f, 1));
+	add_object_in_objects(&objects, object);
+	object = plane_create(vector3f_create(0, -0.5,0), vector3f_create(0, 1, 0),
+						  vector3f_create(1, 1, 1));
+	add_object_in_objects(&objects, object);
+	scene->light.position = vector3f_create(5, 5, 5);
+	scene->light.brightness = 1;
+	scene->light.color = vector3f_create(0, 0, 0);
+	scene->objects = objects;
+	return (0);
+}

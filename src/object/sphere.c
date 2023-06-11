@@ -19,6 +19,7 @@ t_object	sphere_create(t_vector3f origin, float radius, t_vector3f albedo)
 {
 	t_object	sphere;
 
+	sphere.type = SPHERE;
 	sphere.position = origin;
 	sphere.radius = radius;
 	sphere.albedo = albedo;

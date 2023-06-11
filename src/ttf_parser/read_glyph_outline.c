@@ -110,7 +110,7 @@ static int	read_flags(const t_string *file, size_t *file_cursor,
 		{
 			if (read_uint8_move(file, file_cursor, &repeat_count) < 0)
 				return (free(outline->flags), -1);
-			while (repeat_count-- > 0)
+			while (repeat_count-- > 0 && i + 1 < size) // TODO check why i + 1 is >= size on a valid font
 			{
 				i++;
 				outline->flags[i] = outline->flags[i - 1];

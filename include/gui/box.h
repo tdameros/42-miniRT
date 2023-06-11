@@ -33,13 +33,13 @@ typedef struct s_gui_box
 }	t_gui_box;
 
 t_gui_box	create_t_gui_box(t_engine *engine, t_gui_box *parent,
-							  t_vector2i position, t_vector2i size);
+				t_vector2i position, t_vector2i size);
 void		destroy_t_gui_box(t_window *window, t_gui_box *gui_box);
 
 void		default_gui_box_draw(t_gui_box *self, t_engine *engine,
-								 int x_offset, int y_offset);
+				int x_offset, int y_offset);
 void		default_gui_box_on_click(t_gui_box *self, t_engine *engine, int y,
-									 int x);
+				int x);
 
 t_gui_box	*get_clicked_gui_box(t_gui_boxes gui_boxes, int *x, int *y);
 

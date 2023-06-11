@@ -21,9 +21,11 @@
 #include "gui/box.h"
 #include "render_frame.h"
 #include "ray_tracer/render.h"
+#include "gui/utils.h"
 
 static void	render_minirt(t_engine *minirt);
 static void	render_raytracing(t_engine *minirt);
+static void	update_placed_object_position(t_engine *engine);
 
 int	render_frame(t_engine *minirt)
 {
@@ -52,43 +54,55 @@ static void	render_minirt(t_engine *minirt)
 }
 #elif defined __APPLE__
 
-static void	render_minirt(t_engine *minirt)
+static void	render_minirt(t_engine *engine)
 {
-	render_raytracing(minirt);
-	mlx_put_image_to_window(minirt->window.mlx, minirt->window.window,
-		minirt->ray_traced_image.data, 0, 0);
-	render_user_interface(minirt);
+	update_placed_object_position(engine);
+	render_raytracing(engine);
+	mlx_put_image_to_window(engine->window.mlx, engine->window.window,
+		engine->ray_traced_image.data, 0, 0);
+	render_user_interface(engine);
 }
 #else
 # error "Unsuported OS"
 #endif
 
+static void	update_placed_object_position(t_engine *engine)
+{
+	t_vector2i	mouse_position;
+	size_t		ray_index;
+	t_vector3f	direction;
+
+	if (engine->object_being_placed == NULL)
+		return ;
+	mouse_position = get_mouse_position(engine);
+	ray_index = mouse_position.x
+		+ (engine->ray_traced_image.height - mouse_position.y - 1) \
+			* (int)engine->camera.viewport.x;
+	direction = engine->camera.rays[ray_index].direction;
+	engine->object_being_placed->position = (t_vector3f){
+		.x = engine->camera.position.x + engine->object_being_placed_distance \
+			* direction.x,
+		.y = engine->camera.position.y + engine->object_being_placed_distance \
+			* direction.y,
+		.z = engine->camera.position.z + engine->object_being_placed_distance \
+			* direction.z
+	};
+}
+
+
 void	render_raytracing(t_engine *minirt)
 {
 	t_image			*img_ptr = &minirt->ray_traced_image;
-	t_scene			scene;
-	t_objects		objects;
-	t_object		object;
 
-	// TODO: dont regenerate scene every frame
-	initialize_objects_array(&objects, 10);
-	object = sphere_create(vector3f_create(0, 0, 0), 0.5,
-						   vector3f_create(1, 0, 1));
-	add_object_in_objects(&objects, object);
-	object = sphere_create(vector3f_create(-2, 0, 0), 0.5,
-						   vector3f_create(0, 1, 1));
-	add_object_in_objects(&objects, object);
-	scene.objects = objects;
 	for (int y = 0; y < img_ptr->height; y++)
 	{
 		for (int x = 0; x < img_ptr->width; x++)
 		{
 			t_ray ray = minirt->camera.rays[x + y * (int) minirt->camera.viewport.x];
-			t_vector3f pixel_color = render_pixel(ray, &scene);
+			t_vector3f pixel_color = render_pixel(ray, &minirt->scene);
 			pixel_color = vector3f_clamp(pixel_color, 0, 1);
 			pixel_color = vector3f_multiply(pixel_color, 255);
 			put_pixel_on_image(img_ptr, img_ptr->height - y - 1, x, vec_rgb_to_uint(pixel_color));
 		}
 	}
-	free_objects(&objects);
 }

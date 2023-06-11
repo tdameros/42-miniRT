@@ -16,12 +16,13 @@
 # include "libft.h"
 
 # include "object.h"
+# include "deprecated/t_light.h"
 
 typedef struct s_scene {
 	t_objects	objects;
+	t_light		light;
 }	t_scene;
 
-t_scene	*scene_create(void);
-//int		scene_add_sphere(t_scene *scene, t_sphere *sphere);
+int	init_scene(t_scene *scene);
 
 #endif

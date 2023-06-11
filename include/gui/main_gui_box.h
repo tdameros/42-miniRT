@@ -19,12 +19,13 @@
 
 int		init_main_gui_box(t_engine *engine, t_gui_box *gui_box);
 int		init_object_creation_gui_box(t_engine *engine,
-												t_gui_box *gui_box, t_gui_box *parent);
+			t_gui_box *gui_box, t_gui_box *parent);
 int		init_menu_gui_box(t_engine *engine, t_gui_box *gui_box,
-									 t_gui_box *parent);
+			t_gui_box *parent);
 void	icon_box_draw_method(t_gui_box *self, t_engine *engine,
-							 int x_offset, int y_offset);
+			int x_offset, int y_offset);
 void	init_settings_icon(t_gui_box *gui_box);
 
+void	sphere_create_on_click(t_gui_box *self, t_engine *engine, int y, int x);
 
 #endif

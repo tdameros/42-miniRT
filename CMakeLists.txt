@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.25)
-project(42_miniRT C)
+project(miniRT C)
 
 set(CMAKE_C_STANDARD 11)
 
@@ -7,15 +7,17 @@ include_directories(include)
 include_directories(lib/libft/include)
 include_directories(lib/minilibx_opengl_20191021)
 
-add_executable(42_miniRT
+add_executable(miniRT
         include/deprecated/t_ambient_light.h
         include/deprecated/t_light.h
         include/deprecated/t_raytracing_data.h
         include/gui/box.h
         include/gui/boxes.h
         include/gui/gui.h
+        include/gui/init.h
         include/gui/main_gui_box.h
         include/gui/object_modification_box.h
+        include/gui/utils.h
         include/math/conversion.h
         include/math/matrix.h
         include/math/vector.h
@@ -30,8 +32,11 @@ add_executable(42_miniRT
         include/image.h
         include/object.h
         include/parsing.h
+        include/ray_tracer_gui_api.h
         include/render_frame.h
         include/scene.h
+        include/ttf.h
+        include/window.h
         lib/libft/include/ft_bitmask.h
         lib/libft/include/ft_bools.h
         lib/libft/include/ft_char.h
@@ -79,12 +84,14 @@ add_executable(42_miniRT
         lib/libft/src/io/printf/formating/format_u_x.c
         lib/libft/src/io/printf/get_final_str.c
         lib/libft/src/io/printf/printf.c
+        lib/libft/src/io/print_error.c
         lib/libft/src/io/print_position_in_code.c
         lib/libft/src/io/putchar_fd.c
         lib/libft/src/io/putendl_fd.c
         lib/libft/src/io/putnbr_fd.c
         lib/libft/src/io/putstr.c
         lib/libft/src/io/putstr_fd.c
+        lib/libft/src/io/read_file.c
         lib/libft/src/linked_list/doubly_linked_void_ptr/dlst_get_next_free_current.c
         lib/libft/src/linked_list/doubly_linked_void_ptr/dlst_of_dlst_clear.c
         lib/libft/src/linked_list/doubly_linked_void_ptr/dlst_push.c
@@ -114,6 +121,7 @@ add_executable(42_miniRT
         lib/libft/src/linked_list/int/lsti_size.c
         lib/libft/src/linked_list/void_ptr/lst_get_next_free_current.c
         lib/libft/src/linked_list/void_ptr/lst_join_strs.c
+        lib/libft/src/linked_list/void_ptr/lst_join_t_strings.c
         lib/libft/src/linked_list/void_ptr/lst_of_lst_clear.c
         lib/libft/src/linked_list/void_ptr/lst_push.c
         lib/libft/src/linked_list/void_ptr/lst_remove_if.c
@@ -136,6 +144,7 @@ add_executable(42_miniRT
         lib/libft/src/mem/memcpy.c
         lib/libft/src/mem/memmove.c
         lib/libft/src/mem/memset.c
+        lib/libft/src/numbers/min/minf.c
         lib/libft/src/numbers/swap/swap_float.c
         lib/libft/src/numbers/swap/swap_int.c
         lib/libft/src/numbers/swap/swap_long.c
@@ -178,6 +187,7 @@ add_executable(42_miniRT
         lib/libft/src/string/strrstr.c
         lib/libft/src/string/strtrim.c
         lib/libft/src/string/substr.c
+        lib/libft/src/string/t_string_free.c
         lib/libft/src/time/get_current_time.c
         lib/libft/src/time/get_number_of_fps_in_string.c
         lib/minilibx_opengl_20191021/font.c
@@ -200,10 +210,11 @@ add_executable(42_miniRT
         src/gui/box/default_gui_box_methods.c
         src/gui/box/destroy_t_gui_box.c
         src/gui/box/get_clicked_gui_box.c
-        src/gui/box/mouse_in_box.c
+        src/gui/box/mouse_utils.c
         src/gui/main_box/menu_box/init_menu_box.c
         src/gui/main_box/menu_box/init_settings_icon.c
         src/gui/main_box/object_creation_box/init_object_creation_box.c
+        src/gui/main_box/object_creation_box/object_creation_on_clicks.c
         src/gui/main_box/icon_box_draw_method.c
         src/gui/main_box/init_main_box.c
         src/gui/object_modification_box/init_color_picker/add_hover_color_circle.c
@@ -211,11 +222,33 @@ add_executable(42_miniRT
         src/gui/object_modification_box/init_color_picker/init_base_color_box.c
         src/gui/object_modification_box/init_color_picker/init_color_picker_box.c
         src/gui/object_modification_box/init_color_picker/init_rgb_picker.c
+        src/gui/object_modification_box/init_object_attributes_modification_box.c
         src/gui/object_modification_box/init_object_modification_box.c
+        src/gui/create_boxes_utils.c
+        src/gui/create_float_input_box.c
+        src/gui/create_horizontal_boxes.c
+        src/gui/create_n_horizontal_boxes.c
+        src/gui/create_vertical_boxes.c
         src/gui/init_boxes.c
+        src/hooks/update_object_attributes_modification_box/add_boxes/normal_input_box_on_clicks/x.c
+        src/hooks/update_object_attributes_modification_box/add_boxes/normal_input_box_on_clicks/y.c
+        src/hooks/update_object_attributes_modification_box/add_boxes/normal_input_box_on_clicks/z.c
+        src/hooks/update_object_attributes_modification_box/add_boxes/position_input_box_on_clicks/x.c
+        src/hooks/update_object_attributes_modification_box/add_boxes/position_input_box_on_clicks/y.c
+        src/hooks/update_object_attributes_modification_box/add_boxes/position_input_box_on_clicks/z.c
+        src/hooks/update_object_attributes_modification_box/add_boxes/add_normal_box.c
+        src/hooks/update_object_attributes_modification_box/add_boxes/add_position_box.c
+        src/hooks/update_object_attributes_modification_box/add_boxes/add_radius_box.c
+        src/hooks/update_object_attributes_modification_box/add_boxes/add_x_y_z_box.c
+        src/hooks/update_object_attributes_modification_box/add_boxes/get_x_y_z_input_box.c
+        src/hooks/update_object_attributes_modification_box/init_cylinder_attributes_modification_box.c
+        src/hooks/update_object_attributes_modification_box/init_plane_attributes_modification_box.c
+        src/hooks/update_object_attributes_modification_box/init_sphere_attributes_modification_box.c
+        src/hooks/update_object_attributes_modification_box/update_object_attributes_modification_box.c
         src/hooks/button_press.c
         src/hooks/key_press.c
         src/image/destroy_t_image.c
+        src/image/draw.c
         src/image/image.c
         src/image/put_image_to_image.c
         src/image/round_image_corners.c
@@ -236,7 +269,9 @@ add_executable(42_miniRT
         src/math/vector/vector4_math.c
         src/math/vector/vector4_operations.c
         src/math/conversion.c
+        src/object/hit.c
         src/object/objects.c
+        src/object/plane.c
         src/object/sphere.c
         src/parsing/line_parsing/utils/add_object_to_object_list.c
         src/parsing/line_parsing/utils/error.c
@@ -263,11 +298,25 @@ add_executable(42_miniRT
         src/ray_tracer/camera/view.c
         src/ray_tracer/ray.c
         src/ray_tracer/render.c
+        src/ray_tracer_gui_api/get_clicker_object.c
         src/render_frame/print_fps_counter.c
         src/render_frame/render_frame.c
         src/render_frame/render_user_interface.c
         src/scene/create.c
+        src/ttf_parser/get_glyph_offset.c
+        src/ttf_parser/get_glyph_outlines.c
+        src/ttf_parser/read_cmap.c
+        src/ttf_parser/read_file.c
+        src/ttf_parser/read_font_directory.c
+        src/ttf_parser/read_format4.c
+        src/ttf_parser/read_glyph_outline.c
+        src/ttf_parser/read_glyph_outline_coordinates.c
+        src/ttf_parser/read_head.c
+        src/ttf_parser/read_loca.c
+        src/ttf_parser/read_maxp.c
+        src/ttf_parser/ttf_get_table_offset.c
+        src/ttf_parser/ttf_parser.c
         src/close_miniRT.c
         src/color.c
         src/init_minirt.c
-        src/main.c include/gui/init.h include/gui/utils.h lib/libft/src/io/read_file.c lib/libft/src/string/t_string_free.c lib/libft/src/linked_list/void_ptr/lst_join_t_strings.c src/ttf_parser/ttf_parser.c src/ttf_parser/read_file.c src/ttf_parser/read_font_directory.c src/ttf_parser/read_cmap.c src/ttf_parser/read_format4.c src/ttf_parser/get_glyph_offset.c src/ttf_parser/ttf_get_table_offset.c lib/libft/src/io/print_error.c src/ttf_parser/read_head.c src/ttf_parser/read_maxp.c src/ttf_parser/read_loca.c src/ttf_parser/read_glyph_outline.c src/ttf_parser/read_glyph_outline_coordinates.c src/ttf_parser/get_glyph_outlines.c)
+        src/main.c)

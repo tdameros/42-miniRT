@@ -84,6 +84,8 @@ enum e_mouse_buttons
 {
 	BUTTON_LEFT = 1,
 	BUTTON_RIGHT = 2,
+	SCROLL_DOWN = 4,
+	SCROLL_UP = 5,
 };
 # elif defined __linux__
 

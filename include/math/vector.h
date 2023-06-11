@@ -74,6 +74,7 @@ float		vector3f_length(t_vector3f vector);
 t_vector3f	vector3f_unit(t_vector3f vector);
 float		vector3f_dot(t_vector3f v1, t_vector3f v2);
 t_vector3f	vector3f_cross(t_vector3f v1, t_vector3f v2);
+t_vector3f	vector3f_normalize(t_vector3f vector);
 
 //	vector3_rotation.c
 t_vector3f	vector3f_rotate_x(t_vector3f vector, float degrees);

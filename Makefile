@@ -8,12 +8,13 @@ SRC				=\
 	gui/box/default_gui_box_methods.c	\
 	gui/box/destroy_t_gui_box.c			\
 	gui/box/get_clicked_gui_box.c		\
-	gui/box/mouse_in_box.c				\
+	gui/box/mouse_utils.c				\
 	\
 	gui/main_box/menu_box/init_menu_box.c		\
 	gui/main_box/menu_box/init_settings_icon.c	\
 	\
-	gui/main_box/object_creation_box/init_object_creation_box.c	\
+	gui/main_box/object_creation_box/init_object_creation_box.c		\
+	gui/main_box/object_creation_box/object_creation_on_clicks.c	\
 	\
 	gui/main_box/icon_box_draw_method.c \
 	gui/main_box/init_main_box.c		\
@@ -24,16 +25,42 @@ SRC				=\
 	gui/object_modification_box/init_color_picker/init_color_picker_box.c	\
 	gui/object_modification_box/init_color_picker/init_rgb_picker.c			\
 	\
-	gui/object_modification_box/init_object_modification_box.c	\
+	gui/object_modification_box/init_object_attributes_modification_box.c	\
+	gui/object_modification_box/init_object_modification_box.c				\
 	\
-	gui/init_boxes.c	\
+	gui/create_boxes_utils.c		\
+	gui/create_float_input_box.c	\
+	gui/create_horizontal_boxes.c	\
+	gui/create_n_horizontal_boxes.c	\
+	gui/create_vertical_boxes.c		\
+	gui/init_boxes.c				\
 	\
+	\
+	hooks/update_object_attributes_modification_box/add_boxes/normal_input_box_on_clicks/x.c	\
+	hooks/update_object_attributes_modification_box/add_boxes/normal_input_box_on_clicks/y.c	\
+	hooks/update_object_attributes_modification_box/add_boxes/normal_input_box_on_clicks/z.c	\
+	\
+	hooks/update_object_attributes_modification_box/add_boxes/position_input_box_on_clicks/x.c	\
+	hooks/update_object_attributes_modification_box/add_boxes/position_input_box_on_clicks/y.c	\
+	hooks/update_object_attributes_modification_box/add_boxes/position_input_box_on_clicks/z.c	\
+	\
+	hooks/update_object_attributes_modification_box/add_boxes/add_normal_box.c		\
+	hooks/update_object_attributes_modification_box/add_boxes/add_position_box.c	\
+	hooks/update_object_attributes_modification_box/add_boxes/add_radius_box.c		\
+	hooks/update_object_attributes_modification_box/add_boxes/add_x_y_z_box.c		\
+	hooks/update_object_attributes_modification_box/add_boxes/get_x_y_z_input_box.c	\
+	\
+	hooks/update_object_attributes_modification_box/init_cylinder_attributes_modification_box.c	\
+	hooks/update_object_attributes_modification_box/init_plane_attributes_modification_box.c	\
+	hooks/update_object_attributes_modification_box/init_sphere_attributes_modification_box.c	\
+	hooks/update_object_attributes_modification_box/update_object_attributes_modification_box.c	\
 	\
 	hooks/button_press.c	\
 	hooks/key_press.c		\
 	\
 	\
 	image/destroy_t_image.c		\
+	image/draw.c				\
 	image/image.c				\
 	image/put_image_to_image.c	\
 	image/round_image_corners.c	\
@@ -60,7 +87,9 @@ SRC				=\
 	math/conversion.c	\
 	\
 	\
+	object/hit.c		\
 	object/objects.c	\
+	object/plane.c		\
 	object/sphere.c		\
 	\
 	\
@@ -94,6 +123,9 @@ SRC				=\
 	\
 	ray_tracer/ray.c	\
 	ray_tracer/render.c	\
+	\
+	\
+	ray_tracer_gui_api/get_clicker_object.c	\
 	\
 	\
 	render_frame/print_fps_counter.c		\
@@ -132,9 +164,9 @@ BASE_CFLAGS		=	-Wall -Wextra -Werror
 DEBUG_CLFAGS	=	-g3 -fsanitize=address
 #-ffast-math reduces calculation precision, need to check behaviour before using
 OPTI_CFLAGS		=	-O3 -march=native #-ffast-math
-#CFLAGS			=	$(BASE_CFLAGS) $(OPTI_CFLAGS)
+CFLAGS			=	$(BASE_CFLAGS) $(OPTI_CFLAGS)
 #CFLAGS			=	$(BASE_CFLAGS) $(DEBUG_CLFAGS)
-CFLAGS			=	$(BASE_CFLAGS) $(OPTI_CFLAGS) #$(DEBUG_CLFAGS)
+#CFLAGS			=	$(BASE_CFLAGS) $(OPTI_CFLAGS) $(DEBUG_CLFAGS)
 RM				=	rm -rf
 AR				=	ar rcs
 
