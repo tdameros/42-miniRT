@@ -51,10 +51,10 @@ int	init_scene(t_scene *scene)
 	add_object_in_objects(&objects, object);
 	scene->sky_color = vector3f_create(0, 0, 0);
 	scene->light.position = vector3f_create(5, 5, 5);
-	scene->light.color = vector3f_create(1, 0.2f, 0.2f);
+	scene->light.color = vector3f_create(1, 1, 1);
 	scene->light.brightness = 1;
 	scene->ambient_light.color = vector3f_create(1, 1, 1);
-	scene->ambient_light.brightness = 0.2f;
+	scene->ambient_light.brightness = 0;
 	scene->objects = objects;
 	return (0);
 }
