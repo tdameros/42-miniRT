@@ -58,10 +58,8 @@ static t_color	render_pixel(t_engine *engine, int x, int y)
 static t_vector3f	render_ray(t_ray ray, const t_scene *scene)
 {
 	t_hit			ray_hit;
-	const t_object		*object;
 	t_vector3f		result;
 	t_vector3f		color;
-	float			light_intensity;
 	float			multiplier = 1.0f;
 	int				bounces_per_pixel = 2;
 
@@ -71,14 +69,11 @@ static t_vector3f	render_ray(t_ray ray, const t_scene *scene)
 		ray_hit = calculate_ray_intersection(&ray, scene);
 		if (!ray_hit.hit)
 			return (vector3f_add(result, vector3f_multiply(scene->sky_color, multiplier)));
-		object = ray_hit.object;
 
 		// Lights
-		light_intensity = calculate_light_intensity(scene, ray_hit);
-		light_intensity *= multiplier;
 
 		// Color
-		color = vector3f_multiply(object->albedo, light_intensity);
+		color = calculate_color(scene, ray_hit, multiplier);
 		result = vector3f_add(result, color);
 		multiplier *= 0.1f;
 		ray.origin = vector3f_add(ray_hit.position, vector3f_multiply(ray_hit.normal, 0.0001f));

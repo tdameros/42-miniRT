@@ -117,6 +117,10 @@ SRC =\
 	mem/memset.c	\
 \
 \
+	numbers/max/maxf.c			\
+\
+	numbers/min/minf.c			\
+\
 	numbers/swap/swap_float.c	\
 	numbers/swap/swap_int.c		\
 	numbers/swap/swap_long.c	\
@@ -124,15 +128,12 @@ SRC =\
 	numbers/swap/swap_ssize_t.c	\
 	numbers/swap/swap_uint.c	\
 \
-	numbers/min/minf.c			\
-\
 	numbers/abs.c				\
 	numbers/atof.c				\
 	numbers/atoi.c				\
 	numbers/atoll.c				\
 	numbers/get_smallest_int.c	\
 	numbers/itoa.c				\
-	numbers/min.c				\
 \
 \
 	string/split/free_split.c				\

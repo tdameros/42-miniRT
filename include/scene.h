@@ -21,6 +21,7 @@
 typedef struct s_scene {
 	t_objects	objects;
 	t_light		light;
+	t_light		ambient_light;
 	t_vector3f	sky_color;
 }	t_scene;
 

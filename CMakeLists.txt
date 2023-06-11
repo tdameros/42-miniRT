@@ -327,4 +327,4 @@ add_executable(42_miniRT
         src/close_miniRT.c
         src/color.c
         src/init_minirt.c
-        src/main.c src/ray_tracer/rays/rays.c)
+        src/main.c src/ray_tracer/rays/rays.c src/ray_tracer_gui_api/get_clicked_object.c lib/libft/src/numbers/max/maxf.c)

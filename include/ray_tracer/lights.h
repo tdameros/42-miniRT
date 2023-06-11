@@ -13,6 +13,6 @@
 #ifndef LIGHTS_H
 # define LIGHTS_H
 
-t_vector3f	calculate_color(const t_scene *scene, t_hit ray_hit);
-float		calculate_light_intensity(const t_scene *scene, t_hit ray_hit);
+t_vector3f	calculate_color(const t_scene *scene, t_hit ray_hit, float multiplier);
+
 #endif

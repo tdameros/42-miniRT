@@ -14,40 +14,75 @@
 #include "scene.h"
 #include "ray_tracer/rays.h"
 
-t_vector3f	calculate_color(const t_scene *scene, t_hit ray_hit)
+static bool	is_shadow(const t_scene *scene, t_hit ray_hit,
+						 t_vector3f reverse_light_direction);
+static t_vector3f	apply_light_brightness(const t_light *light);
+static t_vector3f	calculate_ambient_light(const t_scene *scene, t_hit ray_hit);
+static t_vector3f	calculate_diffuse_light(const t_scene *scene,
+											 t_hit ray_hit, t_vector3f reverse_light_direction);
+
+t_vector3f	calculate_color(const t_scene *scene, t_hit ray_hit, float multiplier)
 {
-	t_vector3f	light_direction;
-	float		light_intensity;
+	t_vector3f	reverse_light_direction;
+	t_color		ambient;
+	t_color		diffuse;
+//	t_color		specular;
 //	t_color		color;
 
-	light_direction = vector3f_unit(vector3f_subtract(scene->light.position, ray_hit.position));
-	light_intensity = vector3f_dot(ray_hit.normal, light_direction);
-	if (light_intensity < 0)
-		light_intensity = 0;
-//	color = vector3f_divide(ray_hit.object.albedo, 255);
-//	color = mult
-	return (light_direction);
+//	reverse_light_direction = vector3f_subtract(ray_hit.position, scene->light.position);
+	ambient = calculate_ambient_light(scene, ray_hit);
+	ambient = vector3f_multiply(ambient, multiplier);
+	reverse_light_direction = vector3f_subtract(scene->light.position, ray_hit.position);
+	reverse_light_direction = vector3f_unit(reverse_light_direction);
+	if (is_shadow(scene, ray_hit, reverse_light_direction))
+		return (ambient);
+	diffuse = calculate_diffuse_light(scene, ray_hit, reverse_light_direction);
+	diffuse = vector3f_multiply(diffuse, multiplier);
+	return (vector3f_add(diffuse, ambient));
 }
 
-float	calculate_light_intensity(const t_scene *scene, t_hit ray_hit)
+static bool	is_shadow(const t_scene *scene, t_hit ray_hit,
+		t_vector3f reverse_light_direction)
 {
-	t_hit			light_hit;
-	t_ray			light_ray;
-	t_vector3f		light_direction;
-	float 			light_intensity;
+	const t_vector3f	new_position = vector3f_add(ray_hit.position,
+			vector3f_multiply(ray_hit.normal, 0.001f));
+	const t_ray			light_ray = ray_create(new_position,
+			reverse_light_direction);
+	const t_hit			light_hit = calculate_ray_intersection(&light_ray,
+			scene);
 
-	light_direction = vector3f_unit(vector3f_subtract(ray_hit.position, scene->light.position));
-	light_ray = ray_create(vector3f_add(ray_hit.position, vector3f_multiply(ray_hit.normal, 0.001f)),
-						   vector3f_multiply(light_direction, -1));
-	light_hit = calculate_ray_intersection(&light_ray, scene);
-	if (light_hit.hit && light_hit.object != ray_hit.object)
-		return (0);
-//		color = vector3f_multiply(color, 0.1f);
-	light_intensity = vector3f_dot(ray_hit.normal,
-								   vector3f_multiply(light_direction, -1));
-	if (light_intensity < 0)
-		light_intensity = 0;
-	if (light_intensity >= 1)
-		light_intensity = 1;
-	return (light_intensity);
+	return (light_hit.hit && light_hit.object != ray_hit.object);
+}
+
+static t_vector3f	calculate_ambient_light(const t_scene *scene, t_hit ray_hit)
+{
+	const t_vector3f	ambient_light_color = apply_light_brightness(\
+		&scene->ambient_light);
+	const float			red = ray_hit.object->albedo.x * ambient_light_color.x;
+	const float			green = ray_hit.object->albedo.y
+		* ambient_light_color.y;
+	const float			blue = ray_hit.object->albedo.z * ambient_light_color.z;
+
+	return (vector3f_create(red, green, blue));
+}
+
+static t_vector3f	apply_light_brightness(const t_light *light)
+{
+	return (vector3f_multiply(light->color, light->brightness));
+}
+
+static t_vector3f	calculate_diffuse_light(const t_scene *scene,
+											t_hit ray_hit,
+											t_vector3f reverse_light_direction)
+{
+	const float	scalar_product = ft_maxf(0, vector3f_dot(ray_hit.normal,
+				reverse_light_direction));
+	const float	red = ray_hit.object->albedo.x * scene->light.color.x
+		* scalar_product;
+	const float	green = ray_hit.object->albedo.y * scene->light.color.y
+		* scalar_product;
+	const float	blue = ray_hit.object->albedo.z * scene->light.color.z
+		* scalar_product;
+
+	return (vector3f_create(red, green, blue));
 }
