@@ -17,6 +17,12 @@
 # include "math/matrix.h"
 # include "ray_tracer/rays.h"
 
+typedef struct s_viewport
+{
+	t_vector2f	size;
+	size_t		number_of_pixels;
+}	t_viewport;
+
 typedef struct s_camera {
 
 	t_vector3f	position;
@@ -27,7 +33,7 @@ typedef struct s_camera {
 	t_matrix4	projection;
 	t_matrix4	inverse_projection;
 
-	t_vector2f	viewport;
+	t_viewport	viewport;
 	float		vertical_fov;
 	float		near_clip;
 	float		far_clip;

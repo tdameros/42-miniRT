@@ -25,9 +25,11 @@ int	camera_create(t_camera *camera, t_vector2f viewport)
 	camera->vertical_fov = 45;
 	camera->near_clip = 0.1;
 	camera->far_clip = 100;
-	camera->viewport = viewport;
+	camera->viewport.size = viewport;
+	camera->viewport.number_of_pixels
+		= camera->viewport.size.x * camera->viewport.size.y;
 	camera->rays = malloc(sizeof(*camera->rays)
-			* (int)(camera->viewport.x * camera->viewport.y));
+			* camera->viewport.number_of_pixels);
 	if (camera->rays == NULL)
 		return (-1);
 	camera_recalculate_view(camera);

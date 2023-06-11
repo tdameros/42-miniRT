@@ -26,9 +26,14 @@ int	key_press_handler(int key_code, t_engine *minirt)
 		camera_rotate_up(&minirt->camera, 2);
 	else if (key_code == KEY_DOWN)
 		camera_rotate_up(&minirt->camera, -2);
+//	else if (key_code == KEY_P)
+//	{
+//		printf("Camera:\n\tx: %f\n\ty: %f\n\tz: %f\n", minirt->camera.)
+//	}
 	else
 		return (0);
 	camera_recalculate_view(&minirt->camera);
 	camera_recalculate_rays(&minirt->camera);
 	return (0);
 }
+

@@ -46,7 +46,7 @@ void	render_raytracing(t_engine *minirt)
 static t_color	render_pixel(t_engine *engine, int x, int y)
 {
 	const t_ray	ray = engine->camera.rays[x + y
-		* (int) engine->camera.viewport.x];
+		* (int) engine->camera.viewport.size.x];
 	t_vector3f	pixel_color;
 
 	pixel_color = render_ray(ray, &engine->scene);

@@ -24,7 +24,7 @@ void	camera_recalculate_projection(t_camera *camera)
 {
 	camera->projection = camera_perspective_fov(
 			convert_degrees_to_radians(camera->vertical_fov),
-			camera->viewport,
+			camera->viewport.size,
 			camera->near_clip,
 			camera->far_clip);
 	camera->inverse_projection = matrix4_inverse(camera->projection);

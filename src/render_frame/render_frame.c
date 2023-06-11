@@ -25,6 +25,7 @@
 
 static void	render_minirt(t_engine *minirt);
 static void	update_placed_object_position(t_engine *engine);
+static void	update_mouse_position(t_engine *engine, t_vector2i *mouse_position);
 
 int	render_frame(t_engine *minirt)
 {
@@ -74,9 +75,10 @@ static void	update_placed_object_position(t_engine *engine)
 	if (engine->object_being_placed == NULL)
 		return ;
 	mouse_position = get_mouse_position(engine);
+	update_mouse_position(engine, &mouse_position);
 	ray_index = mouse_position.x
 		+ (engine->ray_traced_image.height - mouse_position.y - 1) \
-			* (int)engine->camera.viewport.x;
+			* (int)engine->camera.viewport.size.x;
 	direction = engine->camera.rays[ray_index].direction;
 	engine->object_being_placed->position = (t_vector3f){
 		.x = engine->camera.position.x + engine->object_being_placed_distance \
@@ -86,4 +88,25 @@ static void	update_placed_object_position(t_engine *engine)
 		.z = engine->camera.position.z + engine->object_being_placed_distance \
 			* direction.z
 	};
+}
+
+static void	update_mouse_position(t_engine *engine, t_vector2i *mouse_position)
+{
+	bool	should_update_mouse_position;
+
+	should_update_mouse_position = (
+			mouse_position->x >= engine->camera.viewport.size.x
+			|| mouse_position->y >= engine->camera.viewport.size.y
+			|| mouse_position->x < 0 || mouse_position->y < 0);
+	if (should_update_mouse_position == false)
+		return ;
+	while (mouse_position->x >= engine->camera.viewport.size.x)
+		mouse_position->x -= engine->camera.viewport.size.x;
+	while (mouse_position->x < 0)
+		mouse_position->x += engine->camera.viewport.size.x;
+	while (mouse_position->y >= engine->camera.viewport.size.y)
+		mouse_position->y -= engine->camera.viewport.size.y;
+	while (mouse_position->y < 0)
+		mouse_position->y += engine->camera.viewport.size.y;
+	mlx_mouse_move(engine->window.window, mouse_position->x, mouse_position->y);
 }

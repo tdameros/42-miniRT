@@ -327,4 +327,4 @@ add_executable(42_miniRT
         src/close_miniRT.c
         src/color.c
         src/init_minirt.c
-        src/main.c)
+        src/main.c src/ray_tracer/rays/rays.c)
