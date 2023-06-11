@@ -51,7 +51,7 @@ void	plane_create_on_click(t_gui_box *self, t_engine *engine, int y, int x)
 
 	if (add_object_in_objects(&engine->scene.objects, object) < 0)
 	{
-		ft_print_error("Failed to create new sphere\n");
+		ft_print_error("Failed to create new plane\n");
 		return ;
 	}
 	engine->object_being_placed_distance = 10;
@@ -76,7 +76,7 @@ void	cylinder_create_on_click(t_gui_box *self, t_engine *engine, int y,
 
 	if (add_object_in_objects(&engine->scene.objects, object) < 0)
 	{
-		ft_print_error("Failed to create new sphere\n");
+		ft_print_error("Failed to create new cylinder\n");
 		return ;
 	}
 	engine->object_being_placed_distance = 10;
