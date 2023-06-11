@@ -12,6 +12,8 @@
 
 static int	init_object_creation_children(t_engine *engine, t_gui_box *gui_box);
 static void	init_sphere_creation_box(t_gui_box *gui_box);
+static void	init_plane_creation_box(t_gui_box *gui_box);
+static void	init_cylinder_creation_box(t_gui_box *gui_box);
 
 int	init_object_creation_gui_box(t_engine *minirt, t_gui_box *gui_box,
 		t_gui_box *parent)
@@ -56,6 +58,8 @@ static int	init_object_creation_children(t_engine *engine, t_gui_box *gui_box)
 		gui_box->children.data[i].draw = &icon_box_draw_method;
 	}
 	init_sphere_creation_box(gui_box->children.data + 0);
+	init_plane_creation_box(gui_box->children.data + 1);
+	init_cylinder_creation_box(gui_box->children.data + 2);
 	return (0);
 }
 
@@ -76,4 +80,26 @@ static void	init_sphere_creation_box(t_gui_box *gui_box)
 	round_image_corners(&gui_box->image, ICON_BOX_ROUNDING_RADIUS);
 
 	gui_box->on_click = &sphere_create_on_click;
+}
+
+static void	init_plane_creation_box(t_gui_box *gui_box)
+{
+	change_image_color(&gui_box->image, COLOR_TRANSPARENT);
+	change_image_color(&gui_box->on_hover_image, ICON_BOX_COLOR);
+
+	round_image_corners(&gui_box->on_hover_image, ICON_BOX_ROUNDING_RADIUS);
+	round_image_corners(&gui_box->image, ICON_BOX_ROUNDING_RADIUS);
+
+	gui_box->on_click = &plane_create_on_click;
+}
+
+static void	init_cylinder_creation_box(t_gui_box *gui_box)
+{
+	change_image_color(&gui_box->image, COLOR_TRANSPARENT);
+	change_image_color(&gui_box->on_hover_image, ICON_BOX_COLOR);
+
+	round_image_corners(&gui_box->on_hover_image, ICON_BOX_ROUNDING_RADIUS);
+	round_image_corners(&gui_box->image, ICON_BOX_ROUNDING_RADIUS);
+
+	gui_box->on_click = &cylinder_create_on_click;
 }

@@ -27,5 +27,8 @@ void	icon_box_draw_method(t_gui_box *self, t_engine *engine,
 void	init_settings_icon(t_gui_box *gui_box);
 
 void	sphere_create_on_click(t_gui_box *self, t_engine *engine, int y, int x);
+void	cylinder_create_on_click(t_gui_box *self, t_engine *engine, int y,
+								 int x);
+void	plane_create_on_click(t_gui_box *self, t_engine *engine, int y, int x);
 
 #endif

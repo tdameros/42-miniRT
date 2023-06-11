@@ -72,6 +72,8 @@ void	print_object2(t_object object)
 	printf("Type: %d\n", object.type);
 	printf("Position:");
 	vector3f_print(object.position);
+	printf("Normal:");
+	vector3f_print(object.normal);
 	printf("Albedo:");
 	vector3f_print(object.albedo);
 	printf("Radius: %f\n", object.radius);

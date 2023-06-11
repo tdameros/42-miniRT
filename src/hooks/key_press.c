@@ -29,6 +29,10 @@ int	key_press_handler(int key_code, t_engine *minirt)
 	else if (key_code == KEY_P)
 	{
 		printf("Camera:\n\tPostion:\n\t\tx: %f\n\t\ty: %f\n\t\tz: %f\n\tDirection:\n\t\tx: %f\n\t\ty: %f\n\t\tz: %f\n", minirt->camera.position.x, minirt->camera.position.y, minirt->camera.position.z, minirt->camera.direction.x, minirt->camera.direction.y, minirt->camera.direction.z);
+		for (size_t i = 0; i < minirt->scene.objects.length; i++) {
+			print_object2(minirt->scene.objects.data[i]);
+			ft_putstr_fd("\n\n", STDERR_FILENO);
+		}
 		return (0);
 	}
 	else
