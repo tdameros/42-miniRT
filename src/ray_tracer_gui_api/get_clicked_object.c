@@ -18,8 +18,7 @@
 
 t_object	*get_clicked_object(t_engine *engine, int x, int y)
 {
-	const t_ray	*ray = engine->camera.rays + x
-		+ (engine->ray_traced_image.height - y - 1)
+	const t_ray	*ray = engine->camera.rays + x + y
 		* engine->ray_traced_image.width;
 	const t_hit	ray_hit = calculate_ray_intersection(ray, &engine->scene);
 
