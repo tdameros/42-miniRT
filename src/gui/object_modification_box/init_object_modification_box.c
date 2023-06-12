@@ -7,11 +7,12 @@
 #include "gui/object_modification_box.h"
 #include "gui/utils.h"
 #include "hooks.h"
+#include "gui/UI.h"
 
 static int	init_object_modification_gui_box_children(t_engine *engine,
 				t_gui_box *parent);
 static int	init_box_deleter(t_engine *engine, t_gui_box *gui_box);
-static void	delete_box_on_click(t_gui_box *self, t_engine *minirt, int y,
+static void	delete_box_on_click(t_gui_box *self, t_engine *engine, int y,
 				int x);
 
 int	init_object_modification_gui_box(t_engine *engine, t_gui_box *gui_box,
@@ -30,8 +31,8 @@ int	init_object_modification_gui_box(t_engine *engine, t_gui_box *gui_box,
 				+ object_creation_gui_box->position.y * 3)});
 	if (errno == EINVAL)
 		return (-1);
-	change_image_color(&gui_box->image, 0x40000000);
-	round_image_corners(&gui_box->image, 20);
+	change_image_color(&gui_box->image, BASE_GUI_COLOR);
+	round_image_corners(&gui_box->image, BOX_ROUNDING_RADIUS);
 	gui_box->draw = &default_gui_box_draw;
 	gui_box->on_click = &default_gui_box_on_click;
 	if (init_object_modification_gui_box_children(engine, gui_box))
@@ -70,7 +71,7 @@ static int	init_box_deleter(t_engine *engine, t_gui_box *gui_box)
 		< 0)
 		return (-1);
 
-	change_image_color(&gui_box->image, 0x40000000);
+	change_image_color(&gui_box->image, SUB_GUI_COLOR);
 	round_image_corners(&gui_box->image, 10);
 	gui_box->children.data[0].on_click = NULL;
 	gui_box->children.data[0].draw = NULL;

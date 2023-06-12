@@ -6,6 +6,7 @@
 #include "gui/main_gui_box.h"
 #include "engine.h"
 #include "colors.h"
+#include "gui/UI.h"
 
 static int	init_menu_gui_box_children(t_engine *minirt, t_gui_box *gui_box);
 static int	init_camera_icon_box(t_engine *minirt, t_gui_box *gui_box,
@@ -29,7 +30,7 @@ int	init_menu_gui_box(t_engine *minirt, t_gui_box *gui_box,
 	);
 	if (errno == EINVAL)
 		return (-1);
-	change_image_color(&gui_box->image, 0x40202020);
+	change_image_color(&gui_box->image, SUB_GUI_COLOR);
 	round_image_corners(&gui_box->image, 20);
 	gui_box->draw = &default_gui_box_draw;
 	gui_box->on_click = &default_gui_box_on_click;
@@ -78,9 +79,9 @@ static int	init_camera_icon_box(t_engine *minirt, t_gui_box *gui_box,
 				   gui_box->size.x, gui_box->size.y) < 0)
 		return (-1); // TODO free stuff
 	change_image_color(&gui_box->image, COLOR_TRANSPARENT);
-	round_image_corners(&gui_box->image, ICON_BOX_ROUNDING_RADIUS);
-	change_image_color(&gui_box->on_hover_image, ICON_BOX_COLOR);
-	round_image_corners(&gui_box->on_hover_image, ICON_BOX_ROUNDING_RADIUS);
+	round_image_corners(&gui_box->image, BOX_ROUNDING_RADIUS);
+	change_image_color(&gui_box->on_hover_image, HOVER_GUI_COLOR);
+	round_image_corners(&gui_box->on_hover_image, BOX_ROUNDING_RADIUS);
 	gui_box->draw = &icon_box_draw_method;
 	gui_box->on_click = &default_gui_box_on_click;
 	return (0);
@@ -108,9 +109,9 @@ static int	init_saving_icon_box(t_engine *minirt, t_gui_box *gui_box,
 				   gui_box->size.x, gui_box->size.y) < 0)
 		return (-1); // TODO free stuff
 	change_image_color(&gui_box->image, COLOR_TRANSPARENT);
-	round_image_corners(&gui_box->image, ICON_BOX_ROUNDING_RADIUS);
-	change_image_color(&gui_box->on_hover_image, ICON_BOX_COLOR);
-	round_image_corners(&gui_box->on_hover_image, ICON_BOX_ROUNDING_RADIUS);
+	round_image_corners(&gui_box->image, BOX_ROUNDING_RADIUS);
+	change_image_color(&gui_box->on_hover_image, HOVER_GUI_COLOR);
+	round_image_corners(&gui_box->on_hover_image, BOX_ROUNDING_RADIUS);
 	gui_box->draw = &icon_box_draw_method;
 	gui_box->on_click = &default_gui_box_on_click;
 	return (0);

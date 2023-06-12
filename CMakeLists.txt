@@ -1,18 +1,19 @@
 cmake_minimum_required(VERSION 3.25)
-project(42_miniRT C)
+project(miniRT)
 
-set(CMAKE_C_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 
 include_directories(include)
 include_directories(lib/libft/include)
 include_directories(lib/minilibx_opengl_20191021)
 
-add_executable(42_miniRT
+add_executable(miniRT
         include/deprecated/t_ambient_light.h
         include/deprecated/t_light.h
         include/deprecated/t_raytracing_data.h
         include/gui/box.h
         include/gui/boxes.h
+        include/gui/UI.h
         include/gui/gui.h
         include/gui/init.h
         include/gui/main_gui_box.h
@@ -23,7 +24,6 @@ add_executable(42_miniRT
         include/math/matrix.h
         include/math/vector.h
         include/ray_tracer/camera.h
-        include/ray_tracer/hit.h
         include/ray_tracer/lights.h
         include/ray_tracer/rays.h
         include/ray_tracer/render.h
@@ -146,6 +146,7 @@ add_executable(42_miniRT
         lib/libft/src/mem/memcpy.c
         lib/libft/src/mem/memmove.c
         lib/libft/src/mem/memset.c
+        lib/libft/src/numbers/max/maxf.c
         lib/libft/src/numbers/min/minf.c
         lib/libft/src/numbers/swap/swap_float.c
         lib/libft/src/numbers/swap/swap_int.c
@@ -159,7 +160,6 @@ add_executable(42_miniRT
         lib/libft/src/numbers/atoll.c
         lib/libft/src/numbers/get_smallest_int.c
         lib/libft/src/numbers/itoa.c
-        lib/libft/src/numbers/min.c
         lib/libft/src/sort/msort_int.c
         lib/libft/src/sort/msort_str.c
         lib/libft/src/sort/msort_str_ignore_case.c
@@ -194,21 +194,32 @@ add_executable(42_miniRT
         lib/libft/src/time/get_current_time.c
         lib/libft/src/time/get_number_of_fps_in_string.c
         lib/minilibx_opengl_20191021/font.c
+        lib/minilibx_opengl_20191021/font.xcf
+        lib/minilibx_opengl_20191021/libmlx.a
+        lib/minilibx_opengl_20191021/Makefile
         lib/minilibx_opengl_20191021/mlx.h
         lib/minilibx_opengl_20191021/mlx_init_loop.m
+        lib/minilibx_opengl_20191021/mlx_init_loop.o
         lib/minilibx_opengl_20191021/mlx_int.h
         lib/minilibx_opengl_20191021/mlx_int_str_to_wordtab.c
+        lib/minilibx_opengl_20191021/mlx_int_str_to_wordtab.o
         lib/minilibx_opengl_20191021/mlx_mouse.m
+        lib/minilibx_opengl_20191021/mlx_mouse.o
         lib/minilibx_opengl_20191021/mlx_new_image.m
+        lib/minilibx_opengl_20191021/mlx_new_image.o
         lib/minilibx_opengl_20191021/mlx_new_window.h
         lib/minilibx_opengl_20191021/mlx_new_window.m
+        lib/minilibx_opengl_20191021/mlx_new_window.o
         lib/minilibx_opengl_20191021/mlx_opengl.h
         lib/minilibx_opengl_20191021/mlx_opengl.m
         lib/minilibx_opengl_20191021/mlx_png.c
         lib/minilibx_opengl_20191021/mlx_png.h
+        lib/minilibx_opengl_20191021/mlx_png.o
         lib/minilibx_opengl_20191021/mlx_rgb.c
         lib/minilibx_opengl_20191021/mlx_shaders.c
+        lib/minilibx_opengl_20191021/mlx_shaders.o
         lib/minilibx_opengl_20191021/mlx_xpm.c
+        lib/minilibx_opengl_20191021/mlx_xpm.o
         src/gui/box/create_gui_box.c
         src/gui/box/default_gui_box_methods.c
         src/gui/box/destroy_t_gui_box.c
@@ -239,6 +250,7 @@ add_executable(42_miniRT
         src/hooks/update_object_attributes_modification_box/add_boxes/position_input_box_on_clicks/x.c
         src/hooks/update_object_attributes_modification_box/add_boxes/position_input_box_on_clicks/y.c
         src/hooks/update_object_attributes_modification_box/add_boxes/position_input_box_on_clicks/z.c
+        src/hooks/update_object_attributes_modification_box/add_boxes/add_height_box.c
         src/hooks/update_object_attributes_modification_box/add_boxes/add_normal_box.c
         src/hooks/update_object_attributes_modification_box/add_boxes/add_position_box.c
         src/hooks/update_object_attributes_modification_box/add_boxes/add_radius_box.c
@@ -327,4 +339,4 @@ add_executable(42_miniRT
         src/close_miniRT.c
         src/color.c
         src/init_minirt.c
-        src/main.c src/ray_tracer/rays/rays.c src/ray_tracer_gui_api/get_clicked_object.c lib/libft/src/numbers/max/maxf.c src/hooks/update_object_attributes_modification_box/add_boxes/add_height_box.c src/hooks/update_object_attributes_modification_box/add_boxes/add_height_box.c)
+        src/main.c)

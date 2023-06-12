@@ -13,10 +13,6 @@
 #ifndef MAIN_GUI_BOX_H
 # define MAIN_GUI_BOX_H
 
-# define ICON_BOX_SEPARATOR 4
-# define ICON_BOX_COLOR 0x40404040
-# define ICON_BOX_ROUNDING_RADIUS 20
-
 int		init_main_gui_box(t_engine *engine, t_gui_box *gui_box);
 int		init_object_creation_gui_box(t_engine *engine,
 			t_gui_box *gui_box, t_gui_box *parent);

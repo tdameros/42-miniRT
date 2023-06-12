@@ -13,6 +13,7 @@
 #include <errno.h>
 
 #include "gui/box.h"
+#include "gui/UI.h"
 #include "gui/utils.h"
 
 static int	init_radius_box_children(t_engine *engine, t_gui_box *gui_box);
@@ -42,7 +43,7 @@ int	add_radius_box(t_engine *engine, t_gui_box *gui_box, int *i,
 	}
 	gui_box->draw = &default_gui_box_draw;
 	gui_box->on_click = &default_gui_box_on_click;
-	change_image_color(&gui_box->image, 0x40202020);
+	change_image_color(&gui_box->image, SUB_GUI_COLOR);
 	round_image_corners(&gui_box->image, 10);
 	return (0);
 }

@@ -15,6 +15,7 @@
 #include "gui/box.h"
 #include "gui/utils.h"
 #include "hooks.h"
+#include "gui/UI.h"
 
 static int	init_x_y_z_box_children(t_engine *engine, t_gui_box *gui_box);
 static int	add_x_y_z_buttons(t_engine *engine, t_gui_box *gui_box);
@@ -42,7 +43,7 @@ int	add_x_y_z_box(t_engine *engine, t_gui_box *gui_box, int *i,
 		ft_bzero(gui_box, sizeof(*gui_box));
 		return (-1);
 	}
-	change_image_color(&gui_box->image, 0x40202020);
+	change_image_color(&gui_box->image, SUB_GUI_COLOR);
 	round_image_corners(&gui_box->image, 10);
 	return (0);
 }

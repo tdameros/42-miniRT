@@ -6,6 +6,7 @@
 #include "gui/main_gui_box.h"
 #include "engine.h"
 #include "colors.h"
+#include "gui/UI.h"
 
 #define CIRCLE_COLOR 0x00666666
 
@@ -14,8 +15,8 @@ static void	write_setting_icon(t_image *image, unsigned int color);
 void	init_settings_icon(t_gui_box *gui_box)
 {
 	write_setting_icon(&gui_box->image, COLOR_TRANSPARENT);
-	write_setting_icon(&gui_box->on_hover_image, ICON_BOX_COLOR);
-	round_image_corners(&gui_box->on_hover_image, ICON_BOX_ROUNDING_RADIUS);
+	write_setting_icon(&gui_box->on_hover_image, HOVER_GUI_COLOR);
+	round_image_corners(&gui_box->on_hover_image, BOX_ROUNDING_RADIUS);
 }
 
 static void	write_setting_icon(t_image *image, const unsigned int color)

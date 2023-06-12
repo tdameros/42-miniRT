@@ -4,6 +4,7 @@
 #include "gui/box.h"
 #include "colors.h"
 #include "gui/main_gui_box.h"
+#include "gui/UI.h"
 
 static int	init_main_gui_box_children(t_engine *engine, t_gui_box *gui_box);
 
@@ -16,8 +17,8 @@ int	init_main_gui_box(t_engine *engine, t_gui_box *gui_box)
 							.y = WINDOW_HEIGHT / 8});
 	if (errno == EINVAL)
 		return (-1);
-	change_image_color(&gui_box->image, 0x40000000);
-	round_image_corners(&gui_box->image, 20);
+	change_image_color(&gui_box->image, BASE_GUI_COLOR);
+	round_image_corners(&gui_box->image, BOX_ROUNDING_RADIUS);
 	gui_box->draw = &default_gui_box_draw;
 	gui_box->on_click = &default_gui_box_on_click;
 
