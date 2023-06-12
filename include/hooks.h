@@ -36,6 +36,8 @@ int			add_position_box(t_engine *engine, t_gui_box *gui_box, int *i,
 				t_gui_box *parent);
 int			add_radius_box(t_engine *engine, t_gui_box *gui_box, int *i,
 				t_gui_box *parent);
+int			add_height_box(t_engine *engine, t_gui_box *gui_box, int *i,
+				t_gui_box *parent);
 
 t_gui_box	*get_x_y_z_input_box(t_gui_box *gui_box, char type,
 				char click_type);
