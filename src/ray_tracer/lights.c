@@ -59,8 +59,17 @@ static bool	is_shadow(const t_scene *scene, t_hit ray_hit,
 			reverse_light_direction);
 	const t_hit			light_hit = calculate_ray_intersection(&light_ray,
 			scene);
+	float				light_distance;
+	float				hit_distance;
 
-	return (light_hit.hit && light_hit.object != ray_hit.object);
+	if (!ray_hit.hit)
+		return (false);
+	light_distance = vector3f_length(vector3f_subtract(scene->light.position,
+				ray_hit.position));
+	hit_distance = vector3f_length(vector3f_subtract(light_hit.position,
+				ray_hit.position));
+	return (light_hit.hit && light_hit.object != ray_hit.object
+		&& hit_distance < light_distance);
 }
 
 static t_vector3f	apply_light_brightness(const t_light *light)
