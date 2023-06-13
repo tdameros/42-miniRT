@@ -6,9 +6,11 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 06:07:00 by vfries            #+#    #+#             */
-/*   Updated: 2023/05/12 06:07:00 by vfries           ###   ########lyon.fr   */
+/*   Updated: 2023/06/13 02:50:19 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <stdint.h>
 
 #include "libft.h"
 

@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 18:12:50 by vfries            #+#    #+#             */
-/*   Updated: 2023/05/07 18:38:22 by vfries           ###   ########.fr       */
+/*   Updated: 2023/06/13 02:49:57 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	render_frame(t_engine *minirt)
 
 static void	render_minirt(t_engine *minirt)
 {
-	draw(minirt);
+	render_raytracing(minirt);
 	if (minirt->gui.is_hidden && minirt->gui.hidden_ratio == 1.0)
 		mlx_put_image_to_window(minirt->window.mlx, minirt->window.window,
 								minirt->ray_traced_image.data, 0, 0);

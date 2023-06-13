@@ -1,4 +1,5 @@
 #include <sys/time.h>
+#include <stddef.h>
 
 struct timeval	get_current_time(void)
 {

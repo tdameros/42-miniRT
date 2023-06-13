@@ -45,7 +45,7 @@ static void	color_picker_draw(t_gui_box *self, t_engine *minirt,
 		minirt->gui.color_picker_base_color_was_changed = false;
 	}
 	minirt->gui.draw_gui_image(&minirt->main_image, &self->image,
-		(t_point_int_2d){\
+		(t_vector2i){\
 			.x = self->position.x + x_offset, \
 			.y = self->position.y + y_offset}
 	);

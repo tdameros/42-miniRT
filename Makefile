@@ -183,14 +183,15 @@ ifeq ($(OS), Linux)
 		$(LIBFT_L)	\
 		$(MINILIBX_L)	\
 		-lXext	\
-		-lX11
+		-lX11	\
+		-Llib -lOpenCL
 	FRAMEWORKS =
 endif
 ifeq ($(OS), Darwin)
 	LIBS = \
 		-lm	\
 		$(LIBFT_L)	\
-		$(MINILIBX_L)
+		$(MINILIBX_L)	\
 	FRAMEWORKS =\
 		-framework OpenGL	\
 		-framework AppKit	\

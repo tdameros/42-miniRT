@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 03:26:00 by vfries            #+#    #+#             */
-/*   Updated: 2023/05/12 03:26:00 by vfries           ###   ########lyon.fr   */
+/*   Updated: 2023/06/13 02:50:45 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,11 +163,7 @@ void	t_fixed_print(const t_fixed f)
 
 void	t_long_date_time_print(const t_long_date_time long_date_time)
 {
-	const time_t	unix_time = long_date_time - 2082844800;
-	struct tm		*time_info;
-
-	time_info = gmtime(&unix_time);
-	printf("Date: %02d-%02d-%04d\n", time_info->tm_mday, time_info->tm_mon + 1, time_info->tm_year + 1900);
+	(void)long_date_time;
 }
 
 void print_head(const t_head *head)
