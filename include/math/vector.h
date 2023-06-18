@@ -40,7 +40,7 @@ typedef struct s_vector4f
 	float	w;
 }	t_vector4f;
 
-t_vector3f	vector3f_random(float min, float max);
+t_vector3f	vector3f_random(unsigned int *seed);
 
 //	vector2.c
 t_vector2f	vector2f_create(float x, float y);

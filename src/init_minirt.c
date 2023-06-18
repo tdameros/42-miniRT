@@ -38,6 +38,8 @@ int	init_engine(t_engine *minirt, const char *start_up_scene)
 	print_scene_content(&minirt->raytracing_data);
 
 	init_image(&minirt->ray_traced_image, &minirt->window, WINDOW_WIDTH, WINDOW_HEIGHT); // TODO secure me
+	init_image(&minirt->denoised_ray_traced_image, &minirt->window, WINDOW_WIDTH, WINDOW_HEIGHT); // TODO secure me
+
 
 	init_image(&minirt->main_image, &minirt->window, WINDOW_WIDTH, WINDOW_HEIGHT); // TODO secure me
 	change_image_color(&minirt->main_image, COLOR_BLACK);

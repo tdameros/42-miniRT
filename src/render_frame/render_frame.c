@@ -54,17 +54,75 @@ static void	render_minirt(t_engine *minirt)
 }
 #elif defined __APPLE__
 
+//static void	denoise_raytracing(t_engine *engine);
 static void	render_minirt(t_engine *engine)
 {
 	update_placed_object_position(engine);
 	render_raytracing(engine);
-	mlx_put_image_to_window(engine->window.mlx, engine->window.window,
-		engine->ray_traced_image.data, 0, 0);
+
+//	if (engine->frame_count > 500)
+//	{
+//		denoise_raytracing(engine);
+//		mlx_put_image_to_window(engine->window.mlx, engine->window.window,
+//								engine->denoised_ray_traced_image.data, 0, 0);
+//	}
+//	else
+		mlx_put_image_to_window(engine->window.mlx, engine->window.window,
+			engine->ray_traced_image.data, 0, 0);
 	render_user_interface(engine);
 }
 #else
 # error "Unsuported OS"
 #endif
+
+//static t_color denoise_pixel(t_image *src, int x, int y, float ratio);
+//static void	denoise_raytracing(t_engine *engine)
+//{
+//	for (ssize_t y = engine->ray_traced_image.height - 1; y >= 0; y--)
+//	{
+//		for (ssize_t x = engine->ray_traced_image.width - 1; x >= 0; x--)
+//			engine->denoised_ray_traced_image.address[y * engine->denoised_ray_traced_image.width + x]
+//				= vec_rgb_to_uint(denoise_pixel(&engine->ray_traced_image, x, y, 1.f));
+//	}
+//}
+
+//#define RATION_CHANGE 0.8f
+//static t_color denoise_pixel(t_image *src, int x, int y, float ratio)
+//{
+//	t_color	color;
+//	float	divide_nb;
+//
+//	if (ratio <= 0.f ||
+//		x < 0 || x >= src->width
+//		|| y < 0 || y >= src->height)
+//		return ((t_color){0.f, 0.f, 0.f});
+//	color = get_t_color_from_uint(src->address[y * src->width + x]);
+//	divide_nb = ratio;
+//	if (ratio - RATION_CHANGE >= 0.f)
+//	{
+//		if (y - 1 >= 0)
+//		{
+//			color = vector3f_add(color, denoise_pixel(src, y - 1, x, ratio - RATION_CHANGE));
+//			divide_nb += ratio - RATION_CHANGE;
+//		}
+//		if (y + 1 < src->height)
+//		{
+//			color = vector3f_add(color, denoise_pixel(src, y + 1, x, ratio - RATION_CHANGE));
+//			divide_nb += ratio - RATION_CHANGE;
+//		}
+//		if (x - 1 >= 0)
+//		{
+//			color = vector3f_add(color, denoise_pixel(src, y, x - 1, ratio - RATION_CHANGE));
+//			divide_nb += ratio - RATION_CHANGE;
+//		}
+//		if (x + 1 < src->height)
+//		{
+//			color = vector3f_add(color, denoise_pixel(src, y, x + 1, ratio - RATION_CHANGE));
+//			divide_nb += ratio - RATION_CHANGE;
+//		}
+//	}
+//	return (vector3f_multiply(vector3f_divide(color, divide_nb), ratio));
+//}
 
 static void	update_placed_object_position(t_engine *engine)
 {

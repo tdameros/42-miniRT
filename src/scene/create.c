@@ -33,8 +33,8 @@ int	init_scene(t_scene *scene)
 
 	material = material_create(vector3f_create(0.8f, 0.5f, 0.2f), 0.1f, 0);
 	material.emissive_color = vector3f_create(1, 1, 1);
-	material.emissive_color = material.albedo;
-	material.emissive_power = 2000.0f;
+	material.emissive_color = (t_vector3f){1.f, 1.f, 1.f};
+	material.emissive_power = 100.0f;
 	object = sphere_create(vector3f_create(32.0f, 3.8f, -32.0f), 11, material);
 	add_object_in_objects(&objects, object);
 

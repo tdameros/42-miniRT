@@ -6,12 +6,13 @@
 int	key_press_handler(int key_code, t_engine *minirt)
 {
 //	ft_printf("key_code == %d\n\n", key_code);
-	minirt->frame_count = 0;
-	ft_bzero(minirt->path_accumulation, sizeof(t_vector3f) * WINDOW_WIDTH * WINDOW_HEIGHT);
 	if (key_code == KEY_ESC)
 		close_engine(minirt);
 	if (key_code == KEY_H)
+	{
 		minirt->gui.is_hidden = !minirt->gui.is_hidden;
+		return (0);
+	}
 	if (key_code == KEY_W)
 		camera_move_forward(&minirt->camera, 0.1);
 	else if (key_code == KEY_S)
@@ -39,8 +40,9 @@ int	key_press_handler(int key_code, t_engine *minirt)
 	}
 	else
 		return (0);
+	minirt->frame_count = 0;
+	ft_bzero(minirt->path_accumulation, sizeof(t_vector3f) * WINDOW_WIDTH * WINDOW_HEIGHT);
 	camera_recalculate_view(&minirt->camera);
 	camera_recalculate_rays(&minirt->camera);
 	return (0);
 }
-

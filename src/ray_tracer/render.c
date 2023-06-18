@@ -18,7 +18,8 @@
 #include "engine.h"
 
 static t_color		render_pixel(t_engine *engine, size_t ray_index);
-static t_vector3f	render_ray(t_ray ray, const t_scene *scene);
+static t_vector3f	render_ray(t_ray ray, const t_scene *scene,
+						unsigned int seed);
 
 #include <pthread.h>
 typedef struct s_tmp
@@ -121,15 +122,16 @@ static t_color	render_pixel(t_engine *engine, size_t ray_index)
 	const t_ray	ray = engine->camera.rays[ray_index];
 	t_vector3f	pixel_color;
 
-	pixel_color = render_ray(ray, &engine->scene);
+	pixel_color = render_ray(ray, &engine->scene, (unsigned int)ray_index + (unsigned int)engine->frame_count * (unsigned int)719393);
 	engine->path_accumulation[ray_index] = vector3f_add(engine->path_accumulation[ray_index], pixel_color);
-	pixel_color = vector3f_divide(engine->path_accumulation[ray_index], (float)engine->frame_count);
+	pixel_color = vector3f_divide(engine->path_accumulation[ray_index], engine->frame_count);
 	pixel_color = vector3f_clamp(pixel_color, 0, 1);
 	pixel_color = vector3f_multiply(pixel_color, 255);
 	return (pixel_color);
 }
 
-static t_vector3f	render_ray(t_ray ray, const t_scene *scene)
+static t_vector3f	render_ray(t_ray ray, const t_scene *scene,
+						unsigned int seed)
 {
 	t_hit			ray_hit;
 	t_vector3f		incoming_light;
@@ -156,12 +158,12 @@ static t_vector3f	render_ray(t_ray ray, const t_scene *scene)
 		ray_color = vector3f_mult_vector3f(ray_color,
 										   ray_hit.object->material.albedo);
 
-		t_vector3f	random_direction = vector3f_random(-1, 1);
-//		while (vector3f_length(random_direction) <= 1.0f)
-//			random_direction = vector3f_random(-1, 1);
-		random_direction = vector3f_unit(random_direction);
-		if (vector3f_dot(random_direction, ray_hit.normal) > 0)
-			random_direction = vector3f_multiply(random_direction, -1);
+		t_vector3f	random_direction = vector3f_random(&seed);
+//		while (vector3f_length(random_direction) > 1.0f)
+//			random_direction = vector3f_random(&seed);
+		random_direction = vector3f_unit(random_direction); 			//This makes wierd shadows appear ?
+//		if (vector3f_dot(random_direction, ray_hit.normal) < 0)
+//			random_direction = vector3f_multiply(random_direction, -1);
 		ray.origin = vector3f_add(ray_hit.position, vector3f_multiply(ray_hit.normal, 0.0001f));
 //		ray.direction = reflect(ray.direction,
 //								vector3f_add(ray_hit.normal, random_roughness));
