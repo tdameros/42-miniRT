@@ -18,8 +18,6 @@ typedef struct s_engine
 	t_camera			camera;
 	t_scene				scene;
 	t_object			*object_being_placed;
-	t_vector3f			*path_accumulation;
-	float				frame_count;
 	float				object_being_placed_distance;
 }	t_engine;
 

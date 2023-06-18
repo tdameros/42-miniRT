@@ -26,27 +26,49 @@ int	init_scene(t_scene *scene)
 	initialize_objects_array(&objects, 10);
 
 	material = material_create(vector3f_create(1, 0, 1), 0, 0);
-//	material.emissive_color = vector3f_create(1, 1, 1);
-//	material.emissive_power = 2.0f;
-	object = sphere_create(vector3f_create(0, 0, 0), 1, material);
+	material.reflect = 0.90f;
+	object = sphere_create(vector3f_create(-4, 1, 0), 1.5f, material);
 	add_object_in_objects(&objects, object);
 
+	// Plane
 	material = material_create(vector3f_create(0.8f, 0.5f, 0.2f), 0.1f, 0);
-	material.emissive_color = vector3f_create(1, 1, 1);
-	material.emissive_color = material.albedo;
-	material.emissive_power = 2000.0f;
-	object = sphere_create(vector3f_create(32.0f, 3.8f, -32.0f), 11, material);
+	object = plane_create(vector3f_create(0.0f, -0.5f, 0),
+						  vector3f_create(0, 1, 0), material);
+	add_object_in_objects(&objects, object);
+	material = material_create(vector3f_create(1.0f, 1.0f, 0.2f), 0.1f, 0);
+
+	object = plane_create(vector3f_create(0.0f, 0.0f, 10.0f),
+						  vector3f_create(0, 0, -1), material);
+	add_object_in_objects(&objects, object);
+
+	material = material_create(vector3f_create(1.0f, 0.0f, 0.2f), 0.1f, 0);
+	object = plane_create(vector3f_create(0.0f, 0.0f, -10.0f),
+						  vector3f_create(0, 0, 1), material);
+	add_object_in_objects(&objects, object);
+
+	material = material_create(vector3f_create(0.7f, 0.3f, 0.2f), 0.1f, 0);
+	object = plane_create(vector3f_create(10.0f, 0.0f, 0.0f),
+						  vector3f_create(-1, 0, 0), material);
+	add_object_in_objects(&objects, object);
+
+	material = material_create(vector3f_create(0.7f, 0.3f, 0.9f), 0.1f, 0);
+	object = plane_create(vector3f_create(-10.0f, 0.0f, 0.0f),
+						  vector3f_create(1, 0, 0), material);
+	add_object_in_objects(&objects, object);
+
+	material = material_create(vector3f_create(0.3f, 0.3f, 0.3f), 0.1f, 0);
+	object = plane_create(vector3f_create(0.0f, 10.0f, 0.0f),
+						  vector3f_create(0, -1, 0), material);
 	add_object_in_objects(&objects, object);
 
 	material = material_create(vector3f_create(0.2f, 0.3f, 1.0f), 0.1f, 0);
 	object = sphere_create(vector3f_create(2, -101, 0), 100, material);
-	add_object_in_objects(&objects, object);
+//	add_object_in_objects(&objects, object);
 
-	scene->sky_color = vector3f_create(0.0f, 0.0f, 0.0f);
-	scene->sky_color = vector3f_create(0.1f, 0.1f, 0.1f);
+	scene->sky_color = vector3f_create(0, 0, 0);
 	scene->light.position = vector3f_create(5, 5, 5);
 	scene->light.color = vector3f_create(1, 1, 1);
-	scene->light.brightness = 1;
+	scene->light.brightness = 0.5f;
 	scene->ambient_light.color = vector3f_create(1, 1, 1);
 	scene->ambient_light.brightness = 0;
 	scene->objects = objects;

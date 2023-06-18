@@ -30,6 +30,8 @@ typedef struct s_material
 {
 
 	t_vector3f	albedo;
+	float		reflect;
+	float		specular;
 	float		roughness;
 	float		metallic;
 	t_vector3f	emissive_color;

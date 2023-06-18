@@ -21,5 +21,7 @@ t_material	material_create(t_vector3f albedo, float roughness, float metallic)
 	material.metallic = metallic;
 	material.emissive_color = vector3f_create(0, 0, 0);
 	material.emissive_power = 0;
+	material.reflect = 0;
+	material.specular = 0;
 	return (material);
 }

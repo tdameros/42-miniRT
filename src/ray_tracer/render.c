@@ -49,37 +49,6 @@ float random_value(unsigned int index)
 
 void	render_raytracing(t_engine *minirt)
 {
-//	t_image			*img;
-//	int				y;
-//	int				x;
-//	unsigned int	color;
-//	float 			test;
-//
-//	img = &minirt->ray_traced_image;
-//	y = 0;
-//	x = 0;
-//	while (y < img->height)
-//	{
-//		while (x < img->width)
-//		{
-////			color = vec_rgb_to_uint(render_pixel(minirt, x, y));
-////			test = (float)(y * img->width + x) / (float) minirt->camera.viewport.number_of_pixels;
-////			test = random_value((y * img->width + x));
-//			test = float_rand(0, 1);
-////			printf("%f\n", test);
-//			test *= 255;
-//			color = vec_rgb_to_uint(vector3f_create(test, test, test));
-////			ft_printf("%d\n", (y * img->width + x));
-////			if ((y * img->width + x) == 10)
-////				exit(1);
-//			put_pixel_on_image(img, y, x, color);
-//			x++;
-//		}
-//		x = 0;
-//		y++;
-//	}
-//	(void) render_raytracing_part;
-	minirt->frame_count++;
 	size_t	max = minirt->ray_traced_image.width * minirt->ray_traced_image.height;
 	size_t max_divided_by_thread_count = max / NB_OF_THREADS;
 	pthread_t	threads[NB_OF_THREADS];
@@ -122,8 +91,6 @@ static t_color	render_pixel(t_engine *engine, size_t ray_index)
 	t_vector3f	pixel_color;
 
 	pixel_color = render_ray(ray, &engine->scene);
-	engine->path_accumulation[ray_index] = vector3f_add(engine->path_accumulation[ray_index], pixel_color);
-	pixel_color = vector3f_divide(engine->path_accumulation[ray_index], (float)engine->frame_count);
 	pixel_color = vector3f_clamp(pixel_color, 0, 1);
 	pixel_color = vector3f_multiply(pixel_color, 255);
 	return (pixel_color);
@@ -132,40 +99,29 @@ static t_color	render_pixel(t_engine *engine, size_t ray_index)
 static t_vector3f	render_ray(t_ray ray, const t_scene *scene)
 {
 	t_hit			ray_hit;
-	t_vector3f		incoming_light;
-	t_vector3f		emitted_light;
 	t_vector3f		ray_color;
-	const int		bounces_per_pixel = 3;
+	t_vector3f		color;
+	const int		bounces_per_pixel = 5;
+	float 			multiplier;
 
-	incoming_light = vector3f_create(0, 0, 0);
-	ray_color = vector3f_create(1, 1, 1);
+	multiplier = 1.0f;
+	ray_color = vector3f_create(0, 0, 0);
 	for (int i = 0; i < bounces_per_pixel; i++)
 	{
 		ray_hit = calculate_ray_intersection(&ray, scene);
 		if (!ray_hit.hit)
 		{
-			ray_color = vector3f_mult_vector3f(ray_color, scene->sky_color);
-			incoming_light = vector3f_add(incoming_light, ray_color);
-			return (incoming_light);
+			color = vector3f_multiply(scene->sky_color, multiplier);
+			ray_color = vector3f_add(ray_color, color);
+			return (ray_color);
 		}
 
 		// Lights
-		emitted_light = vector3f_multiply(ray_hit.object->material.emissive_color,
-										  ray_hit.object->material.emissive_power);
-		incoming_light = vector3f_add(incoming_light, vector3f_mult_vector3f(emitted_light, ray_color));
-		ray_color = vector3f_mult_vector3f(ray_color,
-										   ray_hit.object->material.albedo);
-
-		t_vector3f	random_direction = vector3f_random(-1, 1);
-//		while (vector3f_length(random_direction) <= 1.0f)
-//			random_direction = vector3f_random(-1, 1);
-		random_direction = vector3f_unit(random_direction);
-		if (vector3f_dot(random_direction, ray_hit.normal) > 0)
-			random_direction = vector3f_multiply(random_direction, -1);
+		color = calculate_color(scene, ray_hit, multiplier);
+		ray_color = vector3f_add(ray_color, color);
+		multiplier *= ray_hit.object->material.reflect;
 		ray.origin = vector3f_add(ray_hit.position, vector3f_multiply(ray_hit.normal, 0.0001f));
-//		ray.direction = reflect(ray.direction,
-//								vector3f_add(ray_hit.normal, random_roughness));
-		ray.direction = vector3f_unit(vector3f_add(ray_hit.normal, random_direction));
+		ray.direction = reflect(ray.direction, ray_hit.normal);
 	}
-	return (incoming_light);
+	return (ray_color);
 }

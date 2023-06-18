@@ -24,6 +24,8 @@ t_hit	hit_plane(const t_ray *ray, const t_object *plane, float distance)
 	}
 	hit.position = ray_at(ray, hit.distance);
 	hit.normal = vector3f_unit(plane->normal);
+//	if (vector3f_dot(ray->direction, hit.normal) < 0)
+//		hit.normal = vector3f_multiply(hit.normal, -1);
 	hit.object = plane;
 	hit.ray = *ray;
 	hit.hit = true;

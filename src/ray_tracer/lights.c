@@ -45,6 +45,7 @@ t_vector3f	calculate_color(const t_scene *scene, t_hit ray_hit, float multiplier
 	diffuse = vector3f_multiply(diffuse, multiplier);
 	specular = calculate_specular_light(scene, ray_hit, vector3f_multiply(reverse_light_direction, -1));
 	specular = vector3f_multiply(specular, multiplier);
+	specular = vector3f_multiply(specular, ray_hit.object->material.specular);
 //	specular = vector3f_create(0, 0, 0);
 //	(void) calculate_specular_light;
 	return (vector3f_add(vector3f_add(diffuse, ambient), specular));
@@ -116,11 +117,13 @@ static t_vector3f	calculate_specular_light(const t_scene *scene,
 	float			scalar_product = ft_maxf(0, vector3f_dot(reflect_ray,
 	vector3f_unit(vector3f_multiply(ray_hit.ray.direction, -1))));
 	scalar_product = powf(scalar_product, 100);
-	const float			red = ray_hit.object->material.albedo.x * scene->light.color.x
+	const t_vector3f	light_color = apply_light_brightness(\
+		&scene->light);
+	const float			red = ray_hit.object->material.albedo.x * light_color.x
 		* scalar_product;
-	const float			green = ray_hit.object->material.albedo.y * scene->light.color.y
+	const float			green = ray_hit.object->material.albedo.y * light_color.y
 		* scalar_product;
-	const float			blue = ray_hit.object->material.albedo.z * scene->light.color.z
+	const float			blue = ray_hit.object->material.albedo.z * light_color.z
 		* scalar_product;
 
 	return (vector3f_create(red, green, blue));

@@ -19,13 +19,7 @@ static void	init_hooks(t_engine *minirt);
 static void	print_scene_content(t_raytracing_data *raytracing_data);
 int	init_engine(t_engine *minirt, const char *start_up_scene)
 {
-	srand(time(NULL)); // Generate a random seed for path tracing
 	ft_bzero(minirt, sizeof(t_engine));
-	minirt->path_accumulation = malloc(sizeof(t_vector3f) * WINDOW_WIDTH * WINDOW_HEIGHT);
-	if (minirt->path_accumulation == NULL)
-		return (-1);
-	ft_bzero(minirt->path_accumulation, sizeof(t_vector3f) * WINDOW_WIDTH * WINDOW_HEIGHT);
-	minirt->frame_count = 0;
 	minirt->window.mlx = mlx_init();
 	if (minirt->window.mlx == NULL)
 		return (-1);
