@@ -21,35 +21,29 @@ int	init_scene(t_scene *scene)
 {
 	t_objects		objects;
 	t_object		object;
+	t_material		material;
 
 	initialize_objects_array(&objects, 10);
-//	object = sphere_create(vector3f_create(0, 0, 0), 0.5f,
-//						   vector3f_create(1, 0, 1));
-//	add_object_in_objects(&objects, object);
-	object = sphere_create(vector3f_create(-4, 1, 0), 1.5f,
-						   vector3f_create(0.2f, 0.3f, 1));
-	add_object_in_objects(&objects, object);
-	object = plane_create(vector3f_create(0, -0.5f,0), vector3f_create(0, 1, 0),
-						  vector3f_create(1, 1, 1));
+
+	material = material_create(vector3f_create(1, 0, 1), 0, 0);
+//	material.emissive_color = vector3f_create(1, 1, 1);
+//	material.emissive_power = 2.0f;
+	object = sphere_create(vector3f_create(0, 0, 0), 1, material);
 	add_object_in_objects(&objects, object);
 
-//	object = cylinder_infinite_create(vector3f_create(0, 0, 0),
-//									  vector3f_create(1, 0, 0), 0.01f,
-//									  vector3f_create(1, 0, 0));
-//	add_object_in_objects(&objects, object);
-//	object = cylinder_infinite_create(vector3f_create(0, 0, 0),
-//									  vector3f_create(0, 1, 0), 0.01f,
-//									  vector3f_create(0, 1, 0));
-//	add_object_in_objects(&objects, object);
-//	object = cylinder_infinite_create(vector3f_create(0, 0, 0),
-//									  vector3f_create(0, 0, 1), 0.01f,
-//									  vector3f_create(0, 0, 1));
-//	add_object_in_objects(&objects, object);
-	object = cylinder_create(vector3f_create(0, 0, 0),
-									  vector3f_create(-1, 0, 0), 0.1f, 0.5f,
-									  vector3f_create(1, 1, 1));
+	material = material_create(vector3f_create(0.8f, 0.5f, 0.2f), 0.1f, 0);
+	material.emissive_color = vector3f_create(1, 1, 1);
+	material.emissive_color = material.albedo;
+	material.emissive_power = 2000.0f;
+	object = sphere_create(vector3f_create(32.0f, 3.8f, -32.0f), 11, material);
 	add_object_in_objects(&objects, object);
-	scene->sky_color = vector3f_create(0, 0, 0);
+
+	material = material_create(vector3f_create(0.2f, 0.3f, 1.0f), 0.1f, 0);
+	object = sphere_create(vector3f_create(2, -101, 0), 100, material);
+	add_object_in_objects(&objects, object);
+
+	scene->sky_color = vector3f_create(0.0f, 0.0f, 0.0f);
+	scene->sky_color = vector3f_create(0.1f, 0.1f, 0.1f);
 	scene->light.position = vector3f_create(5, 5, 5);
 	scene->light.color = vector3f_create(1, 1, 1);
 	scene->light.brightness = 1;

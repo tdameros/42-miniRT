@@ -6,6 +6,8 @@
 int	key_press_handler(int key_code, t_engine *minirt)
 {
 //	ft_printf("key_code == %d\n\n", key_code);
+	minirt->frame_count = 0;
+	ft_bzero(minirt->path_accumulation, sizeof(t_vector3f) * WINDOW_WIDTH * WINDOW_HEIGHT);
 	if (key_code == KEY_ESC)
 		close_engine(minirt);
 	if (key_code == KEY_H)

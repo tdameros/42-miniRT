@@ -339,4 +339,4 @@ add_executable(miniRT
         src/close_miniRT.c
         src/color.c
         src/init_minirt.c
-        src/main.c)
+        src/main.c src/math/vector/vector3_random.c src/ray_tracer/rays/intersections/sphere.c src/ray_tracer/rays/intersections/cylinder.c src/ray_tracer/rays/intersections/cylinder_infinite.c src/ray_tracer/rays/intersections/plane.c src/object/material.c)

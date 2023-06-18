@@ -75,6 +75,6 @@ void	print_object2(t_object object)
 	printf("Normal:");
 	vector3f_print(object.normal);
 	printf("Albedo:");
-	vector3f_print(object.albedo);
+	vector3f_print(object.material.albedo);
 	printf("Radius: %f\n", object.radius);
 }

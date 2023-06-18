@@ -81,6 +81,7 @@ SRC				=\
 	math/vector/vector3_angle.c			\
 	math/vector/vector3_math.c			\
 	math/vector/vector3_operations.c	\
+	math/vector/vector3_random.c		\
 	math/vector/vector3_rotation.c		\
 	math/vector/vector4.c				\
 	math/vector/vector4_math.c			\
@@ -92,6 +93,7 @@ SRC				=\
 	\
 	object/cylinder.c			\
 	object/cylinder_infinite.c	\
+	object/material.c			\
 	object/objects.c			\
 	object/plane.c				\
 	object/sphere.c				\
@@ -124,6 +126,11 @@ SRC				=\
 	ray_tracer/camera/projection.c	\
 	ray_tracer/camera/ray.c			\
 	ray_tracer/camera/view.c		\
+	\
+	ray_tracer/rays/intersections/cylinder.c			\
+	ray_tracer/rays/intersections/cylinder_infinite.c	\
+	ray_tracer/rays/intersections/plane.c				\
+	ray_tracer/rays/intersections/sphere.c				\
 	\
 	ray_tracer/rays/rays.c			\
 	ray_tracer/rays/collision.c		\

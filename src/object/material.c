@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sphere.c                                           :+:      :+:    :+:   */
+/*   material.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/07 15:43:00 by tdameros          #+#    #+#             */
-/*   Updated: 2023/05/07 15:43:00 by tdameros         ###   ########lyon.fr   */
+/*   Created: 2023/06/16 21:50:00 by tdameros          #+#    #+#             */
+/*   Updated: 2023/06/16 21:50:00 by tdameros         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "object.h"
 
-t_object	sphere_create(t_vector3f origin, float radius, t_material material)
+t_material	material_create(t_vector3f albedo, float roughness, float metallic)
 {
-	t_object	sphere;
+	t_material	material;
 
-	sphere.type = SPHERE;
-	sphere.position = origin;
-	sphere.radius = radius;
-	sphere.material = material;
-	return (sphere);
+	material.albedo = albedo;
+	material.roughness = roughness;
+	material.metallic = metallic;
+	material.emissive_color = vector3f_create(0, 0, 0);
+	material.emissive_power = 0;
+	return (material);
 }
-

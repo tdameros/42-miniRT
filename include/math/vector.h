@@ -40,6 +40,8 @@ typedef struct s_vector4f
 	float	w;
 }	t_vector4f;
 
+t_vector3f	vector3f_random(float min, float max);
+
 //	vector2.c
 t_vector2f	vector2f_create(float x, float y);
 void		vector2f_print(t_vector2f vector);
@@ -70,6 +72,7 @@ t_vector3f	vector3f_add(t_vector3f v1, t_vector3f v2);
 t_vector3f	vector3f_subtract(t_vector3f v1, t_vector3f v2);
 t_vector3f	vector3f_multiply(t_vector3f v1, float value);
 t_vector3f	vector3f_divide(t_vector3f v1, float value);
+t_vector3f	vector3f_mult_vector3f(t_vector3f v1, t_vector3f v2);
 
 //	vector3_operations.c
 float		vector3f_length_squared(t_vector3f vector);

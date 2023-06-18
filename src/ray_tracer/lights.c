@@ -81,10 +81,10 @@ static t_vector3f	calculate_ambient_light(const t_scene *scene, t_hit ray_hit)
 {
 	const t_vector3f	ambient_light_color = apply_light_brightness(\
 		&scene->ambient_light);
-	const float			red = ray_hit.object->albedo.x * ambient_light_color.x;
-	const float			green = ray_hit.object->albedo.y
+	const float			red = ray_hit.object->material.albedo.x * ambient_light_color.x;
+	const float			green = ray_hit.object->material.albedo.y
 		* ambient_light_color.y;
-	const float			blue = ray_hit.object->albedo.z * ambient_light_color.z;
+	const float			blue = ray_hit.object->material.albedo.z * ambient_light_color.z;
 
 	return (vector3f_create(red, green, blue));
 }
@@ -98,11 +98,11 @@ static t_vector3f	calculate_diffuse_light(const t_scene *scene,
 				reverse_light_direction));
 	const t_vector3f	light_color = apply_light_brightness(\
 		&scene->light);
-	const float	red = ray_hit.object->albedo.x * light_color.x
+	const float	red = ray_hit.object->material.albedo.x * light_color.x
 		* scalar_product;
-	const float	green = ray_hit.object->albedo.y * light_color.y
+	const float	green = ray_hit.object->material.albedo.y * light_color.y
 		* scalar_product;
-	const float	blue = ray_hit.object->albedo.z * light_color.z
+	const float	blue = ray_hit.object->material.albedo.z * light_color.z
 		* scalar_product;
 
 	return (vector3f_create(red, green, blue));
@@ -115,12 +115,12 @@ static t_vector3f	calculate_specular_light(const t_scene *scene,
 	const t_vector3f	reflect_ray = vector3f_unit(reflect(light_direction, ray_hit.normal));
 	float			scalar_product = ft_maxf(0, vector3f_dot(reflect_ray,
 	vector3f_unit(vector3f_multiply(ray_hit.ray.direction, -1))));
-	scalar_product = powf(scalar_product, 5);
-	const float			red = ray_hit.object->albedo.x * scene->light.color.x
+	scalar_product = powf(scalar_product, 100);
+	const float			red = ray_hit.object->material.albedo.x * scene->light.color.x
 		* scalar_product;
-	const float			green = ray_hit.object->albedo.y * scene->light.color.y
+	const float			green = ray_hit.object->material.albedo.y * scene->light.color.y
 		* scalar_product;
-	const float			blue = ray_hit.object->albedo.z * scene->light.color.z
+	const float			blue = ray_hit.object->material.albedo.z * scene->light.color.z
 		* scalar_product;
 
 	return (vector3f_create(red, green, blue));

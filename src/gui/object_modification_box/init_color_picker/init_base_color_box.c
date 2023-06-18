@@ -201,8 +201,8 @@ static void	base_color_picker_on_click(t_gui_box *self, t_engine *engine, int y,
 	engine->gui.color_picker_base_color_was_changed = true;
 	if (engine->gui.selected_object == NULL)
 		return ;
-	engine->gui.selected_object->albedo = engine->gui.color_picker_base_color;
-	engine->gui.selected_object->albedo.x /= 255.f;
-	engine->gui.selected_object->albedo.y /= 255.f;
-	engine->gui.selected_object->albedo.z /= 255.f;
+	engine->gui.selected_object->material.albedo = engine->gui.color_picker_base_color;
+	engine->gui.selected_object->material.albedo.x /= 255.f;
+	engine->gui.selected_object->material.albedo.y /= 255.f;
+	engine->gui.selected_object->material.albedo.z /= 255.f;
 }

@@ -34,7 +34,7 @@ int	parse_cylinder(t_engine *minirt, char **scene_content_line,
 		return (error("Error\nFailed to get cylinder radius\n"));
 	if (get_float(scene_content_line[4], &cylinder.height) < 0)
 		return (error("Error\nFailed to get cylinder y\n"));
-	if (get_color(scene_content_line[5], &cylinder.albedo) < 0)
+	if (get_color(scene_content_line[5], &cylinder.material.albedo) < 0)
 		return (error("Error\nFailed to get cylinder albedo\n"));
 	return (add_object_to_object_list(object_list, cylinder));
 }

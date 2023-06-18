@@ -43,3 +43,12 @@ t_vector3f	vector3f_divide(t_vector3f v1, float value)
 	v1.z /= value;
 	return (v1);
 }
+
+t_vector3f	vector3f_mult_vector3f(t_vector3f v1, t_vector3f v2)
+{
+	v1.x = v1.x * v2.x;
+	v1.y = v1.y * v2.y;
+	v1.z = v1.z * v2.z;
+	return (v1);
+}
+

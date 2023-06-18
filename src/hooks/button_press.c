@@ -88,7 +88,7 @@ static void	update_color_picker_color(t_gui *gui)
 		return ;
 	gui->color_picker_base_color_was_changed = true;
 	gui->color_picker_base_color = (t_color){
-		.x = gui->selected_object->albedo.x * 255.f,
-		.y = gui->selected_object->albedo.y * 255.f,
-		.z = gui->selected_object->albedo.z * 255.f};
+		.x = gui->selected_object->material.albedo.x * 255.f,
+		.y = gui->selected_object->material.albedo.y * 255.f,
+		.z = gui->selected_object->material.albedo.z * 255.f};
 }
