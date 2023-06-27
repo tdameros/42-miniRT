@@ -14,6 +14,7 @@
 # define OBJECT_H
 
 # include <stddef.h>
+# include <stdbool.h>
 
 # include "math/vector.h"
 # include "colors.h"
@@ -33,9 +34,9 @@ typedef struct s_material
 	float		reflect;
 	float		specular;
 	float		roughness;
-	float		metallic;
-	t_vector3f	emissive_color;
-	float		emissive_power;
+	bool		is_checked_pattern;
+	t_vector3f	checked_pattern_albedo;
+	t_vector2f	checked_pattern_size;
 
 }	t_material;
 

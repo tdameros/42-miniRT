@@ -34,6 +34,8 @@ typedef struct s_hit
 	t_vector3f		position;
 	t_vector3f		normal;
 	t_ray			ray;
+	t_vector3f		albedo;
+	float			t;
 }	t_hit;
 
 //	ray.c

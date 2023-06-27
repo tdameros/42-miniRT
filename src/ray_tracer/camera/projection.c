@@ -34,9 +34,9 @@ static t_matrix4	camera_perspective_fov(float fov, t_vector2f viewport,
 										   float near_clip, float far_clip)
 {
 	t_matrix4		result;
-	const float	rad = fov;
-	const float	h = cosf(0.5 * rad) / sinf(0.5 * rad);
-	const float	w = h * viewport.y / viewport.x;
+	const float		rad = fov;
+	const float		h = cosf(0.5f * rad) / sinf(0.5f * rad);
+	const float		w = h * viewport.y / viewport.x;
 
 	result = matrix4_create(0);
 	result.matrix[0][0] = w;

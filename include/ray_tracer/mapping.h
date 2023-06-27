@@ -14,7 +14,8 @@
 # define MAPPING_H
 
 # include "math/vector.h"
+# include "ray_tracer/mapping.h"
 
-t_vector3f	get_checked_pattern(t_vector3f hit_position, const t_object *object);
+t_vector3f	get_checked_pattern(t_hit hit, const t_object *object);
 
 #endif

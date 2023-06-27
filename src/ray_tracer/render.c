@@ -102,7 +102,7 @@ static t_vector3f	render_ray(t_ray ray, const t_scene *scene)
 	t_vector3f		ray_color;
 	t_vector3f		color;
 	const int		bounces_per_pixel = 5;
-	float 			multiplier;
+	float			multiplier;
 
 	multiplier = 1.0f;
 	ray_color = vector3f_create(0, 0, 0);

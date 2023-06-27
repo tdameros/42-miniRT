@@ -13,6 +13,7 @@
 #include "math/vector.h"
 #include "object.h"
 #include "ray_tracer/rays.h"
+#include "ray_tracer/mapping.h"
 
 static float	calculate_cylinder_base_distance(const t_ray *ray, t_vector3f normal,
 												 t_vector3f base, float radius);
@@ -34,6 +35,10 @@ t_hit	hit_cylinder(const t_ray *ray, const t_object *cylinder, float distance)
 	hit.normal = vector3f_unit(calculate_cylinder_normal(ray, cylinder, distance));
 	hit.object = cylinder;
 	hit.ray = *ray;
+	if (hit.object->material.is_checked_pattern)
+		hit.albedo = get_checked_pattern(hit, cylinder);
+	else
+		hit.albedo = cylinder->material.albedo;
 	return (hit);
 }
 

@@ -135,8 +135,9 @@ SRC				=\
 	ray_tracer/rays/rays.c			\
 	ray_tracer/rays/collision.c		\
 	\
-	ray_tracer/lights.c	\
-	ray_tracer/render.c	\
+	ray_tracer/lights.c		\
+	ray_tracer/mapping.c	\
+	ray_tracer/render.c		\
 	\
 	\
 	ray_tracer_gui_api/get_clicked_object.c	\

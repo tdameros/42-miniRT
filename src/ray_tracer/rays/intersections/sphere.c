@@ -13,6 +13,7 @@
 #include "object.h"
 #include "ray_tracer/rays.h"
 #include "math/equation.h"
+#include "ray_tracer/mapping.h"
 
 t_hit	hit_sphere(const t_ray *ray, const t_object *sphere, float distance)
 {
@@ -30,6 +31,10 @@ t_hit	hit_sphere(const t_ray *ray, const t_object *sphere, float distance)
 	hit.object = sphere;
 	hit.ray = *ray;
 	hit.hit = true;
+	if (hit.object->material.is_checked_pattern)
+		hit.albedo = get_checked_pattern(hit, sphere);
+	else
+		hit.albedo = sphere->material.albedo;
 	return (hit);
 }
 

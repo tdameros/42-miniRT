@@ -82,10 +82,10 @@ static t_vector3f	calculate_ambient_light(const t_scene *scene, t_hit ray_hit)
 {
 	const t_vector3f	ambient_light_color = apply_light_brightness(\
 		&scene->ambient_light);
-	const float			red = ray_hit.object->material.albedo.x * ambient_light_color.x;
-	const float			green = ray_hit.object->material.albedo.y
+	const float			red = ray_hit.albedo.x * ambient_light_color.x;
+	const float			green = ray_hit.albedo.y
 		* ambient_light_color.y;
-	const float			blue = ray_hit.object->material.albedo.z * ambient_light_color.z;
+	const float			blue = ray_hit.albedo.z * ambient_light_color.z;
 
 	return (vector3f_create(red, green, blue));
 }
@@ -99,11 +99,11 @@ static t_vector3f	calculate_diffuse_light(const t_scene *scene,
 				reverse_light_direction));
 	const t_vector3f	light_color = apply_light_brightness(\
 		&scene->light);
-	const float	red = ray_hit.object->material.albedo.x * light_color.x
+	const float	red = ray_hit.albedo.x * light_color.x
 		* scalar_product;
-	const float	green = ray_hit.object->material.albedo.y * light_color.y
+	const float	green = ray_hit.albedo.y * light_color.y
 		* scalar_product;
-	const float	blue = ray_hit.object->material.albedo.z * light_color.z
+	const float	blue = ray_hit.albedo.z * light_color.z
 		* scalar_product;
 
 	return (vector3f_create(red, green, blue));
@@ -119,11 +119,11 @@ static t_vector3f	calculate_specular_light(const t_scene *scene,
 	scalar_product = powf(scalar_product, 100);
 	const t_vector3f	light_color = apply_light_brightness(\
 		&scene->light);
-	const float			red = ray_hit.object->material.albedo.x * light_color.x
+	const float			red = ray_hit.albedo.x * light_color.x
 		* scalar_product;
-	const float			green = ray_hit.object->material.albedo.y * light_color.y
+	const float			green = ray_hit.albedo.y * light_color.y
 		* scalar_product;
-	const float			blue = ray_hit.object->material.albedo.z * light_color.z
+	const float			blue = ray_hit.albedo.z * light_color.z
 		* scalar_product;
 
 	return (vector3f_create(red, green, blue));

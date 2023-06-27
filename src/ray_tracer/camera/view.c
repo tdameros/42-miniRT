@@ -37,7 +37,7 @@ static t_matrix4	camera_look_at(t_vector3f eye,
 	f = vector3f_unit(vector3f_subtract(center, eye));
 	s = vector3f_unit(vector3f_cross(f, up));
 	u = vector3f_cross(s, f);
-	result = matrix4_create(0);
+	result = matrix4_create_identity();
 	result.matrix[0][0] = s.x;
 	result.matrix[1][0] = s.y;
 	result.matrix[2][0] = s.z;
