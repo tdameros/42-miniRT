@@ -13,21 +13,22 @@
 #include "ray_tracer/camera.h"
 
 static t_matrix4	camera_look_at(t_vector3f eye,
-								   t_vector3f center,
-								   t_vector3f up);
+						t_vector3f center,
+						t_vector3f up);
 
 void	camera_recalculate_view(t_camera *camera)
 {
-	camera->view = camera_look_at(camera->position,
-								  vector3f_add(camera->position,
-											   camera->direction),
-								  vector3f_create(0, 1, 0));
+	const t_vector3f	center = vector3f_add(camera->position,
+			camera->direction);
+
+	camera->view = camera_look_at(camera->position, center,
+			vector3f_create(0, 1, 0));
 	camera->inverse_view = matrix4_inverse(camera->view);
 }
 
 static t_matrix4	camera_look_at(t_vector3f eye,
-								   t_vector3f center,
-								   t_vector3f up)
+								t_vector3f center,
+								t_vector3f up)
 {
 	t_vector3f	f;
 	t_vector3f	s;
