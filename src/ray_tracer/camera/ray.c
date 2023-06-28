@@ -14,6 +14,7 @@
 
 static t_vector3f	get_ray_direction(t_camera *camera, int x, int y);
 
+#include <stdlib.h>
 void	camera_recalculate_rays(t_camera *camera)
 {
 	int		y;

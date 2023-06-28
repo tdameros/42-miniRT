@@ -1,23 +1,28 @@
 cmake_minimum_required(VERSION 3.25)
-project(miniRT)
+project(42_miniRT C)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_C_STANDARD 11)
 
 include_directories(include)
+include_directories(include/deprecated)
+include_directories(include/gui)
+include_directories(include/math)
+include_directories(include/ray_tracer)
 include_directories(lib/libft/include)
+include_directories(lib/libft/src/io/get_next_line)
 include_directories(lib/minilibx_opengl_20191021)
 
-add_executable(miniRT
+add_executable(42_miniRT
         include/deprecated/t_ambient_light.h
         include/deprecated/t_light.h
         include/deprecated/t_raytracing_data.h
         include/gui/box.h
         include/gui/boxes.h
-        include/gui/UI.h
         include/gui/gui.h
         include/gui/init.h
         include/gui/main_gui_box.h
         include/gui/object_modification_box.h
+        include/gui/UI.h
         include/gui/utils.h
         include/math/conversion.h
         include/math/equation.h
@@ -25,6 +30,7 @@ add_executable(miniRT
         include/math/vector.h
         include/ray_tracer/camera.h
         include/ray_tracer/lights.h
+        include/ray_tracer/mapping.h
         include/ray_tracer/rays.h
         include/ray_tracer/render.h
         include/colors.h
@@ -194,32 +200,21 @@ add_executable(miniRT
         lib/libft/src/time/get_current_time.c
         lib/libft/src/time/get_number_of_fps_in_string.c
         lib/minilibx_opengl_20191021/font.c
-        lib/minilibx_opengl_20191021/font.xcf
-        lib/minilibx_opengl_20191021/libmlx.a
-        lib/minilibx_opengl_20191021/Makefile
         lib/minilibx_opengl_20191021/mlx.h
         lib/minilibx_opengl_20191021/mlx_init_loop.m
-        lib/minilibx_opengl_20191021/mlx_init_loop.o
         lib/minilibx_opengl_20191021/mlx_int.h
         lib/minilibx_opengl_20191021/mlx_int_str_to_wordtab.c
-        lib/minilibx_opengl_20191021/mlx_int_str_to_wordtab.o
         lib/minilibx_opengl_20191021/mlx_mouse.m
-        lib/minilibx_opengl_20191021/mlx_mouse.o
         lib/minilibx_opengl_20191021/mlx_new_image.m
-        lib/minilibx_opengl_20191021/mlx_new_image.o
         lib/minilibx_opengl_20191021/mlx_new_window.h
         lib/minilibx_opengl_20191021/mlx_new_window.m
-        lib/minilibx_opengl_20191021/mlx_new_window.o
         lib/minilibx_opengl_20191021/mlx_opengl.h
         lib/minilibx_opengl_20191021/mlx_opengl.m
         lib/minilibx_opengl_20191021/mlx_png.c
         lib/minilibx_opengl_20191021/mlx_png.h
-        lib/minilibx_opengl_20191021/mlx_png.o
         lib/minilibx_opengl_20191021/mlx_rgb.c
         lib/minilibx_opengl_20191021/mlx_shaders.c
-        lib/minilibx_opengl_20191021/mlx_shaders.o
         lib/minilibx_opengl_20191021/mlx_xpm.c
-        lib/minilibx_opengl_20191021/mlx_xpm.o
         src/gui/box/create_gui_box.c
         src/gui/box/default_gui_box_methods.c
         src/gui/box/destroy_t_gui_box.c
@@ -280,6 +275,7 @@ add_executable(miniRT
         src/math/vector/vector3_angle.c
         src/math/vector/vector3_math.c
         src/math/vector/vector3_operations.c
+        src/math/vector/vector3_random.c
         src/math/vector/vector3_rotation.c
         src/math/vector/vector4.c
         src/math/vector/vector4_math.c
@@ -288,6 +284,7 @@ add_executable(miniRT
         src/math/equation.c
         src/object/cylinder.c
         src/object/cylinder_infinite.c
+        src/object/material.c
         src/object/objects.c
         src/object/plane.c
         src/object/sphere.c
@@ -314,9 +311,14 @@ add_executable(miniRT
         src/ray_tracer/camera/projection.c
         src/ray_tracer/camera/ray.c
         src/ray_tracer/camera/view.c
+        src/ray_tracer/rays/intersections/cylinder.c
+        src/ray_tracer/rays/intersections/cylinder_infinite.c
+        src/ray_tracer/rays/intersections/plane.c
+        src/ray_tracer/rays/intersections/sphere.c
         src/ray_tracer/rays/collision.c
         src/ray_tracer/rays/rays.c
         src/ray_tracer/lights.c
+        src/ray_tracer/mapping.c
         src/ray_tracer/render.c
         src/ray_tracer_gui_api/get_clicked_object.c
         src/render_frame/print_fps_counter.c
@@ -339,4 +341,4 @@ add_executable(miniRT
         src/close_miniRT.c
         src/color.c
         src/init_minirt.c
-        src/main.c src/math/vector/vector3_random.c src/ray_tracer/rays/intersections/sphere.c src/ray_tracer/rays/intersections/cylinder.c src/ray_tracer/rays/intersections/cylinder_infinite.c src/ray_tracer/rays/intersections/plane.c src/object/material.c)
+        src/main.c)

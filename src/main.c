@@ -20,12 +20,10 @@
 
 static bool	arguments_are_bad(int argc, char **argv);
 
-#include "stdio.h"
-#include "stdlib.h"
-
 int	main(int argc, char **argv)
 {
 	t_engine	minirt;
+
 
 	if (arguments_are_bad(argc, argv))
 		return (1);

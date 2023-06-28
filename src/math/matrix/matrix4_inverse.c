@@ -17,6 +17,9 @@ static void		set_column_to_zero(t_matrix4 *matrix,
 					t_matrix4 *identity_matrix, int x);
 static void		multiply_row(t_matrix4 *matrix, int row, float factor);
 static void		sum_column(t_matrix4 *matrix, int x, int y, float factor);
+static void		swap_pivot(t_matrix4 *matrix, t_matrix4 *identity, int x);
+
+
 
 t_matrix4	matrix4_inverse(t_matrix4 matrix)
 {
@@ -29,8 +32,15 @@ t_matrix4	matrix4_inverse(t_matrix4 matrix)
 	while (x < matrix.size)
 	{
 		factor = get_factor_to_one(matrix.matrix[x][x]);
-		multiply_row(&identity_matrix, x, factor);
-		multiply_row(&matrix, x, factor);
+		if (factor != 0)
+		{
+			multiply_row(&identity_matrix, x, factor);
+			multiply_row(&matrix, x, factor);
+		}
+		else
+		{
+			swap_pivot(&matrix, &identity_matrix, x);
+		}
 		set_column_to_zero(&matrix, &identity_matrix, x);
 		x++;
 	}
@@ -83,4 +93,27 @@ static void	sum_column(t_matrix4 *matrix, int x, int y, float factor)
 		matrix->matrix[y][i] -= factor * matrix->matrix[x][i];
 		i++;
 	}
+}
+
+static void swap_pivot(t_matrix4 *matrix, t_matrix4 *identity, int x)
+{
+	int	i;
+	float	temp;
+
+	i = x;
+	while (matrix->matrix[i][x] == 0)
+		i++;
+	for (int y = 0; y < 4; y++)
+	{
+		temp = matrix->matrix[i][y];
+		matrix->matrix[i][y] = matrix->matrix[x][y];
+		matrix->matrix[x][y] = temp;
+	}
+	for (int y = 0; y < 4; y++)
+	{
+		temp = identity->matrix[i][y];
+		identity->matrix[i][y] = identity->matrix[x][y];
+		identity->matrix[x][y] = temp;
+	}
+
 }
