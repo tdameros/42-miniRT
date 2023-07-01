@@ -40,6 +40,7 @@ typedef struct s_gui
 	t_fps				fps;
 	t_object			*selected_object;
 	float				object_modification_amount;
+	float				object_rotation_degrees;
 	struct s_gui_box	*object_attributes_modification_box;
 }	t_gui;
 

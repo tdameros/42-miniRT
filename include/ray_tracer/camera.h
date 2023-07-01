@@ -37,6 +37,9 @@ typedef struct s_camera {
 	float		vertical_fov;
 	float		near_clip;
 	float		far_clip;
+	float		up_degrees;
+
+	bool		lock;
 
 	t_ray		*rays;
 }	t_camera;

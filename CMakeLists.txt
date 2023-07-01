@@ -341,4 +341,4 @@ add_executable(42_miniRT
         src/close_miniRT.c
         src/color.c
         src/init_minirt.c
-        src/main.c)
+        src/main.c include/math/quaternion.h src/math/quaternion/quaternion.c src/math/quaternion/quaternion_operations.c src/math/quaternion/quaternion_math.c src/math/quaternion/quaternion_rotation.c src/hooks/button_release.c)

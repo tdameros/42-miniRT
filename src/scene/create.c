@@ -34,20 +34,20 @@ int	init_scene(t_scene *scene)
 //	object = sphere_create(vector3f_create(0, 0, 0), 1.5f, material);
 //	add_object_in_objects(&objects, object);
 
-	material = material_create(vector3f_create(1, 0, 1), 0, 0);
+	material = material_create(vector3f_create(0, 0, 0), 0, 0);
 	material.is_checked_pattern = true;
 	material.checked_pattern_albedo = vector3f_create(0, 0, 0);
-	material.checked_pattern_size = vector2f_create(2, 2);
+	material.checked_pattern_size = vector2f_create(20, 10);
 	material.checked_pattern_albedo = vector3f_create(1, 1, 1);
-//	object = sphere_create(vector3f_create(0, 0, 0), 1, material);
-	object = plane_create(vector3f_create(0, 0, 0), vector3f_create(0, 1, 0), material);
+	object = sphere_create(vector3f_create(0, 0, 0), 1, material);
+//	object = plane_create(vector3f_create(0, 0, 0), vector3f_create(0, 1, 0), material);
 	add_object_in_objects(&objects, object);
 	// Plane
-//	material = material_create(vector3f_create(0.8f, 0.5f, 0.2f), 0.1f, 0);
+	material = material_create(vector3f_create(0.0f, 0.3f, 0.7f), 0.1f, 0);
 //	material.is_damier = true;
-//	object = plane_create(vector3f_create(0.0f, -0.5f, 0),
-//						  vector3f_create(0, 1, 0), material);
-//	add_object_in_objects(&objects, object);
+	object = plane_create(vector3f_create(0.0f, -1.f, 0),
+						  vector3f_create(0, 1, 0), material);
+	add_object_in_objects(&objects, object);
 //	material = material_create(vector3f_create(1.0f, 1.0f, 0.2f), 0.1f, 0);
 //
 //	object = plane_create(vector3f_create(0.0f, 0.0f, 10.0f),

@@ -19,6 +19,7 @@ typedef struct s_engine
 	t_scene				scene;
 	t_object			*object_being_placed;
 	float				object_being_placed_distance;
+	t_vector2i			previous_mouse_position;
 }	t_engine;
 
 int		init_engine(t_engine *engine, const char *start_up_scene);

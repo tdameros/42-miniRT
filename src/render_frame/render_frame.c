@@ -56,6 +56,22 @@ static void	render_minirt(t_engine *minirt)
 
 static void	render_minirt(t_engine *engine)
 {
+	if (!engine->camera.lock)
+	{
+		t_vector2i mouse_position = get_mouse_position(engine);
+
+		int x = engine->previous_mouse_position.x - mouse_position.x;
+		int y = engine->previous_mouse_position.y - mouse_position.y;
+		if (x || y)
+		{
+			camera_rotate_up(&engine->camera, y / 2);
+			camera_rotate_left(&engine->camera, x / 2);
+			camera_recalculate_view(&engine->camera);
+			camera_recalculate_rays(&engine->camera);
+//			ft_printf("x: %d y: %d\n", mouse_position.x, mouse_position.y);
+		}
+		engine->previous_mouse_position = mouse_position;
+	}
 	update_placed_object_position(engine);
 	render_raytracing(engine);
 	mlx_put_image_to_window(engine->window.mlx, engine->window.window,

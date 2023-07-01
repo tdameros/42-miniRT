@@ -57,6 +57,7 @@ SRC				=\
 	hooks/update_object_attributes_modification_box/update_object_attributes_modification_box.c	\
 	\
 	hooks/button_press.c	\
+	hooks/button_release.c	\
 	hooks/key_press.c		\
 	\
 	\

@@ -16,6 +16,7 @@
 # include "engine.h"
 # include "gui/box.h"
 
+int			button_release_handler(int button, int x, int y, t_engine *engine);
 int			button_press_handler(int button, int x, int y, t_engine *engine);
 int			key_press_handler(int key_code, t_engine *minirt);
 
