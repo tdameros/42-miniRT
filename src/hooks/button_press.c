@@ -28,7 +28,7 @@ int	button_press_handler(int button, int x, int y, t_engine *engine)
 {
 	t_gui_box	*clicked_gui_box;
 
-	ft_printf("button_code == %d\n\n", button);
+//	ft_printf("button_code == %d\n\n", button);
 	if (button == BUTTON_RIGHT)
 	{
 		engine->previous_mouse_position = get_mouse_position(engine);

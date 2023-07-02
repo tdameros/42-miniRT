@@ -15,12 +15,14 @@
 
 # include "vector.h"
 
-typedef struct s_matrix3 {
+typedef struct s_matrix3
+{
 	float	matrix[3][3];
 	int		size;
 }	t_matrix3;
 
-typedef struct s_matrix4 {
+typedef struct s_matrix4
+{
 	float	matrix[4][4];
 	int		size;
 }	t_matrix4;
@@ -48,6 +50,8 @@ t_matrix4	matrix4_inverse(t_matrix4 matrix);
 t_matrix4	matrix4_multiply(t_matrix4 m1, t_matrix4 m2);
 t_vector4f	matrix4_multiply_vector4(t_matrix4 matrix, t_vector4f vector);
 
+//	matrix4_round.c
+t_matrix4	matrix4_round_diagonal(t_matrix4 matrix);
 
 #endif
 

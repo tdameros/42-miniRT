@@ -44,11 +44,11 @@ void	camera_rotate_up(t_camera *camera, float degrees)
 				vector3f_unit(vector3f_cross(up_vector, \
 				vector3f_unit(camera->direction))), -1);
 
-	if (camera->up_degrees + degrees < 90.f
-		&& camera->up_degrees + degrees > -90.f)
+	if (camera->pitch + degrees < 89.0f
+		&& camera->pitch + degrees > -89.0f)
 	{
 		camera->direction = quaternionf_rotate_vector3f(degrees, right_vector,
 				camera->direction);
-		camera->up_degrees += degrees;
+		camera->pitch += degrees;
 	}
 }

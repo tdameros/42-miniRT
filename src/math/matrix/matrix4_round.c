@@ -1,31 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   button_release.c                                   :+:      :+:    :+:   */
+/*   matrix4_round.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/01 04:26:00 by tdameros          #+#    #+#             */
-/*   Updated: 2023/07/01 04:26:00 by tdameros         ###   ########lyon.fr   */
+/*   Created: 2023/07/02 01:31:00 by tdameros          #+#    #+#             */
+/*   Updated: 2023/07/02 01:31:00 by tdameros         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "engine.h"
-#include "events.h"
-#include "hooks.h"
-#include "mlx.h"
+#include <math.h>
 
-int	button_release_handler(int button, int x, int y, t_engine *engine)
+#include "math/matrix.h"
+
+t_matrix4	matrix4_round_diagonal(t_matrix4 matrix)
 {
-	(void) x;
-	(void) y;
-	if (button == BUTTON_RIGHT)
-	{
-		engine->camera.lock = true;
-//		mlx_mouse_move(engine->window.window,
-//			engine->ray_traced_image.width / 2,
-//			engine->ray_traced_image.height / 2);
-		mlx_mouse_show();
-	}
-	return (0);
+	matrix.matrix[0][0] = roundf(matrix.matrix[0][0] * 100000.0) / 100000.0;
+	matrix.matrix[1][1] = roundf(matrix.matrix[1][1] * 100000.0) / 100000.0;
+	matrix.matrix[2][2] = roundf(matrix.matrix[2][2] * 100000.0) / 100000.0;
+	matrix.matrix[3][3] = roundf(matrix.matrix[3][3] * 100000.0) / 100000.0;
+	return (matrix);
 }

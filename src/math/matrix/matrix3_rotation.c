@@ -20,7 +20,7 @@ t_matrix3	matrix3_rodrigues_rotation(t_vector3f axe, float degrees)
 	const float	radians = convert_degrees_to_radians(degrees);
 	const float	cos_result = cosf(radians);
 	const float	sin_result = sinf(radians);
-	t_matrix3		result;
+	t_matrix3	result;
 
 	result = matrix3_create(0);
 	result.matrix[0][0] = cos_result + axe.x * axe.x * (1 - cos_result);

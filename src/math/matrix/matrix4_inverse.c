@@ -33,12 +33,9 @@ t_matrix4	matrix4_inverse(t_matrix4 matrix)
 		pivot = matrix.matrix[x][x];
 		if (pivot == 0)
 			swap_pivot(&matrix, &identity_matrix, x);
-		else
-		{
-			factor = 1 / matrix.matrix[x][x];
-			multiply_row(&identity_matrix, x, factor);
-			multiply_row(&matrix, x, factor);
-		}
+		factor = 1 / matrix.matrix[x][x];
+		multiply_row(&identity_matrix, x, factor);
+		multiply_row(&matrix, x, factor);
 		set_column_to_zero(&matrix, &identity_matrix, x);
 		x++;
 	}

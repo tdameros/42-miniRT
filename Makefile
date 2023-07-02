@@ -74,6 +74,7 @@ SRC				=\
 	math/matrix/matrix4.c			\
 	math/matrix/matrix4_inverse.c	\
 	math/matrix/matrix4_math.c		\
+	math/matrix/matrix4_round.c		\
 	\
 	math/quaternion/quaternion.c				\
 	math/quaternion/quaternion_math.c			\
