@@ -12,12 +12,14 @@
 
 
 #include "gui/box.h"
+#include "math/quaternion.h"
 
 void	normal_input_box_z_on_click_plus(struct s_gui_box *self,
 			t_engine *engine, int y, int x)
 {
 	t_object			*object;
-	const float			change = engine->gui.object_modification_amount;
+	const float			degrees = engine->gui.object_rotation_degrees;
+	const t_vector3f	rotation_axis = vector3f_create(0, 0, 1);
 
 	(void)self;
 	(void)y;
@@ -25,19 +27,16 @@ void	normal_input_box_z_on_click_plus(struct s_gui_box *self,
 	object = engine->gui.selected_object;
 	if (object == NULL)
 		return ;
-	object->normal \
-		= vector3f_normalize((t_vector3f){\
-			.x = object->normal.x, \
-			.y = object->normal.y, \
-			.z = object->normal.z + change
-	});
+	object->normal = vector3f_unit(\
+	quaternionf_rotate_vector3f(degrees, rotation_axis, object->normal));
 }
 
 void	normal_input_box_z_on_click_minus(struct s_gui_box *self,
 			t_engine *engine, int y, int x)
 {
 	t_object			*object;
-	const float			change = engine->gui.object_modification_amount;
+	const float			degrees = -engine->gui.object_rotation_degrees;
+	const t_vector3f	rotation_axis = vector3f_create(0, 0, 1);
 
 	(void)self;
 	(void)y;
@@ -45,10 +44,6 @@ void	normal_input_box_z_on_click_minus(struct s_gui_box *self,
 	object = engine->gui.selected_object;
 	if (object == NULL)
 		return ;
-	object->normal \
-		= vector3f_normalize((t_vector3f){\
-			.x = object->normal.x, \
-			.y = object->normal.y, \
-			.z = object->normal.z - change
-	});
+	object->normal = vector3f_unit(\
+	quaternionf_rotate_vector3f(degrees, rotation_axis, object->normal));
 }
