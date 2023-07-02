@@ -79,7 +79,7 @@ int	init_scene(t_scene *scene)
 	scene->light.color = vector3f_create(1, 1, 1);
 	scene->light.brightness = 0.5f;
 	scene->ambient_light.color = vector3f_create(1, 1, 1);
-	scene->ambient_light.brightness = 0.1f;
+	scene->ambient_light.brightness = 0.2f;
 	scene->objects = objects;
 	return (0);
 }

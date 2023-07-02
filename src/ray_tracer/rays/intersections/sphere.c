@@ -28,6 +28,8 @@ t_hit	hit_sphere(const t_ray *ray, const t_object *sphere, float distance)
 	hit.position = ray_at(ray, hit.distance);
 	hit.normal = vector3f_unit(vector3f_subtract(hit.position,
 				sphere->position));
+	if (vector3f_dot(hit.normal, ray->direction) > 0)
+		hit.normal = vector3f_multiply(hit.normal, -1);
 	hit.object = sphere;
 	hit.ray = *ray;
 	hit.hit = true;

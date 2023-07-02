@@ -46,8 +46,6 @@ t_vector3f	calculate_color(const t_scene *scene, t_hit ray_hit, float multiplier
 	specular = calculate_specular_light(scene, ray_hit, vector3f_multiply(reverse_light_direction, -1));
 	specular = vector3f_multiply(specular, multiplier);
 	specular = vector3f_multiply(specular, ray_hit.object->material.specular);
-//	specular = vector3f_create(0, 0, 0);
-//	(void) calculate_specular_light;
 	return (vector3f_add(vector3f_add(diffuse, ambient), specular));
 }
 
@@ -69,8 +67,7 @@ static bool	is_shadow(const t_scene *scene, t_hit ray_hit,
 				ray_hit.position));
 	hit_distance = vector3f_length(vector3f_subtract(light_hit.position,
 				ray_hit.position));
-	return (light_hit.hit && light_hit.object != ray_hit.object
-		&& hit_distance < light_distance);
+	return (light_hit.hit && hit_distance < light_distance);
 }
 
 static t_vector3f	apply_light_brightness(const t_light *light)
@@ -95,15 +92,15 @@ static t_vector3f	calculate_diffuse_light(const t_scene *scene,
 											t_hit ray_hit,
 											t_vector3f reverse_light_direction)
 {
-	const float	scalar_product = ft_maxf(0, vector3f_dot(ray_hit.normal,
+	const float			scalar_product = ft_maxf(0, vector3f_dot(ray_hit.normal,
 				reverse_light_direction));
 	const t_vector3f	light_color = apply_light_brightness(\
 		&scene->light);
-	const float	red = ray_hit.albedo.x * light_color.x
+	const float			red = ray_hit.albedo.x * light_color.x
 		* scalar_product;
-	const float	green = ray_hit.albedo.y * light_color.y
+	const float			green = ray_hit.albedo.y * light_color.y
 		* scalar_product;
-	const float	blue = ray_hit.albedo.z * light_color.z
+	const float			blue = ray_hit.albedo.z * light_color.z
 		* scalar_product;
 
 	return (vector3f_create(red, green, blue));

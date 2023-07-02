@@ -33,6 +33,8 @@ t_hit	hit_cylinder(const t_ray *ray, const t_object *cylinder, float distance)
 	hit.hit = true;
 	hit.position = ray_at(ray, distance);
 	hit.normal = vector3f_unit(calculate_cylinder_normal(ray, cylinder, distance));
+	if (vector3f_dot(hit.normal, ray->direction) > 0)
+		hit.normal = vector3f_multiply(hit.normal, -1);
 	hit.object = cylinder;
 	hit.ray = *ray;
 	if (hit.object->material.is_checked_pattern)
