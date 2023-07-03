@@ -14,7 +14,7 @@ include_directories(lib/minilibx_opengl_20191021)
 
 add_executable(42_miniRT
         include/deprecated/t_ambient_light.h
-        include/deprecated/t_light.h
+        include/light.h
         include/deprecated/t_raytracing_data.h
         include/gui/box.h
         include/gui/boxes.h
@@ -29,7 +29,7 @@ add_executable(42_miniRT
         include/math/matrix.h
         include/math/vector.h
         include/ray_tracer/camera.h
-        include/ray_tracer/lights.h
+        include/ray_tracer/shade.h
         include/ray_tracer/mapping.h
         include/ray_tracer/rays.h
         include/ray_tracer/render.h
@@ -341,4 +341,4 @@ add_executable(42_miniRT
         src/close_miniRT.c
         src/color.c
         src/init_minirt.c
-        src/main.c include/math/quaternion.h src/math/quaternion/quaternion.c src/math/quaternion/quaternion_operations.c src/math/quaternion/quaternion_math.c src/math/quaternion/quaternion_rotation.c src/hooks/button_release.c src/math/matrix/matrix4_round.c)
+        src/main.c include/math/quaternion.h src/math/quaternion/quaternion.c src/math/quaternion/quaternion_operations.c src/math/quaternion/quaternion_math.c src/math/quaternion/quaternion_rotation.c src/hooks/button_release.c src/math/matrix/matrix4_round.c src/light/lights.c src/ray_tracer/shade/shade.c src/ray_tracer/shade/light.c src/ray_tracer/shade/shadow.c)

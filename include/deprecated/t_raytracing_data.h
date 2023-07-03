@@ -3,7 +3,7 @@
 
 # include "deprecated/t_ambient_light.h"
 # include "ray_tracer/camera.h"
-# include "deprecated/t_light.h"
+# include "light.h"
 # include "object.h"
 
 typedef struct s_raytracing_data

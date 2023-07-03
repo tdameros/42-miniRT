@@ -12,10 +12,6 @@
 
 #include "ray_tracer/rays.h"
 
-static t_hit	miss_hit(void);
-
-static float	calculate_object_distance(const t_ray *ray, const t_object *object);
-static t_hit	hit_object(const t_ray *ray, const t_object *object, float distance);
 
 t_hit	calculate_ray_intersection(const t_ray *ray, const t_scene *scene)
 {
@@ -43,7 +39,7 @@ t_hit	calculate_ray_intersection(const t_ray *ray, const t_scene *scene)
 	return (hit_object(ray, scene->objects.data + near_object_index, near_distance));
 }
 
-static t_hit	miss_hit(void)
+t_hit	miss_hit(void)
 {
 	t_hit	hit;
 
@@ -51,7 +47,7 @@ static t_hit	miss_hit(void)
 	return (hit);
 }
 
-static float	calculate_object_distance(const t_ray *ray, const t_object *object)
+float	calculate_object_distance(const t_ray *ray, const t_object *object)
 {
 	if (object->type == SPHERE)
 		return (calculate_sphere_distance(ray, object));
@@ -64,7 +60,7 @@ static float	calculate_object_distance(const t_ray *ray, const t_object *object)
 	return (-1);
 }
 
-static t_hit	hit_object(const t_ray *ray, const t_object *object, float distance)
+t_hit	hit_object(const t_ray *ray, const t_object *object, float distance)
 {
 	if (object->type == SPHERE)
 		return (hit_sphere(ray, object, distance));

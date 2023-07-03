@@ -68,6 +68,9 @@ SRC				=\
 	image/round_image_corners.c	\
 	\
 	\
+	light/lights.c	\
+	\
+	\
 	math/matrix/matrix3.c			\
 	math/matrix/matrix3_math.c		\
 	math/matrix/matrix3_rotation.c	\
@@ -142,7 +145,10 @@ SRC				=\
 	ray_tracer/rays/rays.c			\
 	ray_tracer/rays/collision.c		\
 	\
-	ray_tracer/lights.c		\
+	ray_tracer/shade/light.c	\
+	ray_tracer/shade/shade.c	\
+	ray_tracer/shade/shadow.c	\
+	\
 	ray_tracer/mapping.c	\
 	ray_tracer/render.c		\
 	\

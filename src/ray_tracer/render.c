@@ -14,7 +14,7 @@
 #include "ray_tracer/rays.h"
 #include "scene.h"
 #include "object.h"
-#include "ray_tracer/lights.h"
+#include "ray_tracer/shade.h"
 #include "engine.h"
 
 static t_color		render_pixel(t_engine *engine, size_t ray_index);
@@ -117,7 +117,8 @@ static t_vector3f	render_ray(t_ray ray, const t_scene *scene)
 		}
 
 		// Lights
-		color = calculate_color(scene, ray_hit, multiplier);
+//		color = calculate_color(scene, ray_hit, multiplier);
+		color = calculate_shade(scene, ray_hit, multiplier);
 		ray_color = vector3f_add(ray_color, color);
 		multiplier *= ray_hit.object->material.reflect;
 		ray.origin = vector3f_add(ray_hit.position, vector3f_multiply(ray_hit.normal, 0.0001f));

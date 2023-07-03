@@ -16,11 +16,13 @@
 # include "libft.h"
 
 # include "object.h"
-# include "deprecated/t_light.h"
+# include "light.h"
 
-typedef struct s_scene {
+typedef struct s_scene
+{
 	t_objects	objects;
 	t_light		light;
+	t_lights	lights;
 	t_light		ambient_light;
 	t_vector3f	sky_color;
 }	t_scene;
