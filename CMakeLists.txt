@@ -315,9 +315,8 @@ add_executable(42_miniRT
         src/ray_tracer/rays/intersections/cylinder_infinite.c
         src/ray_tracer/rays/intersections/plane.c
         src/ray_tracer/rays/intersections/sphere.c
-        src/ray_tracer/rays/collision.c
+        src/ray_tracer/rays/intersections/intersection.c
         src/ray_tracer/rays/rays.c
-        src/ray_tracer/lights.c
         src/ray_tracer/mapping.c
         src/ray_tracer/render.c
         src/ray_tracer_gui_api/get_clicked_object.c
@@ -341,4 +340,4 @@ add_executable(42_miniRT
         src/close_miniRT.c
         src/color.c
         src/init_minirt.c
-        src/main.c include/math/quaternion.h src/math/quaternion/quaternion.c src/math/quaternion/quaternion_operations.c src/math/quaternion/quaternion_math.c src/math/quaternion/quaternion_rotation.c src/hooks/button_release.c src/math/matrix/matrix4_round.c src/light/lights.c src/ray_tracer/shade/shade.c src/ray_tracer/shade/light.c src/ray_tracer/shade/shadow.c)
+        src/main.c include/math/quaternion.h src/math/quaternion/quaternion.c src/math/quaternion/quaternion_operations.c src/math/quaternion/quaternion_math.c src/math/quaternion/quaternion_rotation.c src/hooks/button_release.c src/math/matrix/matrix4_round.c src/light/lights.c src/ray_tracer/shade/shade.c src/ray_tracer/shade/light.c src/ray_tracer/shade/shadow.c src/ray_tracer/rays/intersections/cone.c src/ray_tracer/rays/intersections/cone.c src/object/cone.c)

@@ -38,13 +38,14 @@ int	init_scene(t_scene *scene)
 //	object = sphere_create(vector3f_create(0, 0, 0), 1.5f, material);
 //	add_object_in_objects(&objects, object);
 
-	material = material_create(vector3f_create(0, 0, 0), 0, 0);
+	material = material_create(vector3f_create(1, 0, 0), 0, 0);
 	material.is_checked_pattern = true;
 	material.checked_pattern_albedo = vector3f_create(0, 0, 0);
 	material.checked_pattern_size = vector2f_create(20, 10);
 	material.checked_pattern_albedo = vector3f_create(1, 1, 1);
-	object = sphere_create(vector3f_create(0, 0, 0), 1, material);
+//	object = sphere_create(vector3f_create(0, 0, 0), 1, material);
 //	object = plane_create(vector3f_create(0, 0, 0), vector3f_create(0, 1, 0), material);
+	object = cone_create(vector3f_create(1, 1, 1), vector3f_create(0, 1, 0), 1, 2.0f, material);
 	add_object_in_objects(&objects, object);
 	// Plane
 	material = material_create(vector3f_create(1.0f, 1.0f, 1.0f), 0.1f, 0);
@@ -91,7 +92,7 @@ int	init_scene(t_scene *scene)
 	light.color = vector3f_create(0, 0, 1);
 	light.brightness = 0.5f;
 	light.position = vector3f_create(5, 5, -5);
-	add_light_in_lights(&lights, light);
+//	add_light_in_lights(&lights, light);
 
 	scene->sky_color = vector3f_create(0, 0, 0);
 	scene->light.position = vector3f_create(5, 5, 5);

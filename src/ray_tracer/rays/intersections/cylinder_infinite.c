@@ -13,7 +13,8 @@
 #include "ray_tracer/rays.h"
 #include "math/equation.h"
 
-t_hit	hit_infinite_cylinder(const t_ray *ray, const t_object *cylinder, float distance)
+t_hit	hit_infinite_cylinder(const t_ray *ray, const t_object *cylinder,
+								const float distance)
 {
 	t_hit		hit;
 
@@ -31,14 +32,15 @@ t_hit	hit_infinite_cylinder(const t_ray *ray, const t_object *cylinder, float di
 	return (hit);
 }
 
-t_vector3f	calculate_infinite_cylinder_normal(const t_ray *ray, const t_object *cylinder,
-												 float distance)
+t_vector3f	calculate_infinite_cylinder_normal(const t_ray *ray,
+											const t_object *cylinder,
+											const float distance)
 {
 	t_vector3f	ra;
 	t_vector3f	va;
 
 	ra = vector3f_cross(cylinder->normal, vector3f_subtract(ray->origin,
-															cylinder->position));
+				cylinder->position));
 	ra = vector3f_cross(ra, cylinder->normal);
 	va = vector3f_cross(cylinder->normal, vector3f_unit(ray->direction));
 	va = vector3f_multiply(vector3f_cross(va, cylinder->normal), distance);
@@ -46,7 +48,7 @@ t_vector3f	calculate_infinite_cylinder_normal(const t_ray *ray, const t_object *
 }
 
 float	calculate_inf_cylinder_distance(const t_ray *ray,
-										 const t_object *cylinder)
+										const t_object *cylinder)
 {
 	float		equation[3];
 	float		result[2];
@@ -54,7 +56,7 @@ float	calculate_inf_cylinder_distance(const t_ray *ray,
 	t_vector3f	va;
 
 	ra0 = vector3f_cross(cylinder->normal, vector3f_subtract(ray->origin,
-															 cylinder->position));
+				cylinder->position));
 	ra0 = vector3f_cross(ra0, cylinder->normal);
 
 	va = vector3f_cross(cylinder->normal, vector3f_unit(ray->direction));
@@ -64,7 +66,7 @@ float	calculate_inf_cylinder_distance(const t_ray *ray,
 	equation[1] = 2 * vector3f_dot(ra0, va);
 	equation[2] = vector3f_dot(ra0, ra0) - cylinder->radius * cylinder->radius;
 	if (!solve_quadratic_equation(equation[0], equation[1], equation[2],
-								  result))
+			result))
 		return (-1);
 	return (ft_minf_positive(result[0], result[1]));
 }

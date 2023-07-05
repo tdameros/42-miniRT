@@ -20,7 +20,7 @@ static float	calculate_cylinder_base_distance(const t_ray *ray, t_vector3f norma
 static t_vector3f	calculate_cylinder_normal(const t_ray *ray, const t_object *cylinder,
 											   float distance);
 
-t_hit	hit_cylinder(const t_ray *ray, const t_object *cylinder, float distance)
+t_hit	hit_cylinder(const t_ray *ray, const t_object *cylinder, const float distance)
 {
 	t_hit	hit;
 

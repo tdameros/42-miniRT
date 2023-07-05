@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   window.h                                           :+:      :+:    :+:   */
+/*   cone.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/11 00:58:00 by tdameros          #+#    #+#             */
-/*   Updated: 2023/05/11 00:58:00 by tdameros         ###   ########lyon.fr   */
+/*   Created: 2023/07/03 23:34:00 by tdameros          #+#    #+#             */
+/*   Updated: 2023/07/03 23:34:00 by tdameros         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WINDOW_H
-# define WINDOW_H
+#include "object.h"
 
-//# define WINDOW_WIDTH 1280
-//# define WINDOW_HEIGHT 720
-# define WINDOW_WIDTH 1728
-# define WINDOW_HEIGHT 1057
-//# define WINDOW_WIDTH 1920
-//# define WINDOW_HEIGHT 1080
-
-typedef struct s_window
+t_object	cone_create(t_vector3f origin, t_vector3f axe, float radius, float height, t_material material)
 {
-	void	*mlx;
-	void	*window;
-}	t_window;
+	t_object	cone;
 
-#endif
+	cone.type = CONE;
+	cone.position = origin;
+	cone.normal = axe;
+	cone.radius = radius;
+	cone.height = height;
+	cone.material = material;
+	return (cone);
+}

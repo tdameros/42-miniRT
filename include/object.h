@@ -25,6 +25,7 @@ enum e_object_type
 	PLANE,
 	CYLINDER,
 	CYLINDER_INF,
+	CONE,
 };
 
 typedef struct s_material
@@ -44,6 +45,7 @@ typedef struct s_object
 {
 	enum e_object_type	type;
 	t_vector3f			position;
+	t_vector3f			position2;
 	float				radius;
 	float				height;
 	t_vector3f			normal;
@@ -67,6 +69,7 @@ t_object	sphere_create(t_vector3f origin, float radius, t_material material);
 t_object	plane_create(t_vector3f position, t_vector3f normal, t_material material);
 t_object cylinder_infinite_create(t_vector3f origin, t_vector3f axe,
 		float radius, t_material material);
+t_object	cone_create(t_vector3f origin, t_vector3f axe, float radius, float height, t_material material);
 
 t_object cylinder_create(t_vector3f origin, t_vector3f axe, float radius, float height, t_material material);
 void	print_object2(t_object object);

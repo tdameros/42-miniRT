@@ -15,7 +15,7 @@
 #include "ray_tracer/rays.h"
 #include "ray_tracer/mapping.h"
 
-t_hit	hit_plane(const t_ray *ray, const t_object *plane, float distance)
+t_hit	hit_plane(const t_ray *ray, const t_object *plane, const float distance)
 {
 	t_hit		hit;
 

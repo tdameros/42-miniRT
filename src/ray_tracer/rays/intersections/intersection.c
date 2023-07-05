@@ -12,7 +12,6 @@
 
 #include "ray_tracer/rays.h"
 
-
 t_hit	calculate_ray_intersection(const t_ray *ray, const t_scene *scene)
 {
 	size_t		index;
@@ -36,15 +35,8 @@ t_hit	calculate_ray_intersection(const t_ray *ray, const t_scene *scene)
 	}
 	if (near_distance == -1)
 		return (miss_hit());
-	return (hit_object(ray, scene->objects.data + near_object_index, near_distance));
-}
-
-t_hit	miss_hit(void)
-{
-	t_hit	hit;
-
-	hit.hit = false;
-	return (hit);
+	return (hit_object(ray, scene->objects.data + near_object_index,
+			near_distance));
 }
 
 float	calculate_object_distance(const t_ray *ray, const t_object *object)
@@ -57,10 +49,21 @@ float	calculate_object_distance(const t_ray *ray, const t_object *object)
 		return (calculate_inf_cylinder_distance(ray, object));
 	else if (object->type == CYLINDER)
 		return (calculate_cylinder_distance(ray, object));
+	else if (object->type == CONE)
+		return (calculate_cone_distance(ray, object));
 	return (-1);
 }
 
-t_hit	hit_object(const t_ray *ray, const t_object *object, float distance)
+t_hit	miss_hit(void)
+{
+	t_hit	hit;
+
+	hit.hit = false;
+	return (hit);
+}
+
+t_hit	hit_object(const t_ray *ray, const t_object *object,
+					const float distance)
 {
 	if (object->type == SPHERE)
 		return (hit_sphere(ray, object, distance));
@@ -70,5 +73,7 @@ t_hit	hit_object(const t_ray *ray, const t_object *object, float distance)
 		return (hit_infinite_cylinder(ray, object, distance));
 	else if (object->type == CYLINDER)
 		return (hit_cylinder(ray, object, distance));
+	else if (object->type == CONE)
+		return (hit_cone(ray, object, distance));
 	return (miss_hit());
 }
