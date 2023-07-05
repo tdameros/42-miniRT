@@ -22,15 +22,25 @@
 //# define WINDOW_WIDTH 3840
 //# define WINDOW_HEIGHT 2160
 
-# define WINDOW_WIDTH 1380
-# define WINDOW_HEIGHT 820
+//# define WINDOW_WIDTH 1380
+//# define WINDOW_HEIGHT 820
 //# define WINDOW_WIDTH 2460
 //# define WINDOW_HEIGHT 1340
 
+# include "math/vector.h"
+
 typedef struct s_window
 {
-	void	*mlx;
-	void	*window;
+	void		*mlx;
+	void		*window;
+	t_vector2i	size;
 }	t_window;
+
+void		get_window_size(t_vector2i *window_size);
+
+# ifdef __APPLE__
+
+extern void	get_screen_size(int *x, int *y);
+# endif
 
 #endif

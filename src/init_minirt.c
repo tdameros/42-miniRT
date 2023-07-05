@@ -25,17 +25,21 @@ int	init_engine(t_engine *minirt, const char *start_up_scene)
 	minirt->window.mlx = mlx_init();
 	if (minirt->window.mlx == NULL)
 		return (-1);
-	minirt->window.window = mlx_new_window(minirt->window.mlx, WINDOW_WIDTH,
-			WINDOW_HEIGHT, "miniRT");
+	get_screen_size(&minirt->window.size.x, &minirt->window.size.y);
+	minirt->window.window = mlx_new_window(minirt->window.mlx,
+										   minirt->window.size.x, minirt->window.size.y,
+										   "miniRT");
 	if (minirt->window.window == NULL)
 		return (-1); // TODO: free mlx
 	if (parse_scene(minirt, start_up_scene) < 0)
 		return (-1); // TODO free stuff
 	print_scene_content(&minirt->raytracing_data);
 
-	init_image(&minirt->ray_traced_image, &minirt->window, WINDOW_WIDTH, WINDOW_HEIGHT); // TODO secure me
+	init_image(&minirt->ray_traced_image, &minirt->window,
+			   minirt->window.size.x, minirt->window.size.y); // TODO secure me
 
-	init_image(&minirt->main_image, &minirt->window, WINDOW_WIDTH, WINDOW_HEIGHT); // TODO secure me
+	init_image(&minirt->main_image, &minirt->window,
+			   minirt->window.size.x, minirt->window.size.y); // TODO secure me
 	change_image_color(&minirt->main_image, COLOR_BLACK);
 
 	init_hooks(minirt);
@@ -46,7 +50,8 @@ int	init_engine(t_engine *minirt, const char *start_up_scene)
 		return (-1);
 	}
 	// TODO: secure me
-	camera_create(&minirt->camera, vector2f_create(WINDOW_WIDTH, WINDOW_HEIGHT));
+	camera_create(&minirt->camera, vector2f_create(minirt->window.size.x,
+		minirt->window.size.y));
 	init_scene(&minirt->scene);
 //	if (get_font(&minirt->gui.font, "data/fonts/inconsolata/Inconsolata-VariableFont_wdth,wght.ttf") < 0)
 //	if (get_font(&minirt->gui.font,

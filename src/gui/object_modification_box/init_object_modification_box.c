@@ -20,14 +20,14 @@ int	init_object_modification_gui_box(t_engine *engine, t_gui_box *gui_box,
 {
 	*gui_box = create_t_gui_box(engine, NULL, \
 		(t_vector2i){
-			.x = WINDOW_WIDTH - WINDOW_WIDTH / 4 \
-				- object_creation_gui_box->position.x,
+			.x = engine->window.size.x - engine->window.size.x / 4 \
+ - object_creation_gui_box->position.x,
 			.y = object_creation_gui_box->size.y \
 				+ object_creation_gui_box->position.y * 2}, \
 		(t_vector2i){
-			.x = WINDOW_WIDTH / 4, \
-			.y = WINDOW_HEIGHT \
-				- (object_creation_gui_box->size.y \
+			.x = engine->window.size.x / 4, \
+			.y = engine->window.size.y \
+ - (object_creation_gui_box->size.y \
 				+ object_creation_gui_box->position.y * 3)});
 	if (errno == EINVAL)
 		return (-1);

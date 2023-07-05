@@ -15,9 +15,8 @@ struct s_limit
 	int	bottom;
 };
 
-static bool	can_gui_box_be_placed(t_gui_boxes main_gui_boxes,
-				const t_gui_box *parent, t_vector2i position,
-				t_vector2i size);
+static bool	can_gui_box_be_placed(const t_engine *engine,
+				const t_gui_box *parent, t_vector2i position, t_vector2i size);
 static bool	is_gui_box_too_big_to_fit_in_parent(t_vector2i parent_size,
 				t_vector2i position, t_vector2i size);
 static bool	does_gui_box_overlap_with_another_on_the_same_level(
@@ -26,7 +25,7 @@ static bool	does_gui_box_overlap_with_another_on_the_same_level(
 static bool	do_gui_boxes_overlap(struct s_limit new_gui_box_limit,
 				const t_gui_box *gui_box_to_compare);
 
-t_gui_box	create_t_gui_box(t_engine *minirt,
+t_gui_box	create_t_gui_box(t_engine *engine,
 				t_gui_box *parent, const t_vector2i position,
 				const t_vector2i size)
 {
@@ -34,13 +33,13 @@ t_gui_box	create_t_gui_box(t_engine *minirt,
 
 	errno = 0;
 	ft_bzero(&gui_box, sizeof(gui_box));
-	if (can_gui_box_be_placed(minirt->gui.gui_boxes, parent, position,
+	if (can_gui_box_be_placed(engine, parent, position,
 			size) == false)
 	{
 		errno = EINVAL;
 		return (gui_box);
 	}
-	init_image(&gui_box.image, &minirt->window, size.x, size.y);
+	init_image(&gui_box.image, &engine->window, size.x, size.y);
 	if (gui_box.image.data == NULL)
 	{
 		ft_bzero(&gui_box, sizeof(gui_box));
@@ -54,9 +53,8 @@ t_gui_box	create_t_gui_box(t_engine *minirt,
 	return (gui_box);
 }
 
-static bool	can_gui_box_be_placed(t_gui_boxes main_gui_boxes,
-				const t_gui_box *parent, t_vector2i position,
-				t_vector2i size)
+static bool	can_gui_box_be_placed(const t_engine *engine,
+				const t_gui_box *parent, t_vector2i position, t_vector2i size)
 {
 	t_gui_boxes	same_level_gui_boxes;
 	t_vector2i	parent_size;
@@ -68,9 +66,9 @@ static bool	can_gui_box_be_placed(t_gui_boxes main_gui_boxes,
 	}
 	else
 	{
-		same_level_gui_boxes = main_gui_boxes;
-		parent_size = (t_vector2i){.x = WINDOW_WIDTH,
-			.y = WINDOW_HEIGHT};
+		same_level_gui_boxes = engine->gui.gui_boxes;
+		parent_size = (t_vector2i){.x = engine->window.size.x,
+			.y = engine->window.size.y};
 	}
 	return (
 		!(is_gui_box_too_big_to_fit_in_parent(parent_size, position, size)

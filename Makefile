@@ -190,9 +190,9 @@ SRC				=\
 	ttf_parser/get_font.c	\
 	\
 	\
-	close_miniRT.c	\
-	color.c			\
-	init_minirt.c	\
+	close_miniRT.c		\
+	color.c				\
+	init_minirt.c		\
 	main.c
 
 DIR_BUILD		=	.build/
@@ -250,7 +250,8 @@ ifeq ($(OS), Darwin)
 	LIBS = \
     	-lm	\
     	$(LIBFT_L)	\
-    	$(MINILIBX_L)
+    	$(MINILIBX_L)	\
+    	-L$(DIR_BUILD) -lget_window_size
     FRAMEWORKS =\
     	-framework OpenGL	\
     	-framework AppKit
@@ -271,8 +272,11 @@ run:
 			$(MAKE) -j
 			./miniRT data/test.rt || true
 
-$(NAME):	$(OBJS)
-			$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) $(FRAMEWORKS) $(LIBS) -o $(NAME)
+$(NAME):	$(OBJS) src/get_window_size.swift
+	@if [ $(OS) = "Darwin" ]; then\
+		swiftc -emit-library -module-name SwiftCode -o $(DIR_BUILD)libget_window_size.a $(SRC_PATH)get_window_size.swift;\
+	fi
+	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) $(FRAMEWORKS) $(LIBS) -o $(NAME)
 
 .PHONY:	bonus
 bonus:		all
