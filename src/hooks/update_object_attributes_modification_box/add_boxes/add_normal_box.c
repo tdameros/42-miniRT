@@ -12,14 +12,15 @@
 
 #include "gui/box.h"
 #include "hooks.h"
+#include "font/render.h"
 
 int	add_normal_box(t_engine *engine, t_gui_box *gui_box, int *i,
 		t_gui_box *parent)
 {
 	if (add_x_y_z_box(engine, gui_box, i, parent) < 0)
 		return (-1);
-//	write_centered_string_to_image(engine, &gui_box->children.data[0].image,
-//		"Position");
+	write_centered_string_to_image(&engine->gui.font,
+		&gui_box->children.data[0].image, "Rotation");
 	get_x_y_z_input_box(gui_box, 'x', '-')->on_click \
 		= &normal_input_box_x_on_click_minus;
 	get_x_y_z_input_box(gui_box, 'x', '+')->on_click \

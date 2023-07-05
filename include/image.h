@@ -20,6 +20,7 @@ typedef struct s_image
 {
 	void			*data;
 	unsigned int	*address;
+	unsigned int	*limit;
 	int				bits_per_pixel;
 	int				line_length;
 	int				endian;

@@ -16,6 +16,7 @@ int	init_image(t_image *image, t_window *window, int width, int height)
 	image->line_length /= 4;
 	image->height = height;
 	image->width = width;
+	image->limit = image->address + height * width;
 	return (0);
 }
 
@@ -31,6 +32,7 @@ int	init_image_from_xpm(t_image *image, t_window *window, char *xmp_file)
 	image->address = (unsigned int *)mlx_get_data_addr(image->data,
 			&image->bits_per_pixel, &image->line_length, &image->endian);
 	image->line_length /= 4;
+	image->limit = image->address + image->height * image->width;
 	return (0);
 }
 

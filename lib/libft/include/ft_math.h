@@ -13,6 +13,11 @@
 #ifndef FT_MATH_H
 # define FT_MATH_H
 
-float	ft_angle_to_theta(float angle);
+# include <stdint.h>
+
+int64_t 	ft_sum_int_arr(const int *arr, size_t size);
+uint64_t	ft_sum_uint8_arr(const uint8_t *arr, size_t size);
+
+float		ft_angle_to_theta(float angle);
 
 #endif

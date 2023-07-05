@@ -1,21 +1,18 @@
 cmake_minimum_required(VERSION 3.25)
-project(42_miniRT C)
+project(minirt C)
 
 set(CMAKE_C_STANDARD 11)
 
 include_directories(include)
-include_directories(include/deprecated)
-include_directories(include/gui)
-include_directories(include/math)
-include_directories(include/ray_tracer)
 include_directories(lib/libft/include)
-include_directories(lib/libft/src/io/get_next_line)
 include_directories(lib/minilibx_opengl_20191021)
 
-add_executable(42_miniRT
+add_executable(minirt
         include/deprecated/t_ambient_light.h
-        include/light.h
         include/deprecated/t_raytracing_data.h
+        include/font/render.h
+        include/font/rendering_structs.h
+        include/font/ttf_parser.h
         include/gui/box.h
         include/gui/boxes.h
         include/gui/gui.h
@@ -27,23 +24,24 @@ add_executable(42_miniRT
         include/math/conversion.h
         include/math/equation.h
         include/math/matrix.h
+        include/math/quaternion.h
         include/math/vector.h
         include/ray_tracer/camera.h
-        include/ray_tracer/shade.h
         include/ray_tracer/mapping.h
         include/ray_tracer/rays.h
         include/ray_tracer/render.h
+        include/ray_tracer/shade.h
         include/colors.h
         include/engine.h
         include/events.h
         include/hooks.h
         include/image.h
+        include/light.h
         include/object.h
         include/parsing.h
         include/ray_tracer_gui_api.h
         include/render_frame.h
         include/scene.h
-        include/ttf.h
         include/window.h
         lib/libft/include/ft_bitmask.h
         lib/libft/include/ft_bools.h
@@ -58,6 +56,7 @@ add_executable(42_miniRT
         lib/libft/include/ft_sort.h
         lib/libft/include/ft_string.h
         lib/libft/include/ft_time.h
+        lib/libft/include/ft_vector.h
         lib/libft/include/libft.h
         lib/libft/src/bitmask/bitmask_free.c
         lib/libft/src/bitmask/bitmask_get.c
@@ -108,6 +107,7 @@ add_executable(42_miniRT
         lib/libft/src/linked_list/doubly_linked_void_ptr/dlstadd_front.c
         lib/libft/src/linked_list/doubly_linked_void_ptr/dlstclear.c
         lib/libft/src/linked_list/doubly_linked_void_ptr/dlstdelone.c
+        lib/libft/src/linked_list/doubly_linked_void_ptr/dlstfirst.c
         lib/libft/src/linked_list/doubly_linked_void_ptr/dlstiter.c
         lib/libft/src/linked_list/doubly_linked_void_ptr/dlstlast.c
         lib/libft/src/linked_list/doubly_linked_void_ptr/dlstmap.c
@@ -144,6 +144,8 @@ add_executable(42_miniRT
         lib/libft/src/linked_list/void_ptr/lstmap.c
         lib/libft/src/linked_list/void_ptr/lstnew.c
         lib/libft/src/linked_list/void_ptr/lstsize.c
+        lib/libft/src/math/sum/sum_int_arr.c
+        lib/libft/src/math/sum/sum_uint8_arr.c
         lib/libft/src/math/angle_to_theta.c
         lib/libft/src/mem/bzero.c
         lib/libft/src/mem/calloc.c
@@ -152,6 +154,8 @@ add_executable(42_miniRT
         lib/libft/src/mem/memcpy.c
         lib/libft/src/mem/memmove.c
         lib/libft/src/mem/memset.c
+        lib/libft/src/numbers/abs/absf.c
+        lib/libft/src/numbers/abs/absi.c
         lib/libft/src/numbers/max/maxf.c
         lib/libft/src/numbers/min/minf.c
         lib/libft/src/numbers/swap/swap_float.c
@@ -160,7 +164,6 @@ add_executable(42_miniRT
         lib/libft/src/numbers/swap/swap_size_t.c
         lib/libft/src/numbers/swap/swap_ssize_t.c
         lib/libft/src/numbers/swap/swap_uint.c
-        lib/libft/src/numbers/abs.c
         lib/libft/src/numbers/atof.c
         lib/libft/src/numbers/atoi.c
         lib/libft/src/numbers/atoll.c
@@ -199,6 +202,14 @@ add_executable(42_miniRT
         lib/libft/src/string/t_string_free.c
         lib/libft/src/time/get_current_time.c
         lib/libft/src/time/get_number_of_fps_in_string.c
+        lib/libft/src/vector/vector_add_elem.c
+        lib/libft/src/vector/vector_append.c
+        lib/libft/src/vector/vector_change_size.c
+        lib/libft/src/vector/vector_convert_to_array.c
+        lib/libft/src/vector/vector_create.c
+        lib/libft/src/vector/vector_delete_elem.c
+        lib/libft/src/vector/vector_destroy.c
+        lib/libft/src/vector/vector_minimize_size.c
         lib/minilibx_opengl_20191021/font.c
         lib/minilibx_opengl_20191021/mlx.h
         lib/minilibx_opengl_20191021/mlx_init_loop.m
@@ -256,18 +267,25 @@ add_executable(42_miniRT
         src/hooks/update_object_attributes_modification_box/init_sphere_attributes_modification_box.c
         src/hooks/update_object_attributes_modification_box/update_object_attributes_modification_box.c
         src/hooks/button_press.c
+        src/hooks/button_release.c
         src/hooks/key_press.c
         src/image/destroy_t_image.c
         src/image/draw.c
         src/image/image.c
         src/image/put_image_to_image.c
         src/image/round_image_corners.c
+        src/light/lights.c
         src/math/matrix/matrix3.c
         src/math/matrix/matrix3_math.c
         src/math/matrix/matrix3_rotation.c
         src/math/matrix/matrix4.c
         src/math/matrix/matrix4_inverse.c
         src/math/matrix/matrix4_math.c
+        src/math/matrix/matrix4_round.c
+        src/math/quaternion/quaternion.c
+        src/math/quaternion/quaternion_math.c
+        src/math/quaternion/quaternion_operations.c
+        src/math/quaternion/quaternion_rotation.c
         src/math/vector/vector2.c
         src/math/vector/vector2_math.c
         src/math/vector/vector2_operations.c
@@ -317,7 +335,9 @@ add_executable(42_miniRT
         src/ray_tracer/rays/intersections/sphere.c
         src/ray_tracer/rays/collision.c
         src/ray_tracer/rays/rays.c
-        src/ray_tracer/lights.c
+        src/ray_tracer/shade/light.c
+        src/ray_tracer/shade/shade.c
+        src/ray_tracer/shade/shadow.c
         src/ray_tracer/mapping.c
         src/ray_tracer/render.c
         src/ray_tracer_gui_api/get_clicked_object.c
@@ -325,20 +345,29 @@ add_executable(42_miniRT
         src/render_frame/render_frame.c
         src/render_frame/render_user_interface.c
         src/scene/create.c
-        src/ttf_parser/get_glyph_offset.c
-        src/ttf_parser/get_glyph_outlines.c
-        src/ttf_parser/read_cmap.c
-        src/ttf_parser/read_file.c
-        src/ttf_parser/read_font_directory.c
-        src/ttf_parser/read_format4.c
-        src/ttf_parser/read_glyph_outline.c
-        src/ttf_parser/read_glyph_outline_coordinates.c
-        src/ttf_parser/read_head.c
-        src/ttf_parser/read_loca.c
-        src/ttf_parser/read_maxp.c
-        src/ttf_parser/ttf_get_table_offset.c
-        src/ttf_parser/ttf_parser.c
+        src/ttf_parser/parsing/get_glyph_offset.c
+        src/ttf_parser/parsing/get_glyph_outlines.c
+        src/ttf_parser/parsing/get_long_hor_metric.c
+        src/ttf_parser/parsing/read_cmap.c
+        src/ttf_parser/parsing/read_file.c
+        src/ttf_parser/parsing/read_font_directory.c
+        src/ttf_parser/parsing/read_format4.c
+        src/ttf_parser/parsing/read_glyph_outline.c
+        src/ttf_parser/parsing/read_glyph_outline_coordinates.c
+        src/ttf_parser/parsing/read_head.c
+        src/ttf_parser/parsing/read_hhea.c
+        src/ttf_parser/parsing/read_hmtx.c
+        src/ttf_parser/parsing/read_loca.c
+        src/ttf_parser/parsing/read_maxp.c
+        src/ttf_parser/parsing/ttf_get_table_offset.c
+        src/ttf_parser/parsing/ttf_parser.c
+        src/ttf_parser/rendering/do_segments_intersect.c
+        src/ttf_parser/rendering/draw_glyph.c
+        src/ttf_parser/rendering/get_glyph_points.c
+        src/ttf_parser/rendering/get_quadratic_bezier_points.c
+        src/ttf_parser/rendering/write_centered_string_to_image.c
+        src/ttf_parser/get_font.c
         src/close_miniRT.c
         src/color.c
         src/init_minirt.c
-        src/main.c include/math/quaternion.h src/math/quaternion/quaternion.c src/math/quaternion/quaternion_operations.c src/math/quaternion/quaternion_math.c src/math/quaternion/quaternion_rotation.c src/hooks/button_release.c src/math/matrix/matrix4_round.c src/light/lights.c src/ray_tracer/shade/shade.c src/ray_tracer/shade/light.c src/ray_tracer/shade/shadow.c)
+        src/main.c)

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <stdio.h>
+#include <stdbool.h>
 
 #include "math/vector.h"
 
@@ -39,4 +40,9 @@ t_vector2f	vector2f_clamp(t_vector2f vector, float min, float max)
 	if (vector.y > max)
 		vector.y = max;
 	return (vector);
+}
+
+bool	vector2f_are_equal(const t_vector2f v1, const t_vector2f v2)
+{
+	return (v1.x == v2.x && v1.y == v2.y);
 }

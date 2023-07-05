@@ -15,6 +15,7 @@
 #include "gui/box.h"
 #include "gui/UI.h"
 #include "gui/utils.h"
+#include "font/render.h"
 
 static int	init_radius_box_children(t_engine *engine, t_gui_box *gui_box);
 static void	radius_input_box_on_click_plus(struct s_gui_box *self,
@@ -63,8 +64,8 @@ static int	init_radius_box_children(t_engine *engine, t_gui_box *gui_box)
 		return (-1);
 	}
 	change_image_color(&gui_box->children.data[0].image, COLOR_TRANSPARENT);
-	//	write_centered_string_to_image(engine, &gui_box->children.data[0].image,
-//		"Radius");
+	write_centered_string_to_image(&engine->gui.font, &gui_box->children.data[0].image,
+		"Radius");
 	return (0);
 }
 

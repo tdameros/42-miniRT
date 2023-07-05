@@ -33,6 +33,7 @@ void		ft_dlstadd_back(t_dlist **lst, t_dlist *new);
 void		ft_dlstadd_front(t_dlist **lst, t_dlist *new);
 void		ft_dlstclear(t_dlist **lst, void (*del)(void *));
 void		ft_dlstdelone(t_dlist *lst, void (*del)(void *));
+t_dlist		*ft_dlstfirst(const t_dlist *list);
 void		ft_dlstiter(t_dlist *lst, void (*f)(void *));
 t_dlist		*ft_dlstlast(t_dlist *lst);
 t_dlist		*ft_dlstmap(t_dlist *lst, void *(*f)(void *), void (*del)(void *));

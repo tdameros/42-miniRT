@@ -14,7 +14,7 @@
 #include "libft.h"
 
 #include "engine.h"
-#include "ttf.h"
+#include "font/ttf_parser.h"
 
 #define EXPECTED_EXECUTION_COMMAND "./miniRT *.rt"
 

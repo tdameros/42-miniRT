@@ -16,7 +16,8 @@
 # include <stddef.h>
 # include <sys/types.h>
 
-int			ft_abs(int i);
+float		ft_absf(float i);
+int			ft_absi(int i);
 
 float		ft_atof(const char *string);
 int			ft_atoi(const char *str);

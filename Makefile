@@ -164,19 +164,30 @@ SRC				=\
 	scene/create.c	\
 	\
 	\
-	ttf_parser/get_glyph_offset.c				\
-	ttf_parser/get_glyph_outlines.c				\
-	ttf_parser/read_cmap.c						\
-	ttf_parser/read_file.c						\
-	ttf_parser/read_font_directory.c			\
-	ttf_parser/read_format4.c					\
-	ttf_parser/read_glyph_outline.c				\
-	ttf_parser/read_glyph_outline_coordinates.c	\
-	ttf_parser/read_head.c						\
-	ttf_parser/read_loca.c						\
-	ttf_parser/read_maxp.c						\
-	ttf_parser/ttf_get_table_offset.c			\
-	ttf_parser/ttf_parser.c						\
+	ttf_parser/parsing/get_glyph_offset.c				\
+	ttf_parser/parsing/get_glyph_outlines.c				\
+	ttf_parser/parsing/get_long_hor_metric.c			\
+	ttf_parser/parsing/read_cmap.c						\
+	ttf_parser/parsing/read_file.c						\
+	ttf_parser/parsing/read_font_directory.c			\
+	ttf_parser/parsing/read_format4.c					\
+	ttf_parser/parsing/read_glyph_outline.c				\
+	ttf_parser/parsing/read_glyph_outline_coordinates.c	\
+	ttf_parser/parsing/read_head.c						\
+	ttf_parser/parsing/read_hhea.c						\
+	ttf_parser/parsing/read_hmtx.c						\
+	ttf_parser/parsing/read_loca.c						\
+	ttf_parser/parsing/read_maxp.c						\
+	ttf_parser/parsing/ttf_get_table_offset.c			\
+	ttf_parser/parsing/ttf_parser.c						\
+	\
+	ttf_parser/rendering/do_segments_intersect.c			\
+	ttf_parser/rendering/draw_glyph.c						\
+	ttf_parser/rendering/get_glyph_points.c					\
+	ttf_parser/rendering/get_quadratic_bezier_points.c		\
+	ttf_parser/rendering/write_centered_string_to_image.c	\
+	\
+	ttf_parser/get_font.c	\
 	\
 	\
 	close_miniRT.c	\

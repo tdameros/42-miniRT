@@ -13,6 +13,8 @@
 #ifndef VECTOR_H
 # define VECTOR_H
 
+#include <stdbool.h>
+
 typedef struct s_vector2i
 {
 	int	x;
@@ -24,6 +26,12 @@ typedef struct s_vector2f
 	float	x;
 	float	y;
 }	t_vector2f;
+
+typedef struct s_vector2d
+{
+	double	x;
+	double	y;
+}	t_vector2d;
 
 typedef struct s_vector3f
 {
@@ -46,6 +54,7 @@ t_vector3f	vector3f_random(float min, float max);
 t_vector2f	vector2f_create(float x, float y);
 void		vector2f_print(t_vector2f vector);
 t_vector2f	vector2f_clamp(t_vector2f vector, float min, float max);
+bool		vector2f_are_equal(const t_vector2f v1, const t_vector2f v2);
 
 //	vector2_math.c
 t_vector2f	vector2f_add(t_vector2f v1, t_vector2f v2);

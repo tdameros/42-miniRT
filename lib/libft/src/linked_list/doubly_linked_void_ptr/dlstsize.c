@@ -15,12 +15,22 @@
 size_t	ft_dlstsize(t_dlist *lst)
 {
 	size_t	size;
+	t_dlist	*cursor;
 
-	size = 0;
-	while (lst)
+	if (lst == NULL)
+		return (0);
+	size = 1;
+	cursor = lst->next;
+	while (cursor != NULL)
 	{
 		size++;
-		lst = lst->next;
+		cursor = cursor->next;
+	}
+	cursor = lst->previous;
+	while (cursor != NULL)
+	{
+		size++;
+		cursor = cursor->previous;
 	}
 	return (size);
 }

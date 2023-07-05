@@ -16,6 +16,7 @@
 #include "gui/utils.h"
 #include "hooks.h"
 #include "gui/UI.h"
+#include "font/render.h"
 
 static int	init_x_y_z_box_children(t_engine *engine, t_gui_box *gui_box);
 static int	add_x_y_z_buttons(t_engine *engine, t_gui_box *gui_box);
@@ -100,7 +101,7 @@ static int	create_x_y_z_input_box(t_engine *engine, t_gui_box *gui_box,
 	change_image_color(&gui_box->children.data[0].image, COLOR_SAND);
 	change_image_color(&gui_box->children.data[2].image, COLOR_TRANSPARENT);
 	(void)type;
-//	write_centered_string_to_image(engine, &gui_box->children.data[0].image,
-//		type);
+	write_centered_string_to_image(&engine->gui.font, &gui_box->children.data[0].image,
+		type);
 	return (0);
 }

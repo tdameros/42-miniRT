@@ -25,5 +25,6 @@
 # include "ft_string.h"
 # include "ft_sort.h"
 # include "ft_time.h"
+# include "ft_vector.h"
 
 #endif

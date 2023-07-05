@@ -65,6 +65,7 @@ SRC =\
 	linked_list/doubly_linked_void_ptr/dlstadd_front.c				\
 	linked_list/doubly_linked_void_ptr/dlstclear.c					\
 	linked_list/doubly_linked_void_ptr/dlstdelone.c					\
+	linked_list/doubly_linked_void_ptr/dlstfirst.c					\
 	linked_list/doubly_linked_void_ptr/dlstiter.c					\
 	linked_list/doubly_linked_void_ptr/dlstlast.c					\
 	linked_list/doubly_linked_void_ptr/dlstmap.c					\
@@ -105,7 +106,10 @@ SRC =\
 	linked_list/void_ptr/lst_remove_if.c				\
 \
 \
-	math/angle_to_theta.c	\
+	math/sum/sum_int_arr.c		\
+	math/sum/sum_uint8_arr.c	\
+\
+	math/angle_to_theta.c		\
 \
 \
 	mem/bzero.c		\
@@ -116,6 +120,9 @@ SRC =\
 	mem/memmove.c	\
 	mem/memset.c	\
 \
+\
+	numbers/abs/absf.c			\
+	numbers/abs/absi.c			\
 \
 	numbers/max/maxf.c			\
 \
@@ -128,7 +135,6 @@ SRC =\
 	numbers/swap/swap_ssize_t.c	\
 	numbers/swap/swap_uint.c	\
 \
-	numbers/abs.c				\
 	numbers/atof.c				\
 	numbers/atoi.c				\
 	numbers/atoll.c				\
@@ -173,8 +179,18 @@ SRC =\
 	sort/msort_str_ignore_case.c	\
 \
 \
-	time/get_current_time.c	\
-	time/get_number_of_fps_in_string.c
+	time/get_current_time.c				\
+	time/get_number_of_fps_in_string.c	\
+\
+\
+	vector/vector_add_elem.c			\
+	vector/vector_append.c				\
+	vector/vector_change_size.c			\
+	vector/vector_convert_to_array.c	\
+	vector/vector_create.c				\
+	vector/vector_delete_elem.c			\
+	vector/vector_destroy.c				\
+	vector/vector_minimize_size.c
 
 
 TEST_DIR = test/
@@ -230,8 +246,8 @@ DEPS_TEST_DEBUG =	$(addprefix $(TEST_BUILD_DIR),$(SRCS_TEST:.c=.debug.d))
 DEPS_FLAGS =	-MMD -MP
 FLAGS_NO_O3 =	-Wall -Wextra -Werror $(DEPS_FLAGS)
 
-FLAGS =			$(FLAGS_NO_O3) -O3
-DEBUG_FLAGS	=	$(FLAGS_NO_O3) -g3 -fsanitize=address
+CFLAGS =		$(FLAGS_NO_O3) -O3
+DEBUG_CFLAGS	=	$(FLAGS_NO_O3) -g3 -fsanitize=address
 
 
 RM =	rm -f
@@ -250,7 +266,7 @@ $(NAME):	$(OBJS)
 -include $(DEPS)
 $(DIR_BUILD)%.o:	$(SRC_PATH)%.c
 			@$(MKDIR) $(shell dirname $@)
-			$(CC) $(FLAGS) $(INCLUDES) -c $< -o $@
+			$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 #---------------------------------- debug -------------------------------------#
 
@@ -263,7 +279,7 @@ $(NAME_DEBUG):	$(OBJS_DEBUG)
 -include $(DEPS_DEBUG)
 $(DIR_BUILD)%_debug.o:	$(SRC_PATH)%.c
 			@$(MKDIR) $(shell dirname $@)
-			$(CC) $(DEBUG_FLAGS) $(INCLUDES) -c $< -o $@
+			$(CC) $(DEBUG_CFLAGS) $(INCLUDES) -c $< -o $@
 
 #----------------------------------- test -------------------------------------#
 
@@ -275,23 +291,23 @@ test:		$(NAME_TEST) $(NAME_TEST_DEBUG)
 
 
 $(NAME_TEST):	$(OBJS_TEST) $(NAME)
-			$(CC) $(FLAGS) $(INCLUDES) $(OBJS_TEST) \
+			$(CC) $(CFLAGS) $(INCLUDES) $(OBJS_TEST) \
 				-L. -lft -o $(NAME_TEST)
 
 -include $(DEPS_TEST)
 $(TEST_BUILD_DIR)%.o:	$(TEST_DIR)%.c
 			@$(MKDIR) $(shell dirname $@)
-			$(CC) $(FLAGS) $(INCLUDES) -I test/header -c $< -o $@
+			$(CC) $(CFLAGS) $(INCLUDES) -I test/header -c $< -o $@
 
 
 $(NAME_TEST_DEBUG):	$(OBJS_TEST_DEBUG) $(NAME_DEBUG)
-			$(CC) $(DEBUG_FLAGS) $(INCLUDES) $(OBJS_TEST_DEBUG) \
+			$(CC) $(DEBUG_CFLAGS) $(INCLUDES) $(OBJS_TEST_DEBUG) \
 				-L. -lft -o $(NAME_TEST_DEBUG)
 
 -include $(DEPS_TEST_DEBUG)
 $(TEST_BUILD_DIR)%_debug.o:	$(TEST_DIR)%.c
 			@$(MKDIR) $(shell dirname $@)
-			$(CC) $(DEBUG_FLAGS) $(INCLUDES) -I test/header -c $< -o $@
+			$(CC) $(DEBUG_CFLAGS) $(INCLUDES) -I test/header -c $< -o $@
 
 #---------------------------------- other -------------------------------------#
 
