@@ -36,8 +36,6 @@ typedef struct s_window
 	t_vector2i	size;
 }	t_window;
 
-void		get_window_size(t_vector2i *window_size);
-
 # ifdef __APPLE__
 
 extern void	get_screen_size(int *x, int *y);
