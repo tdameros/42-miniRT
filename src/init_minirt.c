@@ -22,10 +22,10 @@ static void	print_scene_content(t_raytracing_data *raytracing_data);
 int	init_engine(t_engine *minirt, const char *start_up_scene)
 {
 	ft_bzero(minirt, sizeof(t_engine));
+	get_screen_size(&minirt->window.size.x, &minirt->window.size.y); // TODO check that screen size is not too small
 	minirt->window.mlx = mlx_init();
 	if (minirt->window.mlx == NULL)
 		return (-1);
-	get_screen_size(&minirt->window.size.x, &minirt->window.size.y);
 	minirt->window.window = mlx_new_window(minirt->window.mlx,
 										   minirt->window.size.x, minirt->window.size.y,
 										   "miniRT");
