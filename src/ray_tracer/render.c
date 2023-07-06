@@ -20,18 +20,6 @@
 static t_color		render_pixel(t_engine *engine, size_t ray_index);
 static t_vector3f	render_ray(t_ray ray, const t_scene *scene);
 
-#include <pthread.h>
-typedef struct s_tmp
-{
-	t_engine	*engine;
-	size_t		i;
-	size_t		limit;
-}	t_tmp;
-static void	*render_raytracing_part(void *tmp_void);
-
-#define NB_OF_THREADS 16
-
-
 float random_value(unsigned int index)
 {
 	index *= 9694;
@@ -45,43 +33,79 @@ float random_value(unsigned int index)
 //	return ((rand() % (int)(max - min + 1)) + min);
 //}
 
+#include <pthread.h>
 
+typedef struct s_screen_zone
+{
+	size_t	start;
+	size_t	end;
+}	t_screen_zone;
+
+typedef struct s_raytracing_routine_args
+{
+	t_engine		*engine;
+	t_screen_zone	*screen_zones;
+	int				*current_screen_zone;
+	pthread_mutex_t	*screen_zones_mutex;
+	int				thread_screen_zone;
+}	t_raytracing_routine_args;
+
+static void	*render_raytracing_routine(void *tmp_void);
+
+#define NB_OF_THREADS 16
+//#define SIZE_OF_SCREEN_ZONES 100
+#define NB_OF_SCREEN_ZONES 1000
 
 void	render_raytracing(t_engine *minirt)
 {
-	size_t	max = minirt->ray_traced_image.width * minirt->ray_traced_image.height;
-	size_t max_divided_by_thread_count = max / NB_OF_THREADS;
-	pthread_t	threads[NB_OF_THREADS];
-	t_tmp		tmps[NB_OF_THREADS];
+	const size_t				max = minirt->ray_traced_image.width * minirt->ray_traced_image.height;
+	const size_t				max_divided_by_nb_of_zones = max / NB_OF_SCREEN_ZONES;
+	pthread_t					threads[NB_OF_THREADS];
+	t_raytracing_routine_args	thread_args[NB_OF_THREADS];
+	t_screen_zone				screen_zones[NB_OF_SCREEN_ZONES];
+	pthread_mutex_t				mutex;
+	int							current_screen_zone;
 
+	pthread_mutex_init(&mutex, NULL);
+	for (size_t i = 0; i < NB_OF_SCREEN_ZONES - 1; i++)
+		screen_zones[i] = (t_screen_zone){i * max_divided_by_nb_of_zones, (i + 1) * max_divided_by_nb_of_zones};
+	screen_zones[NB_OF_SCREEN_ZONES - 1] = (t_screen_zone){screen_zones[NB_OF_SCREEN_ZONES - 2].end, max};
+
+	current_screen_zone = 0;
 	for (size_t i = 0; i < NB_OF_THREADS - 1; i++)
-	{
-		tmps[i].engine = minirt;
-		tmps[i].i = max_divided_by_thread_count * i;
-		tmps[i].limit = max_divided_by_thread_count * (i + 1);
-		pthread_create(threads + i, NULL, &render_raytracing_part, tmps + i);
-	}
-	tmps[NB_OF_THREADS - 1].engine = minirt;
-	tmps[NB_OF_THREADS - 1].i = tmps[NB_OF_THREADS - 2].limit;
-	tmps[NB_OF_THREADS - 1].limit = max;
-	pthread_create(threads + NB_OF_THREADS - 1, NULL, &render_raytracing_part, tmps + NB_OF_THREADS - 1);
+		thread_args[i] = (t_raytracing_routine_args){minirt, screen_zones, &current_screen_zone, &mutex, 0};
+	for (size_t i = 0; i < NB_OF_THREADS - 1; i++)
+		pthread_create(threads + i, NULL, &render_raytracing_routine, thread_args + i);
 	for (size_t i = 0; i < NB_OF_THREADS; i++)
-	{
 		pthread_join(threads[i], NULL);
-	}
+	pthread_mutex_destroy(&mutex);
 }
 
-static void	*render_raytracing_part(void *tmp_void)
+static void	*render_raytracing_routine(void *args_void)
 {
-	t_tmp		 	*tmp = tmp_void;
-	unsigned int	color;
+	t_raytracing_routine_args	*args;
+	unsigned int				color;
+	size_t						i;
 
-	while (tmp->i < tmp->limit)
+	args = args_void;
+	pthread_mutex_lock(args->screen_zones_mutex);
+	while (*args->current_screen_zone < NB_OF_SCREEN_ZONES)
 	{
-		color = vec_rgb_to_uint(render_pixel(tmp->engine, tmp->i));
-		tmp->engine->ray_traced_image.address[tmp->i] = color;
-		tmp->i++;
+		args->thread_screen_zone = *args->current_screen_zone;
+		(*args->current_screen_zone)++;
+		pthread_mutex_unlock(args->screen_zones_mutex);
+
+		i = args->screen_zones[args->thread_screen_zone].start;
+		while (i < args->screen_zones[args->thread_screen_zone].end)
+		{
+			color = vec_rgb_to_uint(render_pixel(args->engine, i));
+			args->engine->ray_traced_image.address[i] = color;
+			i++;
+		}
+
+		pthread_mutex_lock(args->screen_zones_mutex);
 	}
+	pthread_mutex_unlock(args->screen_zones_mutex);
 	return (NULL);
 }
 
