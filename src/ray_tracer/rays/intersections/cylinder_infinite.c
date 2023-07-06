@@ -39,34 +39,35 @@ t_vector3f	calculate_infinite_cylinder_normal(const t_ray *ray,
 	t_vector3f	ra;
 	t_vector3f	va;
 
-	ra = vector3f_cross(cylinder->normal, vector3f_subtract(ray->origin,
-				cylinder->position));
-	ra = vector3f_cross(ra, cylinder->normal);
-	va = vector3f_cross(cylinder->normal, vector3f_unit(ray->direction));
-	va = vector3f_multiply(vector3f_cross(va, cylinder->normal), distance);
+	ra = vector3f_cross(cylinder->axe, vector3f_subtract(ray->origin,
+														 cylinder->position));
+	ra = vector3f_cross(ra, cylinder->axe);
+	va = vector3f_cross(cylinder->axe, vector3f_unit(ray->direction));
+	va = vector3f_multiply(vector3f_cross(va, cylinder->axe), distance);
 	return (vector3f_unit(vector3f_add(ra, va)));
 }
 
 float	calculate_inf_cylinder_distance(const t_ray *ray,
 										const t_object *cylinder)
 {
-	float		equation[3];
-	float		result[2];
+
+//	float		equation[3];
+//	float		result[2];
 	t_vector3f	ra0;
 	t_vector3f	va;
+	t_quadf_equation equation;
 
-	ra0 = vector3f_cross(cylinder->normal, vector3f_subtract(ray->origin,
-				cylinder->position));
-	ra0 = vector3f_cross(ra0, cylinder->normal);
+	ra0 = vector3f_cross(cylinder->axe, vector3f_subtract(ray->origin,
+														  cylinder->position));
+	ra0 = vector3f_cross(ra0, cylinder->axe);
 
-	va = vector3f_cross(cylinder->normal, vector3f_unit(ray->direction));
-	va = vector3f_cross(va, cylinder->normal);
+	va = vector3f_cross(cylinder->axe, vector3f_unit(ray->direction));
+	va = vector3f_cross(va, cylinder->axe);
 
-	equation[0] = vector3f_dot(va, va);
-	equation[1] = 2 * vector3f_dot(ra0, va);
-	equation[2] = vector3f_dot(ra0, ra0) - cylinder->radius * cylinder->radius;
-	if (!solve_quadratic_equation(equation[0], equation[1], equation[2],
-			result))
+	equation.a = vector3f_dot(va, va);
+	equation.b = 2 * vector3f_dot(ra0, va);
+	equation.c = vector3f_dot(ra0, ra0) - cylinder->radius * cylinder->radius;
+	if (!solve_quadratic_equation(&equation))
 		return (-1);
-	return (ft_minf_positive(result[0], result[1]));
+	return (ft_minf_positive(equation.s1, equation.s2));
 }

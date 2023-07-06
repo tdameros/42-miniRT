@@ -27,9 +27,9 @@ t_hit	hit_plane(const t_ray *ray, const t_object *plane, const float distance)
 	}
 	hit.t = distance;
 	hit.position = ray_at(ray, hit.distance);
-	hit.normal = vector3f_unit(plane->normal);
-//	if (vector3f_dot(ray->direction, hit.normal) < 0)
-//		hit.normal = vector3f_multiply(hit.normal, -1);
+	hit.normal = vector3f_unit(plane->axe);
+//	if (vector3f_dot(ray->direction, hit.axe) < 0)
+//		hit.axe = vector3f_multiply(hit.axe, -1);
 	if (vector3f_dot(hit.normal, ray->direction) > 0)
 		hit.normal = vector3f_multiply(hit.normal, -1);
 	hit.object = plane;
@@ -44,13 +44,13 @@ t_hit	hit_plane(const t_ray *ray, const t_object *plane, const float distance)
 
 float	calculate_plane_distance(const t_ray *ray, const t_object *plane)
 {
-	const float	scalar_product = vector3f_dot(ray->direction, plane->normal);
-	const float	d = -vector3f_dot(plane->normal, plane->position);
+	const float	scalar_product = vector3f_dot(ray->direction, plane->axe);
+	const float	d = -vector3f_dot(plane->axe, plane->position);
 	float		t;
 
 	if (scalar_product == 0)
 		return (-1);
-	t = (-vector3f_dot(plane->normal, ray->origin) - d)
-		/ vector3f_dot(plane->normal, ray->direction);
+	t = (-vector3f_dot(plane->axe, ray->origin) - d)
+		/ vector3f_dot(plane->axe, ray->direction);
 	return (t);
 }

@@ -47,28 +47,28 @@ t_hit	hit_cylinder(const t_ray *ray, const t_object *cylinder, const float dista
 static t_vector3f	calculate_cylinder_normal(const t_ray *ray, const t_object *cylinder,
 											   float distance)
 {
-	const t_vector3f	endpoint_distance = vector3f_multiply(cylinder->normal,
+	const t_vector3f	endpoint_distance = vector3f_multiply(cylinder->axe,
 															  cylinder->height / 2);
 	const t_vector3f	endpoint1 = vector3f_add(cylinder->position,
 												 endpoint_distance);
 	const t_vector3f	endpoint2 = vector3f_subtract(cylinder->position,
 													  endpoint_distance);
 	const float			base_distance = ft_minf_positive(
-			calculate_cylinder_base_distance(ray, cylinder->normal,
+			calculate_cylinder_base_distance(ray, cylinder->axe,
 											 endpoint1, cylinder->radius),
 			calculate_cylinder_base_distance(ray,
-											 vector3f_multiply(cylinder->normal, -1),
+											 vector3f_multiply(cylinder->axe, -1),
 											 endpoint2, cylinder->radius));
 	float				top_base_distance;
 
 	if (base_distance != distance)
 		return (calculate_infinite_cylinder_normal(ray, cylinder, distance));
-	top_base_distance = calculate_cylinder_base_distance(ray, cylinder->normal,
+	top_base_distance = calculate_cylinder_base_distance(ray, cylinder->axe,
 														 endpoint1, cylinder->radius);
 	if (top_base_distance == distance)
-		return (cylinder->normal);
+		return (cylinder->axe);
 	else
-		return (vector3f_multiply(cylinder->normal, -1));
+		return (vector3f_multiply(cylinder->axe, -1));
 }
 
 float	calculate_cylinder_distance(const t_ray *ray, const t_object *cylinder)
@@ -76,7 +76,7 @@ float	calculate_cylinder_distance(const t_ray *ray, const t_object *cylinder)
 	const float			border_distance = calculate_inf_cylinder_distance(
 			ray, cylinder);
 	const t_vector3f	hit_position = ray_at(ray, border_distance);
-	const t_vector3f	endpoint_distance = vector3f_multiply(cylinder->normal,
+	const t_vector3f	endpoint_distance = vector3f_multiply(cylinder->axe,
 															  cylinder->height / 2);
 	const t_vector3f	endpoint1 = vector3f_add(cylinder->position,
 												 endpoint_distance);
@@ -86,18 +86,18 @@ float	calculate_cylinder_distance(const t_ray *ray, const t_object *cylinder)
 	if (border_distance < 0)
 		return (-1);
 	if (vector3f_dot(vector3f_subtract(hit_position, endpoint1),
-					 cylinder->normal) < 0
+					 cylinder->axe) < 0
 		&& vector3f_dot(vector3f_subtract(hit_position, endpoint2),
-						cylinder->normal) > 0)
+						cylinder->axe) > 0)
 	{
 		float near_base_d = ft_minf_positive(
-				calculate_cylinder_base_distance(ray, cylinder->normal, endpoint1, cylinder->radius),
-				calculate_cylinder_base_distance(ray, vector3f_multiply(cylinder->normal, -1), endpoint2, cylinder->radius));
+				calculate_cylinder_base_distance(ray, cylinder->axe, endpoint1, cylinder->radius),
+				calculate_cylinder_base_distance(ray, vector3f_multiply(cylinder->axe, -1), endpoint2, cylinder->radius));
 		return (ft_minf_positive(border_distance, near_base_d));
 	}
 	return (ft_minf_positive(
-			calculate_cylinder_base_distance(ray, cylinder->normal, endpoint1, cylinder->radius),
-			calculate_cylinder_base_distance(ray, vector3f_multiply(cylinder->normal, -1), endpoint2, cylinder->radius)));
+			calculate_cylinder_base_distance(ray, cylinder->axe, endpoint1, cylinder->radius),
+			calculate_cylinder_base_distance(ray, vector3f_multiply(cylinder->axe, -1), endpoint2, cylinder->radius)));
 }
 
 static float	calculate_cylinder_base_distance(const t_ray *ray, t_vector3f normal,

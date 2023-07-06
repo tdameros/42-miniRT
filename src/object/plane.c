@@ -21,7 +21,7 @@ t_object	plane_create(t_vector3f position, t_vector3f normal,
 
 	plane.type = PLANE;
 	plane.position = position;
-	plane.normal = normal;
+	plane.axe = normal;
 	plane.material = material;
 	return (plane);
 }

@@ -44,13 +44,13 @@ t_hit	hit_sphere(const t_ray *ray, const t_object *sphere,
 float	calculate_sphere_distance(const t_ray *ray, const t_object *sphere)
 {
 	const t_vector3f	origin = vector3f_subtract(ray->origin, sphere->position);
-	const float			a = vector3f_dot(ray->direction, ray->direction);
-	const float			b = 2 * vector3f_dot(origin, ray->direction);
-	const float			c = vector3f_dot(origin, origin)
-							   - sphere->radius * sphere->radius;
-	float				quadratic_result[3];
+	t_quadf_equation	equation;
 
-	if (!solve_quadratic_equation(a, b, c, quadratic_result))
+	equation.a = vector3f_dot(ray->direction, ray->direction);
+	equation.b = 2 * vector3f_dot(origin, ray->direction);
+	equation.c = vector3f_dot(origin, origin)
+		- sphere->radius * sphere->radius;
+	if (!solve_quadratic_equation(&equation))
 		return (-1);
-	return (ft_minf_positive(quadratic_result[0], quadratic_result[1]));
+	return (ft_minf_positive(equation.s1, equation.s2));
 }

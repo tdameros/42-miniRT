@@ -15,6 +15,17 @@
 
 # include <stdbool.h>
 
-bool	solve_quadratic_equation(float a, float b, float c, float result[2]);
+typedef struct s_quadf_equation
+{
+	float	a;
+	float	b;
+	float	c;
+	float	delta;
+	float	s1;
+	float	s2;
+}	t_quadf_equation;
+
+//bool	solve_quadratic_equation(float a, float b, float c, float result[2]);
+bool	solve_quadratic_equation(t_quadf_equation *equation);
 
 #endif

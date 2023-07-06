@@ -18,7 +18,7 @@ t_object	cylinder_create(t_vector3f origin, t_vector3f axe, float radius, float 
 
 	cylinder.type = CYLINDER;
 	cylinder.position = origin;
-	cylinder.normal = axe;
+	cylinder.axe = axe;
 	cylinder.radius = radius;
 	cylinder.height = height;
 	cylinder.material = material;

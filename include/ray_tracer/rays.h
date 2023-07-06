@@ -43,6 +43,16 @@ t_hit		hit_cone(const t_ray *ray, const t_object *cone,
 				const float distance);
 float		calculate_cone_distance(const t_ray *ray, const t_object *cone);
 
+//	intersections/cone_utils.c
+bool		is_in_outline_cone(const t_ray *ray, const t_object *cone,
+				const float distance);
+float		calculate_outline_cone_distance(const t_ray *ray,
+				const t_object *cone);
+t_vector3f	calculate_outline_cone_normal(const t_ray *ray,
+				const t_object *cone,
+				const float distance);
+float	calculate_cap_cone_distance(const t_ray *ray, const t_object *cone);
+
 //	intersections/cylinder.c
 t_hit		hit_cylinder(const t_ray *ray, const t_object *cylinder,
 				const float distance);

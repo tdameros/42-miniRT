@@ -340,4 +340,4 @@ add_executable(42_miniRT
         src/close_miniRT.c
         src/color.c
         src/init_minirt.c
-        src/main.c include/math/quaternion.h src/math/quaternion/quaternion.c src/math/quaternion/quaternion_operations.c src/math/quaternion/quaternion_math.c src/math/quaternion/quaternion_rotation.c src/hooks/button_release.c src/math/matrix/matrix4_round.c src/light/lights.c src/ray_tracer/shade/shade.c src/ray_tracer/shade/light.c src/ray_tracer/shade/shadow.c src/ray_tracer/rays/intersections/cone.c src/ray_tracer/rays/intersections/cone.c src/object/cone.c)
+        src/main.c include/math/quaternion.h src/math/quaternion/quaternion.c src/math/quaternion/quaternion_operations.c src/math/quaternion/quaternion_math.c src/math/quaternion/quaternion_rotation.c src/hooks/button_release.c src/math/matrix/matrix4_round.c src/light/lights.c src/ray_tracer/shade/shade.c src/ray_tracer/shade/light.c src/ray_tracer/shade/shadow.c src/ray_tracer/rays/intersections/cone.c src/ray_tracer/rays/intersections/cone.c src/object/cone.c src/ray_tracer/rays/intersections/cone_utils.c)

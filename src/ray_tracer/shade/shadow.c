@@ -13,8 +13,8 @@
 #include "scene.h"
 #include "ray_tracer/rays.h"
 
-static t_hit	calculate_shadow_ray_intersection(const t_scene *scene, \
-												const t_ray *ray);
+//static t_hit	calculate_shadow_ray_intersection(const t_scene *scene, \
+//												const t_ray *ray);
 
 bool	is_shadow_pixel(const t_scene *scene, const t_hit object_hit,
 						const t_vector3f reverse_light_direction)
@@ -23,8 +23,8 @@ bool	is_shadow_pixel(const t_scene *scene, const t_hit object_hit,
 								vector3f_multiply(object_hit.normal, 0.001f));
 	const t_ray			light_ray = ray_create(new_position, \
 								reverse_light_direction);
-	const t_hit			light_hit = calculate_shadow_ray_intersection(\
-								scene, &light_ray);
+	const t_hit			light_hit = calculate_ray_intersection(\
+								&light_ray, scene);
 	float				light_distance;
 	float				hit_distance;
 
@@ -37,21 +37,21 @@ bool	is_shadow_pixel(const t_scene *scene, const t_hit object_hit,
 	return (light_hit.hit && hit_distance < light_distance);
 }
 
-static t_hit	calculate_shadow_ray_intersection(const t_scene *scene, \
-												const t_ray *ray)
-
-{
-	size_t		index;
-	float		distance;
-
-	index = 0;
-	while (index < scene->objects.length)
-	{
-		distance = calculate_object_distance(ray, scene->objects.data + index);
-		if (distance > 0)
-			return (hit_object(ray, scene->objects.data + index, distance));
-		index++;
-	}
-	return (miss_hit());
-}
+//static t_hit	calculate_shadow_ray_intersection(const t_scene *scene, \
+//												const t_ray *ray)
+//
+//{
+//	size_t		index;
+//	float		distance;
+//
+//	index = 0;
+//	while (index < scene->objects.length)
+//	{
+//		distance = calculate_object_distance(ray, scene->objects.data + index);
+//		if (distance > 0)
+//			return (hit_object(ray, scene->objects.data + index, distance));
+//		index++;
+//	}
+//	return (miss_hit());
+//}
 

@@ -41,15 +41,28 @@ typedef struct s_material
 
 }	t_material;
 
+typedef struct s_cone_cache
+{
+	t_vector3f	endpoint1;
+	t_vector3f	endpoint2;
+	float		radius_divide_height;
+}	t_cone_cache;
+
+
+union u_object_cache
+{
+	t_cone_cache	cone;
+};
+
 typedef struct s_object
 {
-	enum e_object_type	type;
-	t_vector3f			position;
-	t_vector3f			position2;
-	float				radius;
-	float				height;
-	t_vector3f			normal;
-	t_material			material;
+	enum e_object_type		type;
+	t_vector3f				position;
+	float					radius;
+	float					height;
+	t_vector3f				axe;
+	t_material				material;
+	union u_object_cache	cache;
 }	t_object;
 
 typedef struct s_objects
@@ -58,6 +71,7 @@ typedef struct s_objects
 	size_t				length;
 	size_t				size;
 }	t_objects;
+
 
 
 int	initialize_objects_array(t_objects *objects, size_t size);
