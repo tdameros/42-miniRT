@@ -23,12 +23,11 @@ void	camera_recalculate_view(t_camera *camera)
 			camera->direction);
 
 	camera->view = camera_look_at(camera->position, center,
-			vector3f_create(0, 1, 0));
+			camera->up_vector);
 	camera->view = matrix4_round_diagonal(camera->view);
 	camera->inverse_view = matrix4_inverse(camera->view);
 }
 
-#include <math.h>
 static t_matrix4	camera_look_at(t_vector3f eye,
 								t_vector3f center,
 								t_vector3f up)

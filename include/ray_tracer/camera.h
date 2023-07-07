@@ -28,6 +28,8 @@ typedef struct s_camera {
 	t_vector3f	position;
 	t_vector3f	direction;
 
+	t_vector3f	up_vector;
+
 	t_matrix4	view;
 	t_matrix4	inverse_view;
 	t_matrix4	projection;
@@ -55,6 +57,7 @@ void		camera_move_left(t_camera *camera, float distance);
 void		camera_rotate_left(t_camera *camera, float degrees);
 void		camera_rotate_up(t_camera *camera, float degrees);
 void		camera_move_up(t_camera *camera, float distance);
+void		camera_peek(t_camera *camera, float degrees);
 
 //	projection.c
 void		camera_recalculate_projection(t_camera *camera);
