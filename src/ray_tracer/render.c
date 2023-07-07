@@ -37,6 +37,7 @@ float random_value(unsigned int index)
 
 typedef struct s_raytracing_routine_args
 {
+	// TODO move this in a header
 	t_engine		*engine;
 	int				*current_line;
 	pthread_mutex_t	*current_line_mutex;
@@ -44,8 +45,6 @@ typedef struct s_raytracing_routine_args
 }	t_raytracing_routine_args;
 
 static void	*render_raytracing_routine(void *args_void);
-
-#define NB_OF_THREADS 16
 
 ///
 /// \param minirt
@@ -57,6 +56,7 @@ void	render_raytracing(t_engine *minirt, const int incrementer)
 	pthread_mutex_t				mutex;
 	int							current_screen_zone;
 
+	// TODO secure thread functions
 	pthread_mutex_init(&mutex, NULL);
 	current_screen_zone = 0;
 	for (size_t i = 0; i < NB_OF_THREADS - 1; i++)

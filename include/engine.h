@@ -8,6 +8,8 @@
 # include "scene.h"
 # include "window.h"
 
+#define NB_OF_THREADS 16
+
 typedef struct s_raytraced_pixels
 {
 	t_vector3f	*data;
