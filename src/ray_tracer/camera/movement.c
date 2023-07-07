@@ -31,7 +31,7 @@ void	camera_move_left(t_camera *camera, float distance)
 
 void	camera_rotate_left(t_camera *camera, float degrees)
 {
-	const t_vector3f	rotate_axis = vector3f_create(0, 1, 0);
+	const t_vector3f	rotate_axis = camera->up_vector;
 
 	camera->direction = quaternionf_rotate_vector3f(degrees, rotate_axis,
 			camera->direction);
@@ -39,7 +39,7 @@ void	camera_rotate_left(t_camera *camera, float degrees)
 
 void	camera_rotate_up(t_camera *camera, float degrees)
 {
-	const t_vector3f	up_vector = vector3f_create(0, 1, 0);
+	const t_vector3f	up_vector = camera->up_vector;
 	const t_vector3f	right_vector = vector3f_multiply(\
 				vector3f_unit(vector3f_cross(up_vector, \
 				vector3f_unit(camera->direction))), -1);
