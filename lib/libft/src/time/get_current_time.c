@@ -1,6 +1,6 @@
 #include <sys/time.h>
 
-struct timeval	get_current_time(void)
+struct timeval	ft_get_current_time(void)
 {
 	struct timeval	start_time;
 

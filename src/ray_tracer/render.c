@@ -20,18 +20,6 @@
 static t_color		render_pixel(t_engine *engine, size_t ray_index);
 static t_vector3f	render_ray(t_ray ray, const t_scene *scene);
 
-#include <pthread.h>
-typedef struct s_tmp
-{
-	t_engine	*engine;
-	size_t		i;
-	size_t		limit;
-}	t_tmp;
-static void	*render_raytracing_part(void *tmp_void);
-
-#define NB_OF_THREADS 16
-
-
 float random_value(unsigned int index)
 {
 	index *= 9694;
@@ -45,43 +33,65 @@ float random_value(unsigned int index)
 //	return ((rand() % (int)(max - min + 1)) + min);
 //}
 
+#include <pthread.h>
 
-
-void	render_raytracing(t_engine *minirt)
+typedef struct s_raytracing_routine_args
 {
-	size_t	max = minirt->ray_traced_image.width * minirt->ray_traced_image.height;
-	size_t max_divided_by_thread_count = max / NB_OF_THREADS;
-	pthread_t	threads[NB_OF_THREADS];
-	t_tmp		tmps[NB_OF_THREADS];
+	// TODO move this in a header
+	t_engine		*engine;
+	int				*current_line;
+	pthread_mutex_t	*current_line_mutex;
+	int				incrementer;
+}	t_raytracing_routine_args;
 
+static void	*render_raytracing_routine(void *args_void);
+
+///
+/// \param minirt
+/// \param incrementer > 0
+void	render_raytracing(t_engine *minirt, const int incrementer)
+{
+	pthread_t					threads[NB_OF_THREADS];
+	t_raytracing_routine_args	thread_args[NB_OF_THREADS];
+	pthread_mutex_t				mutex;
+	int							current_screen_zone;
+
+	// TODO secure thread functions
+	pthread_mutex_init(&mutex, NULL);
+	current_screen_zone = 0;
 	for (size_t i = 0; i < NB_OF_THREADS - 1; i++)
-	{
-		tmps[i].engine = minirt;
-		tmps[i].i = max_divided_by_thread_count * i;
-		tmps[i].limit = max_divided_by_thread_count * (i + 1);
-		pthread_create(threads + i, NULL, &render_raytracing_part, tmps + i);
-	}
-	tmps[NB_OF_THREADS - 1].engine = minirt;
-	tmps[NB_OF_THREADS - 1].i = tmps[NB_OF_THREADS - 2].limit;
-	tmps[NB_OF_THREADS - 1].limit = max;
-	pthread_create(threads + NB_OF_THREADS - 1, NULL, &render_raytracing_part, tmps + NB_OF_THREADS - 1);
+		thread_args[i] = (t_raytracing_routine_args){minirt, &current_screen_zone, &mutex, incrementer};
+	for (size_t i = 0; i < NB_OF_THREADS - 1; i++)
+		pthread_create(threads + i, NULL, &render_raytracing_routine, thread_args + i);
 	for (size_t i = 0; i < NB_OF_THREADS; i++)
-	{
 		pthread_join(threads[i], NULL);
-	}
+	pthread_mutex_destroy(&mutex);
 }
 
-static void	*render_raytracing_part(void *tmp_void)
+static void	*render_raytracing_routine(void *args_void)
 {
-	t_tmp		 	*tmp = tmp_void;
-	unsigned int	color;
+	t_raytracing_routine_args	*args;
+	size_t						i;
+	size_t						limit;
 
-	while (tmp->i < tmp->limit)
+	args = args_void;
+	pthread_mutex_lock(args->current_line_mutex);
+	while (*args->current_line < args->engine->ray_traced_image.height)
 	{
-		color = vec_rgb_to_uint(render_pixel(tmp->engine, tmp->i));
-		tmp->engine->ray_traced_image.address[tmp->i] = color;
-		tmp->i++;
+		i = *args->current_line * args->engine->ray_traced_image.width;
+		*args->current_line += args->incrementer;
+		pthread_mutex_unlock(args->current_line_mutex);
+
+		limit = i + args->engine->ray_traced_image.width;
+		while (i < limit)
+		{
+			args->engine->raytraced_pixels.data[i] = render_pixel(args->engine, i);
+			i += args->incrementer;
+		}
+
+		pthread_mutex_lock(args->current_line_mutex);
 	}
+	pthread_mutex_unlock(args->current_line_mutex);
 	return (NULL);
 }
 

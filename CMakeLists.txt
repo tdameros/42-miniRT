@@ -201,7 +201,7 @@ add_executable(minirt
         lib/libft/src/string/substr.c
         lib/libft/src/string/t_string_free.c
         lib/libft/src/time/get_current_time.c
-        lib/libft/src/time/get_number_of_fps_in_string.c
+        lib/libft/src/time/get_number_of_fps.c
         lib/libft/src/vector/vector_add_elem.c
         lib/libft/src/vector/vector_append.c
         lib/libft/src/vector/vector_change_size.c
@@ -370,4 +370,4 @@ add_executable(minirt
         src/close_miniRT.c
         src/color.c
         src/init_minirt.c
-        src/main.c)
+        src/main.c src/ray_tracer/interpolate_ray_tracing.c)

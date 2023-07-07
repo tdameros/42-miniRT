@@ -25,6 +25,7 @@ typedef struct s_fps
 {
 	struct timeval	last_update;
 	char			*fps_count;
+	int				fps_nb;
 }	t_fps;
 
 typedef struct s_gui
