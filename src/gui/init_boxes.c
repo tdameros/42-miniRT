@@ -17,7 +17,7 @@ int init_gui_boxes(t_engine *minirt)
 	minirt->gui.object_modification_amount = 0.1f;
 	minirt->gui.object_rotation_degrees = 10.0f;
 	minirt->gui.fps.fps_count = ft_itoa(0); // TODO secure me
-	minirt->gui.fps.last_update = get_current_time();
+	minirt->gui.fps.last_update = ft_get_current_time();
 	if (minirt->gui.gui_boxes.data == NULL)
 		return (-1);
 	if (init_main_gui_box(minirt,

@@ -24,19 +24,23 @@
 #include "gui/utils.h"
 #include "font/render.h"
 
-static void			render_minirt(t_engine *minirt);
+#define FPS_GOAL 45
+#define FRAME_BEFORE_ADAPTION 20
+
+static void			render_minirt(t_engine *engine);
+static int			get_incrementer(t_engine *engine);
 static void			update_camera(t_engine *engine);
 static t_vector2i	clamp_mouse(t_engine *engine, t_vector2i mouse_position);
 static void			update_placed_object_position(t_engine *engine);
 static void			update_mouse_position(t_engine *engine,
 						t_vector2i *mouse_position);
 
-int	render_frame(t_engine *minirt)
+int	render_frame(t_engine *engine)
 {
-	const struct timeval	start_time = get_current_time();
+	const struct timeval	start_time = ft_get_current_time();
 
-	render_minirt(minirt);
-	print_fps_counter(minirt, start_time);
+	render_minirt(engine);
+	print_fps_counter(engine, start_time);
 	return (0);
 }
 
@@ -58,15 +62,12 @@ static void	render_minirt(t_engine *minirt)
 }
 #elif defined __APPLE__
 
-#include <stdio.h>
-#define SCALE_FACTOR 0.25f
 static void	render_minirt(t_engine *engine)
 {
-	int	incrementer;
+	const int	incrementer = get_incrementer(engine);
 
 	update_camera(engine);
 	update_placed_object_position(engine);
-	incrementer = 2;
 	render_raytracing(engine, incrementer);
 	if (incrementer > 1)
 		interpolate_ray_tracing(&engine->raytraced_pixels, incrementer);
@@ -79,6 +80,33 @@ static void	render_minirt(t_engine *engine)
 #else
 # error "Unsuported OS"
 #endif
+
+static int	get_incrementer(t_engine *engine)
+{
+	static int	incrementer = 2;
+	static int	fps_count = 0;
+	static int	frame_count = 0;
+
+	fps_count += engine->gui.fps.fps_nb;
+	if (frame_count >= FRAME_BEFORE_ADAPTION
+		&& fps_count / frame_count < FPS_GOAL * 0.66f)
+	{
+		incrementer++;
+		frame_count = 0;
+		fps_count = 0;
+		return (incrementer);
+	}
+	if (frame_count >= FRAME_BEFORE_ADAPTION && incrementer > 1
+		&& fps_count / frame_count > FPS_GOAL * 1.33f)
+	{
+		incrementer--;
+		frame_count = 0;
+		fps_count = 0;
+		return (incrementer);
+	}
+	frame_count++;
+	return (incrementer);
+}
 
 static void	update_camera(t_engine *engine)
 {

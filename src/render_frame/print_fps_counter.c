@@ -7,27 +7,28 @@
 
 static bool	should_update_fps(struct timeval last_update);
 
-void	print_fps_counter(t_engine *minirt, const struct timeval start_time)
+void	print_fps_counter(t_engine *engine, const struct timeval start_time)
 {
-	if (should_update_fps(minirt->gui.fps.last_update))
+	if (should_update_fps(engine->gui.fps.last_update))
 	{
-		free(minirt->gui.fps.fps_count);
-		minirt->gui.fps.fps_count = get_number_of_fps_in_string(start_time);
-		if (minirt->gui.fps.fps_count == NULL)
+		free(engine->gui.fps.fps_count);
+		engine->gui.fps.fps_nb = ft_get_number_of_fps(start_time);
+		engine->gui.fps.fps_count = ft_itoa(engine->gui.fps.fps_nb);
+		if (engine->gui.fps.fps_count == NULL)
 		{
 			ft_putstr_fd("Error: Failed to malloc minirt->gui.fps.fps_count\n",
 				STDERR_FILENO);
-			close_engine(minirt);
+			close_engine(engine);
 		}
-		minirt->gui.fps.last_update = get_current_time();
+		engine->gui.fps.last_update = ft_get_current_time();
 	}
-	mlx_string_put(minirt->window.mlx, minirt->window.window, 40, 40, 0xFF0000,
-		minirt->gui.fps.fps_count);
+	mlx_string_put(engine->window.mlx, engine->window.window, 40, 40, 0xFF0000,
+		engine->gui.fps.fps_count);
 }
 
 inline static bool	should_update_fps(const struct timeval last_update)
 {
-	const struct timeval	current_time = get_current_time();
+	const struct timeval	current_time = ft_get_current_time();
 
 	return (current_time.tv_sec * NB_OF_USECONDS_IN_A_SECOND
 		+ current_time.tv_usec
