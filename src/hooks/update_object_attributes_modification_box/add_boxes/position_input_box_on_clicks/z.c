@@ -25,6 +25,7 @@ void	position_input_box_z_on_click_plus(struct s_gui_box *self,
 		return ;
 	object->position.z
 		+= engine->gui.object_modification_amount;
+	engine->scene_changed = true;
 }
 
 void	position_input_box_z_on_click_minus(struct s_gui_box *self,
@@ -40,4 +41,5 @@ void	position_input_box_z_on_click_minus(struct s_gui_box *self,
 		return ;
 	object->position.z
 		-= engine->gui.object_modification_amount;
+	engine->scene_changed = true;
 }

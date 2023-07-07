@@ -103,4 +103,5 @@ static void	delete_box_on_click(t_gui_box *self, t_engine *engine, int y,
 	}
 	engine->gui.selected_object = NULL;
 	update_object_attributes_modification_box(engine);
+	engine->scene_changed = true;
 }

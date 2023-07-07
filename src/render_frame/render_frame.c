@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include <sys/time.h>
 #include <math.h>
+#include <limits.h>
 
 #include "mlx.h"
 #include "libft.h"
@@ -31,7 +32,7 @@
 static void			render_minirt(t_engine *engine);
 static int			get_incrementer(t_engine *engine);
 static void			update_camera(t_engine *engine);
-static void			deal_mouse(t_engine *engine);
+static int			deal_mouse(t_engine *engine);
 static void			deal_keys(t_engine *engine);
 static void			update_placed_object_position(t_engine *engine);
 static void			update_mouse_position(t_engine *engine,
@@ -66,15 +67,20 @@ static void	render_minirt(t_engine *minirt)
 
 static void	render_minirt(t_engine *engine)
 {
-	const int	incrementer = get_incrementer(engine);
+	int	incrementer;
 
 	update_camera(engine);
 	update_placed_object_position(engine);
-	render_raytracing(engine, incrementer);
-	if (incrementer > 1)
-		interpolate_ray_tracing(&engine->raytraced_pixels, incrementer);
-	for (size_t i = 0; i < engine->ray_traced_image.size; i++)
-		engine->ray_traced_image.address[i] = vec_rgb_to_uint(engine->raytraced_pixels.data[i]);
+	if (engine->should_render_ray_tracing)
+	{
+		incrementer = get_incrementer(engine);
+		render_raytracing(engine, incrementer);
+		if (incrementer > 1)
+			interpolate_ray_tracing(&engine->raytraced_pixels, incrementer);
+		for (size_t i = 0; i < engine->ray_traced_image.size; i++)
+			engine->ray_traced_image.address[i] = vec_rgb_to_uint(engine->raytraced_pixels.data[i]);
+		engine->scene_changed = false;
+	}
 	mlx_put_image_to_window(engine->window.mlx, engine->window.window,
 		engine->ray_traced_image.data, 0, 0);
 	render_user_interface(engine);
@@ -89,9 +95,11 @@ static int	get_incrementer(t_engine *engine)
 	static int	fps_count = 0;
 	static int	frame_count = 0;
 
+	if (engine->should_render_at_full_resolution)
+		return (1);
 	fps_count += engine->gui.fps.fps_nb;
 	if (frame_count >= FRAME_BEFORE_ADAPTION
-		&& fps_count / frame_count < FPS_GOAL * 0.66f)
+		&& fps_count / frame_count < FPS_GOAL)// * 0.66f)
 	{
 		incrementer++;
 		frame_count = 0;
@@ -110,16 +118,47 @@ static int	get_incrementer(t_engine *engine)
 	return (incrementer);
 }
 
+#define NB_OF_MS_BEFORE_FULL_RESOLUTION 10
+
 static void	update_camera(t_engine *engine)
 {
-	deal_mouse(engine);
-	deal_keys(engine);
+	static long long		next_update_time = LLONG_MIN;
+	static bool				was_rendered_at_full_resolution = false;
+	const struct timeval	current_time = ft_get_current_time();
+	const long long			current_time_in_ms
+		= ft_convert_timeval_to_ms(current_time);
 
-	camera_recalculate_view(&engine->camera);
-	camera_recalculate_rays(&engine->camera);
+	deal_keys(engine);
+	if (deal_mouse(engine) || engine->pressed_keys_index > 0)
+	{
+		camera_recalculate_view(&engine->camera);
+		camera_recalculate_rays(&engine->camera);
+		engine->should_render_at_full_resolution = false;
+		engine->should_render_ray_tracing = true;
+		was_rendered_at_full_resolution = false;
+		next_update_time = current_time_in_ms + NB_OF_MS_BEFORE_FULL_RESOLUTION;
+		engine->scene_changed = true;
+	}
+	else if (engine->scene_changed)
+	{
+		engine->should_render_at_full_resolution = true;
+		engine->should_render_ray_tracing = true;
+		was_rendered_at_full_resolution = false;
+		next_update_time = current_time_in_ms + NB_OF_MS_BEFORE_FULL_RESOLUTION;
+	}
+	else if (current_time_in_ms >= next_update_time)
+	{
+		if (was_rendered_at_full_resolution)
+			engine->should_render_ray_tracing = false;
+		else
+		{
+			engine->should_render_at_full_resolution = true;
+			was_rendered_at_full_resolution = true;
+		}
+	}
 }
 
-static void	deal_mouse(t_engine *engine)
+static int	deal_mouse(t_engine *engine)
 {
 	t_vector2i	mouse_position;
 	float		yaw_delta;
@@ -138,12 +177,16 @@ static void	deal_mouse(t_engine *engine)
 			camera_rotate_up(&engine->camera, pitch_delta);
 			camera_rotate_left(&engine->camera, yaw_delta);
 		}
+		else
+			return (0);
 		mlx_mouse_move(engine->window.window,
 			engine->ray_traced_image.width / 2,
 			engine->ray_traced_image.height / 2);
 		engine->previous_mouse_position = (t_vector2i){
 			engine->window.size.x / 2, engine->window.size.y / 2};
+		return (1);
 	}
+	return (0);
 }
 
 static void	deal_keys(t_engine *engine)
@@ -193,10 +236,20 @@ static void	update_placed_object_position(t_engine *engine)
 	t_vector2i	mouse_position;
 	size_t		ray_index;
 	t_vector3f	direction;
+	float		yaw_delta;
+	float		pitch_delta;
 
 	if (engine->object_being_placed == NULL)
 		return ;
 	mouse_position = get_mouse_position(engine);
+	yaw_delta = (engine->previous_mouse_position.x - mouse_position.x)
+		* engine->camera.rotation_speed;
+	pitch_delta = (engine->previous_mouse_position.y - mouse_position.y)
+		* engine->camera.rotation_speed;
+	if (yaw_delta == 0 && pitch_delta == 0 && engine->scene_changed == false)
+		return ;
+	engine->scene_changed = true;
+	engine->previous_mouse_position = mouse_position;
 	update_mouse_position(engine, &mouse_position);
 	ray_index = mouse_position.x + mouse_position.y \
 			* (int)engine->camera.viewport.size.x;

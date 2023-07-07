@@ -35,6 +35,9 @@ typedef struct s_engine
 	t_vector2i			previous_mouse_position;
 	int					pressed_keys[NB_OF_MOVEMENT_KEYS];
 	int					pressed_keys_index;
+	bool				should_render_ray_tracing;
+	bool				should_render_at_full_resolution;
+	bool				scene_changed;
 }	t_engine;
 
 int		init_engine(t_engine *engine, const char *start_up_scene);

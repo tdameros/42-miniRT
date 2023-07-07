@@ -16,74 +16,77 @@
 #include "colors.h"
 #include "font/render.h"
 
-static void	init_hooks(t_engine *minirt);
+static void	init_hooks(t_engine *engine);
 
 static void	print_scene_content(t_raytracing_data *raytracing_data);
-int	init_engine(t_engine *minirt, const char *start_up_scene)
+int	init_engine(t_engine *engine, const char *start_up_scene)
 {
-	ft_bzero(minirt, sizeof(t_engine));
-	get_screen_size(&minirt->window.size.x, &minirt->window.size.y); // TODO check that screen size is not too small
-//	printf("%i, %i\n", minirt->window.size.x, minirt->window.size.y);
+	ft_bzero(engine, sizeof(t_engine));
+	get_screen_size(&engine->window.size.x, &engine->window.size.y); // TODO check that screen size is not too small
+//	printf("%i, %i\n", engine->window.size.x, engine->window.size.y);
 //	exit(0);
-	minirt->window.mlx = mlx_init();
-	if (minirt->window.mlx == NULL)
+	engine->window.mlx = mlx_init();
+	if (engine->window.mlx == NULL)
 		return (-1);
-	minirt->window.window = mlx_new_window(minirt->window.mlx,
-										   minirt->window.size.x, minirt->window.size.y,
+	engine->window.window = mlx_new_window(engine->window.mlx,
+										   engine->window.size.x, engine->window.size.y,
 										   "miniRT");
-	if (minirt->window.window == NULL)
+	if (engine->window.window == NULL)
 		return (-1); // TODO: free mlx
-	if (parse_scene(minirt, start_up_scene) < 0)
+	if (parse_scene(engine, start_up_scene) < 0)
 		return (-1); // TODO free stuff
-	print_scene_content(&minirt->raytracing_data);
+	print_scene_content(&engine->raytracing_data);
 
-	init_image(&minirt->ray_traced_image, &minirt->window,
-			   minirt->window.size.x, minirt->window.size.y); // TODO secure me
-	minirt->raytraced_pixels.data = malloc(sizeof(*minirt->raytraced_pixels.data) * minirt->ray_traced_image.size); // TODO secure
-	ft_bzero(minirt->raytraced_pixels.data, sizeof(*minirt->raytraced_pixels.data) * minirt->ray_traced_image.size); // TODO remove me
-	minirt->raytraced_pixels.size = minirt->ray_traced_image.size;
-	minirt->raytraced_pixels.width = minirt->ray_traced_image.width;
-	minirt->raytraced_pixels.height = minirt->ray_traced_image.height;
+	init_image(&engine->ray_traced_image, &engine->window,
+			   engine->window.size.x, engine->window.size.y); // TODO secure me
+	engine->raytraced_pixels.data = malloc(sizeof(*engine->raytraced_pixels.data) * engine->ray_traced_image.size); // TODO secure
+	ft_bzero(engine->raytraced_pixels.data, sizeof(*engine->raytraced_pixels.data) * engine->ray_traced_image.size); // TODO remove me
+	engine->raytraced_pixels.size = engine->ray_traced_image.size;
+	engine->raytraced_pixels.width = engine->ray_traced_image.width;
+	engine->raytraced_pixels.height = engine->ray_traced_image.height;
 
-	init_image(&minirt->main_image, &minirt->window,
-			   minirt->window.size.x, minirt->window.size.y); // TODO secure me
-	change_image_color(&minirt->main_image, COLOR_BLACK);
+	engine->should_render_ray_tracing = true;
+	engine->should_render_at_full_resolution = true;
 
-	init_hooks(minirt);
+	init_image(&engine->main_image, &engine->window,
+			   engine->window.size.x, engine->window.size.y); // TODO secure me
+	change_image_color(&engine->main_image, COLOR_BLACK);
 
-	if (init_gui_boxes(minirt))
+	init_hooks(engine);
+
+	if (init_gui_boxes(engine))
 	{
 		// TODO: free everything
 		return (-1);
 	}
 	// TODO: secure me
-	camera_create(&minirt->camera, vector2f_create(minirt->window.size.x,
-		minirt->window.size.y));
-	init_scene(&minirt->scene);
-//	if (get_font(&minirt->gui.font, "data/fonts/inconsolata/Inconsolata-VariableFont_wdth,wght.ttf") < 0)
-//	if (get_font(&minirt->gui.font,
+	camera_create(&engine->camera, vector2f_create(engine->window.size.x,
+		engine->window.size.y));
+	init_scene(&engine->scene);
+//	if (get_font(&engine->gui.font, "data/fonts/inconsolata/Inconsolata-VariableFont_wdth,wght.ttf") < 0)
+//	if (get_font(&engine->gui.font,
 //			"data/fonts/Envy Code R PR7/Envy Code R.ttf") < 0)
-//	if (get_font(&minirt->gui.font, "data/fonts/Roboto_Mono/RobotoMono-VariableFont_wght.ttf") < 0)
-//	if (get_font(&minirt->gui.font, "data/fonts/JetBrains_Mono/JetBrainsMono-VariableFont_wght.ttf") < 0)
-//	if (get_font(&minirt->gui.font, "data/fonts/Noto_Sans_Mono/NotoSansMono-VariableFont_wdth,wght.ttf") < 0)
-	if (get_font(&minirt->gui.font, "data/fonts/Fira_Code/FiraCode-VariableFont_wght.ttf") < 0)
+//	if (get_font(&engine->gui.font, "data/fonts/Roboto_Mono/RobotoMono-VariableFont_wght.ttf") < 0)
+//	if (get_font(&engine->gui.font, "data/fonts/JetBrains_Mono/JetBrainsMono-VariableFont_wght.ttf") < 0)
+//	if (get_font(&engine->gui.font, "data/fonts/Noto_Sans_Mono/NotoSansMono-VariableFont_wdth,wght.ttf") < 0)
+	if (get_font(&engine->gui.font, "data/fonts/Fira_Code/FiraCode-VariableFont_wght.ttf") < 0)
 		return (-1); // TODO free everything
 	return (0);
 }
 
-static void	init_hooks(t_engine *minirt)
+static void	init_hooks(t_engine *engine)
 {
-	mlx_hook(minirt->window.window, KEY_PRESS, KEY_PRESS_MASK,
-		&key_press_handler, minirt);
-	mlx_hook(minirt->window.window, KEY_RELEASE, KEY_RELEASE_MASK,
-		&key_release_handler, minirt);
-	mlx_hook(minirt->window.window, BUTTON_PRESS, BUTTON_PRESS_MASK,
-		&button_press_handler, minirt);
-	mlx_hook(minirt->window.window, BUTTON_RELEASE, BUTTON_RELEASE_MASK,
-		&button_release_handler, minirt);
-	mlx_hook(minirt->window.window, DESTROY_NOTIFY, STRUCTURE_NOTIFY_MASK,
-		&close_engine, minirt);
-	mlx_loop_hook(minirt->window.mlx, &render_frame, minirt);
+	mlx_hook(engine->window.window, KEY_PRESS, KEY_PRESS_MASK,
+		&key_press_handler, engine);
+	mlx_hook(engine->window.window, KEY_RELEASE, KEY_RELEASE_MASK,
+		&key_release_handler, engine);
+	mlx_hook(engine->window.window, BUTTON_PRESS, BUTTON_PRESS_MASK,
+		&button_press_handler, engine);
+	mlx_hook(engine->window.window, BUTTON_RELEASE, BUTTON_RELEASE_MASK,
+		&button_release_handler, engine);
+	mlx_hook(engine->window.window, DESTROY_NOTIFY, STRUCTURE_NOTIFY_MASK,
+		&close_engine, engine);
+	mlx_loop_hook(engine->window.mlx, &render_frame, engine);
 }
 
 static void print_color(t_color *color);

@@ -86,11 +86,13 @@ static int	placing_object(int button, t_engine *engine)
 	if (button == SCROLL_DOWN)
 	{
 		engine->object_being_placed_distance -= 0.5f;
+		engine->scene_changed = true;
 		return (0);
 	}
 	else if (button == SCROLL_UP)
 	{
 		engine->object_being_placed_distance += 0.5f;
+		engine->scene_changed = true;
 		return (0);
 	}
 	else if (button != BUTTON_LEFT)

@@ -179,8 +179,9 @@ SRC =\
 	sort/msort_str_ignore_case.c	\
 \
 \
-	time/get_current_time.c		\
-	time/get_number_of_fps.c	\
+	time/convert_timeval_to_ms.c	\
+	time/get_current_time.c			\
+	time/get_number_of_fps.c		\
 \
 \
 	vector/vector_add_elem.c			\

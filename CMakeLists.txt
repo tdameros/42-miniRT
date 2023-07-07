@@ -370,4 +370,4 @@ add_executable(minirt
         src/close_miniRT.c
         src/color.c
         src/init_minirt.c
-        src/main.c src/ray_tracer/interpolate_ray_tracing.c src/hooks/key_release.c)
+        src/main.c src/ray_tracer/interpolate_ray_tracing.c src/hooks/key_release.c lib/libft/src/time/convert_timeval_to_ms.c)

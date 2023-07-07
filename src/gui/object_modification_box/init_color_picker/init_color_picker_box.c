@@ -147,4 +147,5 @@ static void	color_picker_on_click(t_gui_box *self, t_engine *engine, int y,
 	engine->gui.selected_object->material.albedo.x /= 255.f;
 	engine->gui.selected_object->material.albedo.y /= 255.f;
 	engine->gui.selected_object->material.albedo.z /= 255.f;
+	engine->scene_changed = true;
 }

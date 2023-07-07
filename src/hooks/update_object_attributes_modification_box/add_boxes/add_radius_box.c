@@ -79,6 +79,7 @@ static void	radius_input_box_on_click_plus(struct s_gui_box *self,
 		return ;
 	engine->gui.selected_object->radius
 		+= engine->gui.object_modification_amount;
+	engine->scene_changed = true;
 }
 
 static void	radius_input_box_on_click_minus(struct s_gui_box *self,
@@ -93,4 +94,5 @@ static void	radius_input_box_on_click_minus(struct s_gui_box *self,
 		return ;
 	engine->gui.selected_object->radius
 		-= engine->gui.object_modification_amount;
+	engine->scene_changed = true;
 }
