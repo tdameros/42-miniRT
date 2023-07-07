@@ -23,6 +23,7 @@
 #include "ray_tracer/render.h"
 #include "gui/utils.h"
 #include "font/render.h"
+#include "events.h"
 
 #define FPS_GOAL 45
 #define FRAME_BEFORE_ADAPTION 20
@@ -30,7 +31,8 @@
 static void			render_minirt(t_engine *engine);
 static int			get_incrementer(t_engine *engine);
 static void			update_camera(t_engine *engine);
-static t_vector2i	clamp_mouse(t_engine *engine, t_vector2i mouse_position);
+static void			deal_mouse(t_engine *engine);
+static void			deal_keys(t_engine *engine);
 static void			update_placed_object_position(t_engine *engine);
 static void			update_mouse_position(t_engine *engine,
 						t_vector2i *mouse_position);
@@ -110,11 +112,20 @@ static int	get_incrementer(t_engine *engine)
 
 static void	update_camera(t_engine *engine)
 {
+	deal_mouse(engine);
+	deal_keys(engine);
+
+	camera_recalculate_view(&engine->camera);
+	camera_recalculate_rays(&engine->camera);
+}
+
+static void	deal_mouse(t_engine *engine)
+{
 	t_vector2i	mouse_position;
 	float		yaw_delta;
 	float		pitch_delta;
 
-	if (!engine->camera.lock)
+	if (engine->camera.lock == false)
 	{
 		mouse_position = get_mouse_position(engine);
 
@@ -126,29 +137,56 @@ static void	update_camera(t_engine *engine)
 		{
 			camera_rotate_up(&engine->camera, pitch_delta);
 			camera_rotate_left(&engine->camera, yaw_delta);
-			camera_recalculate_view(&engine->camera);
-			camera_recalculate_rays(&engine->camera);
 		}
-		mouse_position = clamp_mouse(engine, mouse_position);
-		engine->previous_mouse_position = mouse_position;
+		mlx_mouse_move(engine->window.window,
+			engine->ray_traced_image.width / 2,
+			engine->ray_traced_image.height / 2);
+		engine->previous_mouse_position = (t_vector2i){
+			engine->window.size.x / 2, engine->window.size.y / 2};
 	}
 }
 
-static t_vector2i	clamp_mouse(t_engine *engine, t_vector2i mouse_position)
+static void	deal_keys(t_engine *engine)
 {
-	if (mouse_position.x < 0)
-		mouse_position.x = engine->camera.viewport.size.x - 1;
-	else if (mouse_position.x >= engine->camera.viewport.size.x - 1)
-		mouse_position.x = 0;
-	if (mouse_position.y < 0)
-		mouse_position.y = engine->camera.viewport.size.y - 1;
-	else if (mouse_position.y >= engine->camera.viewport.size.y - 1)
-		mouse_position.y = 0;
-	mlx_mouse_move(engine->window.window,
-		mouse_position.x,
-		mouse_position.y);
-	return (mouse_position);
+	int	i;
+
+	i = -1;
+	while (++i < engine->pressed_keys_index)
+	{
+		if (engine->pressed_keys[i] == KEY_W)
+			camera_move_forward(&engine->camera, 0.4f);
+		else if (engine->pressed_keys[i] == KEY_S)
+			camera_move_forward(&engine->camera, -0.4f);
+		else if (engine->pressed_keys[i] == KEY_A)
+			camera_move_left(&engine->camera, 0.4f);
+		else if (engine->pressed_keys[i] == KEY_D)
+			camera_move_left(&engine->camera, -0.4f);
+		else if (engine->pressed_keys[i] == KEY_SPACE)
+			camera_move_up(&engine->camera, 0.4f);
+		else if (engine->pressed_keys[i] == KEY_L_SHIFT)
+			camera_move_up(&engine->camera, -0.4f);
+//		else if (engine->pressed_keys[i] == KEY_Q)
+//			camera_peek(&engine->camera, -0.4f);
+//		else if (engine->pressed_keys[i] == KEY_E)
+//			camera_peek(&engine->camera, -0.4f);
+	}
 }
+
+//static t_vector2i	clamp_mouse(t_engine *engine, t_vector2i mouse_position)
+//{
+//	if (mouse_position.x < 0)
+//		mouse_position.x = engine->camera.viewport.size.x - 1;
+//	else if (mouse_position.x >= engine->camera.viewport.size.x - 1)
+//		mouse_position.x = 0;
+//	if (mouse_position.y < 0)
+//		mouse_position.y = engine->camera.viewport.size.y - 1;
+//	else if (mouse_position.y >= engine->camera.viewport.size.y - 1)
+//		mouse_position.y = 0;
+//	mlx_mouse_move(engine->window.window,
+//		mouse_position.x,
+//		mouse_position.y);
+//	return (mouse_position);
+//}
 
 static void	update_placed_object_position(t_engine *engine)
 {

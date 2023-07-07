@@ -3,42 +3,37 @@
 #include "events.h"
 #include "engine.h"
 #include <printf.h>
-int	key_press_handler(int key_code, t_engine *minirt)
+int	key_press_handler(int key_code, t_engine *engine)
 {
+	int	i;
+
 //	ft_printf("key_code == %d\n\n", key_code);
 	if (key_code == KEY_ESC)
-		close_engine(minirt);
-	if (key_code == KEY_H)
-		minirt->gui.is_hidden = !minirt->gui.is_hidden;
-	if (key_code == KEY_W)
-		camera_move_forward(&minirt->camera, 0.4f);
-	else if (key_code == KEY_S)
-		camera_move_forward(&minirt->camera, -0.4f);
-	else if (key_code == KEY_A)
-		camera_move_left(&minirt->camera, 0.4f);
-	else if (key_code == KEY_D)
-		camera_move_left(&minirt->camera, -0.4f);
-	else if (key_code == KEY_LEFT)
-		camera_rotate_left(&minirt->camera, 4);
-	else if (key_code == KEY_RIGHT)
-		camera_rotate_left(&minirt->camera, -4);
-	else if (key_code == KEY_UP)
-		camera_rotate_up(&minirt->camera, 4);
-	else if (key_code == KEY_DOWN)
-		camera_rotate_up(&minirt->camera, -4);
+		close_engine(engine);
+	else if (key_code == KEY_H)
+		engine->gui.is_hidden = !engine->gui.is_hidden;
 	else if (key_code == KEY_P)
 	{
-		printf("Camera:\n\tPostion:\n\t\tx: %f\n\t\ty: %f\n\t\tz: %f\n\tDirection:\n\t\tx: %f\n\t\ty: %f\n\t\tz: %f\n", minirt->camera.position.x, minirt->camera.position.y, minirt->camera.position.z, minirt->camera.direction.x, minirt->camera.direction.y, minirt->camera.direction.z);
-		for (size_t i = 0; i < minirt->scene.objects.length; i++) {
-			print_object2(minirt->scene.objects.data[i]);
+		// TODO remove this
+		printf("Camera:\n\tPostion:\n\t\tx: %f\n\t\ty: %f\n\t\tz: %f\n\tDirection:\n\t\tx: %f\n\t\ty: %f\n\t\tz: %f\n", engine->camera.position.x, engine->camera.position.y, engine->camera.position.z, engine->camera.direction.x, engine->camera.direction.y, engine->camera.direction.z);
+		for (size_t i = 0; i < engine->scene.objects.length; i++) {
+			print_object2(engine->scene.objects.data[i]);
 			ft_putstr_fd("\n\n", STDERR_FILENO);
 		}
-		return (0);
 	}
-	else
+	if (key_code == KEY_ESC || key_code == KEY_H || key_code == KEY_P // TODO remove key_code == KEY_P
+		|| (key_code != KEY_W && key_code != KEY_S && key_code != KEY_A
+			&& key_code != KEY_D && key_code != KEY_SPACE
+			&& key_code != KEY_L_SHIFT && key_code != KEY_Q
+			&& key_code != KEY_E))
 		return (0);
-	camera_recalculate_view(&minirt->camera);
-	camera_recalculate_rays(&minirt->camera);
+	i = -1;
+	while (++i < engine->pressed_keys_index)
+		if (key_code == engine->pressed_keys[i])
+			return (0);
+	engine->pressed_keys[engine->pressed_keys_index++] = key_code;
+//	camera_recalculate_view(&engine->camera);
+//	camera_recalculate_rays(&engine->camera);
 	return (0);
 }
 

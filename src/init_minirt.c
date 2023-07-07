@@ -75,14 +75,14 @@ static void	init_hooks(t_engine *minirt)
 {
 	mlx_hook(minirt->window.window, KEY_PRESS, KEY_PRESS_MASK,
 		&key_press_handler, minirt);
-//	mlx_hook(minirt->window.window, KEY_RELEASE, KEY_RELEASE_MASK,
-//		&key_release_handler, minirt);
+	mlx_hook(minirt->window.window, KEY_RELEASE, KEY_RELEASE_MASK,
+		&key_release_handler, minirt);
 	mlx_hook(minirt->window.window, BUTTON_PRESS, BUTTON_PRESS_MASK,
 		&button_press_handler, minirt);
 	mlx_hook(minirt->window.window, BUTTON_RELEASE, BUTTON_RELEASE_MASK,
 		&button_release_handler, minirt);
 	mlx_hook(minirt->window.window, DESTROY_NOTIFY, STRUCTURE_NOTIFY_MASK,
-			 &close_engine, minirt);
+		&close_engine, minirt);
 	mlx_loop_hook(minirt->window.mlx, &render_frame, minirt);
 }
 

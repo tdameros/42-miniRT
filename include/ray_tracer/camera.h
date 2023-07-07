@@ -54,6 +54,7 @@ void		camera_move_forward(t_camera *camera, float distance);
 void		camera_move_left(t_camera *camera, float distance);
 void		camera_rotate_left(t_camera *camera, float degrees);
 void		camera_rotate_up(t_camera *camera, float degrees);
+void		camera_move_up(t_camera *camera, float distance);
 
 //	projection.c
 void		camera_recalculate_projection(t_camera *camera);

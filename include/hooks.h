@@ -18,7 +18,8 @@
 
 int			button_release_handler(int button, int x, int y, t_engine *engine);
 int			button_press_handler(int button, int x, int y, t_engine *engine);
-int			key_press_handler(int key_code, t_engine *minirt);
+int			key_press_handler(int key_code, t_engine *engine);
+int			key_release_handler(int key_code, t_engine *engine);
 
 int			update_object_attributes_modification_box(t_engine *engine);
 int			init_cylinder_attributes_modification_box(t_engine *engine,

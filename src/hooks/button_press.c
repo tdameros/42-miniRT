@@ -31,9 +31,18 @@ int	button_press_handler(int button, int x, int y, t_engine *engine)
 //	ft_printf("button_code == %d\n\n", button);
 	if (button == BUTTON_RIGHT)
 	{
-		engine->previous_mouse_position = get_mouse_position(engine);
-		engine->camera.lock = false;
-		mlx_mouse_hide();
+		if (engine->camera.lock == true)
+		{
+			engine->previous_mouse_position = get_mouse_position(engine);
+			engine->camera.lock = false;
+			mlx_mouse_hide();
+			return (0);
+		}
+		engine->camera.lock = true;
+		mlx_mouse_move(engine->window.window,
+			engine->ray_traced_image.width / 2,
+			engine->ray_traced_image.height / 2);
+		mlx_mouse_show();
 	}
 	if (button != BUTTON_LEFT && button != SCROLL_DOWN &&  button != SCROLL_UP)
 		return (0);

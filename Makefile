@@ -59,6 +59,7 @@ SRC				=\
 	hooks/button_press.c	\
 	hooks/button_release.c	\
 	hooks/key_press.c		\
+	hooks/key_release.c		\
 	\
 	\
 	image/destroy_t_image.c		\
