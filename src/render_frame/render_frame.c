@@ -62,9 +62,16 @@ static void	render_minirt(t_engine *minirt)
 #define SCALE_FACTOR 0.25f
 static void	render_minirt(t_engine *engine)
 {
+	int	incrementer;
+
 	update_camera(engine);
 	update_placed_object_position(engine);
-	render_raytracing(engine);
+	incrementer = 2;
+	render_raytracing(engine, incrementer);
+	if (incrementer > 1)
+		interpolate_ray_tracing(&engine->raytraced_pixels, incrementer);
+	for (size_t i = 0; i < engine->ray_traced_image.size; i++)
+		engine->ray_traced_image.address[i] = vec_rgb_to_uint(engine->raytraced_pixels.data[i]);
 	mlx_put_image_to_window(engine->window.mlx, engine->window.window,
 		engine->ray_traced_image.data, 0, 0);
 	render_user_interface(engine);

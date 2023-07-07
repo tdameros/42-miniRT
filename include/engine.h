@@ -8,12 +8,21 @@
 # include "scene.h"
 # include "window.h"
 
+typedef struct s_raytraced_pixels
+{
+	t_vector3f	*data;
+	int			height;
+	int			width;
+	size_t		size;
+}	t_raytraced_pixels;
+
 typedef struct s_engine
 {
 	t_window			window;
 	t_gui				gui;
 	t_image				main_image;
 	t_image				ray_traced_image;
+	t_raytraced_pixels	raytraced_pixels;
 	t_raytracing_data	raytracing_data;
 	t_camera			camera;
 	t_scene				scene;

@@ -23,6 +23,8 @@ int	init_engine(t_engine *minirt, const char *start_up_scene)
 {
 	ft_bzero(minirt, sizeof(t_engine));
 	get_screen_size(&minirt->window.size.x, &minirt->window.size.y); // TODO check that screen size is not too small
+//	printf("%i, %i\n", minirt->window.size.x, minirt->window.size.y);
+//	exit(0);
 	minirt->window.mlx = mlx_init();
 	if (minirt->window.mlx == NULL)
 		return (-1);
@@ -37,6 +39,11 @@ int	init_engine(t_engine *minirt, const char *start_up_scene)
 
 	init_image(&minirt->ray_traced_image, &minirt->window,
 			   minirt->window.size.x, minirt->window.size.y); // TODO secure me
+	minirt->raytraced_pixels.data = malloc(sizeof(*minirt->raytraced_pixels.data) * minirt->ray_traced_image.size); // TODO secure
+	ft_bzero(minirt->raytraced_pixels.data, sizeof(*minirt->raytraced_pixels.data) * minirt->ray_traced_image.size); // TODO remove me
+	minirt->raytraced_pixels.size = minirt->ray_traced_image.size;
+	minirt->raytraced_pixels.width = minirt->ray_traced_image.width;
+	minirt->raytraced_pixels.height = minirt->ray_traced_image.height;
 
 	init_image(&minirt->main_image, &minirt->window,
 			   minirt->window.size.x, minirt->window.size.y); // TODO secure me

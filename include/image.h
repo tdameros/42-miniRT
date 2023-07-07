@@ -13,6 +13,8 @@
 #ifndef IMAGE_H
 # define IMAGE_H
 
+# include <stddef.h>
+
 # include "window.h"
 # include "math/vector.h"
 
@@ -26,6 +28,7 @@ typedef struct s_image
 	int				endian;
 	int				height;
 	int				width;
+	size_t			size;
 }	t_image;
 
 int				init_image(t_image *image, t_window *window, int width,
