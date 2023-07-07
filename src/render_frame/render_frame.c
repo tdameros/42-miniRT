@@ -43,7 +43,8 @@ int	render_frame(t_engine *engine)
 	const struct timeval	start_time = ft_get_current_time();
 
 	render_minirt(engine);
-	print_fps_counter(engine, start_time);
+	if (engine->should_render_ray_tracing)
+		print_fps_counter(engine, start_time);
 	return (0);
 }
 
