@@ -12,7 +12,7 @@
 
 #include "ft_time.h"
 
-long long	ft_convert_timeval_to_ms(struct timeval time)
+uint64_t	ft_timeval_to_ms(struct timeval time)
 {
 	return (time.tv_usec / 1000 + time.tv_sec * 1000);
 }

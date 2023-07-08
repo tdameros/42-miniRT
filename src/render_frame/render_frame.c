@@ -29,7 +29,7 @@
 #define FPS_GOAL 45
 #define FRAME_BEFORE_ADAPTION 20
 
-static void			render_minirt(t_engine *engine);
+static void			render_minirt(t_engine *engine, uint64_t start_time);
 static int			get_incrementer(t_engine *engine);
 static void			update_camera(t_engine *engine);
 static int			deal_mouse(t_engine *engine);
@@ -42,7 +42,7 @@ int	render_frame(t_engine *engine)
 {
 	const struct timeval	start_time = ft_get_current_time();
 
-	render_minirt(engine);
+	render_minirt(engine, ft_timeval_to_ms(start_time));
 	if (engine->should_render_ray_tracing)
 		print_fps_counter(engine, start_time);
 	return (0);
@@ -66,7 +66,7 @@ static void	render_minirt(t_engine *minirt)
 }
 #elif defined __APPLE__
 
-static void	render_minirt(t_engine *engine)
+static void	render_minirt(t_engine *engine, const uint64_t start_time)
 {
 	int	incrementer;
 
@@ -91,7 +91,7 @@ static void	render_minirt(t_engine *engine)
 	}
 	mlx_put_image_to_window(engine->window.mlx, engine->window.window,
 		engine->ray_traced_image.data, 0, 0);
-	render_user_interface(engine);
+	render_user_interface(engine, start_time);
 }
 #else
 # error "Unsuported OS"
@@ -130,11 +130,11 @@ static int	get_incrementer(t_engine *engine)
 
 static void	update_camera(t_engine *engine)
 {
-	static long long		next_update_time = LLONG_MIN;
+	static uint64_t			next_update_time = 0;
 	static bool				was_rendered_at_full_resolution = false;
 	const struct timeval	current_time = ft_get_current_time();
-	const long long			current_time_in_ms
-		= ft_convert_timeval_to_ms(current_time);
+	const uint64_t			current_time_in_ms
+		= ft_timeval_to_ms(current_time);
 
 	deal_keys(engine);
 	if (deal_mouse(engine) || engine->pressed_keys_index > 0)
@@ -149,7 +149,7 @@ static void	update_camera(t_engine *engine)
 	}
 	else if (engine->scene_changed)
 	{
-		engine->should_render_at_full_resolution = true;
+		engine->should_render_at_full_resolution = false;
 		engine->should_render_ray_tracing = true;
 		was_rendered_at_full_resolution = false;
 		next_update_time = current_time_in_ms + NB_OF_MS_BEFORE_FULL_RESOLUTION;

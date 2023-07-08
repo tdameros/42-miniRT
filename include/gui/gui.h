@@ -32,7 +32,7 @@ typedef struct s_gui
 {
 	t_font				font;
 	bool				is_hidden;
-	float				hidden_ratio;
+	uint64_t			start_animation_time;
 	t_gui_boxes			gui_boxes;
 	bool				color_picker_base_color_was_changed;
 	t_color				color_picker_base_color;
