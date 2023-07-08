@@ -23,6 +23,8 @@ t_object	plane_create(t_vector3f position, t_vector3f normal,
 	plane.position = position;
 	plane.axe = normal;
 	plane.material = material;
+
+	plane.cache.plane.d = -vector3f_dot(plane.axe, plane.position);
 	return (plane);
 }
 

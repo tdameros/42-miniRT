@@ -141,6 +141,7 @@ SRC				=\
 	ray_tracer/rays/intersections/cone.c				\
 	ray_tracer/rays/intersections/cone_utils.c			\
 	ray_tracer/rays/intersections/cylinder.c			\
+	ray_tracer/rays/intersections/cylinder_caps.c		\
 	ray_tracer/rays/intersections/cylinder_infinite.c	\
 	ray_tracer/rays/intersections/intersection.c		\
 	ray_tracer/rays/intersections/plane.c				\

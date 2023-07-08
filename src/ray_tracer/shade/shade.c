@@ -30,8 +30,6 @@ t_vector3f	calculate_shade(const t_scene *scene, const t_hit object_hit,
 		light_contribution = calculate_light_contribution(scene, \
 														scene->lights.data[i], \
 														object_hit);
-//		if (light_contribution.x == 0 && light_contribution.y == 0 && light_contribution.z == 0)
-//			return (vector3f_create(0, 0, 0));
 		shade_albedo = vector3f_add(shade_albedo, light_contribution);
 		i++;
 	}

@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <pthread.h>
+
 #include "math/vector.h"
 #include "ray_tracer/rays.h"
 #include "scene.h"
@@ -21,32 +23,16 @@
 static t_color		render_pixel(t_engine *engine, size_t ray_index);
 static t_vector3f	render_ray(t_ray ray, const t_scene *scene);
 
-#include <pthread.h>
 typedef struct s_tmp
 {
 	t_engine	*engine;
 	size_t		i;
 	size_t		limit;
 }	t_tmp;
+
 static void	*render_raytracing_part(void *tmp_void);
 
 #define NB_OF_THREADS 16
-
-
-float random_value(unsigned int index)
-{
-	index *= 9694;
-	index *= index;
-	return ((float)index / 4294967295.0f);
-}
-#include <stdlib.h>
-#include <stdio.h>
-//static float	generate_randomf(float min, float max)
-//{
-//	return ((rand() % (int)(max - min + 1)) + min);
-//}
-
-
 
 void	render_raytracing(t_engine *minirt)
 {
@@ -85,6 +71,9 @@ static void	*render_raytracing_part(void *tmp_void)
 	}
 	return (NULL);
 }
+
+#include <stdio.h>
+#include "ray_tracer/rays.h"
 
 static t_color	render_pixel(t_engine *engine, size_t ray_index)
 {

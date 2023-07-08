@@ -17,7 +17,7 @@ t_object	cone_create(t_vector3f origin, t_vector3f axe, float radius, float heig
 {
 	t_object	cone;
 
-	axe = quaternionf_rotate_vector3f(90, vector3f_create(0,0, 1), axe);
+	axe = quaternionf_rotate_vector3f(90, vector3f_create(0, 0, 1), axe);
 	axe = vector3f_unit(axe);
 	cone.type = CONE;
 	cone.position = origin;
@@ -32,6 +32,9 @@ t_object	cone_create(t_vector3f origin, t_vector3f axe, float radius, float heig
 			vector3f_multiply(cone.axe, cone.height / 2));
 	cone.cache.cone.radius_divide_height = (cone.radius * cone.radius)
 		/ (cone.height * cone.height);
+	cone.cache.cone.cap_normal = vector3f_multiply(cone.axe, -1);
+	cone.cache.cone.cap_d = -vector3f_dot(cone.cache.cone.cap_normal,
+			cone.cache.cone.endpoint1);
 	return (cone);
 }
 

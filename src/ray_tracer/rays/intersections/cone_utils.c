@@ -17,9 +17,8 @@
 float	calculate_outline_cone_distance(const t_ray *ray, const t_object *cone)
 {
 	const t_vector3f	va = vector3f_cross(vector3f_cross(cone->axe,
-				vector3f_unit(ray->direction)), cone->axe);
-	const float			vs = vector3f_dot(vector3f_unit(ray->direction),
-				cone->axe);
+				ray->direction), cone->axe);
+	const float			vs = vector3f_dot(ray->direction, cone->axe);
 	const t_vector3f	ra0 = vector3f_cross(vector3f_cross(cone->axe, \
 		vector3f_subtract(ray->origin, cone->cache.cone.endpoint1)), cone->axe);
 	const float			big_w = cone->height - vector3f_dot(vector3f_subtract(\
@@ -58,7 +57,8 @@ t_vector3f	calculate_outline_cone_normal(const t_ray *ray,
 	return (vector3f_unit(perpendicular_vector));
 }
 
-bool	is_in_outline_cone(const t_ray *ray, const t_object *cone, const float distance)
+bool	is_in_outline_cone(const t_ray *ray, const t_object *cone,
+							const float distance)
 {
 	const t_vector3f	position = ray_at(ray, distance);
 	const t_vector3f	endpoint1_position = vector3f_subtract(position,
@@ -72,19 +72,20 @@ bool	is_in_outline_cone(const t_ray *ray, const t_object *cone, const float dist
 
 float	calculate_cap_cone_distance(const t_ray *ray, const t_object *cone)
 {
-	const t_vector3f	normal = vector3f_multiply(cone->axe, -1);
-	const float			d = -vector3f_dot(normal, cone->cache.cone.endpoint1);
-	const float			scalar_product = vector3f_dot(ray->direction, normal);
+	const float			scalar_product = vector3f_dot(ray->direction,
+			cone->cache.cone.cap_normal);
 	float				t;
 	t_vector3f			hit_position;
 	float				hit_radius;
 
 	if (scalar_product == 0)
 		return (-1);
-	t = (-vector3f_dot(normal, ray->origin) - d)
-		/ vector3f_dot(normal, ray->direction);
+	t = (-vector3f_dot(cone->cache.cone.cap_normal, ray->origin) \
+		- cone->cache.cone.cap_d)
+		/ vector3f_dot(cone->cache.cone.cap_normal, ray->direction);
 	hit_position = ray_at(ray, t);
-	hit_radius = vector3f_length(vector3f_subtract(hit_position, cone->cache.cone.endpoint1));
+	hit_radius = vector3f_length(vector3f_subtract(hit_position,
+				cone->cache.cone.endpoint1));
 	if (hit_radius <= cone->radius)
 		return (t);
 	return (-1);

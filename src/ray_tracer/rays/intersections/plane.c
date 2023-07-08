@@ -15,21 +15,19 @@
 #include "ray_tracer/rays.h"
 #include "ray_tracer/mapping.h"
 
-t_hit	hit_plane(const t_ray *ray, const t_object *plane, const float distance)
+t_hit	hit_plane(const t_ray *ray, const t_object *plane, const t_hit hit_distance)
 {
 	t_hit		hit;
 
-	hit.distance = distance;
+	hit.distance = hit_distance.distance;
 	if (hit.distance < 0)
 	{
 		hit.hit = false;
 		return (hit);
 	}
-	hit.t = distance;
+	hit.t = hit_distance.distance;
 	hit.position = ray_at(ray, hit.distance);
-	hit.normal = vector3f_unit(plane->axe);
-//	if (vector3f_dot(ray->direction, hit.axe) < 0)
-//		hit.axe = vector3f_multiply(hit.axe, -1);
+	hit.normal = plane->axe;
 	if (vector3f_dot(hit.normal, ray->direction) > 0)
 		hit.normal = vector3f_multiply(hit.normal, -1);
 	hit.object = plane;
@@ -42,15 +40,18 @@ t_hit	hit_plane(const t_ray *ray, const t_object *plane, const float distance)
 	return (hit);
 }
 
-float	calculate_plane_distance(const t_ray *ray, const t_object *plane)
+t_hit	calculate_plane_distance(const t_ray *ray, const t_object *plane)
 {
 	const float	scalar_product = vector3f_dot(ray->direction, plane->axe);
-	const float	d = -vector3f_dot(plane->axe, plane->position);
 	float		t;
+	t_hit		hit;
 
+	hit.distance = -1;
+	hit.context = OUTLINE;
 	if (scalar_product == 0)
-		return (-1);
-	t = (-vector3f_dot(plane->axe, ray->origin) - d)
+		return (hit);
+	t = (-vector3f_dot(plane->axe, ray->origin) - plane->cache.plane.d)
 		/ vector3f_dot(plane->axe, ray->direction);
-	return (t);
+	hit.distance = t;
+	return (hit);
 }

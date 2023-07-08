@@ -46,12 +46,37 @@ typedef struct s_cone_cache
 	t_vector3f	endpoint1;
 	t_vector3f	endpoint2;
 	float		radius_divide_height;
+	t_vector3f	cap_normal;
+	float		cap_d;
 }	t_cone_cache;
 
+typedef struct s_cylinder_cache
+{
+	t_vector3f	endpoint1;
+	t_vector3f	endpoint2;
+
+	t_vector3f	cap1_normal;
+	float		cap1_d;
+	t_vector3f	cap2_normal;
+	float		cap2_d;
+}	t_cylinder_cache;
+
+typedef struct s_plane_cache
+{
+	float	d;
+}	t_plane_cache;
+
+typedef struct s_sphere_cache
+{
+	float	square_radius;
+}	t_sphere_cache;
 
 union u_object_cache
 {
-	t_cone_cache	cone;
+	t_cone_cache		cone;
+	t_cylinder_cache	cylinder;
+	t_plane_cache		plane;
+	t_sphere_cache		sphere;
 };
 
 typedef struct s_object
