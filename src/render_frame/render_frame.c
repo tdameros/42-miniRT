@@ -72,7 +72,8 @@ static void	render_minirt(t_engine *engine)
 
 	update_camera(engine);
 	update_placed_object_position(engine);
-	if (engine->should_render_ray_tracing)
+	if (engine->should_render_ray_tracing
+		&& engine->should_render_at_full_resolution == false)
 	{
 		incrementer = get_incrementer(engine);
 		render_raytracing(engine, incrementer);
@@ -80,6 +81,12 @@ static void	render_minirt(t_engine *engine)
 			interpolate_ray_tracing(&engine->raytraced_pixels, incrementer);
 		for (size_t i = 0; i < engine->ray_traced_image.size; i++)
 			engine->ray_traced_image.address[i] = vec_rgb_to_uint(engine->raytraced_pixels.data[i]);
+		engine->scene_changed = false;
+	}
+	else if (engine->should_render_ray_tracing
+		&& engine->should_render_at_full_resolution)
+	{
+		render_anti_aliased_raytracing(engine);
 		engine->scene_changed = false;
 	}
 	mlx_put_image_to_window(engine->window.mlx, engine->window.window,
@@ -119,7 +126,7 @@ static int	get_incrementer(t_engine *engine)
 	return (incrementer);
 }
 
-#define NB_OF_MS_BEFORE_FULL_RESOLUTION 10
+#define NB_OF_MS_BEFORE_FULL_RESOLUTION 400
 
 static void	update_camera(t_engine *engine)
 {

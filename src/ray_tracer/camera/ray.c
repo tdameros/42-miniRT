@@ -23,7 +23,6 @@ typedef struct s_recalculate_rays_args
 }	t_recalculate_rays_args;
 
 static void			*recalculate_rays_routine(void *args_void);
-static t_vector3f	get_ray_direction(t_camera *camera, int x, int y);
 
 void	camera_recalculate_rays(t_camera *camera)
 {
@@ -72,7 +71,8 @@ static void	*recalculate_rays_routine(void *args_void)
 	return (NULL);
 }
 
-static t_vector3f	get_ray_direction(t_camera *camera, int x, int y)
+t_vector3f	get_ray_direction(const t_camera *camera, const float x,
+				const float y)
 {
 	t_vector2f	coord;
 	t_vector4f	target;

@@ -4,6 +4,32 @@ NAME			=	miniRT
 SRC_PATH		=	src/
 
 SRC				=\
+	font/parsing/get_glyph_offset.c					\
+	font/parsing/get_glyph_outlines.c				\
+	font/parsing/get_long_hor_metric.c				\
+	font/parsing/read_cmap.c						\
+	font/parsing/read_file.c						\
+	font/parsing/read_font_directory.c				\
+	font/parsing/read_format4.c						\
+	font/parsing/read_glyph_outline.c				\
+	font/parsing/read_glyph_outline_coordinates.c	\
+	font/parsing/read_head.c						\
+	font/parsing/read_hhea.c						\
+	font/parsing/read_hmtx.c						\
+	font/parsing/read_loca.c						\
+	font/parsing/read_maxp.c						\
+	font/parsing/ttf_get_table_offset.c				\
+	font/parsing/ttf_parser.c						\
+	\
+	font/rendering/do_segments_intersect.c			\
+	font/rendering/draw_glyph.c						\
+	font/rendering/get_glyph_points.c				\
+	font/rendering/get_quadratic_bezier_points.c	\
+	font/rendering/write_centered_string_to_image.c	\
+	\
+	font/get_font.c	\
+\
+\
 	gui/box/create_gui_box.c			\
 	gui/box/default_gui_box_methods.c	\
 	gui/box/destroy_t_gui_box.c			\
@@ -157,6 +183,8 @@ SRC				=\
 	ray_tracer/interpolate_ray_tracing.c	\
 	ray_tracer/mapping.c					\
 	ray_tracer/render.c						\
+	ray_tracer/render_ray.c					\
+	ray_tracer/render_with_anti_aliasing.c	\
 	\
 	\
 	ray_tracer_gui_api/get_clicked_object.c	\
@@ -168,32 +196,6 @@ SRC				=\
 	\
 	\
 	scene/create.c	\
-	\
-	\
-	ttf_parser/parsing/get_glyph_offset.c				\
-	ttf_parser/parsing/get_glyph_outlines.c				\
-	ttf_parser/parsing/get_long_hor_metric.c			\
-	ttf_parser/parsing/read_cmap.c						\
-	ttf_parser/parsing/read_file.c						\
-	ttf_parser/parsing/read_font_directory.c			\
-	ttf_parser/parsing/read_format4.c					\
-	ttf_parser/parsing/read_glyph_outline.c				\
-	ttf_parser/parsing/read_glyph_outline_coordinates.c	\
-	ttf_parser/parsing/read_head.c						\
-	ttf_parser/parsing/read_hhea.c						\
-	ttf_parser/parsing/read_hmtx.c						\
-	ttf_parser/parsing/read_loca.c						\
-	ttf_parser/parsing/read_maxp.c						\
-	ttf_parser/parsing/ttf_get_table_offset.c			\
-	ttf_parser/parsing/ttf_parser.c						\
-	\
-	ttf_parser/rendering/do_segments_intersect.c			\
-	ttf_parser/rendering/draw_glyph.c						\
-	ttf_parser/rendering/get_glyph_points.c					\
-	ttf_parser/rendering/get_quadratic_bezier_points.c		\
-	ttf_parser/rendering/write_centered_string_to_image.c	\
-	\
-	ttf_parser/get_font.c	\
 	\
 	\
 	close_miniRT.c		\

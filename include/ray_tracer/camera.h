@@ -64,6 +64,7 @@ void		camera_recalculate_projection(t_camera *camera);
 
 //	ray.c
 void		camera_recalculate_rays(t_camera *camera);
+t_vector3f	get_ray_direction(const t_camera *camera, float x, float y);
 
 //	view.c
 void		camera_recalculate_view(t_camera *camera);

@@ -1,19 +1,13 @@
 cmake_minimum_required(VERSION 3.25)
-project(42_miniRT)
+project(minirt C)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_C_STANDARD 11)
 
 include_directories(include)
-include_directories(include/deprecated)
-include_directories(include/font)
-include_directories(include/gui)
-include_directories(include/math)
-include_directories(include/ray_tracer)
 include_directories(lib/libft/include)
-include_directories(lib/libft/src/io/get_next_line)
 include_directories(lib/minilibx_opengl_20191021)
 
-add_executable(42_miniRT
+add_executable(minirt
         include/deprecated/t_ambient_light.h
         include/deprecated/t_raytracing_data.h
         include/font/render.h
@@ -218,32 +212,43 @@ add_executable(42_miniRT
         lib/libft/src/vector/vector_destroy.c
         lib/libft/src/vector/vector_minimize_size.c
         lib/minilibx_opengl_20191021/font.c
-        lib/minilibx_opengl_20191021/font.xcf
-        lib/minilibx_opengl_20191021/libmlx.a
-        lib/minilibx_opengl_20191021/Makefile
         lib/minilibx_opengl_20191021/mlx.h
         lib/minilibx_opengl_20191021/mlx_init_loop.m
-        lib/minilibx_opengl_20191021/mlx_init_loop.o
         lib/minilibx_opengl_20191021/mlx_int.h
         lib/minilibx_opengl_20191021/mlx_int_str_to_wordtab.c
-        lib/minilibx_opengl_20191021/mlx_int_str_to_wordtab.o
         lib/minilibx_opengl_20191021/mlx_mouse.m
-        lib/minilibx_opengl_20191021/mlx_mouse.o
         lib/minilibx_opengl_20191021/mlx_new_image.m
-        lib/minilibx_opengl_20191021/mlx_new_image.o
         lib/minilibx_opengl_20191021/mlx_new_window.h
         lib/minilibx_opengl_20191021/mlx_new_window.m
-        lib/minilibx_opengl_20191021/mlx_new_window.o
         lib/minilibx_opengl_20191021/mlx_opengl.h
         lib/minilibx_opengl_20191021/mlx_opengl.m
         lib/minilibx_opengl_20191021/mlx_png.c
         lib/minilibx_opengl_20191021/mlx_png.h
-        lib/minilibx_opengl_20191021/mlx_png.o
         lib/minilibx_opengl_20191021/mlx_rgb.c
         lib/minilibx_opengl_20191021/mlx_shaders.c
-        lib/minilibx_opengl_20191021/mlx_shaders.o
         lib/minilibx_opengl_20191021/mlx_xpm.c
-        lib/minilibx_opengl_20191021/mlx_xpm.o
+        src/font/parsing/get_glyph_offset.c
+        src/font/parsing/get_glyph_outlines.c
+        src/font/parsing/get_long_hor_metric.c
+        src/font/parsing/read_cmap.c
+        src/font/parsing/read_file.c
+        src/font/parsing/read_font_directory.c
+        src/font/parsing/read_format4.c
+        src/font/parsing/read_glyph_outline.c
+        src/font/parsing/read_glyph_outline_coordinates.c
+        src/font/parsing/read_head.c
+        src/font/parsing/read_hhea.c
+        src/font/parsing/read_hmtx.c
+        src/font/parsing/read_loca.c
+        src/font/parsing/read_maxp.c
+        src/font/parsing/ttf_get_table_offset.c
+        src/font/parsing/ttf_parser.c
+        src/font/rendering/do_segments_intersect.c
+        src/font/rendering/draw_glyph.c
+        src/font/rendering/get_glyph_points.c
+        src/font/rendering/get_quadratic_bezier_points.c
+        src/font/rendering/write_centered_string_to_image.c
+        src/font/get_font.c
         src/gui/box/create_gui_box.c
         src/gui/box/default_gui_box_methods.c
         src/gui/box/destroy_t_gui_box.c
@@ -364,33 +369,13 @@ add_executable(42_miniRT
         src/ray_tracer/interpolate_ray_tracing.c
         src/ray_tracer/mapping.c
         src/ray_tracer/render.c
+        src/ray_tracer/render_ray.c
+        src/ray_tracer/render_with_anti_aliasing.c
         src/ray_tracer_gui_api/get_clicked_object.c
         src/render_frame/print_fps_counter.c
         src/render_frame/render_frame.c
         src/render_frame/render_user_interface.c
         src/scene/create.c
-        src/ttf_parser/parsing/get_glyph_offset.c
-        src/ttf_parser/parsing/get_glyph_outlines.c
-        src/ttf_parser/parsing/get_long_hor_metric.c
-        src/ttf_parser/parsing/read_cmap.c
-        src/ttf_parser/parsing/read_file.c
-        src/ttf_parser/parsing/read_font_directory.c
-        src/ttf_parser/parsing/read_format4.c
-        src/ttf_parser/parsing/read_glyph_outline.c
-        src/ttf_parser/parsing/read_glyph_outline_coordinates.c
-        src/ttf_parser/parsing/read_head.c
-        src/ttf_parser/parsing/read_hhea.c
-        src/ttf_parser/parsing/read_hmtx.c
-        src/ttf_parser/parsing/read_loca.c
-        src/ttf_parser/parsing/read_maxp.c
-        src/ttf_parser/parsing/ttf_get_table_offset.c
-        src/ttf_parser/parsing/ttf_parser.c
-        src/ttf_parser/rendering/do_segments_intersect.c
-        src/ttf_parser/rendering/draw_glyph.c
-        src/ttf_parser/rendering/get_glyph_points.c
-        src/ttf_parser/rendering/get_quadratic_bezier_points.c
-        src/ttf_parser/rendering/write_centered_string_to_image.c
-        src/ttf_parser/get_font.c
         src/close_miniRT.c
         src/color.c
         src/init_minirt.c

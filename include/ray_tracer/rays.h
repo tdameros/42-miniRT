@@ -90,6 +90,8 @@ t_hit		hit_sphere(const t_ray *ray, const t_object *sphere,
 t_hit		calculate_sphere_distance(const t_ray *ray, const t_object *sphere);
 
 //	intersections/intersection.c
+t_vector3f	render_ray(t_ray ray, const t_scene *scene);
+
 t_hit		calculate_ray_intersection(const t_ray *ray, const t_scene *scene);
 t_hit		calculate_object_distance(const t_ray *ray, const t_object *object);
 t_hit		miss_hit(void);
