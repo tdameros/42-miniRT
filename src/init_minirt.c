@@ -149,6 +149,6 @@ static void	print_object(t_object *object)
 	if (object->type == PLANE || object->type == CYLINDER)
 	{
 		printf("\tNormal\n");
-		print_vector(&object->normal);
+		print_vector(&object->axe);
 	}
 }

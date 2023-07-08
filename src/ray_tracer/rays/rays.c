@@ -13,7 +13,7 @@
 #include "math/vector.h"
 #include "ray_tracer/rays.h"
 
-t_ray	ray_create(t_vector3f origin, t_vector3f direction)
+t_ray	ray_create(const t_vector3f origin, const t_vector3f direction)
 {
 	t_ray	ray;
 
@@ -22,12 +22,12 @@ t_ray	ray_create(t_vector3f origin, t_vector3f direction)
 	return (ray);
 }
 
-t_vector3f	ray_at(const t_ray *ray, float t)
+t_vector3f	ray_at(const t_ray *ray, const float t)
 {
 	return (vector3f_add(ray->origin, vector3f_multiply(ray->direction, t)));
 }
 
-t_vector3f	reflect(t_vector3f i, t_vector3f n)
+t_vector3f	reflect(const t_vector3f i, const t_vector3f n)
 {
 	return (vector3f_subtract(i, vector3f_multiply(n,
 				vector3f_dot(n, i) * 2.0f)));

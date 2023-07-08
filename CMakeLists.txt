@@ -1,13 +1,19 @@
 cmake_minimum_required(VERSION 3.25)
-project(minirt C)
+project(42_miniRT)
 
-set(CMAKE_C_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 
 include_directories(include)
+include_directories(include/deprecated)
+include_directories(include/font)
+include_directories(include/gui)
+include_directories(include/math)
+include_directories(include/ray_tracer)
 include_directories(lib/libft/include)
+include_directories(lib/libft/src/io/get_next_line)
 include_directories(lib/minilibx_opengl_20191021)
 
-add_executable(minirt
+add_executable(42_miniRT
         include/deprecated/t_ambient_light.h
         include/deprecated/t_raytracing_data.h
         include/font/render.h
@@ -200,6 +206,7 @@ add_executable(minirt
         lib/libft/src/string/strtrim.c
         lib/libft/src/string/substr.c
         lib/libft/src/string/t_string_free.c
+        lib/libft/src/time/convert_timeval_to_ms.c
         lib/libft/src/time/get_current_time.c
         lib/libft/src/time/get_number_of_fps.c
         lib/libft/src/vector/vector_add_elem.c
@@ -211,21 +218,32 @@ add_executable(minirt
         lib/libft/src/vector/vector_destroy.c
         lib/libft/src/vector/vector_minimize_size.c
         lib/minilibx_opengl_20191021/font.c
+        lib/minilibx_opengl_20191021/font.xcf
+        lib/minilibx_opengl_20191021/libmlx.a
+        lib/minilibx_opengl_20191021/Makefile
         lib/minilibx_opengl_20191021/mlx.h
         lib/minilibx_opengl_20191021/mlx_init_loop.m
+        lib/minilibx_opengl_20191021/mlx_init_loop.o
         lib/minilibx_opengl_20191021/mlx_int.h
         lib/minilibx_opengl_20191021/mlx_int_str_to_wordtab.c
+        lib/minilibx_opengl_20191021/mlx_int_str_to_wordtab.o
         lib/minilibx_opengl_20191021/mlx_mouse.m
+        lib/minilibx_opengl_20191021/mlx_mouse.o
         lib/minilibx_opengl_20191021/mlx_new_image.m
+        lib/minilibx_opengl_20191021/mlx_new_image.o
         lib/minilibx_opengl_20191021/mlx_new_window.h
         lib/minilibx_opengl_20191021/mlx_new_window.m
+        lib/minilibx_opengl_20191021/mlx_new_window.o
         lib/minilibx_opengl_20191021/mlx_opengl.h
         lib/minilibx_opengl_20191021/mlx_opengl.m
         lib/minilibx_opengl_20191021/mlx_png.c
         lib/minilibx_opengl_20191021/mlx_png.h
+        lib/minilibx_opengl_20191021/mlx_png.o
         lib/minilibx_opengl_20191021/mlx_rgb.c
         lib/minilibx_opengl_20191021/mlx_shaders.c
+        lib/minilibx_opengl_20191021/mlx_shaders.o
         lib/minilibx_opengl_20191021/mlx_xpm.c
+        lib/minilibx_opengl_20191021/mlx_xpm.o
         src/gui/box/create_gui_box.c
         src/gui/box/default_gui_box_methods.c
         src/gui/box/destroy_t_gui_box.c
@@ -269,6 +287,7 @@ add_executable(minirt
         src/hooks/button_press.c
         src/hooks/button_release.c
         src/hooks/key_press.c
+        src/hooks/key_release.c
         src/image/destroy_t_image.c
         src/image/draw.c
         src/image/image.c
@@ -300,6 +319,7 @@ add_executable(minirt
         src/math/vector/vector4_operations.c
         src/math/conversion.c
         src/math/equation.c
+        src/object/cone.c
         src/object/cylinder.c
         src/object/cylinder_infinite.c
         src/object/material.c
@@ -329,15 +349,19 @@ add_executable(minirt
         src/ray_tracer/camera/projection.c
         src/ray_tracer/camera/ray.c
         src/ray_tracer/camera/view.c
+        src/ray_tracer/rays/intersections/cone.c
+        src/ray_tracer/rays/intersections/cone_utils.c
         src/ray_tracer/rays/intersections/cylinder.c
+        src/ray_tracer/rays/intersections/cylinder_caps.c
         src/ray_tracer/rays/intersections/cylinder_infinite.c
+        src/ray_tracer/rays/intersections/intersection.c
         src/ray_tracer/rays/intersections/plane.c
         src/ray_tracer/rays/intersections/sphere.c
-        src/ray_tracer/rays/collision.c
         src/ray_tracer/rays/rays.c
         src/ray_tracer/shade/light.c
         src/ray_tracer/shade/shade.c
         src/ray_tracer/shade/shadow.c
+        src/ray_tracer/interpolate_ray_tracing.c
         src/ray_tracer/mapping.c
         src/ray_tracer/render.c
         src/ray_tracer_gui_api/get_clicked_object.c
@@ -370,4 +394,4 @@ add_executable(minirt
         src/close_miniRT.c
         src/color.c
         src/init_minirt.c
-        src/main.c src/ray_tracer/interpolate_ray_tracing.c src/hooks/key_release.c lib/libft/src/time/convert_timeval_to_ms.c)
+        src/main.c)

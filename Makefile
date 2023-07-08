@@ -102,6 +102,7 @@ SRC				=\
 	math/equation.c		\
 	\
 	\
+	object/cone.c				\
 	object/cylinder.c			\
 	object/cylinder_infinite.c	\
 	object/material.c			\
@@ -138,13 +139,16 @@ SRC				=\
 	ray_tracer/camera/ray.c			\
 	ray_tracer/camera/view.c		\
 	\
+	ray_tracer/rays/intersections/cone.c				\
+	ray_tracer/rays/intersections/cone_utils.c			\
 	ray_tracer/rays/intersections/cylinder.c			\
+	ray_tracer/rays/intersections/cylinder_caps.c		\
 	ray_tracer/rays/intersections/cylinder_infinite.c	\
+	ray_tracer/rays/intersections/intersection.c		\
 	ray_tracer/rays/intersections/plane.c				\
 	ray_tracer/rays/intersections/sphere.c				\
 	\
 	ray_tracer/rays/rays.c			\
-	ray_tracer/rays/collision.c		\
 	\
 	ray_tracer/shade/light.c	\
 	ray_tracer/shade/shade.c	\

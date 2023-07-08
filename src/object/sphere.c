@@ -20,6 +20,8 @@ t_object	sphere_create(t_vector3f origin, float radius, t_material material)
 	sphere.position = origin;
 	sphere.radius = radius;
 	sphere.material = material;
+
+	sphere.cache.sphere.square_radius = sphere.radius * sphere.radius;
 	return (sphere);
 }
 

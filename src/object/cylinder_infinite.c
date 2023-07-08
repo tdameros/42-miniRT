@@ -19,7 +19,7 @@ t_object	cylinder_infinite_create(t_vector3f origin, t_vector3f axe,
 
 	cylinder.type = CYLINDER_INF;
 	cylinder.position = origin;
-	cylinder.normal = axe;
+	cylinder.axe = axe;
 	cylinder.radius = radius;
 	cylinder.material = material;
 	return (cylinder);
