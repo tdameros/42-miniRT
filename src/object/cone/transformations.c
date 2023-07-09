@@ -29,6 +29,12 @@ void	cone_rotate(t_object *cone, const t_vector3f rotation_axis,
 	cone_calculate_cache(cone);
 }
 
+void	cone_set_position(t_object *cone, const t_vector3f position)
+{
+	cone->position = position;
+	cone_calculate_cache(cone);
+}
+
 void	cone_set_height(t_object *cone, const float height)
 {
 	cone->height = height;

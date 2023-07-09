@@ -36,6 +36,18 @@ void	object_rotate(t_object *object, const t_vector3f rotation_axis,
 		plane_rotate(object, rotation_axis, distance);
 }
 
+void	object_set_position(t_object *object, const t_vector3f position)
+{
+	if (object->type == CONE)
+		cone_set_position(object, position);
+	else if (object->type == CYLINDER || object->type == CYLINDER_INF)
+		cylinder_set_position(object, position);
+	else if (object->type == PLANE)
+		plane_set_position(object, position);
+	else if (object->type == SPHERE)
+		sphere_set_position(object, position);
+}
+
 void	object_set_height(t_object *object, const float height)
 {
 	if (object->type == CONE)

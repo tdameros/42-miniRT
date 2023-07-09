@@ -28,3 +28,9 @@ void	plane_rotate(t_object *plane, const t_vector3f rotation_axis,
 				rotation_axis, plane->axe));
 	plane_calculate_cache(plane);
 }
+
+void	plane_set_position(t_object *plane, const t_vector3f position)
+{
+	plane->position = position;
+	plane_calculate_cache(plane);
+}

@@ -31,6 +31,13 @@ void	cylinder_rotate(t_object *cylinder, const t_vector3f rotation_axis,
 		cylinder_calculate_cache(cylinder);
 }
 
+void	cylinder_set_position(t_object *cylinder, const t_vector3f position)
+{
+	cylinder->position = position;
+	if (cylinder->type == CYLINDER)
+		cylinder_calculate_cache(cylinder);
+}
+
 void	cylinder_set_height(t_object *cylinder, const float height)
 {
 	cylinder->height = height;

@@ -262,23 +262,14 @@ static void	update_placed_object_position(t_engine *engine)
 	ray_index = mouse_position.x + mouse_position.y \
 			* (int)engine->camera.viewport.size.x;
 	direction = engine->camera.rays[ray_index].direction;
-	float x_distance = (engine->camera.position.x + engine->object_being_placed_distance * direction.x) - engine->object_being_placed->position.x;
-	float y_distance = (engine->camera.position.y + engine->object_being_placed_distance * direction.y) - engine->object_being_placed->position.y;
-	float z_distance = (engine->camera.position.z + engine->object_being_placed_distance * direction.z) - engine->object_being_placed->position.z;
-	object_move(engine->object_being_placed, (t_vector3f){1.f, 0.f, 0.f},
-		x_distance);
-	object_move(engine->object_being_placed, (t_vector3f){0.f, 1.f, 0.f},
-		y_distance);
-	object_move(engine->object_being_placed, (t_vector3f){0.f, 0.f, 1.f},
-		z_distance);
-//	engine->object_being_placed->position = (t_vector3f){
-//		.x = engine->camera.position.x + engine->object_being_placed_distance \
-//			* direction.x,
-//		.y = engine->camera.position.y + engine->object_being_placed_distance \
-//			* direction.y,
-//		.z = engine->camera.position.z + engine->object_being_placed_distance \
-//			* direction.z
-//	};
+	object_set_position(engine->object_being_placed, (t_vector3f){
+		.x = engine->camera.position.x + engine->object_being_placed_distance \
+			* direction.x,
+		.y = engine->camera.position.y + engine->object_being_placed_distance \
+			* direction.y,
+		.z = engine->camera.position.z + engine->object_being_placed_distance \
+			* direction.z
+	});
 }
 
 static void	update_mouse_position(t_engine *engine, t_vector2i *mouse_position)
