@@ -9,8 +9,9 @@
 typedef struct s_light
 {
 	t_vector3f	position;
+	t_vector3f	color;
 	float		brightness;
-	t_color		color;
+	t_vector3f	emitted_color;
 }	t_light;
 
 typedef struct s_lights
@@ -20,9 +21,17 @@ typedef struct s_lights
 	size_t		size;
 }	t_lights;
 
-int	initialize_lights_array(t_lights *lights, size_t size);
-int	add_light_in_lights(t_lights *lights, t_light light);
-int	remove_light_in_lights(t_lights *lights, size_t index);
-int	free_lights(t_lights *lights);
+//	light.c
+t_light	light_create(const t_vector3f position, const t_vector3f color,
+			const float brightness);
+void	light_calculate_cache(t_light *light);
+void	light_set_color(t_light *light, const t_vector3f color);
+void	light_set_brightness(t_light *light, const float brightness);
+
+//	lights.c
+int		initialize_lights_array(t_lights *lights, size_t size);
+int		add_light_in_lights(t_lights *lights, t_light light);
+int		remove_light_in_lights(t_lights *lights, size_t index);
+int		free_lights(t_lights *lights);
 
 #endif

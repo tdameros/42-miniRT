@@ -374,4 +374,4 @@ add_executable(minirt
         src/close_miniRT.c
         src/color.c
         src/init_minirt.c
-        src/main.c   src/object/cone/transformations.c src/object/cylinder/transformations.c src/object/cone/transformations.c src/object/cylinder/create.c src/object/plane/create.c src/object/plane/create.c src/object/plane/transformations.c src/object/sphere/create.c src/object/sphere/transformations.c src/object/transformations.c src/object/cone/create.c src/object/cone/create.c src/object/cone/create.c)
+        src/main.c   src/object/cone/transformations.c src/object/cylinder/transformations.c src/object/cone/transformations.c src/object/cylinder/create.c src/object/plane/create.c src/object/plane/create.c src/object/plane/transformations.c src/object/sphere/create.c src/object/sphere/transformations.c src/object/transformations.c src/object/cone/create.c src/object/cone/create.c src/object/cone/create.c src/light/light.c)

@@ -56,8 +56,6 @@ t_hit	calculate_cone_distance(const t_ray *ray, const t_object *cone)
 
 	hit.distance = -1;
 	hit.context = OUTLINE;
-	if (distance_outline < 0)
-		return (hit);
 	if (!is_in_outline_cone(ray, cone, distance_outline))
 	{
 		hit.context = CAP1;

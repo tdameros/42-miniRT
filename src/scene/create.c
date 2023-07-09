@@ -43,10 +43,12 @@ int	init_scene(t_scene *scene)
 	material.checked_pattern_albedo = vector3f_create(0, 0, 0);
 	material.checked_pattern_size = vector2f_create(20, 10);
 	material.checked_pattern_albedo = vector3f_create(1, 1, 1);
+	material.specular = 0.5f;
 //	object = sphere_create(vector3f_create(0, 0, 0), 1, material);
 //	object = plane_create(vector3f_create(0, 0, 0), vector3f_create(0, 1, 0), material);
 	t_object_size	size = (t_object_size){1, 2.0f};
-	object = cone_create(vector3f_create(0, 1, 1), vector3f_create(0, 1, 0), size, material);
+//	object = cone_create(vector3f_create(0, 1, 1), vector3f_create(0, 1, 0), size, material);
+	object = cone_create(vector3f_create(-2, 1, 0), vector3f_create(0, 1, 0), size, material);
 //	object = cylinder_create(vector3f_create(1, 1, 1), vector3f_create(0, 1, 0), 1, 2.0f, material);
 	add_object_in_objects(&objects, object);
 	// Plane
@@ -68,27 +70,32 @@ int	init_scene(t_scene *scene)
 							  size, material);
 	add_object_in_objects(&objects, object);
 
-	light.color = vector3f_create(1, 0, 0);
-	light.brightness = 0.5f;
-	light.position = vector3f_create(5, 5, 5);
+//	light.color = vector3f_create(1, 0, 0);
+//	light.brightness = 0.5f;
+//	light.position = vector3f_create(5, 5, 5);
+//	add_light_in_lights(&lights, light);
+//
+//	light.color = vector3f_create(0, 1, 0);
+//	light.brightness = 0.5f;
+//	light.position = vector3f_create(-5, 5, 5);
+//	add_light_in_lights(&lights, light);
+//
+//	light.color = vector3f_create(0, 0, 1);
+//	light.brightness = 0.5f;
+//	light.position = vector3f_create(5, 5, -5);
+//	add_light_in_lights(&lights, light);
+	light = light_create(vector3f_create(5, 5, 5), vector3f_create(1, 0, 0), 0.5f);
 	add_light_in_lights(&lights, light);
 
-	light.color = vector3f_create(0, 1, 0);
-	light.brightness = 0.5f;
-	light.position = vector3f_create(-5, 5, 5);
+	light = light_create(vector3f_create(-5, 5, 5), vector3f_create(0, 1, 0), 0.5f);
 	add_light_in_lights(&lights, light);
 
-	light.color = vector3f_create(0, 0, 1);
-	light.brightness = 0.5f;
-	light.position = vector3f_create(5, 5, -5);
+	light = light_create(vector3f_create(5, 5, -5), vector3f_create(0, 0, 1),0.5f);
 	add_light_in_lights(&lights, light);
 
+	scene->ambient_light = light_create(vector3f_create(0, 0, 0),
+			vector3f_create(1, 1, 1), 0.2f);
 	scene->sky_color = vector3f_create(0, 0, 0);
-	scene->light.position = vector3f_create(5, 5, 5);
-	scene->light.color = vector3f_create(1, 1, 1);
-	scene->light.brightness = 0.5f;
-	scene->ambient_light.color = vector3f_create(1, 1, 1);
-	scene->ambient_light.brightness = 0.2f;
 	scene->objects = objects;
 	scene->lights = lights;
 	return (0);

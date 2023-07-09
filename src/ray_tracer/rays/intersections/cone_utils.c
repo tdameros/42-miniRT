@@ -48,8 +48,8 @@ t_vector3f	calculate_outline_cone_normal(const t_ray *ray,
 											const float distance)
 {
 	const t_vector3f	point = ray_at(ray, distance);
-	const t_vector3f	point_axe = vector3f_subtract(\
-									cone->cache.cone.endpoint2, point);
+	const t_vector3f	point_axe = vector3f_subtract(point,
+			cone->cache.cone.endpoint2);
 	const t_vector3f	point_to_axe = vector3f_subtract(cone->position, point);
 	const t_vector3f	perpendicular_vector = vector3f_cross(\
 							vector3f_cross(point_axe, point_to_axe), point_axe);

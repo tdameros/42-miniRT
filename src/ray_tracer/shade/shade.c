@@ -23,7 +23,8 @@ t_vector3f	calculate_shade(const t_scene *scene, const t_hit object_hit,
 	t_vector3f	light_contribution;
 	size_t		i;
 
-	shade_albedo = calculate_ambient_light(scene->ambient_light, object_hit);
+	shade_albedo = vector3f_mult_vector3f(scene->ambient_light.emitted_color,
+			object_hit.albedo);
 	i = 0;
 	while (i < scene->lights.length)
 	{

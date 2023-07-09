@@ -13,7 +13,8 @@
 #include "scene.h"
 #include "ray_tracer/rays.h"
 
-bool	is_shadow_pixel(const t_scene *scene, const t_hit object_hit,
+bool	is_shadow_pixel(const t_scene *scene, const t_light light,
+						const t_hit object_hit,
 						const t_vector3f reverse_light_direction)
 {
 	const t_vector3f	new_position = vector3f_add(object_hit.position, \
@@ -27,7 +28,7 @@ bool	is_shadow_pixel(const t_scene *scene, const t_hit object_hit,
 
 	if (!light_hit.hit)
 		return (false);
-	light_distance = vector3f_length(vector3f_subtract(scene->light.position,
+	light_distance = vector3f_length(vector3f_subtract(light.position,
 				object_hit.position));
 	hit_distance = vector3f_length(vector3f_subtract(light_hit.position,
 				object_hit.position));

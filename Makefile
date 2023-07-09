@@ -95,6 +95,7 @@ SRC				=\
 	image/round_image_corners.c	\
 	\
 	\
+	light/light.c	\
 	light/lights.c	\
 	\
 	\
