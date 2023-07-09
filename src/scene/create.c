@@ -55,31 +55,18 @@ int	init_scene(t_scene *scene)
 	object = plane_create(vector3f_create(0.0f, -1.f, 0),
 						  vector3f_create(0, 1, 0), material);
 	add_object_in_objects(&objects, object);
-//	material = material_create(vector3f_create(1.0f, 1.0f, 0.2f), 0.1f, 0);
-//
-//	object = plane_create(vector3f_create(0.0f, 0.0f, 10.0f),
-//						  vector3f_create(0, 0, -1), material);
-//	add_object_in_objects(&objects, object);
-//
-//	material = material_create(vector3f_create(1.0f, 0.0f, 0.2f), 0.1f, 0);
-//	object = plane_create(vector3f_create(0.0f, 0.0f, -10.0f),
-//						  vector3f_create(0, 0, 1), material);
-//	add_object_in_objects(&objects, object);
-//
-//	material = material_create(vector3f_create(0.7f, 0.3f, 0.2f), 0.1f, 0);
-//	object = plane_create(vector3f_create(10.0f, 0.0f, 0.0f),
-//						  vector3f_create(-1, 0, 0), material);
-//	add_object_in_objects(&objects, object);
-//
-//	material = material_create(vector3f_create(0.7f, 0.3f, 0.9f), 0.1f, 0);
-//	object = plane_create(vector3f_create(-10.0f, 0.0f, 0.0f),
-//						  vector3f_create(1, 0, 0), material);
-//	add_object_in_objects(&objects, object);
-//
-//	material = material_create(vector3f_create(0.3f, 0.3f, 0.3f), 0.1f, 0);
-//	object = plane_create(vector3f_create(0.0f, 10.0f, 0.0f),
-//						  vector3f_create(0, -1, 0), material);
-//	add_object_in_objects(&objects, object);
+
+
+	material = material_create(vector3f_create(0.f, 1.f, 0.62f), 0.f, 0.f);
+	object  = sphere_create(vector3f_create(-6.822397f, 1.227619f, 6.196026f), 0.7f, material);
+	add_object_in_objects(&objects, object);
+
+	material = material_create(vector3f_create(0.f, 1.f, 0.62f), 0.f, 0.f);
+	size = (t_object_size){1, 2.0f};
+	object  = cylinder_create(vector3f_create(-3.966613f, 1.685901f, 3.352188f),
+							  vector3f_create(-0.632640f, -0.560695f, 0.534217f),
+							  size, material);
+	add_object_in_objects(&objects, object);
 
 	light.color = vector3f_create(1, 0, 0);
 	light.brightness = 0.5f;
