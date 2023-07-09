@@ -128,13 +128,21 @@ SRC				=\
 	math/equation.c		\
 	\
 	\
-	object/cone.c				\
-	object/cylinder.c			\
-	object/cylinder_infinite.c	\
+	object/cone/create.c				\
+	object/cone/transformations.c		\
+	\
+	object/cylinder/create.c			\
+	object/cylinder/transformations.c	\
+	\
+	object/plane/create.c				\
+	object/plane/transformations.c		\
+	\
+	object/sphere/create.c				\
+	object/sphere/transformations.c		\
+	\
 	object/material.c			\
 	object/objects.c			\
-	object/plane.c				\
-	object/sphere.c				\
+	object/transformations.c	\
 	\
 	\
 	parsing/line_parsing/utils/add_object_to_object_list.c	\

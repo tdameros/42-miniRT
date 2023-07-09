@@ -79,6 +79,12 @@ union u_object_cache
 	t_sphere_cache		sphere;
 };
 
+typedef struct s_object_size
+{
+	float	radius;
+	float	height;
+}	t_object_size;
+
 typedef struct s_object
 {
 	enum e_object_type		type;
@@ -97,22 +103,73 @@ typedef struct s_objects
 	size_t				size;
 }	t_objects;
 
+//	cone/create.c
+t_object	cone_create(const t_vector3f position, const t_vector3f axis,
+				const t_object_size size, const t_material material);
+void		cone_calculate_cache(t_object *cone);
 
+//	cone/transformations.c
+void		cone_move(t_object *cone, const t_vector3f movement_axis,
+				const float distance);
+void		cone_rotate(t_object *cone, const t_vector3f rotation_axis,
+				const float degrees);
+void		cone_set_height(t_object *cone, const float height);
+void		cone_set_radius(t_object *cone, const float radius);
 
-int	initialize_objects_array(t_objects *objects, size_t size);
-int	add_object_in_objects(t_objects *objects, t_object object);
-int	remove_object_in_objects(t_objects *objects, size_t index);
-int	free_objects(t_objects *objects);
+//	cylinder/create.c
+t_object	cylinder_create(const t_vector3f position, const t_vector3f axis,
+				const t_object_size size, const t_material material);
+void		cylinder_calculate_cache(t_object *cylinder);
+t_object	cylinder_infinite_create(const t_vector3f position,
+				const t_vector3f axis,
+				const float radius,
+				const t_material material);
 
-t_object	sphere_create(t_vector3f origin, float radius, t_material material);
-t_object	plane_create(t_vector3f position, t_vector3f normal, t_material material);
-t_object cylinder_infinite_create(t_vector3f origin, t_vector3f axe,
-		float radius, t_material material);
-t_object	cone_create(t_vector3f origin, t_vector3f axe, float radius, float height, t_material material);
+//	cylinder/transformations.c
+void		cylinder_move(t_object *cylinder, const t_vector3f movement_axis,
+				const float distance);
+void		cylinder_rotate(t_object *cylinder, const t_vector3f rotation_axis,
+				const float degrees);
+void		cylinder_set_height(t_object *cylinder, const float height);
+void		cylinder_set_radius(t_object *cylinder, const float radius);
 
-t_object cylinder_create(t_vector3f origin, t_vector3f axe, float radius, float height, t_material material);
-void	print_object2(t_object object);
+//	plane/create.c
+t_object	plane_create(const t_vector3f position, const t_vector3f normal,
+				const t_material material);
+void		plane_calculate_cache(t_object *plane);
 
+//	plane/transformations.c
+void		plane_move(t_object *plane, const t_vector3f movement_axis,
+				const float distance);
+void		plane_rotate(t_object *plane, const t_vector3f rotation_axis,
+				const float degrees);
+
+//	sphere/create.c
+t_object	sphere_create(const t_vector3f position, const float radius,
+				const t_material material);
+void		sphere_calculate_cache(t_object *sphere);
+
+//	sphere/transformations.c
+void		sphere_move(t_object *sphere, const t_vector3f movement_axis,
+				const float distance);
+void		sphere_set_radius(t_object *sphere, const float radius);
+
+//	material.c
 t_material	material_create(t_vector3f albedo, float roughness, float metallic);
 
-#endif //OBJECT_H
+//	objects.c
+int			initialize_objects_array(t_objects *objects, size_t size);
+int			add_object_in_objects(t_objects *objects, t_object object);
+int			remove_object_in_objects(t_objects *objects, size_t index);
+int			free_objects(t_objects *objects);
+void		print_object2(t_object object);
+
+//	transformations.c
+void		object_move(t_object *object, const t_vector3f movement_axis,
+				const float distance);
+void		object_rotate(t_object *object, const t_vector3f rotation_axis,
+				const float distance);
+void		object_set_height(t_object *object, const float height);
+void		object_set_radius(t_object *object, const float radius);
+
+#endif

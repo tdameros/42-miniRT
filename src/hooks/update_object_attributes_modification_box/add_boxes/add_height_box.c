@@ -72,25 +72,33 @@ static int	init_height_box_children(t_engine *engine, t_gui_box *gui_box)
 static void	height_input_box_on_click_plus(struct s_gui_box *self,
 				t_engine *engine, int y, int x)
 {
+	t_object	*object;
+
+	object = engine->gui.selected_object;
 	(void)self;
 	(void)y;
 	(void)x;
 	if (engine->gui.selected_object == NULL)
 		return ;
-	engine->gui.selected_object->height
-		+= engine->gui.object_modification_amount;
+	object_set_height(object,
+		object->height + engine->gui.object_modification_amount);
+	engine->scene_changed = true;
 }
 
 static void	height_input_box_on_click_minus(struct s_gui_box *self,
 				t_engine *engine, int y, int x)
 {
+	t_object	*object;
+
+	object = engine->gui.selected_object;
 	(void)self;
 	(void)y;
 	(void)x;
-	if (engine->gui.selected_object == NULL
-		|| engine->gui.selected_object->height \
+	if (object == NULL
+		|| object->height \
 			- engine->gui.object_modification_amount <= 0.01)
 		return ;
-	engine->gui.selected_object->height
-		-= engine->gui.object_modification_amount;
+	object_set_height(object,
+		object->height - engine->gui.object_modification_amount);
+	engine->scene_changed = true;
 }

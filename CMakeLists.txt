@@ -324,13 +324,8 @@ add_executable(minirt
         src/math/vector/vector4_operations.c
         src/math/conversion.c
         src/math/equation.c
-        src/object/cone.c
-        src/object/cylinder.c
-        src/object/cylinder_infinite.c
         src/object/material.c
         src/object/objects.c
-        src/object/plane.c
-        src/object/sphere.c
         src/parsing/line_parsing/utils/add_object_to_object_list.c
         src/parsing/line_parsing/utils/error.c
         src/parsing/line_parsing/utils/get_color.c
@@ -379,4 +374,4 @@ add_executable(minirt
         src/close_miniRT.c
         src/color.c
         src/init_minirt.c
-        src/main.c)
+        src/main.c   src/object/cone/transformations.c src/object/cylinder/transformations.c src/object/cone/transformations.c src/object/cylinder/create.c src/object/plane/create.c src/object/plane/create.c src/object/plane/transformations.c src/object/sphere/create.c src/object/sphere/transformations.c src/object/transformations.c src/object/cone/create.c src/object/cone/create.c src/object/cone/create.c)

@@ -12,8 +12,8 @@
 
 #include "gui/box.h"
 
-void	position_input_box_x_on_click_plus(struct s_gui_box *self,
-			t_engine *engine, int y, int x)
+void	position_input_box_x_on_click_plus(t_gui_box *self, t_engine *engine,
+											int y, int x)
 {
 	t_object	*object;
 
@@ -23,13 +23,13 @@ void	position_input_box_x_on_click_plus(struct s_gui_box *self,
 	object = engine->gui.selected_object;
 	if (object == NULL)
 		return ;
-	object->position.x
-		+= engine->gui.object_modification_amount;
+	object_move(object, (t_vector3f){1.f, 0.f, 0.f},
+		engine->gui.object_modification_amount);
 	engine->scene_changed = true;
 }
 
-void	position_input_box_x_on_click_minus(struct s_gui_box *self,
-			t_engine *engine, int y, int x)
+void	position_input_box_x_on_click_minus(t_gui_box *self, t_engine *engine,
+											int y, int x)
 {
 	t_object	*object;
 
@@ -39,7 +39,7 @@ void	position_input_box_x_on_click_minus(struct s_gui_box *self,
 	object = engine->gui.selected_object;
 	if (object == NULL)
 		return ;
-	object->position.x
-		-= engine->gui.object_modification_amount;
+	object_move(object, (t_vector3f){1.f, 0.f, 0.f},
+		-engine->gui.object_modification_amount);
 	engine->scene_changed = true;
 }

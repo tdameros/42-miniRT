@@ -11,15 +11,11 @@
 /* ************************************************************************** */
 
 #include "gui/box.h"
-#include "math/vector.h"
-#include "math/quaternion.h"
 
-void	normal_input_box_x_on_click_plus(struct s_gui_box *self,
-			t_engine *engine, int y, int x)
+void	normal_input_box_x_on_click_plus(t_gui_box *self, t_engine *engine,
+										int y, int x)
 {
 	t_object			*object;
-	const float			degrees = engine->gui.object_rotation_degrees;
-	const t_vector3f	rotation_axis = vector3f_create(1, 0, 0);
 
 	(void)self;
 	(void)y;
@@ -27,16 +23,15 @@ void	normal_input_box_x_on_click_plus(struct s_gui_box *self,
 	object = engine->gui.selected_object;
 	if (object == NULL)
 		return ;
-	object->axe = vector3f_unit(\
-	quaternionf_rotate_vector3f(degrees, rotation_axis, object->axe));
+	object_rotate(object, (t_vector3f){1.f, 0.f, 0.f},
+		engine->gui.object_rotation_degrees);
+	engine->scene_changed = true;
 }
 
-void	normal_input_box_x_on_click_minus(struct s_gui_box *self,
-			t_engine *engine, int y, int x)
+void	normal_input_box_x_on_click_minus(t_gui_box *self, t_engine *engine,
+										int y, int x)
 {
 	t_object			*object;
-	const float			degrees = -engine->gui.object_rotation_degrees;
-	const t_vector3f	rotation_axis = vector3f_create(1, 0, 0);
 
 	(void)self;
 	(void)y;
@@ -44,6 +39,7 @@ void	normal_input_box_x_on_click_minus(struct s_gui_box *self,
 	object = engine->gui.selected_object;
 	if (object == NULL)
 		return ;
-	object->axe = vector3f_unit(\
-	quaternionf_rotate_vector3f(degrees, rotation_axis, object->axe));
+	object_rotate(object, (t_vector3f){1.f, 0.f, 0.f},
+		-engine->gui.object_rotation_degrees);
+	engine->scene_changed = true;
 }
