@@ -15,7 +15,7 @@
 #include "engine.h"
 #include "ray_tracer/render.h"
 
-#define PIXEL_DIVISION 2.f
+#define PIXEL_DIVISION 4.f
 
 typedef struct s_raytracing_anti_aliasing_routine_args
 {

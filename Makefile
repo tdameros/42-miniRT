@@ -189,8 +189,10 @@ SRC				=\
 	ray_tracer/shade/shade.c	\
 	ray_tracer/shade/shadow.c	\
 	\
+	ray_tracer/texture/mapping.c \
+	ray_tracer/texture/ppm_parser.c \
+	\
 	ray_tracer/interpolate_ray_tracing.c	\
-	ray_tracer/mapping.c					\
 	ray_tracer/render.c						\
 	ray_tracer/render_ray.c					\
 	ray_tracer/render_with_anti_aliasing.c	\

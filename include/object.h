@@ -28,6 +28,15 @@ enum e_object_type
 	CONE,
 };
 
+
+typedef struct s_texture
+{
+	unsigned int	width;
+	unsigned int	height;
+	unsigned int	size;
+	t_vector3f		*pixels;
+}	t_texture;
+
 typedef struct s_material
 {
 
@@ -38,6 +47,8 @@ typedef struct s_material
 	bool		is_checked_pattern;
 	t_vector3f	checked_pattern_albedo;
 	t_vector2f	checked_pattern_size;
+	t_texture	texture;
+	bool		is_texture;
 
 }	t_material;
 
