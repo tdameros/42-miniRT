@@ -36,9 +36,9 @@ int	init_scene(t_scene *scene)
 
     material = material_create(vector3f_create(1, 0, 0), 0, 0);
 //	material.is_checked_pattern = true;
-    material.checked_pattern_albedo = vector3f_create(0, 0, 0);
-    material.checked_pattern_size = vector2f_create(20, 10);
-    material.checked_pattern_albedo = vector3f_create(1, 1, 1);
+//    material.checked_pattern_albedo = vector3f_create(0, 0, 0);
+//    material.checked_pattern_size = vector2f_create(20, 10);
+//    material.checked_pattern_albedo = vector3f_create(1, 1, 1);
 //	object = sphere_create(vector3f_create(0, 0, 0), 1, material);
 //	object = plane_create(vector3f_create(0, 0, 0), vector3f_create(0, 1, 0), material);
     t_object_size size = {1, 2.f};
@@ -107,8 +107,8 @@ void    scene_pilier(t_scene *scene)
 
     material = material_create(vector3f_create(0.4f, 0.4f, 0.4f), 0.f, 0.f);
 //	material.is_checked_pattern = true;
-	material.checked_pattern_size = vector2f_create(10.f, 10.f);
-	material.checked_pattern_albedo = vector3f_create(0, 0, 0);
+//	material.checked_pattern_size = vector2f_create(10.f, 10.f);
+//	material.checked_pattern_albedo = vector3f_create(0, 0, 0);
     object = plane_create(vector3f_create(0.f, -5.f, 0.f), vector3f_create(0, 1, 0), material);
     add_object_in_objects(&objects, object);
 
@@ -134,34 +134,28 @@ void    scene_pilier(t_scene *scene)
 
     // sphere
     material = material_create(vector3f_create(1.f, 1.f, 1.0f), 0.f, 0.f);
+	set_ppm_texture_in_material(&material, "data/saturn.ppm");
     object = sphere_create(vector3f_create(0.f, -3.f, 15.f), 1.5f, material);
-	load_texture_object(&object, "data/saturn.ppm");
-	object.material.is_texture = true;
-	object.material.is_checked_pattern = true;
     add_object_in_objects(&objects, object);
 
 	material = material_create(vector3f_create(1.f, 1.f, 1.0f), 0.f, 0.f);
+	set_ppm_texture_in_material(&material, "data/earth.ppm");
 	object = sphere_create(vector3f_create(0.f, -3.f, 15.f), 1.5f, material);
-	load_texture_object(&object, "data/earth.ppm");
-	object.material.is_texture = true;
-	object.material.is_checked_pattern = true;
 	add_object_in_objects(&objects, object);
 
 	material = material_create(vector3f_create(1.f, 1.f, 1.0f), 0.f, 0.f);
+	set_ppm_texture_in_material(&material, "data/moon.ppm");
 	object = sphere_create(vector3f_create(0.f, -3.f, 15.f), 1.5f, material);
-	load_texture_object(&object, "data/moon.ppm");
-	object.material.is_texture = true;
-	object.material.is_checked_pattern = true;
+//	load_texture_object(&object, "data/moon.ppm");
 	add_object_in_objects(&objects, object);
 
 	material = material_create(vector3f_create(1.f, 1.f, 1.0f), 0.f, 0.f);
+	set_ppm_texture_in_material(&material, "data/2k_stars.ppm");
 	object = sphere_create(vector3f_create(0.f, -3.f, 15.f), 1.5f, material);
-	load_texture_object(&object, "data/2k_stars.ppm");
-	object.material.is_texture = true;
-	object.material.is_checked_pattern = true;
+//	object.material.is_texture = true;
+//	object.material.is_checked_pattern = true;
 	add_object_in_objects(&objects, object);
 
-//	exit(0);
     material = material_create(vector3f_create(0.0f, 0.0f, 0.0f), 0.f, 0.f);
     material.reflect = 0.9f;
     object = sphere_create(vector3f_create(10.f, -5.f, 10.f), 3.f, material);

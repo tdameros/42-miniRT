@@ -1,20 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   texture.h                                          :+:      :+:    :+:   */
+/*   mapping.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/12 15:02:00 by tdameros          #+#    #+#             */
-/*   Updated: 2023/07/12 15:02:00 by tdameros         ###   ########lyon.fr   */
+/*   Created: 2023/06/19 15:15:00 by tdameros          #+#    #+#             */
+/*   Updated: 2023/06/19 15:15:00 by tdameros         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_TEXTURE_H
-# define MINIRT_TEXTURE_H
+#ifndef MAPPING_H
+# define MAPPING_H
 
-# include "object.h"
+# include "math/vector.h"
+# include "ray_tracer/texture.h"
+# include "ray_tracer/rays.h"
 
-int	load_texture_object(t_object *object, char *file);
+//	mapping.c
+t_vector2f	calculate_object_map(const t_vector3f hit_position,
+				const t_object *object);
+t_vector2f	calculate_spherical_map(const t_vector3f hit_position,
+				const t_object *sphere);
+t_vector2f	calculate_cylindrical_map(const t_vector3f hit_position,
+				const t_object *cylinder);
+t_vector2f	calculate_planar_map(const t_vector3f hit_position,
+				const t_object *plane);
+
+
+t_vector3f	get_texture_color(t_hit hit, const t_object *object);
+
 
 #endif

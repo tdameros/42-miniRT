@@ -10,20 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdbool.h>
+#include "libft.h"
 
-#include "object.h"
+#include "material.h"
 
-t_material	material_create(t_vector3f albedo, float roughness, float metallic)
+t_material	material_create(const t_vector3f albedo,
+							const float reflect_intensity,
+							const float specular_intensity)
 {
 	t_material	material;
 
+	ft_bzero(&material, sizeof(material));
 	material.albedo = albedo;
-	material.roughness = roughness;
-	material.reflect = 0;
-	material.specular = 0;
-	material.is_checked_pattern = false;
-	material.is_texture = false;
-	(void) metallic;
+	material.reflect = reflect_intensity;
+	material.specular = specular_intensity;
 	return (material);
 }

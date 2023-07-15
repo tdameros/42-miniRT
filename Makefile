@@ -99,6 +99,10 @@ SRC				=\
 	light/lights.c	\
 	\
 	\
+	material/material.c	\
+	material/texture.c	\
+	\
+	\
 	math/matrix/matrix3.c			\
 	math/matrix/matrix3_math.c		\
 	math/matrix/matrix3_rotation.c	\
@@ -141,7 +145,6 @@ SRC				=\
 	object/sphere/create.c				\
 	object/sphere/transformations.c		\
 	\
-	object/material.c			\
 	object/objects.c			\
 	object/transformations.c	\
 	\
@@ -164,6 +167,7 @@ SRC				=\
 	\
 	parsing/free_scene_content.c	\
 	parsing/get_scene_content.c		\
+	parsing/parse_ppm_file.c		\
 	parsing/parse_scene_content.c	\
 	parsing/parsing.c				\
 	\
@@ -190,7 +194,7 @@ SRC				=\
 	ray_tracer/shade/shadow.c	\
 	\
 	ray_tracer/texture/mapping.c \
-	ray_tracer/texture/ppm_parser.c \
+	ray_tracer/texture/texture.c \
 	\
 	ray_tracer/interpolate_ray_tracing.c	\
 	ray_tracer/render.c						\

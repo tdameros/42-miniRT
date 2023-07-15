@@ -13,7 +13,7 @@
 #include "math/vector.h"
 #include "object.h"
 #include "ray_tracer/rays.h"
-#include "ray_tracer/mapping.h"
+#include "ray_tracer/texture.h"
 
 static t_vector3f	calculate_cylinder_normal(const t_ray *ray,
 						const t_object *cylinder,
@@ -40,10 +40,7 @@ t_hit	hit_cylinder(const t_ray *ray, const t_object *cylinder,
 		hit.normal = vector3f_multiply(hit.normal, -1);
 	hit.object = cylinder;
 	hit.ray = *ray;
-	if (hit.object->material.is_checked_pattern)
-		hit.albedo = get_checked_pattern(hit, cylinder);
-	else
-		hit.albedo = cylinder->material.albedo;
+	hit.albedo = get_texture_color(hit, cylinder);
 	return (hit);
 }
 

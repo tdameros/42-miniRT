@@ -12,6 +12,7 @@
 
 #include "ray_tracer/rays.h"
 #include "math/equation.h"
+#include "ray_tracer/texture.h"
 
 t_hit	hit_infinite_cylinder(const t_ray *ray, const t_object *cylinder,
 								const t_hit hit_distance)
@@ -30,6 +31,7 @@ t_hit	hit_infinite_cylinder(const t_ray *ray, const t_object *cylinder,
 	hit.object = cylinder;
 	hit.ray = *ray;
 	hit.hit = true;
+	hit.albedo = get_texture_color(hit, cylinder);
 	return (hit);
 }
 
