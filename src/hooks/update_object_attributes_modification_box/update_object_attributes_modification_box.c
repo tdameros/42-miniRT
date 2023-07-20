@@ -36,6 +36,6 @@ static int	init_object_attributes_modification_box_content(t_engine *engine,
 		return (init_plane_attributes_modification_box(engine, gui_box));
 	else if (selected_object->type == CYLINDER)
 		return (init_cylinder_attributes_modification_box(engine, gui_box));
-	ft_print_error("Object type not supported\n\n");
+	ft_print_error("Object surface_type not supported\n\n");
 	return (0);
 }

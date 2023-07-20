@@ -20,16 +20,8 @@
 
 static bool	arguments_are_bad(int argc, char **argv);
 
-#include <stdio.h>
-#include "ray_tracer/rays.h"
-#include "ray_tracer/texture.h"
-
 int	main(int argc, char **argv)
 {
-	(void ) arguments_are_bad;
-	(void ) argv;
-	(void ) argc;
-
 	t_engine	minirt;
 
 	if (arguments_are_bad(argc, argv))

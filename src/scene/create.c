@@ -136,25 +136,28 @@ void    scene_pilier(t_scene *scene)
     material = material_create(vector3f_create(1.f, 1.f, 1.0f), 0.f, 0.f);
 	set_ppm_texture_in_material(&material, "data/saturn.ppm");
     object = sphere_create(vector3f_create(0.f, -3.f, 15.f), 1.5f, material);
-    add_object_in_objects(&objects, object);
+//    add_object_in_objects(&objects, object);
 
 	material = material_create(vector3f_create(1.f, 1.f, 1.0f), 0.f, 0.f);
-	set_ppm_texture_in_material(&material, "data/earth.ppm");
-	object = sphere_create(vector3f_create(0.f, -3.f, 15.f), 1.5f, material);
+//	set_ppm_texture_in_material(&material, "data/earth.ppm");
+	set_ppm_texture_in_material(&material, "data/coca-cola.ppm");
+	set_cap_ppm_texture_in_material(&material, "data/cap_coca_cola.ppm");
+//	free_texture_in_material(&material);
+//	set_checker_board_in_material(&material, (t_vector2f){10.f, 2.f},
+//								  vector3f_create(0, 0, 0));
+//	object = sphere_create(vector3f_create(0.f, -3.f, 15.f), 1.5f, material);
+	object = cylinder_create(vector3f_create(0.f, -3.f, 15.f), vector3f_create(0, 1, 0), (t_object_size){1, 1}, material);
 	add_object_in_objects(&objects, object);
 
 	material = material_create(vector3f_create(1.f, 1.f, 1.0f), 0.f, 0.f);
 	set_ppm_texture_in_material(&material, "data/moon.ppm");
 	object = sphere_create(vector3f_create(0.f, -3.f, 15.f), 1.5f, material);
-//	load_texture_object(&object, "data/moon.ppm");
-	add_object_in_objects(&objects, object);
+//	add_object_in_objects(&objects, object);
 
 	material = material_create(vector3f_create(1.f, 1.f, 1.0f), 0.f, 0.f);
 	set_ppm_texture_in_material(&material, "data/2k_stars.ppm");
 	object = sphere_create(vector3f_create(0.f, -3.f, 15.f), 1.5f, material);
-//	object.material.is_texture = true;
-//	object.material.is_checked_pattern = true;
-	add_object_in_objects(&objects, object);
+//	add_object_in_objects(&objects, object);
 
     material = material_create(vector3f_create(0.0f, 0.0f, 0.0f), 0.f, 0.f);
     material.reflect = 0.9f;

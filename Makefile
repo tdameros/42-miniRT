@@ -131,6 +131,7 @@ SRC				=\
 	\
 	math/conversion.c	\
 	math/equation.c		\
+	math/modulo.c		\
 	\
 	\
 	object/cone/create.c				\

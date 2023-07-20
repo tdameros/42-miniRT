@@ -280,7 +280,7 @@ int	mipng_structure(unsigned char *ptr, int size, unsigned char **hdr, unsigned 
 	    return (ERR_STRUCT_INCOMPLETE);
 	  if (mipng_crc(ptr, len))
 	    return (ERR_STRUCT_CRC);
-	  //	  printf("found chunk len %d type %c%c%c%c\n", len, *(ptr+4), *(ptr+5), *(ptr+6), *(ptr+7));
+	  //	  printf("found chunk len %d surface_type %c%c%c%c\n", len, *(ptr+4), *(ptr+5), *(ptr+6), *(ptr+7));
 	  if (mipng_is_type(ptr, "IHDR"))
 	    {
 	      if (*hdr || len != PNG_HDR_SIZE)
@@ -339,7 +339,7 @@ int	mipng_verif_hdr(unsigned char *hdr, png_info_t *pi)
     pi->bpp *= 3;
   if (pi->color == 6)
     pi->bpp *= 4;
-  //  printf("hdr info : %d x %d, depth %d, col type %d, comp %d, filter %d, interlace %d\nbpp is %d\n",
+  //  printf("hdr info : %d x %d, depth %d, col surface_type %d, comp %d, filter %d, interlace %d\nbpp is %d\n",
   //	 pi->x, pi->y, pi->depth, pi->color, compress, filter, pi->interlace, pi->bpp);
   return (0);
 }

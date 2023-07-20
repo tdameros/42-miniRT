@@ -32,10 +32,13 @@ typedef struct s_checker_board
 
 typedef struct s_texture
 {
-	enum e_texture_type	type;
-	t_ppm_p6			texture_file;
-	t_checkers_pattern	checker_board;
+	enum e_texture_type	surface_type;
+	enum e_texture_type	cap_type;
+	t_ppm_p6			surface_texture;
+    t_ppm_p6			cap_texture;
 	t_ppm_p6			bump_map;
+    t_checkers_pattern	surface_checker_board;
+	t_checkers_pattern	cap_checker_board;
 	bool				has_bump_map;
 
 }	t_texture;
@@ -58,6 +61,7 @@ t_material	material_create(const t_vector3f albedo, \
 t_texture	texture_empty_create(void);
 int			set_ppm_texture_in_material(t_material *material,
 				const char *filename);
+int	set_cap_ppm_texture_in_material(t_material * material, const char *filename);
 void		set_checker_board_in_material(t_material *material,
 				const t_vector2f size,
 				const t_vector3f albedo);

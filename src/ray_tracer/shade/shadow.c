@@ -17,8 +17,10 @@ bool	is_shadow_pixel(const t_scene *scene, const t_light light,
 						const t_hit object_hit,
 						const t_vector3f reverse_light_direction)
 {
+//	const t_vector3f	new_position = vector3f_add(object_hit.position, \
+//								vector3f_multiply(object_hit.normal, 0.01f));
 	const t_vector3f	new_position = vector3f_add(object_hit.position, \
-								vector3f_multiply(object_hit.normal, 0.01f));
+								vector3f_multiply(vector3f_multiply(object_hit.ray.direction, -1), 0.01f));
 	const t_ray			light_ray = ray_create(new_position, \
 								reverse_light_direction);
 	const t_hit			light_hit = calculate_ray_intersection(\

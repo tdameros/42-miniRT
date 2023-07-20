@@ -33,6 +33,7 @@ t_hit	hit_cylinder(const t_ray *ray, const t_object *cylinder,
 		hit.hit = false;
 		return (hit);
 	}
+	hit.context = hit_distance.context;
 	hit.hit = true;
 	hit.position = ray_at(ray, hit.distance);
 	hit.normal = calculate_cylinder_normal(ray, cylinder, hit_distance);
