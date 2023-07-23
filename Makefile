@@ -194,8 +194,9 @@ SRC				=\
 	ray_tracer/shade/shade.c	\
 	ray_tracer/shade/shadow.c	\
 	\
-	ray_tracer/texture/mapping.c \
-	ray_tracer/texture/texture.c \
+	ray_tracer/texture/checkerboard.c	\
+	ray_tracer/texture/mapping.c		\
+	ray_tracer/texture/texture.c		\
 	\
 	ray_tracer/interpolate_ray_tracing.c	\
 	ray_tracer/render.c						\

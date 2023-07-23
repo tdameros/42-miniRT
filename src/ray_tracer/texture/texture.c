@@ -32,7 +32,7 @@ t_vector3f	get_texture_color(t_hit hit, const t_object *object)
 	t_vector2f			uv;
 	enum e_hit_context	texture_context;
 
-	if (hit.context == OUTLINE && object->material.texture.surface_type == NONE)
+	if (hit.context == OUTLINE && object->material.texture.outline_type == NONE)
 		return (object->material.albedo);
 	if ((hit.context == CAP1 || hit.context == CAP2)
 		&& object->material.texture.cap_type == NONE)
@@ -44,8 +44,7 @@ t_vector3f	get_texture_color(t_hit hit, const t_object *object)
 		uv = calculate_object_map(hit.position, object);
 
 	texture_context = hit.context;
-
-	if (object->material.texture.surface_type == PPM_TEXTURE
+	if (object->material.texture.outline_type == PPM_TEXTURE
 		&& texture_context == OUTLINE)
 		return (get_texture_at(object, texture_context, uv));
 	if (object->material.texture.cap_type == PPM_TEXTURE
@@ -66,9 +65,9 @@ static t_vector3f	get_checked_pattern_at(const t_object *object,
 	else
 	{
 		if (context == OUTLINE)
-			return (object->material.texture.surface_checker_board.albedo);
+			return (object->material.texture.outline_checkerboard.albedo);
 		else
-			return (object->material.texture.cap_checker_board.albedo);
+			return (object->material.texture.cap_checkerboard.albedo);
 	}
 }
 
@@ -81,16 +80,16 @@ static	t_vector2f	get_uv_scale_checker_board_size(const t_object *object,
 	if (context == OUTLINE)
 	{
 		scaled_uv.x = floorf(uv.x
-				* object->material.texture.surface_checker_board.width);
+				* object->material.texture.outline_checkerboard.width);
 		scaled_uv.y = floorf(uv.y
-				* object->material.texture.surface_checker_board.height);
+				* object->material.texture.outline_checkerboard.height);
 	}
 	else
 	{
 		scaled_uv.x = floorf(uv.x
-				* object->material.texture.cap_checker_board.width);
+				* object->material.texture.cap_checkerboard.width);
 		scaled_uv.y = floorf(uv.y
-				* object->material.texture.cap_checker_board.height);
+				* object->material.texture.cap_checkerboard.height);
 	}
 	return (scaled_uv);
 }
@@ -107,10 +106,10 @@ static t_vector3f	get_texture_at(const t_object *object,
 	reverse_uv.y = 1 - uv.y;
 	if (context == OUTLINE)
 	{
-		x = roundf(uv.x * (float)(object->material.texture.surface_texture.width
-					- 1));
-		y = roundf(uv.y * (float)(object->material.texture.surface_texture.height
-					- 1));
+		x = roundf(uv.x
+				* (float)(object->material.texture.outline_texture.width - 1));
+		y = roundf(uv.y
+				* (float)(object->material.texture.outline_texture.height - 1));
 	}
 	else
 	{
@@ -120,8 +119,8 @@ static t_vector3f	get_texture_at(const t_object *object,
 					- 1));
 	}
 	if (context == OUTLINE)
-		return (object->material.texture.surface_texture.pixels[y
-				* object->material.texture.surface_texture.width + x]);
+		return (object->material.texture.outline_texture.pixels[y
+				* object->material.texture.outline_texture.width + x]);
 	else
 		return (object->material.texture.cap_texture.pixels[y
 				* object->material.texture.cap_texture.width + x]);
