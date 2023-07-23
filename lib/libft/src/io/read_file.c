@@ -26,7 +26,7 @@
 static t_list	*read_file_content(int fd);
 static int		add_string_to_list(t_list **list, const char *buf, ssize_t len);
 
-t_string	ft_read_file(char *file_name)
+t_string	ft_read_file(const char *file_name)
 {
 	int			fd;
 	t_list		*lines;

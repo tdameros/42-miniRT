@@ -27,7 +27,7 @@ add_executable(minirt
         include/math/quaternion.h
         include/math/vector.h
         include/ray_tracer/camera.h
-        include/ray_tracer/mapping.h
+        include/ray_tracer/texture.h
         include/ray_tracer/rays.h
         include/ray_tracer/render.h
         include/ray_tracer/shade.h
@@ -324,7 +324,7 @@ add_executable(minirt
         src/math/vector/vector4_operations.c
         src/math/conversion.c
         src/math/equation.c
-        src/object/material.c
+        src/material/material.c
         src/object/objects.c
         src/parsing/line_parsing/utils/add_object_to_object_list.c
         src/parsing/line_parsing/utils/error.c
@@ -362,7 +362,7 @@ add_executable(minirt
         src/ray_tracer/shade/shade.c
         src/ray_tracer/shade/shadow.c
         src/ray_tracer/interpolate_ray_tracing.c
-        src/ray_tracer/mapping.c
+        src/ray_tracer/texture/mapping.c
         src/ray_tracer/render.c
         src/ray_tracer/render_ray.c
         src/ray_tracer/render_with_anti_aliasing.c
@@ -374,4 +374,5 @@ add_executable(minirt
         src/close_miniRT.c
         src/color.c
         src/init_minirt.c
-        src/main.c   src/object/cone/transformations.c src/object/cylinder/transformations.c src/object/cone/transformations.c src/object/cylinder/create.c src/object/plane/create.c src/object/plane/create.c src/object/plane/transformations.c src/object/sphere/create.c src/object/sphere/transformations.c src/object/transformations.c src/object/cone/create.c src/object/cone/create.c src/object/cone/create.c src/light/light.c)
+        src/main.c   src/object/cone/transformations.c src/object/cylinder/transformations.c src/object/cone/transformations.c src/object/cylinder/create.c src/object/plane/create.c src/object/plane/create.c src/object/plane/transformations.c src/object/sphere/create.c src/object/sphere/transformations.c src/object/transformations.c src/object/cone/create.c src/object/cone/create.c src/object/cone/create.c src/light/light.c  include/material.h src/material/texture.c src/ray_tracer/texture/texture.c src/ray_tracer/texture/texture.c include/ppm.h src/parsing/parse_ppm_file.c src/math/modulo.c include/math/modulo.h src/ray_tracer/texture/checkerboard.c)
+

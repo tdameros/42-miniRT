@@ -70,6 +70,7 @@ int	init_engine(t_engine *engine, const char *start_up_scene)
 //	if (get_font(&engine->gui.font, "data/fonts/JetBrains_Mono/JetBrainsMono-VariableFont_wght.ttf") < 0)
 //	if (get_font(&engine->gui.font, "data/fonts/Noto_Sans_Mono/NotoSansMono-VariableFont_wdth,wght.ttf") < 0)
 	if (get_font(&engine->gui.font, "data/fonts/Fira_Code/FiraCode-VariableFont_wght.ttf") < 0)
+//	if (get_font(&engine->gui.font, "data/fonts/test.ttf") < 0)
 		return (-1); // TODO free everything
 	return (0);
 }

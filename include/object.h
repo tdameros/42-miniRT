@@ -18,6 +18,7 @@
 
 # include "math/vector.h"
 # include "colors.h"
+# include "material.h"
 
 enum e_object_type
 {
@@ -27,19 +28,6 @@ enum e_object_type
 	CYLINDER_INF,
 	CONE,
 };
-
-typedef struct s_material
-{
-
-	t_vector3f	albedo;
-	float		reflect;
-	float		specular;
-	float		roughness;
-	bool		is_checked_pattern;
-	t_vector3f	checked_pattern_albedo;
-	t_vector2f	checked_pattern_size;
-
-}	t_material;
 
 typedef struct s_cone_cache
 {
@@ -158,9 +146,6 @@ void		sphere_move(t_object *sphere, const t_vector3f movement_axis,
 				const float distance);
 void		sphere_set_position(t_object *sphere, const t_vector3f position);
 void		sphere_set_radius(t_object *sphere, const float radius);
-
-//	material.c
-t_material	material_create(t_vector3f albedo, float roughness, float metallic);
 
 //	objects.c
 int			initialize_objects_array(t_objects *objects, size_t size);

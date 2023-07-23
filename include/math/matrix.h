@@ -37,6 +37,7 @@ t_vector3f	matrix3_dot_vector3(t_matrix3 matrix, t_vector3f vector);
 
 //	matrix3_rotation.c
 t_matrix3	matrix3_rodrigues_rotation(t_vector3f axe, float degrees);
+t_matrix3	matrix3_calculate_rotation_axe(t_vector3f original_vec, t_vector3f axe);
 
 //	matrix4.c
 t_matrix4	matrix4_create(float value);

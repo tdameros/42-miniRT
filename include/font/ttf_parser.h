@@ -193,7 +193,7 @@ typedef struct s_cmap
 
 /// @struct s_offset_subtable
 /// @var ::scaler_type
-/// number that identifies the font type
+/// number that identifies the font surface_type
 /// @var ::num_tables
 /// contains the number of tables excluding the table_directory and any
 /// subtables

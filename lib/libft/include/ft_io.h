@@ -29,6 +29,6 @@ ssize_t		ft_putstr_fd(const char *s, int fd);
 // Bonus
 ssize_t		ft_putstr(const char *s);
 int			ft_printf(const char *format, ...);
-t_string	ft_read_file(char *file_name);
+t_string	ft_read_file(const char *file_name);
 
 #endif

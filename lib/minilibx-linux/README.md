@@ -15,7 +15,7 @@ Contents
 
 Requirements for Linux
 
- - MinilibX only support TrueColor visual type (8,15,16,24 or 32 bits depth)
+ - MinilibX only support TrueColor visual surface_type (8,15,16,24 or 32 bits depth)
  - gcc
  - make
  - X11 include files (package xorg)

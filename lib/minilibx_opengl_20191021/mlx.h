@@ -26,7 +26,7 @@
 **      est necessaire de rajouter a la compilation :
 **   -lmlx -lXext -lX11
 **
-** La MinilibX permet le chargement des images de type Xpm.
+** La MinilibX permet le chargement des images de surface_type Xpm.
 ** Notez que cette implementation est incomplete.
 **
 ** Il y a des differences entre X11 et MacOS.

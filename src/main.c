@@ -20,26 +20,8 @@
 
 static bool	arguments_are_bad(int argc, char **argv);
 
-#include <stdio.h>
-#include "ray_tracer/rays.h"
-
 int	main(int argc, char **argv)
 {
-//	(void ) arguments_are_bad;
-//	(void ) argv;
-//	(void ) argc;
-//
-//	t_vector3f position = vector3f_create(2, 0, 0);
-//	t_vector3f axe = vector3f_create(0, 1, 0);
-//	float radius = 1;
-//	float height = 1.5f;
-//	t_material material = material_create(vector3f_create(1, 0, 0), 0, 0);
-//	t_object cone = cone_create(position, axe, radius, height, material);
-//
-//	t_vector3f ray_o = vector3f_create(0, 1, 0);
-//	t_vector3f ray_d = vector3f_create(1, 0, 0);
-//	t_ray ray = ray_create(ray_o, ray_d);
-//	printf("%f\n", calculate_cone_distance(&ray, &cone));
 	t_engine	minirt;
 
 	if (arguments_are_bad(argc, argv))

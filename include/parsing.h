@@ -13,7 +13,8 @@
 #ifndef PARSING_H
 # define PARSING_H
 
-# include "libft.h"
+//# include "libft.h"
+# include "object.h"
 # include "engine.h"
 
 typedef struct s_rt_file_requirements
