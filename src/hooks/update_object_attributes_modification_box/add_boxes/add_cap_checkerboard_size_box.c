@@ -23,7 +23,7 @@ int	add_cap_checkerboard_size_box(t_engine *engine, t_gui_box *gui_box,
 	write_centered_string_to_image(&engine->gui.font,
 		&gui_box->children.data[0].image, "Cap checkerboard size");
 	get_x_y_input_box(gui_box, 'x', '-')->on_click \
-		= &cap_checkerboard_size_input_box_x_on_click_plus;
+		= &cap_checkerboard_size_input_box_x_on_click_minus;
 	get_x_y_input_box(gui_box, 'x', 't')->on_click \
 		= &cap_checkerboard_size_input_box_x_on_click_text;
 	get_x_y_input_box(gui_box, 'x', '+')->on_click \
