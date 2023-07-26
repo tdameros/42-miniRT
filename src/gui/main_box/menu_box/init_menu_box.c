@@ -19,21 +19,17 @@ static int	init_menu_settings_icon_box(t_engine *minirt, t_gui_box *gui_box,
 int	init_menu_gui_box(t_engine *minirt, t_gui_box *gui_box,
 		t_gui_box *parent)
 {
-	*gui_box = create_t_gui_box(minirt, NULL, \
+	*gui_box = create_t_gui_box(minirt, (t_gui_box_create){NULL, \
 		(t_vector2i){
 			.x = parent->size.x - parent->size.x / 4, \
 			.y = 8}, \
 		(t_vector2i){
 			.x = parent->size.x / 4 - 8, \
-			.y = parent->size.y - 16
-		} \
-	);
+			.y = parent->size.y - 16}, true});
 	if (errno == EINVAL)
 		return (-1);
 	change_image_color(&gui_box->image, SUB_GUI_COLOR);
-	round_image_corners(&gui_box->image, 20);
-	gui_box->draw = &default_gui_box_draw;
-	gui_box->on_click = &default_gui_box_on_click;
+	round_image_corners(&gui_box->image, BOX_ROUNDING_RADIUS);
 	if (init_menu_gui_box_children(minirt, gui_box) < 0)
 		return (-1); // TODO free image
 	return (0);
@@ -63,16 +59,13 @@ static int	init_camera_icon_box(t_engine *minirt, t_gui_box *gui_box,
 	const int	box_width = roundf(((float)parent->size.x - ICON_BOX_SEPARATOR * 4)
 								   / 3.0);
 
-	*gui_box = create_t_gui_box(minirt, NULL, \
+	*gui_box = create_t_gui_box(minirt, (t_gui_box_create){NULL, \
 		(t_vector2i){
 			.x = ICON_BOX_SEPARATOR, \
-			.y = ICON_BOX_SEPARATOR
-		}, \
+			.y = ICON_BOX_SEPARATOR}, \
 		(t_vector2i){
 			.x = box_width, \
-			.y = parent->size.y - ICON_BOX_SEPARATOR * 2
-		} \
-	);
+			.y = parent->size.y - ICON_BOX_SEPARATOR * 2}, true});
 	if (errno == EINVAL)
 		return (-1);
 	if (init_image(&gui_box->on_hover_image, &minirt->window,
@@ -82,8 +75,6 @@ static int	init_camera_icon_box(t_engine *minirt, t_gui_box *gui_box,
 	round_image_corners(&gui_box->image, BOX_ROUNDING_RADIUS);
 	change_image_color(&gui_box->on_hover_image, HOVER_GUI_COLOR);
 	round_image_corners(&gui_box->on_hover_image, BOX_ROUNDING_RADIUS);
-	gui_box->draw = &icon_box_draw_method;
-	gui_box->on_click = &default_gui_box_on_click;
 	return (0);
 }
 
@@ -93,16 +84,13 @@ static int	init_saving_icon_box(t_engine *minirt, t_gui_box *gui_box,
 	const int	box_width = roundf(((float)parent->size.x - ICON_BOX_SEPARATOR * 4)
 								   / 3.0);
 
-	*gui_box = create_t_gui_box(minirt, NULL, \
+	*gui_box = create_t_gui_box(minirt, (t_gui_box_create){NULL, \
 		(t_vector2i){
 			.x = ICON_BOX_SEPARATOR * 2 + box_width, \
-			.y = ICON_BOX_SEPARATOR
-		}, \
+			.y = ICON_BOX_SEPARATOR}, \
 		(t_vector2i){
 			.x = box_width, \
-			.y = parent->size.y - ICON_BOX_SEPARATOR * 2
-		} \
-	);
+			.y = parent->size.y - ICON_BOX_SEPARATOR * 2}, true});
 	if (errno == EINVAL)
 		return (-1);
 	if (init_image(&gui_box->on_hover_image, &minirt->window,
@@ -112,8 +100,6 @@ static int	init_saving_icon_box(t_engine *minirt, t_gui_box *gui_box,
 	round_image_corners(&gui_box->image, BOX_ROUNDING_RADIUS);
 	change_image_color(&gui_box->on_hover_image, HOVER_GUI_COLOR);
 	round_image_corners(&gui_box->on_hover_image, BOX_ROUNDING_RADIUS);
-	gui_box->draw = &icon_box_draw_method;
-	gui_box->on_click = &default_gui_box_on_click;
 	return (0);
 }
 
@@ -121,25 +107,20 @@ static int	init_menu_settings_icon_box(t_engine *minirt, t_gui_box *gui_box,
 										  t_gui_box *parent)
 {
 	const int	box_width = roundf(((float)parent->size.x - ICON_BOX_SEPARATOR * 4)
-			/ 3.0);
+			/ 3.f);
 
-	*gui_box = create_t_gui_box(minirt, NULL, \
+	*gui_box = create_t_gui_box(minirt, (t_gui_box_create){NULL, \
 		(t_vector2i){
 			.x = ICON_BOX_SEPARATOR * 3 + box_width * 2, \
-			.y = ICON_BOX_SEPARATOR
-		}, \
+			.y = ICON_BOX_SEPARATOR}, \
 		(t_vector2i){
 			.x = box_width, \
-			.y = parent->size.y - ICON_BOX_SEPARATOR * 2
-		} \
-	);
+			.y = parent->size.y - ICON_BOX_SEPARATOR * 2}, true});
 	if (errno == EINVAL)
 		return (-1);
 	if (init_image(&gui_box->on_hover_image, &minirt->window,
 				   gui_box->size.x, gui_box->size.y) < 0)
 		return (-1); // TODO free stuff
 	init_settings_icon(gui_box);
-	gui_box->draw = &icon_box_draw_method;
-	gui_box->on_click = &default_gui_box_on_click;
 	return (0);
 }

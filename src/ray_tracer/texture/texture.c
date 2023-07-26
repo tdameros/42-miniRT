@@ -32,12 +32,6 @@ t_vector3f	get_texture_color(t_hit hit, const t_object *object)
 	t_vector2f			uv;
 	enum e_hit_context	texture_context;
 
-	if (hit.context == OUTLINE && object->material.texture.outline_type == NONE)
-		return (object->material.albedo);
-	if ((hit.context == CAP1 || hit.context == CAP2)
-		&& object->material.texture.cap_type == NONE)
-		return (object->material.albedo);
-
 	if (hit.context == CAP1 || hit.context == CAP2)
 		uv = calculate_cap_map(hit.position, object);
 	else
@@ -80,16 +74,16 @@ static	t_vector2f	get_uv_scale_checker_board_size(const t_object *object,
 	if (context == OUTLINE)
 	{
 		scaled_uv.x = floorf(uv.x
-				* object->material.texture.outline_checkerboard.width);
+				* object->material.texture.outline_checkerboard.size.x);
 		scaled_uv.y = floorf(uv.y
-				* object->material.texture.outline_checkerboard.height);
+				* object->material.texture.outline_checkerboard.size.y);
 	}
 	else
 	{
 		scaled_uv.x = floorf(uv.x
-				* object->material.texture.cap_checkerboard.width);
+				* object->material.texture.cap_checkerboard.size.x);
 		scaled_uv.y = floorf(uv.y
-				* object->material.texture.cap_checkerboard.height);
+				* object->material.texture.cap_checkerboard.size.y);
 	}
 	return (scaled_uv);
 }

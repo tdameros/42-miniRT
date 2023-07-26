@@ -54,6 +54,7 @@ int	remove_object_in_objects(t_objects *objects, size_t index)
 {
 	if (objects->length <= index)
 		return (-1);
+	free(objects->data[index].name);
 	objects->data[index] = objects->data[objects->length - 1];
 	objects->length -= 1;
 	return (0);
@@ -61,6 +62,8 @@ int	remove_object_in_objects(t_objects *objects, size_t index)
 
 int	free_objects(t_objects *objects)
 {
+	while (objects->length--)
+		free(objects->data[objects->length].name);
 	free(objects->data);
 	objects->size = 0;
 	objects->length = 0;

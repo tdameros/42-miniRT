@@ -25,29 +25,30 @@ static bool	does_gui_box_overlap_with_another_on_the_same_level(
 static bool	do_gui_boxes_overlap(struct s_limit new_gui_box_limit,
 				const t_gui_box *gui_box_to_compare);
 
-t_gui_box	create_t_gui_box(t_engine *engine,
-				t_gui_box *parent, const t_vector2i position,
-				const t_vector2i size)
+t_gui_box	create_t_gui_box(t_engine *engine, t_gui_box_create args)
 {
 	t_gui_box	gui_box;
 
 	errno = 0;
 	ft_bzero(&gui_box, sizeof(gui_box));
-	if (can_gui_box_be_placed(engine, parent, position,
-			size) == false)
+	if (can_gui_box_be_placed(engine, args.parent, args.position,
+			args.size) == false)
 	{
 		errno = EINVAL;
 		return (gui_box);
 	}
-	init_image(&gui_box.image, &engine->window, size.x, size.y);
-	if (gui_box.image.data == NULL)
+	if (args.should_create_an_image)
 	{
-		ft_bzero(&gui_box, sizeof(gui_box));
-		errno = ENOMEM;
+		if (init_image(&gui_box.image, &engine->window, args.size.x,
+				args.size.y) < 0)
+		{
+			errno = ENOMEM;
+			return (gui_box);
+		}
 	}
-	gui_box.parent = parent;
-	gui_box.position = position;
-	gui_box.size = size;
+	gui_box.parent = args.parent;
+	gui_box.position = args.position;
+	gui_box.size = args.size;
 	gui_box.draw = &default_gui_box_draw;
 	gui_box.on_click = &default_gui_box_on_click;
 	return (gui_box);

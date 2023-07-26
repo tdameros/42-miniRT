@@ -8,13 +8,13 @@ static void	put_colored_circle(t_image *on_hover_image,
 				t_vector2i mouse_position, unsigned int color,
 				t_image *base_image);
 
-void	add_hover_color_circle(t_gui_box *self, t_engine *engine,
-			int x_offset, int y_offset)
+void	add_hover_color_circle(t_gui_box *self, const t_vector2i offset,
+			t_vector2i mouse_position)
 {
-	const t_vector2i	mouse_position = get_mouse_position_in_box(self, engine,
-																   x_offset, y_offset);
 	unsigned int		color;
 
+	mouse_position = get_mouse_position_in_box(self, offset,
+			mouse_position);
 	color = get_image_pixel_color(&self->image, mouse_position.y,
 			mouse_position.x);
 	put_colored_circle(&self->on_hover_image, mouse_position, color,

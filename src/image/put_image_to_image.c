@@ -4,8 +4,8 @@
 static unsigned int	mix_colors(unsigned int added_color,
 						unsigned int base_color);
 
-void	put_image_to_image(register t_image *destination,
-						   const t_image *source, t_vector2i position)
+void	put_image_to_image(register t_image *destination, const t_image *source,
+			t_vector2i position)
 {
 	const int		y_max = source->height * source->line_length;
 	const int		position_y_max = destination->height
@@ -77,8 +77,8 @@ static unsigned int	mix_colors(unsigned int added_color,
 						unsigned int base_color)
 {
 	const unsigned int	added_color_transparency = added_color >> 24;
-//	float				inverse_transparency;
-//	float				transparency;
+	float				inverse_transparency;
+	float				transparency;
 
 	if (added_color_transparency == 255)
 		return (base_color);
@@ -87,19 +87,19 @@ static unsigned int	mix_colors(unsigned int added_color,
 
 	// TODO check how it looks with this (Applies 0.25 transparency instead of calculating actual transparency)
 	//  								 (is faster but doesn't allow precise transparency)
-	return ((((added_color & 0x00FF0000) >> 16) / 4 * 3 + ((base_color & 0x00FF0000) / 4 >> 16)) << 16
-		| (((added_color & 0x0000FF00) >> 8) / 4 * 3 + ((base_color & 0x0000FF00) >> 8) / 4) << 8
-		| ((added_color & 0x000000FF) / 4 * 3 + (base_color & 0x000000FF) / 4));
+//	return ((((added_color & 0x00FF0000) >> 16) / 4 * 3 + ((base_color & 0x00FF0000) / 4 >> 16)) << 16
+//		| (((added_color & 0x0000FF00) >> 8) / 4 * 3 + ((base_color & 0x0000FF00) >> 8) / 4) << 8
+//		| ((added_color & 0x000000FF) / 4 * 3 + (base_color & 0x000000FF) / 4));
 
 
-//	inverse_transparency = added_color_transparency / 255.f;
-//	transparency = 1.f - inverse_transparency;
-//	return (((unsigned int)(transparency * ((added_color & 0x00FF0000) >> 16)
-//			+ inverse_transparency * ((base_color & 0x00FF0000) >> 16)))
-//				<< 16
-//		| ((unsigned int)(transparency * ((added_color & 0x0000FF00) >> 8)
-//			+ inverse_transparency * ((base_color & 0x0000FF00) >> 8)))
-//				<< 8
-//		| (unsigned int)(transparency * (added_color & 0x000000FF)
-//			+ inverse_transparency * (base_color & 0x000000FF)));
+	inverse_transparency = added_color_transparency / 255.f;
+	transparency = 1.f - inverse_transparency;
+	return (((unsigned int)(transparency * ((added_color & 0x00FF0000) >> 16)
+			+ inverse_transparency * ((base_color & 0x00FF0000) >> 16)))
+				<< 16
+		| ((unsigned int)(transparency * ((added_color & 0x0000FF00) >> 8)
+			+ inverse_transparency * ((base_color & 0x0000FF00) >> 8)))
+				<< 8
+		| (unsigned int)(transparency * (added_color & 0x000000FF)
+			+ inverse_transparency * (base_color & 0x000000FF)));
 }

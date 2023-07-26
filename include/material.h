@@ -18,15 +18,13 @@
 
 enum e_texture_type
 {
-	NONE,
-	PPM_TEXTURE,
 	CHECKERBOARD,
+	PPM_TEXTURE,
 };
 
 typedef struct s_checker_board
 {
-	float		width;
-	float		height;
+	t_vector2f	size;
 	t_vector3f	albedo;
 }	t_checkerboard;
 

@@ -16,26 +16,33 @@
 #include "gui/UI.h"
 #include "gui/utils.h"
 #include "font/render.h"
+#include "events.h"
+#include "gui/object_modification_box.h"
 
 static int	init_height_box_children(t_engine *engine, t_gui_box *gui_box);
 static void	height_input_box_on_click_plus(struct s_gui_box *self,
-				t_engine *engine, int y, int x);
+				t_engine *engine, t_click_data click_data);
 static void	height_input_box_on_click_minus(struct s_gui_box *self,
-				t_engine *engine, int y, int x);
+				t_engine *engine, t_click_data click_data);
+static void	height_input_box_on_click_text(struct s_gui_box *self,
+				t_engine *engine, t_click_data click_data);
 
 int	add_height_box(t_engine *engine, t_gui_box *gui_box, int *i,
 		t_gui_box *parent)
 {
-	*gui_box = create_t_gui_box(engine, parent, \
-	(t_vector2i){
-			.x = 0,
-			.y = *i}, \
-	(t_vector2i){
-			.x = parent->size.x,
-			.y = 25});
+	*gui_box = create_t_gui_box(engine, (t_gui_box_create){parent, \
+		(t_vector2i){\
+				.x = 0, \
+				.y = *i}, \
+		(t_vector2i){\
+				.x = parent->size.x, \
+				.y = parent->size.y * (OBJECT_ATTRIBUTE_BOX_NORMAL_BOX_SIZE \
+						/ OBJECT_ATTRIBUTE_BOX_TOTAL_SIZE) \
+					- OBJECT_ATTRIBUTE_BOX_OFFSET}, \
+		true});
 	if (errno == EINVAL || errno == ENOMEM)
 		return (-1);
-	*i += gui_box->size.y + 8;
+	*i += gui_box->size.y + OBJECT_ATTRIBUTE_BOX_OFFSET;
 	if (init_height_box_children(engine, gui_box) < 0)
 	{
 		destroy_t_image(&engine->window, &gui_box->image);
@@ -53,6 +60,7 @@ static int	init_height_box_children(t_engine *engine, t_gui_box *gui_box)
 {
 	const t_float_input_box_on_click	on_click = {
 		.plus = &height_input_box_on_click_plus,
+		.text_box = &height_input_box_on_click_text,
 		.minus = &height_input_box_on_click_minus};
 
 	if (create_horizontal_boxes(engine, gui_box, "65 35", 0) < 0)
@@ -63,37 +71,47 @@ static int	init_height_box_children(t_engine *engine, t_gui_box *gui_box)
 		destroy_t_gui_box(&engine->window, gui_box);
 		return (-1);
 	}
+	engine->gui.float_input_boxes.height = gui_box->children.data + 1;
+	if (init_image(&gui_box->children.data[0].image, &engine->window,
+			gui_box->children.data[0].size.x, gui_box->children.data[0].size.y)
+		< 0)
+	{
+		destroy_t_gui_box(&engine->window, gui_box);
+		return (-1);
+	}
 	change_image_color(&gui_box->children.data[0].image, COLOR_TRANSPARENT);
-		write_centered_string_to_image(&engine->gui.font, &gui_box->children.data[0].image,
-		"Height");
+	write_centered_string_to_image(&engine->gui.font,
+		&gui_box->children.data[0].image, "Height");
 	return (0);
 }
 
 static void	height_input_box_on_click_plus(struct s_gui_box *self,
-				t_engine *engine, int y, int x)
+				t_engine *engine, t_click_data click_data)
 {
 	t_object	*object;
 
-	object = engine->gui.selected_object;
+	object = engine->gui.selected_object.object;
 	(void)self;
-	(void)y;
-	(void)x;
-	if (engine->gui.selected_object == NULL)
+	if (click_data.button != BUTTON_LEFT)
+		return (height_input_box_on_click_text(self, engine, click_data));
+	if (object == NULL)
 		return ;
 	object_set_height(object,
 		object->height + engine->gui.object_modification_amount);
 	engine->scene_changed = true;
+	update_float_input_box(engine, object->height,
+		engine->gui.float_input_boxes.height);
 }
 
 static void	height_input_box_on_click_minus(struct s_gui_box *self,
-				t_engine *engine, int y, int x)
+				t_engine *engine, t_click_data click_data)
 {
 	t_object	*object;
 
-	object = engine->gui.selected_object;
+	object = engine->gui.selected_object.object;
 	(void)self;
-	(void)y;
-	(void)x;
+	if (click_data.button != BUTTON_LEFT)
+		return (height_input_box_on_click_text(self, engine, click_data));
 	if (object == NULL
 		|| object->height \
 			- engine->gui.object_modification_amount <= 0.01)
@@ -101,4 +119,21 @@ static void	height_input_box_on_click_minus(struct s_gui_box *self,
 	object_set_height(object,
 		object->height - engine->gui.object_modification_amount);
 	engine->scene_changed = true;
+	update_float_input_box(engine, object->height,
+		engine->gui.float_input_boxes.height);
+}
+
+static void	height_input_box_on_click_text(struct s_gui_box *self,
+				t_engine *engine, t_click_data click_data)
+{
+	if (click_data.button == SCROLL_UP)
+	{
+		click_data.button = BUTTON_LEFT;
+		return (height_input_box_on_click_plus(self, engine, click_data));
+	}
+	if (click_data.button == SCROLL_DOWN)
+	{
+		click_data.button = BUTTON_LEFT;
+		return (height_input_box_on_click_minus(self, engine, click_data));
+	}
 }

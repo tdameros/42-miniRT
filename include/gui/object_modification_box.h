@@ -16,8 +16,22 @@
 # include "engine.h"
 # include "box.h"
 
+# define OBJECT_ATTRIBUTE_BOX_OFFSET 8
+# define OBJECT_ATTRIBUTE_BOX_TOTAL_SIZE 17.5f
+# define OBJECT_ATTRIBUTE_BOX_XYZ_BOX_SIZE 2.5f
+# define OBJECT_ATTRIBUTE_BOX_XY_BOX_SIZE 2.5f
+# define OBJECT_ATTRIBUTE_BOX_NORMAL_BOX_SIZE 1.f
+
+# define OBJECT_ATTRIBUTE_BOX_CATEGORY_OFFSET_SIZE 1.f
+
+# define OBJECT_ATTRIBUTE_BOX_TRANSFORMATION_NB_OF_XYZ_BOXES 2
+# define OBJECT_ATTRIBUTE_BOX_TRANSFORMATION_NB_OF_NORMAL_BOXES 2
+
+# define OBJECT_ATTRIBUTE_BOX_REFLECTION_NB_OF_XYZ_BOXES 0
+# define OBJECT_ATTRIBUTE_BOX_REFLECTION_NB_OF_NORMAL_BOXES 2
+
 int		init_object_modification_gui_box(t_engine *minirt,
-			t_gui_box *gui_box, const t_gui_box *object_creation_gui_box);
+			t_gui_box *gui_box, const t_gui_box *main_gui_box);
 
 int		init_rgb_picker(t_engine *minirt, t_gui_box *gui_box);
 int		init_base_color_box(t_engine *minirt, t_gui_box *gui_box,
@@ -29,10 +43,7 @@ int		get_decreasing_color(float color, float x, float decal,
 int		get_base_color(float color, float x, float decal, float ratio);
 int		init_color_picker_box(t_engine *minirt, t_gui_box *gui_box,
 			t_gui_box *parent);
-void	add_hover_color_circle(t_gui_box *self, t_engine *minirt,
-			int x_offset, int y_offset);
-
-void	init_object_attributes_modification_box(t_engine *engine,
-			t_gui_box *gui_box);
+void	add_hover_color_circle(t_gui_box *self, t_vector2i offset,
+			t_vector2i mouse_position);
 
 #endif

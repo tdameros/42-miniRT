@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
+
 #include "object.h"
 
 t_object	plane_create(const t_vector3f position, const t_vector3f normal,
@@ -21,6 +23,7 @@ t_object	plane_create(const t_vector3f position, const t_vector3f normal,
 	plane.position = position;
 	plane.axe = normal;
 	plane.material = material;
+	plane.name = ft_strdup("Plane");
 
 	plane_calculate_cache(&plane);
 	return (plane);

@@ -16,25 +16,27 @@
 #include "gui/utils.h"
 #include "colors.h"
 
-bool	mouse_is_hovering_box(const t_image *image_to_check_for_hover,
+bool	is_mouse_hovering_box(const t_gui_box *gui_box,
+			const t_vector2i box_offset,
+			const t_image *image_to_check_for_hover,
 			t_vector2i mouse_position)
 {
+	mouse_position = get_mouse_position_in_box(gui_box, box_offset,
+			mouse_position);
 	return (mouse_position.x >= 0
 		&& mouse_position.x < image_to_check_for_hover->width
 		&& mouse_position.y >= 0
 		&& mouse_position.y < image_to_check_for_hover->height
-		&& get_image_pixel_color(image_to_check_for_hover, mouse_position.y,
-			mouse_position.x) != COLOR_TRANSPARENT);
+		&& get_image_pixel_color(image_to_check_for_hover,
+			mouse_position.y, mouse_position.x)
+		!= COLOR_TRANSPARENT);
 }
 
-t_vector2i	get_mouse_position_in_box(t_gui_box *self, t_engine *engine,
-				int x_offset, int y_offset)
+t_vector2i	get_mouse_position_in_box(const t_gui_box *self,
+				const t_vector2i box_offset, t_vector2i mouse_position)
 {
-	t_vector2i	mouse_position;
-
-	mouse_position = get_mouse_position(engine);
-	mouse_position.x -= x_offset + self->position.x;
-	mouse_position.y -= y_offset + self->position.y;
+	mouse_position.x -= box_offset.x + self->position.x;
+	mouse_position.y -= box_offset.y + self->position.y;
 	return (mouse_position);
 }
 

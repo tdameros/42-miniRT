@@ -2,6 +2,8 @@
 
 #include "events.h"
 #include "engine.h"
+#include "hooks.h"
+
 #include <printf.h>
 int	key_press_handler(int key_code, t_engine *engine)
 {
@@ -11,11 +13,7 @@ int	key_press_handler(int key_code, t_engine *engine)
 	if (key_code == KEY_ESC)
 		close_engine(engine);
 	else if (key_code == KEY_H)
-	{
-		engine->gui.is_hidden = !engine->gui.is_hidden;
-		engine->gui.start_animation_time = ft_timeval_to_ms(
-				ft_get_current_time());
-	}
+		toggle_gui(&engine->gui);
 	else if (key_code == KEY_P)
 	{
 		// TODO remove this
@@ -40,4 +38,3 @@ int	key_press_handler(int key_code, t_engine *engine)
 //	camera_recalculate_rays(&engine->camera);
 	return (0);
 }
-

@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
+
 #include "object.h"
 
 t_object	cone_create(const t_vector3f position, const t_vector3f axis,
@@ -24,6 +26,7 @@ t_object	cone_create(const t_vector3f position, const t_vector3f axis,
 	cone.radius = size.radius;
 	cone.height = size.height;
 	cone.material = material;
+	cone.name = ft_strdup("Cone");
 
 	cone_calculate_cache(&cone);
 	return (cone);

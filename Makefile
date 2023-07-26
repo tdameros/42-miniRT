@@ -28,8 +28,8 @@ SRC				=\
 	font/rendering/write_centered_string_to_image.c	\
 	\
 	font/get_font.c	\
-\
-\
+	\
+	\
 	gui/box/create_gui_box.c			\
 	gui/box/default_gui_box_methods.c	\
 	gui/box/destroy_t_gui_box.c			\
@@ -42,8 +42,14 @@ SRC				=\
 	gui/main_box/object_creation_box/init_object_creation_box.c		\
 	gui/main_box/object_creation_box/object_creation_on_clicks.c	\
 	\
-	gui/main_box/icon_box_draw_method.c \
 	gui/main_box/init_main_box.c		\
+	\
+	gui/object_list_box/create_light_gui_box.c			\
+	gui/object_list_box/create_object_gui_box.c			\
+	gui/object_list_box/init_object_list_box.c			\
+	gui/object_list_box/object_box_getters.c			\
+	gui/object_list_box/object_list_gui_box_draw.c		\
+	gui/object_list_box/object_list_gui_box_on_click.c	\
 	\
 	gui/object_modification_box/init_color_picker/add_hover_color_circle.c	\
 	gui/object_modification_box/init_color_picker/color_getter_functions.c	\
@@ -51,45 +57,72 @@ SRC				=\
 	gui/object_modification_box/init_color_picker/init_color_picker_box.c	\
 	gui/object_modification_box/init_color_picker/init_rgb_picker.c			\
 	\
-	gui/object_modification_box/init_object_attributes_modification_box.c	\
 	gui/object_modification_box/init_object_modification_box.c				\
 	\
 	gui/create_boxes_utils.c		\
-	gui/create_float_input_box.c	\
+	gui/float_input_box.c			\
 	gui/create_horizontal_boxes.c	\
 	gui/create_n_horizontal_boxes.c	\
 	gui/create_vertical_boxes.c		\
-	gui/init_boxes.c				\
+	gui/draw_icon.c					\
+	gui/init_gui.c					\
 	\
+	\
+	hooks/update_object_attributes_modification_box/add_boxes/cap_checkerboard_size_on_clicks/x.c	\
+	hooks/update_object_attributes_modification_box/add_boxes/cap_checkerboard_size_on_clicks/y.c	\
 	\
 	hooks/update_object_attributes_modification_box/add_boxes/normal_input_box_on_clicks/x.c	\
 	hooks/update_object_attributes_modification_box/add_boxes/normal_input_box_on_clicks/y.c	\
 	hooks/update_object_attributes_modification_box/add_boxes/normal_input_box_on_clicks/z.c	\
 	\
+	hooks/update_object_attributes_modification_box/add_boxes/outline_checkerboard_size_on_clicks/x.c	\
+	hooks/update_object_attributes_modification_box/add_boxes/outline_checkerboard_size_on_clicks/y.c	\
+	\
 	hooks/update_object_attributes_modification_box/add_boxes/position_input_box_on_clicks/x.c	\
 	hooks/update_object_attributes_modification_box/add_boxes/position_input_box_on_clicks/y.c	\
 	hooks/update_object_attributes_modification_box/add_boxes/position_input_box_on_clicks/z.c	\
 	\
-	hooks/update_object_attributes_modification_box/add_boxes/add_height_box.c		\
-	hooks/update_object_attributes_modification_box/add_boxes/add_normal_box.c		\
-	hooks/update_object_attributes_modification_box/add_boxes/add_position_box.c	\
-	hooks/update_object_attributes_modification_box/add_boxes/add_radius_box.c		\
-	hooks/update_object_attributes_modification_box/add_boxes/add_x_y_z_box.c		\
-	hooks/update_object_attributes_modification_box/add_boxes/get_x_y_z_input_box.c	\
+	hooks/update_object_attributes_modification_box/add_boxes/utils/add_toggle_box.c		\
+	hooks/update_object_attributes_modification_box/add_boxes/utils/add_x_y_box.c			\
+	hooks/update_object_attributes_modification_box/add_boxes/utils/add_x_y_z_box.c			\
+	hooks/update_object_attributes_modification_box/add_boxes/utils/get_box_size.c			\
+	hooks/update_object_attributes_modification_box/add_boxes/utils/get_x_y_input_box.c		\
+	hooks/update_object_attributes_modification_box/add_boxes/utils/get_x_y_z_input_box.c	\
+	hooks/update_object_attributes_modification_box/add_boxes/utils/init_description_box.c	\
 	\
+	hooks/update_object_attributes_modification_box/add_boxes/add_brightness_box.c						\
+	hooks/update_object_attributes_modification_box/add_boxes/add_cap_checkerboard_size_box.c			\
+	hooks/update_object_attributes_modification_box/add_boxes/add_checkered_pattern_color_toggle_box.c	\
+	hooks/update_object_attributes_modification_box/add_boxes/add_height_box.c							\
+	hooks/update_object_attributes_modification_box/add_boxes/add_normal_box.c							\
+	hooks/update_object_attributes_modification_box/add_boxes/add_outline_checkerboard_size_box.c		\
+	hooks/update_object_attributes_modification_box/add_boxes/add_position_box.c						\
+	hooks/update_object_attributes_modification_box/add_boxes/add_radius_box.c							\
+	hooks/update_object_attributes_modification_box/add_boxes/add_reflection_box.c						\
+	hooks/update_object_attributes_modification_box/add_boxes/add_specular_reflection_box.c				\
+	\
+	hooks/update_object_attributes_modification_box/get_box_category_index.c					\
+	hooks/update_object_attributes_modification_box/init_cone_attributes_modification_box.c		\
 	hooks/update_object_attributes_modification_box/init_cylinder_attributes_modification_box.c	\
+	hooks/update_object_attributes_modification_box/init_light_attributes_modification_box.c	\
 	hooks/update_object_attributes_modification_box/init_plane_attributes_modification_box.c	\
 	hooks/update_object_attributes_modification_box/init_sphere_attributes_modification_box.c	\
 	hooks/update_object_attributes_modification_box/update_object_attributes_modification_box.c	\
+	hooks/update_object_attributes_modification_box/update_float_input_boxes.c					\
 	\
-	hooks/button_press.c	\
-	hooks/button_release.c	\
-	hooks/key_press.c		\
-	hooks/key_release.c		\
+	hooks/button_press.c				\
+	hooks/button_release.c				\
+	hooks/key_press.c					\
+	hooks/key_release.c					\
+	hooks/redraw_icons.c				\
+	hooks/toggle_gui.c					\
+	hooks/update_color_picker_color.c	\
 	\
 	\
 	image/destroy_t_image.c		\
 	image/draw.c				\
+	image/draw_check_mark.c		\
+	image/draw_outline.c		\
 	image/image.c				\
 	image/put_image_to_image.c	\
 	image/round_image_corners.c	\
@@ -99,8 +132,9 @@ SRC				=\
 	light/lights.c	\
 	\
 	\
-	material/material.c	\
-	material/texture.c	\
+	material/checkerboard.c	\
+	material/material.c		\
+	material/texture.c		\
 	\
 	\
 	math/matrix/matrix3.c			\
@@ -146,8 +180,9 @@ SRC				=\
 	object/sphere/create.c				\
 	object/sphere/transformations.c		\
 	\
-	object/objects.c			\
-	object/transformations.c	\
+	object/objects.c				\
+	object/transformations.c		\
+	object/object_calculate_cache.c	\
 	\
 	\
 	parsing/line_parsing/utils/add_object_to_object_list.c	\
@@ -194,17 +229,18 @@ SRC				=\
 	ray_tracer/shade/shade.c	\
 	ray_tracer/shade/shadow.c	\
 	\
-	ray_tracer/texture/checkerboard.c	\
 	ray_tracer/texture/mapping.c		\
 	ray_tracer/texture/texture.c		\
 	\
 	ray_tracer/interpolate_ray_tracing.c	\
 	ray_tracer/render.c						\
+	ray_tracer/render_icon.c				\
 	ray_tracer/render_ray.c					\
 	ray_tracer/render_with_anti_aliasing.c	\
 	\
 	\
-	ray_tracer_gui_api/get_clicked_object.c	\
+	ray_tracer_gui_api/add_and_remove_object_and_light.c	\
+	ray_tracer_gui_api/get_clicked_object.c					\
 	\
 	\
 	render_frame/print_fps_counter.c		\

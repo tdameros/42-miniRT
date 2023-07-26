@@ -18,9 +18,10 @@ t_texture	create_empty_texture(void)
 	t_texture	texture;
 
 	ft_bzero(&texture, sizeof(texture));
-	texture.outline_type = NONE;
-	texture.cap_type = NONE;
-	texture.has_bump_map = false;
+	texture.outline_type = CHECKERBOARD;
+	texture.cap_type = CHECKERBOARD;
+	texture.outline_checkerboard.size = (t_vector2f){1, 1};
+	texture.cap_checkerboard.size = (t_vector2f){1, 1};
 	return (texture);
 }
 
@@ -50,11 +51,15 @@ int	set_cap_ppm_texture(t_material * material, const char *filename)
 void	free_outline_texture(t_material *material)
 {
 	free(material->texture.outline_texture.pixels);
-	material->texture.outline_type = NONE;
+	material->texture.outline_type = CHECKERBOARD;
+	ft_bzero(&material->texture.outline_checkerboard,
+		sizeof(material->texture.outline_checkerboard));
 }
 
 void	free_cap_texture(t_material *material)
 {
 	free(material->texture.cap_texture.pixels);
-	material->texture.cap_type = NONE;
+	material->texture.cap_type = CHECKERBOARD;
+	ft_bzero(&material->texture.cap_checkerboard,
+		sizeof(material->texture.cap_checkerboard));
 }

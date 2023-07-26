@@ -26,6 +26,4 @@ typedef struct s_scene
 	t_vector3f	sky_color;
 }	t_scene;
 
-int	init_scene(t_scene *scene);
-
 #endif

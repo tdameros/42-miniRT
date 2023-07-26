@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
+
 #include "object.h"
 
 t_object	sphere_create(const t_vector3f position, const float radius,
@@ -21,6 +23,7 @@ t_object	sphere_create(const t_vector3f position, const float radius,
 	sphere.position = position;
 	sphere.radius = radius;
 	sphere.material = material;
+	sphere.name = ft_strdup("Sphere");
 
 	sphere_calculate_cache(&sphere);
 	return (sphere);

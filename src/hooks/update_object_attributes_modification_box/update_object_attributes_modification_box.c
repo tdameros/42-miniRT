@@ -14,28 +14,48 @@
 #include "hooks.h"
 
 static int	init_object_attributes_modification_box_content(t_engine *engine,
-				t_gui_box *gui_box, t_object *selected_object);
+				t_gui_box *gui_box, t_selected_object selected_object);
 
 int	update_object_attributes_modification_box(t_engine *engine)
 {
 	destroy_t_gui_box(&engine->window,
 		engine->gui.object_attributes_modification_box);
-	return (init_object_attributes_modification_box_content(engine,
+	ft_bzero(&engine->gui.float_input_boxes,
+		sizeof(engine->gui.float_input_boxes));
+	if (engine->object_being_placed.object != NULL)
+	{
+		engine->gui.selected_object.object = engine->object_being_placed.object;
+		engine->gui.selected_object.light = NULL;
+	}
+	else if (engine->object_being_placed.light != NULL)
+	{
+		engine->gui.selected_object.light = engine->object_being_placed.light;
+		engine->gui.selected_object.object = NULL;
+	}
+	if (init_object_attributes_modification_box_content(engine,
 			engine->gui.object_attributes_modification_box,
-			engine->gui.selected_object));
+			engine->gui.selected_object) < 0)
+		return (-1);
+	update_float_input_boxes(engine);
+	return (0);
 }
 
 static int	init_object_attributes_modification_box_content(t_engine *engine,
-				t_gui_box *gui_box, t_object *selected_object)
+				t_gui_box *gui_box, const t_selected_object selected_object)
 {
-	if (selected_object == NULL)
-		return (0);
-	if (selected_object->type == SPHERE)
-		return (init_sphere_attributes_modification_box(engine, gui_box));
-	else if (selected_object->type == PLANE)
-		return (init_plane_attributes_modification_box(engine, gui_box));
-	else if (selected_object->type == CYLINDER)
-		return (init_cylinder_attributes_modification_box(engine, gui_box));
-	ft_print_error("Object surface_type not supported\n\n");
+	// TODO need to able to scroll in these boxes as screen size may vary
+	if (selected_object.object != NULL)
+	{
+		if (selected_object.object->type == SPHERE)
+			return (init_sphere_attributes_modification_box(engine, gui_box));
+		else if (selected_object.object->type == PLANE)
+			return (init_plane_attributes_modification_box(engine, gui_box));
+		else if (selected_object.object->type == CYLINDER)
+			return (init_cylinder_attributes_modification_box(engine, gui_box));
+		else if (selected_object.object->type == CONE)
+			return (init_cone_attributes_modification_box(engine, gui_box));
+	}
+	else if (selected_object.light != NULL)
+		return (init_light_attributes_modification_box(engine, gui_box));
 	return (0);
 }

@@ -54,6 +54,7 @@ int	remove_light_in_lights(t_lights *lights, size_t index)
 {
 	if (lights->length <= index)
 		return (-1);
+	free(lights->data[index].name);
 	lights->data[index] = lights->data[lights->length - 1];
 	lights->length -= 1;
 	return (0);
@@ -61,6 +62,8 @@ int	remove_light_in_lights(t_lights *lights, size_t index)
 
 int	free_lights(t_lights *lights)
 {
+	while (lights->length--)
+		free(lights->data[lights->length].name);
 	free(lights->data);
 	lights->size = 0;
 	lights->length = 0;

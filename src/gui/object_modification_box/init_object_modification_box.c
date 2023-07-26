@@ -8,33 +8,33 @@
 #include "gui/utils.h"
 #include "hooks.h"
 #include "gui/UI.h"
+#include "events.h"
+#include "ray_tracer_gui_api.h"
 
 static int	init_object_modification_gui_box_children(t_engine *engine,
 				t_gui_box *parent);
 static int	init_box_deleter(t_engine *engine, t_gui_box *gui_box);
-static void	delete_box_on_click(t_gui_box *self, t_engine *engine, int y,
-				int x);
+static void	delete_box_on_click(t_gui_box *self, t_engine *engine,
+				t_click_data click_data);
 
 int	init_object_modification_gui_box(t_engine *engine, t_gui_box *gui_box,
-		const t_gui_box *object_creation_gui_box)
+		const t_gui_box *main_gui_box)
 {
-	*gui_box = create_t_gui_box(engine, NULL, \
-		(t_vector2i){
-			.x = engine->window.size.x - engine->window.size.x / 4 \
- - object_creation_gui_box->position.x,
-			.y = object_creation_gui_box->size.y \
-				+ object_creation_gui_box->position.y * 2}, \
-		(t_vector2i){
-			.x = engine->window.size.x / 4, \
-			.y = engine->window.size.y \
- - (object_creation_gui_box->size.y \
-				+ object_creation_gui_box->position.y * 3)});
-	if (errno == EINVAL)
+	*gui_box = create_t_gui_box(engine, (t_gui_box_create){NULL, \
+			(t_vector2i){\
+				.x = engine->window.size.x - engine->window.size.x / 4 \
+					- main_gui_box->position.x, \
+				.y = main_gui_box->size.y \
+					+ main_gui_box->position.y * 2}, \
+			(t_vector2i){\
+				.x = engine->window.size.x / 4, \
+				.y = engine->window.size.y \
+					- (main_gui_box->size.y + main_gui_box->position.y * 3)}, \
+			true});
+	if (errno == EINVAL || errno == ENOMEM)
 		return (-1);
 	change_image_color(&gui_box->image, BASE_GUI_COLOR);
 	round_image_corners(&gui_box->image, BOX_ROUNDING_RADIUS);
-	gui_box->draw = &default_gui_box_draw;
-	gui_box->on_click = &default_gui_box_on_click;
 	if (init_object_modification_gui_box_children(engine, gui_box))
 		return (-1); // TODO free image
 	return (0);
@@ -46,7 +46,7 @@ static int	init_object_modification_gui_box_children(t_engine *engine,
 	if (create_vertical_boxes(engine, parent, "1 12 1 69 1 15 1",
 			roundf(parent->size.y / 100.f)) < 0)
 		return (-1);
-	init_object_attributes_modification_box(engine, parent->children.data + 3);
+	engine->gui.object_attributes_modification_box = parent->children.data + 3;
 	if (init_box_deleter(engine, parent->children.data + 1) < 0)
 		return (-1); // TODO free stuff
 	if (init_rgb_picker(engine, parent->children.data + 5) < 0)
@@ -71,6 +71,10 @@ static int	init_box_deleter(t_engine *engine, t_gui_box *gui_box)
 		< 0)
 		return (-1);
 
+	if (init_image(&gui_box->image, &engine->window, gui_box->size.x, gui_box->size.y) < 0)
+		return (-1); // TODO free
+	if (init_image(&gui_box->children.data[2].image, &engine->window, gui_box->children.data[2].size.x, gui_box->children.data[2].size.y) < 0)
+		return (-1); // TODO free
 	change_image_color(&gui_box->image, SUB_GUI_COLOR);
 	round_image_corners(&gui_box->image, 10);
 	gui_box->children.data[0].on_click = NULL;
@@ -84,24 +88,26 @@ static int	init_box_deleter(t_engine *engine, t_gui_box *gui_box)
 	return (0);
 }
 
-static void	delete_box_on_click(t_gui_box *self, t_engine *engine, int y,
-				int x)
+static void	delete_box_on_click(t_gui_box *self, t_engine *engine,
+				t_click_data click_data)
 {
 	size_t	index;
 
-	(void)y;
-	(void)x;
 	(void)self;
-	if (engine->gui.selected_object == NULL)
+	if (click_data.button != BUTTON_LEFT || (engine->gui.selected_object.object == NULL
+		&& engine->gui.selected_object.light == NULL))
 		return ;
-	index = engine->gui.selected_object - engine->scene.objects.data;
-	if (remove_object_in_objects(&engine->scene.objects, index) < 0)
-	{
-		ft_print_error("Failed to remove object at index ");
-		ft_putnbr_fd(index, STDERR_FILENO);
-		ft_print_error("\n");
-	}
-	engine->gui.selected_object = NULL;
-	update_object_attributes_modification_box(engine);
 	engine->scene_changed = true;
+	if (engine->gui.selected_object.object == NULL)
+	{
+		index = engine->gui.selected_object.light - engine->scene.lights.data;
+		remove_light(engine, index);
+		engine->gui.selected_object.light = NULL;
+		update_object_attributes_modification_box(engine);
+		return ;
+	}
+	index = engine->gui.selected_object.object - engine->scene.objects.data;
+	remove_object(engine, index);
+	engine->gui.selected_object.object = NULL;
+	update_object_attributes_modification_box(engine);
 }

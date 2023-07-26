@@ -19,9 +19,9 @@
 
 typedef struct s_float_input_box_on_click
 {
-	void	(*minus)(struct s_gui_box *, t_engine *, int, int);
-	void	(*text_box)(struct s_gui_box *, t_engine *, int, int);
-	void	(*plus)(struct s_gui_box *, t_engine *, int, int);
+	void	(*minus)(struct s_gui_box *, t_engine *, t_click_data);
+	void	(*text_box)(struct s_gui_box *, t_engine *, t_click_data);
+	void	(*plus)(struct s_gui_box *, t_engine *, t_click_data);
 }	t_float_input_box_on_click;
 
 typedef struct s_boxes_to_create
@@ -30,17 +30,14 @@ typedef struct s_boxes_to_create
 	size_t	nb_of_boxes;
 }	t_boxes_to_create;
 
-typedef struct s_boxes_offsets
-{
-	int	x;
-	int	y;
-}	t_boxes_offsets;
+typedef t_vector2i	t_boxes_offsets;
 
-bool				mouse_is_hovering_box(
+bool				is_mouse_hovering_box(const t_gui_box *gui_box,
+						t_vector2i box_offset,
 						const t_image *image_to_check_for_hover,
 						t_vector2i mouse_position);
-t_vector2i			get_mouse_position_in_box(t_gui_box *self, t_engine *engine,
-						int x_offset, int y_offset);
+t_vector2i			get_mouse_position_in_box(const t_gui_box *self,
+						t_vector2i box_offset, t_vector2i mouse_position);
 t_vector2i			get_mouse_position(t_engine *engine);
 
 t_boxes_to_create	get_boxes_size(const char *boxes_setup);
@@ -54,7 +51,12 @@ int					create_n_horizontal_boxes(t_engine *engine,
 int					create_vertical_boxes(t_engine *engine, t_gui_box *gui_box,
 						const char *boxes_setup, int side_offset);
 
+void				update_float_input_box(const t_engine *engine, float f,
+						t_gui_box *input_box);
 int					create_float_input_box(t_engine *engine, t_gui_box *gui_box,
 						t_float_input_box_on_click on_click);
+
+int					draw_icon(t_image *image, int type,
+						unsigned int background_color, t_material material);
 
 #endif

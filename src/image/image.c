@@ -28,7 +28,7 @@ int	init_image_from_xpm(t_image *image, t_window *window, char *xmp_file)
 	if (image->data == NULL)
 	{
 		ft_putstr_fd("Error: mlx_xpm_file_to_image failed\n", STDERR_FILENO);
-		return (1);
+		return (-1);
 	}
 	image->address = (unsigned int *)mlx_get_data_addr(image->data,
 			&image->bits_per_pixel, &image->line_length, &image->endian);

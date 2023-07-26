@@ -22,9 +22,15 @@ void	icon_box_draw_method(t_gui_box *self, t_engine *engine,
 			int x_offset, int y_offset);
 void	init_settings_icon(t_gui_box *gui_box);
 
-void	sphere_create_on_click(t_gui_box *self, t_engine *engine, int y, int x);
-void	cylinder_create_on_click(t_gui_box *self, t_engine *engine, int y,
-								 int x);
-void	plane_create_on_click(t_gui_box *self, t_engine *engine, int y, int x);
+void	sphere_create_on_click(t_gui_box *self, t_engine *engine,
+			t_click_data click_data);
+void	plane_create_on_click(t_gui_box *self, t_engine *engine,
+			t_click_data click_data);
+void	cylinder_create_on_click(t_gui_box *self, t_engine *engine,
+			t_click_data click_data);
+void	cone_create_on_click(t_gui_box *self, t_engine *engine,
+			t_click_data click_data);
+void	light_create_on_click(t_gui_box *self, t_engine *engine,
+			t_click_data click_data);
 
 #endif

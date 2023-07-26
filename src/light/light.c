@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
+
 #include "light.h"
 
 t_light	light_create(const t_vector3f position, const t_vector3f color,
@@ -20,6 +22,7 @@ t_light	light_create(const t_vector3f position, const t_vector3f color,
 	light.position = position;
 	light.color = vector3f_clamp(color, 0, 1);
 	light.brightness = brightness;
+	light.name = ft_strdup("Light");
 
 	light_calculate_cache(&light);
 	return (light);
@@ -29,6 +32,12 @@ void	light_calculate_cache(t_light *light)
 {
 	light->emitted_color = vector3f_clamp(vector3f_multiply(light->color,
 				light->brightness), 0, 1);
+}
+
+void	light_set_position(t_light *light, const t_vector3f position)
+{
+	light->position = position;
+	light_calculate_cache(light);
 }
 
 void	light_set_color(t_light *light, const t_vector3f color)

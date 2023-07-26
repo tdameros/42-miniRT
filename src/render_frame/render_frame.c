@@ -25,13 +25,14 @@
 #include "gui/utils.h"
 #include "font/render.h"
 #include "events.h"
+#include "hooks.h"
 
 #define FPS_GOAL 45
 #define FRAME_BEFORE_ADAPTION 20
 
 static void			render_minirt(t_engine *engine, uint64_t start_time);
 static int			get_incrementer(t_engine *engine);
-static void			update_camera(t_engine *engine);
+static void			update_scene(t_engine *engine);
 static int			deal_mouse(t_engine *engine);
 static void			deal_keys(t_engine *engine);
 static void			update_placed_object_position(t_engine *engine);
@@ -70,8 +71,7 @@ static void	render_minirt(t_engine *engine, const uint64_t start_time)
 {
 	int	incrementer;
 
-	update_camera(engine);
-	update_placed_object_position(engine);
+	update_scene(engine);
 	if (engine->should_render_ray_tracing
 		&& engine->should_render_at_full_resolution == false)
 	{
@@ -107,7 +107,7 @@ static int	get_incrementer(t_engine *engine)
 		return (1);
 	fps_count += engine->gui.fps.fps_nb;
 	if (frame_count >= FRAME_BEFORE_ADAPTION
-		&& fps_count / frame_count < FPS_GOAL)// * 0.66f)
+		&& fps_count / frame_count < FPS_GOAL * 0.66f)
 	{
 		incrementer++;
 		frame_count = 0;
@@ -126,31 +126,33 @@ static int	get_incrementer(t_engine *engine)
 	return (incrementer);
 }
 
-#define NB_OF_MS_BEFORE_FULL_RESOLUTION 400
+#define NB_OF_MS_BEFORE_FULL_RESOLUTION 600
 
-static void	update_camera(t_engine *engine)
+static void	update_scene(t_engine *engine)
 {
 	static uint64_t			next_update_time = 0;
 	static bool				was_rendered_at_full_resolution = false;
-	const struct timeval	current_time = ft_get_current_time();
-	const uint64_t			current_time_in_ms
-		= ft_timeval_to_ms(current_time);
+	const uint64_t			current_time_in_ms = ft_timeval_to_ms(
+			ft_get_current_time());
 
 	deal_keys(engine);
 	if (deal_mouse(engine) || engine->pressed_keys_index > 0)
 	{
 		camera_recalculate_view(&engine->camera);
 		camera_recalculate_rays(&engine->camera);
-		engine->should_render_at_full_resolution = false;
 		engine->should_render_ray_tracing = true;
+		engine->should_render_at_full_resolution = false;
 		was_rendered_at_full_resolution = false;
 		next_update_time = current_time_in_ms + NB_OF_MS_BEFORE_FULL_RESOLUTION;
 		engine->scene_changed = true;
+		update_placed_object_position(engine);
+		return ;
 	}
-	else if (engine->scene_changed)
+	update_placed_object_position(engine);
+	if (engine->scene_changed)
 	{
-		engine->should_render_at_full_resolution = false;
 		engine->should_render_ray_tracing = true;
+		engine->should_render_at_full_resolution = false;
 		was_rendered_at_full_resolution = false;
 		next_update_time = current_time_in_ms + NB_OF_MS_BEFORE_FULL_RESOLUTION;
 	}
@@ -158,7 +160,7 @@ static void	update_camera(t_engine *engine)
 	{
 		if (was_rendered_at_full_resolution)
 			engine->should_render_ray_tracing = false;
-		else
+		else if (engine->gui.hide_animation_finished)
 		{
 			engine->should_render_at_full_resolution = true;
 			was_rendered_at_full_resolution = true;
@@ -247,7 +249,8 @@ static void	update_placed_object_position(t_engine *engine)
 	float		yaw_delta;
 	float		pitch_delta;
 
-	if (engine->object_being_placed == NULL)
+	if (engine->object_being_placed.object == NULL
+		&& engine->object_being_placed.light == NULL)
 		return ;
 	mouse_position = get_mouse_position(engine);
 	yaw_delta = (engine->previous_mouse_position.x - mouse_position.x)
@@ -257,38 +260,46 @@ static void	update_placed_object_position(t_engine *engine)
 	if (yaw_delta == 0 && pitch_delta == 0 && engine->scene_changed == false)
 		return ;
 	engine->scene_changed = true;
-	engine->previous_mouse_position = mouse_position;
 	update_mouse_position(engine, &mouse_position);
+	engine->previous_mouse_position = mouse_position;
 	ray_index = mouse_position.x + mouse_position.y \
 			* (int)engine->camera.viewport.size.x;
 	direction = engine->camera.rays[ray_index].direction;
-	object_set_position(engine->object_being_placed, (t_vector3f){
-		.x = engine->camera.position.x + engine->object_being_placed_distance \
-			* direction.x,
-		.y = engine->camera.position.y + engine->object_being_placed_distance \
-			* direction.y,
-		.z = engine->camera.position.z + engine->object_being_placed_distance \
-			* direction.z
-	});
+	if (engine->object_being_placed.object != NULL)
+	{
+		object_set_position(engine->object_being_placed.object, vector3f_add(
+				engine->camera.position,
+				vector3f_multiply(direction,
+					engine->object_being_placed_distance)));
+		update_xyz_float_input_boxes(engine,
+			engine->object_being_placed.object->position,
+			&engine->gui.float_input_boxes.position);
+	}
+	else
+	{
+		light_set_position(engine->object_being_placed.light, vector3f_add(
+				engine->camera.position,
+				vector3f_multiply(direction,
+					engine->object_being_placed_distance)));
+		update_xyz_float_input_boxes(engine,
+			engine->object_being_placed.light->position,
+			&engine->gui.float_input_boxes.position);
+	}
 }
 
 static void	update_mouse_position(t_engine *engine, t_vector2i *mouse_position)
 {
-	bool	should_update_mouse_position;
-
-	should_update_mouse_position = (
-			mouse_position->x >= engine->camera.viewport.size.x
-			|| mouse_position->y >= engine->camera.viewport.size.y
-			|| mouse_position->x < 0 || mouse_position->y < 0);
-	if (should_update_mouse_position == false)
+	if (mouse_position->x < engine->ray_traced_image.width
+		&& mouse_position->y < engine->ray_traced_image.height
+		&& mouse_position->x >= 0 && mouse_position->y >= 0)
 		return ;
-	while (mouse_position->x >= engine->camera.viewport.size.x)
-		mouse_position->x -= engine->camera.viewport.size.x;
+	if (mouse_position->x >= engine->ray_traced_image.width)
+		mouse_position->x %= engine->ray_traced_image.width;
 	while (mouse_position->x < 0)
-		mouse_position->x += engine->camera.viewport.size.x;
-	while (mouse_position->y >= engine->camera.viewport.size.y)
-		mouse_position->y -= engine->camera.viewport.size.y;
+		mouse_position->x += engine->ray_traced_image.width;
+	if (mouse_position->y >= engine->ray_traced_image.height)
+		mouse_position->y %= engine->ray_traced_image.height;
 	while (mouse_position->y < 0)
-		mouse_position->y += engine->camera.viewport.size.y;
+		mouse_position->y += engine->ray_traced_image.height;
 	mlx_mouse_move(engine->window.window, mouse_position->x, mouse_position->y);
 }

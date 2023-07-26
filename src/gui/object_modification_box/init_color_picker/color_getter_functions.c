@@ -15,13 +15,13 @@
 int	get_increasing_color(float color, float x, float decal,
 				float ratio)
 {
-	return ((int)roundf(color * ((x - decal) / ratio)));
+	return (roundf(color * ((x - decal) / ratio)));
 }
 
 int	get_decreasing_color(float color, float x, float decal,
 				float ratio)
 {
-	return ((int)roundf(color * (1.0 - ((x - decal) / ratio))));
+	return (roundf(color * (1.0 - ((x - decal) / ratio))));
 }
 
 int	get_base_color(float color, float x, float decal, float ratio)
@@ -29,5 +29,5 @@ int	get_base_color(float color, float x, float decal, float ratio)
 	(void)x;
 	(void)decal;
 	(void)ratio;
-	return ((int)color);
+	return (color);
 }

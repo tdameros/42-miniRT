@@ -18,26 +18,32 @@ typedef struct s_raytraced_pixels
 	size_t		size;
 }	t_raytraced_pixels;
 
+typedef struct s_object_being_placed
+{
+	t_object	*object;
+	t_light		*light;
+}	t_object_being_placed;
+
 # define NB_OF_MOVEMENT_KEYS 8
 
 typedef struct s_engine
 {
-	t_window			window;
-	t_gui				gui;
-	t_image				main_image;
-	t_image				ray_traced_image;
-	t_raytraced_pixels	raytraced_pixels;
-	t_raytracing_data	raytracing_data;
-	t_camera			camera;
-	t_scene				scene;
-	t_object			*object_being_placed;
-	float				object_being_placed_distance;
-	t_vector2i			previous_mouse_position;
-	int					pressed_keys[NB_OF_MOVEMENT_KEYS];
-	int					pressed_keys_index;
-	bool				should_render_ray_tracing;
-	bool				should_render_at_full_resolution;
-	bool				scene_changed;
+	t_window				window;
+	t_gui					gui;
+	t_image					main_image;
+	t_image					ray_traced_image;
+	t_raytraced_pixels		raytraced_pixels;
+	t_raytracing_data		raytracing_data;
+	t_camera				camera;
+	t_scene					scene;
+	t_object_being_placed	object_being_placed;
+	float					object_being_placed_distance;
+	t_vector2i				previous_mouse_position;
+	int						pressed_keys[NB_OF_MOVEMENT_KEYS];
+	int						pressed_keys_index;
+	bool					should_render_ray_tracing;
+	bool					should_render_at_full_resolution;
+	bool					scene_changed;
 }	t_engine;
 
 int		init_engine(t_engine *engine, const char *start_up_scene);

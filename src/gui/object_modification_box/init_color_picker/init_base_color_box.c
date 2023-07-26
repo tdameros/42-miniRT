@@ -19,6 +19,8 @@
 #include "colors.h"
 #include "gui/object_modification_box.h"
 #include "gui/utils.h"
+#include "hooks.h"
+#include "events.h"
 
 typedef struct s_color_getter
 {
@@ -38,25 +40,25 @@ typedef struct s_color_separator
 }	t_color_separator;
 
 static void	base_color_box_draw(t_gui_box *self, t_engine *engine,
-				int x_offset, int y_offset);
+				t_draw_data draw_data);
 static void	put_color_segment(t_image *image, t_vector2i *position,
 				t_color_separator *color_separator,
 				t_color_getter color_getter);
 static void	init_color_getters(t_color_getter *color_getters);
 static void	write_color_row(t_image *image, int y);
-static void	base_color_picker_on_click(t_gui_box *self, t_engine *engine, int y,
-				int x);
+static void	base_color_picker_on_click(t_gui_box *self, t_engine *engine,
+				t_click_data click_data);
 
 int	init_base_color_box(t_engine *engine, t_gui_box *gui_box,
 		t_gui_box *parent)
 {
 	int	y;
 
-	*gui_box = create_t_gui_box(engine, parent, \
+	*gui_box = create_t_gui_box(engine, (t_gui_box_create){parent, \
 		(t_vector2i){.x = 0,
 			.y = parent->size.y - parent->size.y / 2 + 4}, \
 		(t_vector2i){.y = parent->size.y / 2 - 4, \
-			.x = parent->size.x});
+			.x = parent->size.x}, true});
 	if (errno == EINVAL)
 		return (-1);
 	if (init_image(&gui_box->on_hover_image, &engine->window,
@@ -64,7 +66,8 @@ int	init_base_color_box(t_engine *engine, t_gui_box *gui_box,
 		return (-1); // TODO free above
 	gui_box->draw = &base_color_box_draw;
 	gui_box->on_click = &base_color_picker_on_click;
-	engine->gui.color_picker_base_color = get_t_color_from_uint(COLOR_BLUE);
+	engine->gui.color_picker_base_color = vector3f_multiply(
+			engine->gui.material_to_assign_to_new_objects.albedo, 255.f);
 	engine->gui.color_picker_base_color_was_changed = true;
 	y = -1;
 	while (++y < gui_box->size.y)
@@ -95,18 +98,18 @@ static void	base_color_box_draw(t_gui_box *self, t_engine *engine,
 #elif defined __APPLE__
 
 static void	base_color_box_draw(t_gui_box *self, t_engine *engine,
-				int x_offset, int y_offset)
+				t_draw_data draw_data)
 {
 	mlx_put_image_to_window(engine->window.mlx, engine->window.window,
-		self->image.data, self->position.x + x_offset,
-		self->position.y + y_offset);
-	if (mouse_is_hovering_box(&self->image, get_mouse_position_in_box(self, engine,
-																	  x_offset, y_offset)) == false)
+		self->image.data, self->position.x + draw_data.offset.x,
+		self->position.y + draw_data.offset.y);
+	if (is_mouse_hovering_box(self, draw_data.offset, &self->image,
+			draw_data.mouse_position) == false)
 		return ;
-	add_hover_color_circle(self, engine, x_offset, y_offset);
+	add_hover_color_circle(self, draw_data.offset, draw_data.mouse_position);
 	mlx_put_image_to_window(engine->window.mlx, engine->window.window,
-		self->on_hover_image.data, self->position.x + x_offset,
-		self->position.y + y_offset);
+		self->on_hover_image.data, self->position.x + draw_data.offset.x,
+		self->position.y + draw_data.offset.y);
 }
 #else
 # error "Unsuported OS"
@@ -190,20 +193,31 @@ static void	put_color_segment(t_image *image, t_vector2i *position,
 	color_separator->max += color_separator->color_segment_width;
 }
 
-static void	base_color_picker_on_click(t_gui_box *self, t_engine *engine, int y,
-				int x)
+static void	base_color_picker_on_click(t_gui_box *self, t_engine *engine,
+				t_click_data click_data)
 {
-	const unsigned int	color = get_image_pixel_color(&self->image, y, x);
+	const unsigned int	uint_color = get_image_pixel_color(&self->image,
+			click_data.click_position.y, click_data.click_position.x);
+	t_color				albedo;
 
-	if (color == COLOR_TRANSPARENT)
+	if (click_data.button != BUTTON_LEFT || uint_color == COLOR_TRANSPARENT)
 		return ;
-	engine->gui.color_picker_base_color = get_t_color_from_uint(color);
+	engine->gui.color_picker_base_color = get_t_color_from_uint(uint_color);
 	engine->gui.color_picker_base_color_was_changed = true;
-	if (engine->gui.selected_object == NULL)
-		return ;
-	engine->gui.selected_object->material.albedo = engine->gui.color_picker_base_color;
-	engine->gui.selected_object->material.albedo.x /= 255.f;
-	engine->gui.selected_object->material.albedo.y /= 255.f;
-	engine->gui.selected_object->material.albedo.z /= 255.f;
+	albedo = vector3f_divide(engine->gui.color_picker_base_color, 255.f);
+	if (engine->gui.selected_object.object == NULL
+		&& engine->gui.selected_object.light == NULL)
+		return (redraw_icons(engine, material_create(albedo, 0, 0)));
 	engine->scene_changed = true;
+	if (engine->gui.selected_object.object == NULL)
+	{
+		light_set_color(engine->gui.selected_object.light, albedo);
+		return (redraw_icons(engine, material_create(albedo, 0, 0)));
+	}
+	if (engine->gui.color_being_changed_is_checked_pattern)
+		engine->gui.selected_object.object->material.texture.\
+			outline_checkerboard.albedo = albedo;
+	else
+		engine->gui.selected_object.object->material.albedo = albedo;
+	redraw_icons(engine, engine->gui.selected_object.object->material);
 }

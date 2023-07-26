@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
+
 #include "object.h"
 
 t_object	cylinder_create(const t_vector3f position, const t_vector3f axis,
@@ -23,6 +25,7 @@ t_object	cylinder_create(const t_vector3f position, const t_vector3f axis,
 	cylinder.radius = size.radius;
 	cylinder.height = size.height;
 	cylinder.material = material;
+	cylinder.name = ft_strdup("Cylinder");
 
 	cylinder_calculate_cache(&cylinder);
 	return (cylinder);

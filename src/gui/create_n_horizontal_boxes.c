@@ -32,7 +32,10 @@ int	create_n_horizontal_boxes(t_engine *engine, t_gui_box *gui_box, const int n,
 	}
 	gui_box->children.data = malloc(sizeof(*gui_box->children.data) * n);
 	if (gui_box->children.data == NULL)
+	{
+		ft_bzero(&gui_box->children, sizeof(gui_box->children));
 		return (-1);
+	}
 	gui_box->children.size = n;
 	if (create_boxes(engine, gui_box, n, offset) >= 0)
 		return (0);
@@ -49,14 +52,17 @@ static int	create_boxes(t_engine *engine, t_gui_box *gui_box, int n,
 	i = -1;
 	while (++i < n)
 	{
-		gui_box->children.data[i] = create_t_gui_box(engine, gui_box, \
-			(t_vector2i){
-				.x = (gui_box->size.x - (n + 1) * offset.x) / n * i \
-					+ offset.x * (i + 1),
-				.y = offset.y}, \
-			(t_vector2i){
-				.x = (gui_box->size.x - (n + 1) * offset.x) / n,
-				.y = gui_box->size.y - offset.y * 2});
+		gui_box->children.data[i] = create_t_gui_box(engine, \
+			(t_gui_box_create){
+				gui_box, \
+				(t_vector2i){\
+					.x = (gui_box->size.x - (n + 1) * offset.x) / n * i \
+						+ offset.x * (i + 1), \
+					.y = offset.y}, \
+				(t_vector2i){\
+					.x = (gui_box->size.x - (n + 1) * offset.x) / n, \
+					.y = gui_box->size.y - offset.y * 2},
+				false});
 		if (errno == EINVAL || errno == ENOMEM)
 		{
 			free_gui_boxes_on_error(engine, &gui_box->children, i + 1);

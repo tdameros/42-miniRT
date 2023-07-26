@@ -6,32 +6,33 @@
 #include "gui/box.h"
 #include "gui/utils.h"
 #include "gui/object_modification_box.h"
+#include "hooks.h"
+#include "events.h"
 
-static void			color_picker_draw(t_gui_box *self, t_engine *minirt,
-						int x_offset, int y_offset);
-static void			update_image(t_gui_box *self, t_engine *minirt);
+static void			color_picker_draw(t_gui_box *self, t_engine *engine,
+						t_draw_data draw_data);
+static void			update_image(t_gui_box *self, t_engine *engine);
 static unsigned int	get_darker_color(float x, float limit,
 						t_color base_color);
 static unsigned int	get_lighter_color(float x, float limit, float start,
 						t_color base_color);
 static void			color_picker_on_click(t_gui_box *self, t_engine *engine,
-						int y, int x);
+						t_click_data click_data);
 
-int	init_color_picker_box(t_engine *minirt, t_gui_box *gui_box,
+int	init_color_picker_box(t_engine *engine, t_gui_box *gui_box,
 		t_gui_box *parent)
 {
-	*gui_box = create_t_gui_box(minirt, parent, \
+	*gui_box = create_t_gui_box(engine, (t_gui_box_create){parent, \
 		(t_vector2i){
 			.x = 0,
 			.y = 0}, \
 		(t_vector2i){
 			.x = parent->size.x,
-			.y = parent->size.y / 2 - 4});
-	if (errno == EINVAL)
+			.y = parent->size.y / 2 - 4}, true});
+	if (errno == EINVAL || errno == ENOMEM)
 		return (-1);
 	if (init_image(&gui_box->on_hover_image,
-			&minirt->window, parent->size.x, parent->size.y / 2 - 4)
-		< 0)
+			&engine->window, parent->size.x, parent->size.y / 2 - 4) < 0)
 		return (-1); // TODO free previous image
 	gui_box->draw = &color_picker_draw;
 	gui_box->on_click = &color_picker_on_click;
@@ -39,54 +40,54 @@ int	init_color_picker_box(t_engine *minirt, t_gui_box *gui_box,
 }
 #if defined __linux__
 
-static void	color_picker_draw(t_gui_box *self, t_engine *minirt,
+static void	color_picker_draw(t_gui_box *self, t_engine *engine,
 				int x_offset, int y_offset)
 {
-	if (minirt->gui.color_picker_base_color_was_changed)
+	if (engine->gui.color_picker_base_color_was_changed)
 	{
-		update_image(self, minirt);
-		minirt->gui.color_picker_base_color_was_changed = false;
+		update_image(self, engine);
+		engine->gui.color_picker_base_color_was_changed = false;
 	}
-	minirt->gui.draw_gui_image(&minirt->main_image, &self->image,
+	engine->gui.draw_gui_image(&engine->main_image, &self->image,
 		(t_point_int_2d){\
 			.x = self->position.x + x_offset, \
 			.y = self->position.y + y_offset}
 	);
-	if (mouse_is_hovering_box(&self->image, get_mouse_position(self, minirt,
+	if (mouse_is_hovering_box(&self->image, get_mouse_position(self, engine,
 				x_offset, y_offset)) == false)
 		return ;
-	add_hover_color_circle(self, minirt, x_offset, y_offset);
-	minirt->gui.draw_gui_image(&minirt->main_image, &self->on_hover_image,
+	add_hover_color_circle(self, engine, x_offset, y_offset);
+	engine->gui.draw_gui_image(&engine->main_image, &self->on_hover_image,
 		(t_vector2i){\
 			.x = self->position.x + x_offset, \
 			.y = self->position.y + y_offset});
 }
 #elif defined __APPLE__
 
-static void	color_picker_draw(t_gui_box *self, t_engine *minirt,
-				int x_offset, int y_offset)
+static void	color_picker_draw(t_gui_box *self, t_engine *engine,
+				t_draw_data draw_data)
 {
-	if (minirt->gui.color_picker_base_color_was_changed)
+	if (engine->gui.color_picker_base_color_was_changed)
 	{
-		update_image(self, minirt);
-		minirt->gui.color_picker_base_color_was_changed = false;
+		update_image(self, engine);
+		engine->gui.color_picker_base_color_was_changed = false;
 	}
-	mlx_put_image_to_window(minirt->window.mlx, minirt->window.window,
-		self->image.data, self->position.x + x_offset,
-		self->position.y + y_offset);
-	if (mouse_is_hovering_box(&self->image, get_mouse_position_in_box(self, minirt,
-			x_offset, y_offset)) == false)
+	mlx_put_image_to_window(engine->window.mlx, engine->window.window,
+		self->image.data, self->position.x + draw_data.offset.x,
+		self->position.y + draw_data.offset.y);
+	if (is_mouse_hovering_box(self, draw_data.offset, &self->image,
+			draw_data.mouse_position) == false)
 		return ;
-	add_hover_color_circle(self, minirt, x_offset, y_offset);
-	mlx_put_image_to_window(minirt->window.mlx, minirt->window.window,
-		self->on_hover_image.data, self->position.x + x_offset,
-		self->position.y + y_offset);
+	add_hover_color_circle(self, draw_data.offset, draw_data.mouse_position);
+	mlx_put_image_to_window(engine->window.mlx, engine->window.window,
+		self->on_hover_image.data, self->position.x + draw_data.offset.x,
+		self->position.y + draw_data.offset.y);
 }
 #else
 # error "Unsuported OS"
 #endif
 
-static void	update_image(t_gui_box *self, t_engine *minirt)
+static void	update_image(t_gui_box *self, t_engine *engine)
 {
 	int	y;
 	int	x;
@@ -99,12 +100,12 @@ static void	update_image(t_gui_box *self, t_engine *minirt)
 		limit = (int)roundf((float)self->image.width / 2);
 		while (++x < limit)
 			put_pixel_on_image(&self->image, y, x, get_darker_color(x, limit,
-					minirt->gui.color_picker_base_color));
+					engine->gui.color_picker_base_color));
 		x--;
 		while (++x < self->image.width)
 			put_pixel_on_image(&self->image, y, x, get_lighter_color(x,
 					self->image.width, limit,
-					minirt->gui.color_picker_base_color));
+					engine->gui.color_picker_base_color));
 	}
 	round_image_corners(&self->image, 10);
 }
@@ -113,9 +114,9 @@ static unsigned int	get_darker_color(float x, float limit,
 						t_color base_color)
 {
 	const t_color	color = {
-		.x = (int)roundf((float)base_color.x * x / limit),
-		.y = (int)roundf((float)base_color.y * x / limit),
-		.z = (int)roundf((float)base_color.z * x / limit),
+		.x = roundf(base_color.x * x / limit),
+		.y = roundf(base_color.y * x / limit),
+		.z = roundf(base_color.z * x / limit),
 	};
 
 	return (rgb_to_uint(color));
@@ -125,27 +126,40 @@ static unsigned int	get_lighter_color(float x, float limit, float start,
 						t_color base_color)
 {
 	const t_color	color = {
-		.x = (int)roundf((float)base_color.x
-			+ (255.0 - (float)base_color.x) * (x - start) / (limit - start)),
-		.y = (int)roundf((float)base_color.y
-			+ (255.0 - (float)base_color.y) * (x - start) / (limit - start)),
-		.z = (int)roundf((float)base_color.z
-			+ (255.0 - (float)base_color.z) * (x - start) / (limit - start)),
+		.x = roundf(base_color.x
+			+ (255.f - base_color.x) * (x - start) / (limit - start)),
+		.y = roundf(base_color.y
+			+ (255.f - base_color.y) * (x - start) / (limit - start)),
+		.z = roundf(base_color.z
+			+ (255.f - base_color.z) * (x - start) / (limit - start)),
 	};
 
 	return (rgb_to_uint(color));
 }
 
-static void	color_picker_on_click(t_gui_box *self, t_engine *engine, int y,
-				int x)
+static void	color_picker_on_click(t_gui_box *self, t_engine *engine,
+				t_click_data click_data)
 {
-	const unsigned int	color = get_image_pixel_color(&self->image, y, x);
+	const unsigned int	uint_color = get_image_pixel_color(&self->image,
+			click_data.click_position.y, click_data.click_position.x);
+	const t_color		albedo = vector3f_divide(
+			get_t_color_from_uint(uint_color), 255.f);
 
-	if (color == COLOR_TRANSPARENT || engine->gui.selected_object == NULL)
+	if (click_data.button != BUTTON_LEFT || uint_color == COLOR_TRANSPARENT)
 		return ;
-	engine->gui.selected_object->material.albedo = get_t_color_from_uint(color);
-	engine->gui.selected_object->material.albedo.x /= 255.f;
-	engine->gui.selected_object->material.albedo.y /= 255.f;
-	engine->gui.selected_object->material.albedo.z /= 255.f;
+	if (engine->gui.selected_object.object == NULL
+		&& engine->gui.selected_object.light == NULL)
+		return (redraw_icons(engine, material_create(albedo, 0, 0)));
 	engine->scene_changed = true;
+	if (engine->gui.selected_object.object == NULL)
+	{
+		light_set_color(engine->gui.selected_object.light, albedo);
+		return (redraw_icons(engine, material_create(albedo, 0, 0)));
+	}
+	if (engine->gui.color_being_changed_is_checked_pattern)
+		engine->gui.selected_object.object->material.texture.\
+			outline_checkerboard.albedo = albedo;
+	else
+		engine->gui.selected_object.object->material.albedo = albedo;
+	redraw_icons(engine, engine->gui.selected_object.object->material);
 }

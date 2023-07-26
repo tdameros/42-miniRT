@@ -21,8 +21,9 @@
 #include "ray_tracer_gui_api.h"
 #include "hooks.h"
 
-static void	update_color_picker_color(t_gui *gui);
+static int	select_new_object(int button, t_engine *engine, int x, int y);
 static int	placing_object(int button, t_engine *engine);
+static void	toggle_camera_lock(t_engine *engine);
 
 int	button_press_handler(int button, int x, int y, t_engine *engine)
 {
@@ -30,54 +31,19 @@ int	button_press_handler(int button, int x, int y, t_engine *engine)
 
 //	ft_printf("button_code == %d\n\n", button);
 	if (button == BUTTON_RIGHT)
-	{
-		if (engine->camera.lock == true)
-		{
-			engine->previous_mouse_position = get_mouse_position(engine);
-			engine->camera.lock = false;
-			mlx_mouse_hide();
-			return (0);
-		}
-		engine->camera.lock = true;
-		mlx_mouse_move(engine->window.window,
-			engine->ray_traced_image.width / 2,
-			engine->ray_traced_image.height / 2);
-		mlx_mouse_show();
-	}
+		return (toggle_camera_lock(engine), 0);
 	if (button != BUTTON_LEFT && button != SCROLL_DOWN &&  button != SCROLL_UP)
 		return (0);
 
-	if (engine->object_being_placed != NULL)
+	if (engine->object_being_placed.object != NULL
+		|| engine->object_being_placed.light != NULL)
 		return (placing_object(button, engine));
 	clicked_gui_box = get_clicked_gui_box(engine->gui.gui_boxes, &x, &y);
 	if (clicked_gui_box == NULL)
-	{
-		if (x < 0 || y < 0 || x >= engine->ray_traced_image.width || y >= engine->ray_traced_image.height)
-			return (0);
-		engine->gui.selected_object = get_clicked_object(engine, x, y);
-
-		// Testing
-		char *tmp;
-		if (engine->gui.selected_object == NULL)
-		{
-			ft_printf("Clicked no objects\n\n");
-			return (update_object_attributes_modification_box(engine));
-		}
-		switch (engine->gui.selected_object->type)
-		{
-			case SPHERE: tmp = "SPHERE"; break;
-			case PLANE: tmp = "PLANE"; break;
-			case CYLINDER: tmp = "CYLINDER"; break;
-			default: tmp = "UNKNOWN: ERROR"; break;
-		}
-		ft_printf("selected object %s\n\n", tmp);
-		//!Testing
-		update_color_picker_color(&engine->gui);
-		return (update_object_attributes_modification_box(engine));
-	}
+		return (select_new_object(button, engine, x, y));
 	if (clicked_gui_box->on_click != NULL)
-		clicked_gui_box->on_click(clicked_gui_box, engine, y, x);
-	ft_printf("Clicked gui box\n\n");
+		clicked_gui_box->on_click(clicked_gui_box, engine,
+			(t_click_data){(t_vector2i){x, y}, button});
 	return (0);
 }
 
@@ -97,18 +63,51 @@ static int	placing_object(int button, t_engine *engine)
 	}
 	else if (button != BUTTON_LEFT)
 		return (0);
-	engine->gui.selected_object = engine->object_being_placed;
-	engine->object_being_placed = NULL;
+	update_float_input_boxes(engine);
+	ft_bzero(&engine->object_being_placed, sizeof(engine->object_being_placed));
+	return (0);
+}
+
+static int	select_new_object(int button, t_engine *engine, int x, int y)
+{
+	if (button != BUTTON_LEFT || x < 0 || y < 0
+		|| x >= engine->ray_traced_image.width
+		|| y >= engine->ray_traced_image.height)
+		return (0);
+	engine->gui.selected_object.object = get_clicked_object(engine, x, y);
+	engine->gui.selected_object.light = NULL;
+
+	if (engine->gui.selected_object.object == NULL)
+		return (update_object_attributes_modification_box(engine));
+	update_color_picker_color(&engine->gui);
+	redraw_icons(engine, engine->gui.selected_object.object->material);
 	return (update_object_attributes_modification_box(engine));
 }
 
-static void	update_color_picker_color(t_gui *gui)
+static void	toggle_camera_lock(t_engine *engine)
 {
-	if (gui->selected_object == NULL)
+	const t_vector2i	screen_center = {
+		.x = engine->ray_traced_image.width / 2,
+		.y = engine->ray_traced_image.height / 2
+	};
+
+	mlx_mouse_move(engine->window.window, screen_center.x, screen_center.y);
+	if (engine->camera.lock == true)
+	{
+		if (engine->gui.is_hidden == false)
+		{
+			toggle_gui(&engine->gui);
+			engine->gui.should_show_gui_on_camera_lock = true;
+		}
+		else
+			engine->gui.should_show_gui_on_camera_lock = false;
+		engine->previous_mouse_position = screen_center;
+		engine->camera.lock = false;
+		mlx_mouse_hide();
 		return ;
-	gui->color_picker_base_color_was_changed = true;
-	gui->color_picker_base_color = (t_color){
-		.x = gui->selected_object->material.albedo.x * 255.f,
-		.y = gui->selected_object->material.albedo.y * 255.f,
-		.z = gui->selected_object->material.albedo.z * 255.f};
+	}
+	if (engine->gui.should_show_gui_on_camera_lock && engine->gui.is_hidden)
+		toggle_gui(&engine->gui);
+	engine->camera.lock = true;
+	mlx_mouse_show();
 }
