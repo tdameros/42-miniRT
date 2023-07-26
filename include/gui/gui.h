@@ -58,7 +58,8 @@ typedef struct s_float_input_boxes
 	struct s_gui_box		*radius;
 	struct s_gui_box		*reflection;
 	struct s_gui_box		*specular_reflection;
-	t_xy_float_input_boxes	checkered_pattern_size;
+	t_xy_float_input_boxes	outline_checkerboard_size;
+	t_xy_float_input_boxes	cap_checkerboard_size;
 }	t_float_input_boxes;
 
 typedef struct s_gui

@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.25)
-project(minirt)
+project(minirt C)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_C_STANDARD 11)
 
 include_directories(include)
 include_directories(lib/libft/include)
@@ -217,32 +217,21 @@ add_executable(minirt
         lib/libft/src/vector/vector_destroy.c
         lib/libft/src/vector/vector_minimize_size.c
         lib/minilibx_opengl_20191021/font.c
-        lib/minilibx_opengl_20191021/font.xcf
-        lib/minilibx_opengl_20191021/libmlx.a
-        lib/minilibx_opengl_20191021/Makefile
         lib/minilibx_opengl_20191021/mlx.h
         lib/minilibx_opengl_20191021/mlx_init_loop.m
-        lib/minilibx_opengl_20191021/mlx_init_loop.o
         lib/minilibx_opengl_20191021/mlx_int.h
         lib/minilibx_opengl_20191021/mlx_int_str_to_wordtab.c
-        lib/minilibx_opengl_20191021/mlx_int_str_to_wordtab.o
         lib/minilibx_opengl_20191021/mlx_mouse.m
-        lib/minilibx_opengl_20191021/mlx_mouse.o
         lib/minilibx_opengl_20191021/mlx_new_image.m
-        lib/minilibx_opengl_20191021/mlx_new_image.o
         lib/minilibx_opengl_20191021/mlx_new_window.h
         lib/minilibx_opengl_20191021/mlx_new_window.m
-        lib/minilibx_opengl_20191021/mlx_new_window.o
         lib/minilibx_opengl_20191021/mlx_opengl.h
         lib/minilibx_opengl_20191021/mlx_opengl.m
         lib/minilibx_opengl_20191021/mlx_png.c
         lib/minilibx_opengl_20191021/mlx_png.h
-        lib/minilibx_opengl_20191021/mlx_png.o
         lib/minilibx_opengl_20191021/mlx_rgb.c
         lib/minilibx_opengl_20191021/mlx_shaders.c
-        lib/minilibx_opengl_20191021/mlx_shaders.o
         lib/minilibx_opengl_20191021/mlx_xpm.c
-        lib/minilibx_opengl_20191021/mlx_xpm.o
         src/font/parsing/get_glyph_offset.c
         src/font/parsing/get_glyph_outlines.c
         src/font/parsing/get_long_hor_metric.c
@@ -294,11 +283,13 @@ add_executable(minirt
         src/gui/draw_icon.c
         src/gui/float_input_box.c
         src/gui/init_gui.c
-        src/hooks/update_object_attributes_modification_box/add_boxes/checkered_pattern_size_on_clicks/x.c
-        src/hooks/update_object_attributes_modification_box/add_boxes/checkered_pattern_size_on_clicks/y.c
+        src/hooks/update_object_attributes_modification_box/add_boxes/cap_checkerboard_size_on_clicks/x.c
+        src/hooks/update_object_attributes_modification_box/add_boxes/cap_checkerboard_size_on_clicks/y.c
         src/hooks/update_object_attributes_modification_box/add_boxes/normal_input_box_on_clicks/x.c
         src/hooks/update_object_attributes_modification_box/add_boxes/normal_input_box_on_clicks/y.c
         src/hooks/update_object_attributes_modification_box/add_boxes/normal_input_box_on_clicks/z.c
+        src/hooks/update_object_attributes_modification_box/add_boxes/outline_checkerboard_size_on_clicks/x.c
+        src/hooks/update_object_attributes_modification_box/add_boxes/outline_checkerboard_size_on_clicks/y.c
         src/hooks/update_object_attributes_modification_box/add_boxes/position_input_box_on_clicks/x.c
         src/hooks/update_object_attributes_modification_box/add_boxes/position_input_box_on_clicks/y.c
         src/hooks/update_object_attributes_modification_box/add_boxes/position_input_box_on_clicks/z.c
@@ -310,10 +301,10 @@ add_executable(minirt
         src/hooks/update_object_attributes_modification_box/add_boxes/utils/get_x_y_z_input_box.c
         src/hooks/update_object_attributes_modification_box/add_boxes/utils/init_description_box.c
         src/hooks/update_object_attributes_modification_box/add_boxes/add_brightness_box.c
-        src/hooks/update_object_attributes_modification_box/add_boxes/add_checkered_pattern_color_toggle_box.c
-        src/hooks/update_object_attributes_modification_box/add_boxes/add_outline_checkerboard_size_box.c
+        src/hooks/update_object_attributes_modification_box/add_boxes/add_cap_checkerboard_size_box.c
         src/hooks/update_object_attributes_modification_box/add_boxes/add_height_box.c
         src/hooks/update_object_attributes_modification_box/add_boxes/add_normal_box.c
+        src/hooks/update_object_attributes_modification_box/add_boxes/add_outline_checkerboard_size_box.c
         src/hooks/update_object_attributes_modification_box/add_boxes/add_position_box.c
         src/hooks/update_object_attributes_modification_box/add_boxes/add_radius_box.c
         src/hooks/update_object_attributes_modification_box/add_boxes/add_reflection_box.c
@@ -342,6 +333,7 @@ add_executable(minirt
         src/image/round_image_corners.c
         src/light/light.c
         src/light/lights.c
+        src/material/checkerboard.c
         src/material/material.c
         src/material/texture.c
         src/math/matrix/matrix3.c
@@ -417,7 +409,6 @@ add_executable(minirt
         src/ray_tracer/shade/light.c
         src/ray_tracer/shade/shade.c
         src/ray_tracer/shade/shadow.c
-        src/material/checkerboard.c
         src/ray_tracer/texture/mapping.c
         src/ray_tracer/texture/texture.c
         src/ray_tracer/interpolate_ray_tracing.c
@@ -434,4 +425,4 @@ add_executable(minirt
         src/close_miniRT.c
         src/color.c
         src/init_minirt.c
-        src/main.c src/hooks/update_object_attributes_modification_box/add_boxes/add_cap_checkerboard_size_box.c src/hooks/update_object_attributes_modification_box/add_boxes/cap_checkerboard_size_on_clicks/y.c)
+        src/main.c src/hooks/update_object_attributes_modification_box/add_boxes/add_checkered_pattern_color_toggle_box.c)

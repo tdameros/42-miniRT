@@ -30,7 +30,7 @@ int	add_outline_checkerboard_size_box(t_engine *engine, t_gui_box *gui_box,
 		= &outline_checkerboard_size_input_box_x_on_click_plus;
 	get_x_y_input_box(gui_box, 'x', 'd')->on_click \
 		= &outline_checkerboard_size_input_box_x_on_click_text;
-	engine->gui.float_input_boxes.checkered_pattern_size.x
+	engine->gui.float_input_boxes.outline_checkerboard_size.x
 		= get_x_y_input_box(gui_box, 'x', 'b');
 	get_x_y_input_box(gui_box, 'y', '-')->on_click \
 		= &outline_checkerboard_size_input_box_y_on_click_minus;
@@ -40,7 +40,7 @@ int	add_outline_checkerboard_size_box(t_engine *engine, t_gui_box *gui_box,
 		= &outline_checkerboard_size_input_box_y_on_click_plus;
 	get_x_y_input_box(gui_box, 'y', 'd')->on_click \
 		= &outline_checkerboard_size_input_box_y_on_click_text;
-	engine->gui.float_input_boxes.checkered_pattern_size.y
+	engine->gui.float_input_boxes.outline_checkerboard_size.y
 		= get_x_y_input_box(gui_box, 'y', 'b');
 	return (0);
 }
