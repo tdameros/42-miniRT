@@ -34,6 +34,6 @@ void	image_draw_check_mark(t_image *image, const unsigned int color,
 	draw_glyph_arg.nb_of_contours = 1;
 	draw_glyph_arg.bounds = (t_glyph_outline_bounds){points[0].x, points[3].y,
 		points[2].x, points[1].y};
-	draw_glyph(&draw_glyph_arg, (image->width - border * 2) / 10.f, image,
-		color, border, border);
+	draw_glyph(&draw_glyph_arg, (t_draw_glyph_data){(image->width - border * 2)
+		/ 10.f, image, color, border, border});
 }

@@ -20,51 +20,40 @@ static t_glyph_generated_points	get_adjusted_points(
 									const t_glyph_generated_points *raw_points,
 									float scale, float x_offset,
 									float y_offset);
+static void						draw_pixel(unsigned int *dst,
+									t_vector2f pixel,
+									t_vector3f background_color,
+									const t_glyph_generated_points *points);
 static bool						is_point_inside_glyph(t_vector2f point,
 									const t_glyph_generated_points *points);
 static int						add_intersection(t_segment segment_1,
 									t_segment segment_2);
 
 void	draw_glyph(const t_glyph_generated_points *raw_points,
-			const float scale, t_image *image, const unsigned int color,
-			const float x_offset, const float y_offset)
+			t_draw_glyph_data data)
 {
 	const t_glyph_generated_points	points = get_adjusted_points(raw_points,
-			scale, x_offset, y_offset);
+			data.scale, data.x_offset, data.y_offset);
 	int								x;
 	int								y;
-	const t_color					color_vec = get_t_color_from_uint(color);
+	const t_color					color_vec = get_t_color_from_uint(
+			data.color);
 	unsigned int					*dst;
-	int								nb_of_points_in_triangle;
 
 	if (points.points == NULL)
 		return ;
-	y = points.bounds.yMin * scale - 1;
+	y = points.bounds.yMin * data.scale - 1;
 	while (++y <= points.bounds.yMax)
 	{
 		x = points.bounds.xMin - 1;
 		while (++x <= points.bounds.xMax)
 		{
-			dst = image->address + y * image->width + x;
-			if (dst < image->address)
+			dst = data.image->address + y * data.image->width + x;
+			if (dst < data.image->address)
 				continue ;
-			if (dst >= image->limit)
+			if (dst >= data.image->limit)
 				return (free(points.points));
-			nb_of_points_in_triangle = 0;
-			for (int sub_y = 0; sub_y < PIXEL_DIVISION; sub_y++)
-				for (int sub_x = 0; sub_x < PIXEL_DIVISION; sub_x++)
-					nb_of_points_in_triangle += is_point_inside_glyph(
-							(t_vector2f){x + sub_x / PIXEL_DIVISION + 1.f / PIXEL_DIVISION / 2,
-										 y + sub_y / PIXEL_DIVISION + 1.f / PIXEL_DIVISION / 2}, &points);
-			if (nb_of_points_in_triangle > 0)
-			{
-				t_color new_color = vector3f_multiply(color_vec, nb_of_points_in_triangle);
-				new_color = vector3f_add(new_color, vector3f_multiply(get_t_color_from_uint(*dst), PIXEL_DIVISION * PIXEL_DIVISION - nb_of_points_in_triangle));
-				new_color = vector3f_divide(new_color, PIXEL_DIVISION * PIXEL_DIVISION);
-				*dst = vec_rgb_to_uint(new_color);
-			}
-//			if (is_point_inside_glyph((t_vector2f){x + 0.5f, y + 0.5f}, &points))
-//				*dst = color;
+			draw_pixel(dst, (t_vector2f){x, y}, color_vec, &points);
 		}
 	}
 	free(points.points);
@@ -94,14 +83,43 @@ static t_glyph_generated_points	get_adjusted_points(
 	result.nb_of_points = raw_points->nb_of_points;
 	result.bounds = (t_glyph_outline_bounds){
 		.xMin = raw_points->bounds.xMin * scale + x_offset,
-		.xMax = raw_points->bounds.xMax * scale + x_offset,
+		.xMax = raw_points->bounds.xMax * scale + x_offset + 1,
 		.yMin = raw_points->bounds.yMin * scale + y_offset,
-		.yMax = raw_points->bounds.yMax * scale + y_offset};
-	result.bounds.xMax += (result.bounds.xMax - (int)result.bounds.xMax != 0.f);
-	result.bounds.yMax += (result.bounds.yMax - (int)result.bounds.yMax != 0.f);
+		.yMax = raw_points->bounds.yMax * scale + y_offset + 1};
 	result.nb_of_contours = raw_points->nb_of_contours;
 	result.contours_limits = raw_points->contours_limits;
 	return (result);
+}
+
+static void	draw_pixel(unsigned int *dst, const t_vector2f pixel,
+				const t_vector3f background_color,
+				const t_glyph_generated_points *points)
+{
+	int		sub_y;
+	int		sub_x;
+	int		nb_of_points_in_triangle;
+	t_color	new_color;
+
+	nb_of_points_in_triangle = 0;
+	sub_y = -1;
+	while (++sub_y < PIXEL_DIVISION)
+	{
+		sub_x = -1;
+		while (++sub_x < PIXEL_DIVISION)
+			nb_of_points_in_triangle += is_point_inside_glyph(\
+				(t_vector2f){pixel.x + sub_x / PIXEL_DIVISION + 1.f \
+				/ PIXEL_DIVISION / 2, pixel.y + sub_y / PIXEL_DIVISION + 1.f \
+				/ PIXEL_DIVISION / 2}, points);
+	}
+	if (nb_of_points_in_triangle <= 0)
+		return ;
+	new_color = vector3f_multiply(background_color,
+			nb_of_points_in_triangle);
+	new_color = vector3f_add(new_color, vector3f_multiply(
+				get_t_color_from_uint(*dst), PIXEL_DIVISION * PIXEL_DIVISION
+				- nb_of_points_in_triangle));
+	new_color = vector3f_divide(new_color, PIXEL_DIVISION * PIXEL_DIVISION);
+	*dst = vec_rgb_to_uint(new_color);
 }
 
 static bool	is_point_inside_glyph(t_vector2f point,

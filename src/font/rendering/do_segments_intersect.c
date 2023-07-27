@@ -26,12 +26,12 @@ static bool	on_segment(t_vector2d p, t_vector2d q, t_vector2d r);
 bool	do_segments_intersect(t_vector2f a, t_vector2f b, t_vector2f c,
 			t_vector2f d)
 {
-	const t_vector2d	points[4] = {{a.x, a.y}, {b.x, b.y},
-			{c.x, c.y}, {d.x, d.y}};
-	const int 			o1 = orientation(points[A], points[B], points[C]);
-	const int 			o2 = orientation(points[A], points[B], points[D]);
-	const int 			o3 = orientation(points[C], points[D], points[A]);
-	const int 			o4 = orientation(points[C], points[D], points[B]);
+	const t_vector2d	points[4] = {{a.x, a.y}, {b.x, b.y}, \
+		{c.x, c.y}, {d.x, d.y}};
+	const int			o1 = orientation(points[A], points[B], points[C]);
+	const int			o2 = orientation(points[A], points[B], points[D]);
+	const int			o3 = orientation(points[C], points[D], points[A]);
+	const int			o4 = orientation(points[C], points[D], points[B]);
 
 	if (o1 != o2 && o3 != o4)
 		return (true);
@@ -48,18 +48,17 @@ bool	do_segments_intersect(t_vector2f a, t_vector2f b, t_vector2f c,
 
 static int	orientation(t_vector2d p, t_vector2d q, t_vector2d r)
 {
-	const double val = (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y);
+	const double	val = (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y);
 
 	if (fabs(val) < 1e-9)
 		return (0);
 	if (val > 0)
 		return (1);
-	else
-		return (2);
+	return (2);
 }
 
 static bool	on_segment(t_vector2d p, t_vector2d q, t_vector2d r)
 {
-	return (q.x <= fmax(p.x, r.x) && q.x >= fmin(p.x, r.x) &&
-		q.y <= fmax(p.y, r.y) && q.y >= fmin(p.y, r.y));
+	return (q.x <= fmax(p.x, r.x) && q.x >= fmin(p.x, r.x)
+		&& q.y <= fmax(p.y, r.y) && q.y >= fmin(p.y, r.y));
 }

@@ -21,14 +21,28 @@
 # include "font/rendering_structs.h"
 # include "image.h"
 
+typedef struct s_draw_glyph_data
+{
+	const float			scale;
+	t_image				*image;
+	const unsigned int	color;
+	const float			x_offset;
+	const float			y_offset;
+}	t_draw_glyph_data;
+
+typedef struct s_contour_info
+{
+	uint16_t	contour_start_index;
+	uint16_t	contour_len;
+}	t_contour_info;
+
 int			get_font(t_font *font, char *font_file);
 
 void		write_centered_string_to_image(const t_font *font, t_image *image,
 				const char *string);
 
 void		draw_glyph(const t_glyph_generated_points *raw_points,
-				float scale, t_image *image, unsigned int color, float x_offset,
-				float y_offset);
+				t_draw_glyph_data data);
 
 int			get_glyph_points(t_vector *dest, const t_glyph_outline *glyph,
 				size_t **end_of_generated_contours);

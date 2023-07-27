@@ -75,7 +75,7 @@ void	image_draw_plus(t_image *image, const float thickness,
 	draw_glyph_arg.nb_of_contours = 1;
 	draw_glyph_arg.bounds = (t_glyph_outline_bounds){points[10].x, points[0].y,
 		points[3].x, points[6].y};
-	draw_glyph(&draw_glyph_arg, 1.f, image, color, 0.f, 0.f);
+	draw_glyph(&draw_glyph_arg, (t_draw_glyph_data){1.f, image, color, 0, 0});
 }
 
 void	image_draw_minus(t_image *image, const int thickness,
@@ -97,5 +97,5 @@ void	image_draw_minus(t_image *image, const int thickness,
 	draw_glyph_arg.nb_of_contours = 1;
 	draw_glyph_arg.bounds = (t_glyph_outline_bounds){points[0].x, points[0].y,
 		points[2].x, points[2].y};
-	draw_glyph(&draw_glyph_arg, 1.f, image, color, 0.f, 0.f);
+	draw_glyph(&draw_glyph_arg, (t_draw_glyph_data){1.f, image, color, 0, 0});
 }
