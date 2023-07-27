@@ -29,12 +29,10 @@ int	button_press_handler(int button, int x, int y, t_engine *engine)
 {
 	t_gui_box	*clicked_gui_box;
 
-//	ft_printf("button_code == %d\n\n", button);
 	if (button == BUTTON_RIGHT)
 		return (toggle_camera_lock(engine), 0);
-	if (button != BUTTON_LEFT && button != SCROLL_DOWN &&  button != SCROLL_UP)
+	if (button != BUTTON_LEFT && button != SCROLL_DOWN && button != SCROLL_UP)
 		return (0);
-
 	if (engine->object_being_placed.object != NULL
 		|| engine->object_being_placed.light != NULL)
 		return (placing_object(button, engine));

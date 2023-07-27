@@ -7,8 +7,11 @@ SRC				=\
 	font/parsing/get_glyph_offset.c					\
 	font/parsing/get_glyph_outlines.c				\
 	font/parsing/get_long_hor_metric.c				\
+	font/parsing/read_8_bits.c						\
+	font/parsing/read_16_bits.c						\
+	font/parsing/read_32_bits.c						\
+	font/parsing/read_64_bits.c						\
 	font/parsing/read_cmap.c						\
-	font/parsing/read_file.c						\
 	font/parsing/read_font_directory.c				\
 	font/parsing/read_format4.c						\
 	font/parsing/read_glyph_outline.c				\

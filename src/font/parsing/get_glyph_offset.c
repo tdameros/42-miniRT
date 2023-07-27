@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
-
 #include "font/ttf_parser.h"
 
 static int		get_index(uint16_t code_point, const t_format4 *format4);

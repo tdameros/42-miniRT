@@ -20,35 +20,21 @@ int	read_maxp(const t_string *file, t_ttf *ttf)
 	if (maxp_offset < 0)
 		return (-1);
 	i = maxp_offset;
-	if (read_uint32_move(file, &i, &ttf->maxp.version) < 0)
-		return (-1);
-	if (read_uint16_move(file, &i, &ttf->maxp.numGlyphs) < 0)
-		return (-1);
-	if (read_uint16_move(file, &i, &ttf->maxp.maxPoints) < 0)
-		return (-1);
-	if (read_uint16_move(file, &i, &ttf->maxp.maxContours) < 0)
-		return (-1);
-	if (read_uint16_move(file, &i, &ttf->maxp.maxComponentPoints) < 0)
-		return (-1);
-	if (read_uint16_move(file, &i, &ttf->maxp.maxComponentContours) < 0)
-		return (-1);
-	if (read_uint16_move(file, &i, &ttf->maxp.maxZones) < 0)
-		return (-1);
-	if (read_uint16_move(file, &i, &ttf->maxp.maxTwilightPoints) < 0)
-		return (-1);
-	if (read_uint16_move(file, &i, &ttf->maxp.maxStorage) < 0)
-		return (-1);
-	if (read_uint16_move(file, &i, &ttf->maxp.maxFunctionDefs) < 0)
-		return (-1);
-	if (read_uint16_move(file, &i, &ttf->maxp.maxInstructionDefs) < 0)
-		return (-1);
-	if (read_uint16_move(file, &i, &ttf->maxp.maxStackElements) < 0)
-		return (-1);
-	if (read_uint16_move(file, &i, &ttf->maxp.maxSizeOfInstructions) < 0)
-		return (-1);
-	if (read_uint16_move(file, &i, &ttf->maxp.maxComponentElements) < 0)
-		return (-1);
-	if (read_uint16_move(file, &i, &ttf->maxp.maxComponentDepth) < 0)
+	if (read_uint32_move(file, &i, &ttf->maxp.version) < 0
+		|| read_uint16_move(file, &i, &ttf->maxp.numGlyphs) < 0
+		|| read_uint16_move(file, &i, &ttf->maxp.maxPoints) < 0
+		|| read_uint16_move(file, &i, &ttf->maxp.maxContours) < 0
+		|| read_uint16_move(file, &i, &ttf->maxp.maxComponentPoints) < 0
+		|| read_uint16_move(file, &i, &ttf->maxp.maxComponentContours) < 0
+		|| read_uint16_move(file, &i, &ttf->maxp.maxZones) < 0
+		|| read_uint16_move(file, &i, &ttf->maxp.maxTwilightPoints) < 0
+		|| read_uint16_move(file, &i, &ttf->maxp.maxStorage) < 0
+		|| read_uint16_move(file, &i, &ttf->maxp.maxFunctionDefs) < 0
+		|| read_uint16_move(file, &i, &ttf->maxp.maxInstructionDefs) < 0
+		|| read_uint16_move(file, &i, &ttf->maxp.maxStackElements) < 0
+		|| read_uint16_move(file, &i, &ttf->maxp.maxSizeOfInstructions) < 0
+		|| read_uint16_move(file, &i, &ttf->maxp.maxComponentElements) < 0
+		|| read_uint16_move(file, &i, &ttf->maxp.maxComponentDepth) < 0)
 		return (-1);
 	return (0);
 }

@@ -236,7 +236,7 @@ add_executable(minirt
         src/font/parsing/get_glyph_outlines.c
         src/font/parsing/get_long_hor_metric.c
         src/font/parsing/read_cmap.c
-        src/font/parsing/read_file.c
+        src/font/parsing/read_64_bits.c
         src/font/parsing/read_font_directory.c
         src/font/parsing/read_format4.c
         src/font/parsing/read_glyph_outline.c
@@ -425,4 +425,4 @@ add_executable(minirt
         src/close_miniRT.c
         src/color.c
         src/init_minirt.c
-        src/main.c src/hooks/update_object_attributes_modification_box/add_boxes/add_checkered_pattern_color_toggle_box.c)
+        src/main.c src/hooks/update_object_attributes_modification_box/add_boxes/add_checkered_pattern_color_toggle_box.c src/font/parsing/read_8_bits.c src/font/parsing/read_16_bits.c src/font/parsing/read_32_bits.c)

@@ -14,6 +14,7 @@
 
 #include "font/ttf_parser.h"
 
+static int	allocate_hmtx(t_ttf *ttf, size_t left_side_bearing_size);
 static int	read_hmtx_error(t_ttf *ttf);
 
 int	read_hmtx(const t_string *file, t_ttf *ttf)
@@ -26,27 +27,30 @@ int	read_hmtx(const t_string *file, t_ttf *ttf)
 
 	if (head_offset < 0)
 		return (-1);
+	if (allocate_hmtx(ttf, left_side_bearing_size) < 0)
+		return (-1);
+	i = head_offset;
+	j = -1;
+	while (++j < ttf->hhea.numOfLongHorMetrics)
+		if (read_uint16_move(file, &i, &ttf->hmtx.h_metrics[j].advanceWidth)
+			|| read_int16_move(file, &i,
+				&ttf->hmtx.h_metrics[j].leftSideBearing) < 0)
+			return (read_hmtx_error(ttf));
+	j = -1;
+	while (++j < left_side_bearing_size)
+		if (read_int16_move(file, &i, ttf->hmtx.left_side_bearing + j) < 0)
+			return (read_hmtx_error(ttf));
+	return (0);
+}
+
+static int	allocate_hmtx(t_ttf *ttf, const size_t left_side_bearing_size)
+{
 	ttf->hmtx.h_metrics = malloc(sizeof(*ttf->hmtx.h_metrics)
 			* ttf->hhea.numOfLongHorMetrics);
 	ttf->hmtx.left_side_bearing = malloc(sizeof(*ttf->hmtx.left_side_bearing)
 			* left_side_bearing_size);
 	if (ttf->hmtx.h_metrics == NULL || ttf->hmtx.left_side_bearing == NULL)
 		return (read_hmtx_error(ttf));
-	i = head_offset;
-	j = -1;
-	while (++j < ttf->hhea.numOfLongHorMetrics)
-	{
-		if (read_uint16_move(file, &i, &ttf->hmtx.h_metrics[j].advanceWidth)
-			< 0)
-			return (read_hmtx_error(ttf));
-		if (read_int16_move(file, &i, &ttf->hmtx.h_metrics[j].leftSideBearing)
-			< 0)
-			return (read_hmtx_error(ttf));
-	}
-	j = -1;
-	while (++j < left_side_bearing_size)
-		if (read_int16_move(file, &i, ttf->hmtx.left_side_bearing + j) < 0)
-			return (read_hmtx_error(ttf));
 	return (0);
 }
 

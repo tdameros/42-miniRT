@@ -17,17 +17,9 @@
 
 int	button_release_handler(int button, int x, int y, t_engine *engine)
 {
-	(void) button;
-	(void) x;
-	(void) y;
-	(void) engine;
-//	if (button == BUTTON_RIGHT)
-//	{
-//		engine->camera.lock = true;
-//		mlx_mouse_move(engine->window.window,
-//			engine->ray_traced_image.width / 2,
-//			engine->ray_traced_image.height / 2);
-//		mlx_mouse_show();
-//	}
+	(void)button;
+	(void)x;
+	(void)y;
+	(void)engine;
 	return (0);
 }

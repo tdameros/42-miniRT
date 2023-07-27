@@ -66,11 +66,9 @@ static int	init_struct_variables(const t_string *file, t_format4 *format4,
 		|| format4->segCountX2 % 2 != 0
 		|| length - sizeof(uint16_t) * 8 <= format4->segCountX2 * 4)
 		return (-1);
-	if (read_uint16_move(file, &i, &format4->searchRange) < 0)
-		return (-1);
-	if (read_uint16_move(file, &i, &format4->entrySelector) < 0)
-		return (-1);
-	if (read_uint16_move(file, &i, &format4->rangeShift) < 0)
+	if (read_uint16_move(file, &i, &format4->searchRange) < 0
+		|| read_uint16_move(file, &i, &format4->entrySelector) < 0
+		|| read_uint16_move(file, &i, &format4->rangeShift) < 0)
 		return (-1);
 	format4->endCode = (uint16_t *)((uint8_t *)format4 + sizeof(t_format4));
 	format4->startCode = format4->endCode + format4->segCountX2 / 2;

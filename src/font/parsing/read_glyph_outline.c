@@ -14,8 +14,8 @@
 
 #include "font/ttf_parser.h"
 
-static int	read_endPtsOfContours(const t_string *file, size_t *file_cursor,
-				t_glyph_outline *outline);
+static int	read_end_points_of_contours(const t_string *file,
+				size_t *file_cursor, t_glyph_outline *outline);
 static int	read_instructions(const t_string *file, size_t *file_cursor,
 				t_glyph_outline *outline);
 static int	read_flags(const t_string *file, size_t *file_cursor,
@@ -26,43 +26,36 @@ int	read_glyph_outline(const t_string *file, size_t offset,
 {
 	uint16_t		last_index;
 
-	*outline = (t_glyph_outline){0};
+	ft_bzero(outline, sizeof(*outline));
 	if (read_int16_move(file, &offset, &outline->numberOfContours) < 0)
 		return (-1);
 	if (outline->numberOfContours <= 0)
 		return (0);
-	if (read_int16_move(file, &offset, &outline->bounds.xMin) < 0)
-		return (-1);
-	if (read_int16_move(file, &offset, &outline->bounds.yMin) < 0)
-		return (-1);
-	if (read_int16_move(file, &offset, &outline->bounds.xMax) < 0)
-		return (-1);
-	if (read_int16_move(file, &offset, &outline->bounds.yMax) < 0)
-		return (-1);
-	if (read_endPtsOfContours(file, &offset, outline) < 0)
+	if (read_int16_move(file, &offset, &outline->bounds.xMin) < 0
+		|| read_int16_move(file, &offset, &outline->bounds.yMin) < 0
+		|| read_int16_move(file, &offset, &outline->bounds.xMax) < 0
+		|| read_int16_move(file, &offset, &outline->bounds.yMax) < 0
+		|| read_end_points_of_contours(file, &offset, outline) < 0)
 		return (-1);
 	if (read_instructions(file, &offset, outline) < 0)
 		return (free(outline->endPtsOfContours), -1);
 	last_index = outline->endPtsOfContours[outline->numberOfContours - 1];
-	if (read_flags(file, &offset, outline, last_index) < 0)
-		return (free(outline->endPtsOfContours), free(outline->instructions),
-			-1);
-	if (read_x_coordinates(file, &offset, outline, last_index) < 0)
-		return (free(outline->endPtsOfContours), free(outline->instructions),
-			free(outline->flags), -1);
-	if (read_y_coordinates(file, &offset, outline, last_index) < 0)
+	if (read_flags(file, &offset, outline, last_index) < 0
+		|| read_x_coordinates(file, &offset, outline, last_index) < 0
+		|| read_y_coordinates(file, &offset, outline, last_index) < 0)
 		return (free(outline->endPtsOfContours), free(outline->instructions),
 			free(outline->flags), free(outline->xCoordinates), -1);
 	return (0);
 }
 
-static int	read_endPtsOfContours(const t_string *file, size_t *file_cursor,
-				t_glyph_outline *outline)
+static int	read_end_points_of_contours(const t_string *file,
+				size_t *file_cursor, t_glyph_outline *outline)
 {
 	size_t			i;
 	const size_t	number_of_contours = outline->numberOfContours;
 
-	outline->endPtsOfContours = malloc(sizeof(*outline->endPtsOfContours) * number_of_contours);
+	outline->endPtsOfContours = malloc(
+			sizeof(*outline->endPtsOfContours) * number_of_contours);
 	if (outline->endPtsOfContours == NULL)
 		return (-1);
 	i = -1;
@@ -80,7 +73,8 @@ static int	read_instructions(const t_string *file, size_t *file_cursor,
 
 	if (read_uint16_move(file, file_cursor, &outline->instructionLength) < 0)
 		return (-1);
-	outline->instructions = malloc(sizeof(*outline->instructions) * outline->instructionLength);
+	outline->instructions = malloc(
+			sizeof(*outline->instructions) * outline->instructionLength);
 	if (outline->instructions == NULL)
 		return (-1);
 	i = -1;
@@ -109,7 +103,7 @@ static int	read_flags(const t_string *file, size_t *file_cursor,
 		{
 			if (read_uint8_move(file, file_cursor, &repeat_count) < 0)
 				return (free(outline->flags), -1);
-			while (repeat_count-- > 0 && i + 1 < size) // TODO check why i + 1 is >= size on a valid font
+			while (repeat_count-- > 0 && i + 1 < size)
 			{
 				i++;
 				outline->flags[i] = outline->flags[i - 1];
