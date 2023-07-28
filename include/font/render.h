@@ -36,6 +36,12 @@ typedef struct s_contour_info
 	uint16_t	contour_len;
 }	t_contour_info;
 
+typedef struct s_write_character_data
+{
+	float		scale;
+	t_vector2f	*offsets;
+}	t_write_character_data;
+
 int			get_font(t_font *font, char *font_file);
 
 void		write_centered_string_to_image(const t_font *font, t_image *image,

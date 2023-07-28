@@ -21,6 +21,8 @@
 
 static t_vector2f	get_glyphs_size(const t_font *font, const char *string);
 static float		get_glyphs_y_min(const t_font *font, const char *string);
+static void			write_character(char c, const t_font *font, t_image *image,
+						t_write_character_data write_character_data);
 
 void	write_centered_string_to_image(const t_font *font, t_image *image,
 			const char *string)
@@ -29,28 +31,20 @@ void	write_centered_string_to_image(const t_font *font, t_image *image,
 	const float			scale = fminf(
 			(image->width - BORDER * 2) / glyphs_max_size.x,
 			(image->height - BORDER * 2) / glyphs_max_size.y);
-	const float			y_offset = (image->height - scale * glyphs_max_size.y)
-		/ 2.f - get_glyphs_y_min(font, string) * scale;
-	float				x_offset;
+	t_vector2f			offsets;
 	size_t				i;
 
-	x_offset = BORDER + (image->width - BORDER * 2) / 2.f
+	offsets.y = (image->height - scale * glyphs_max_size.y)
+		/ 2.f - get_glyphs_y_min(font, string) * scale;
+	offsets.x = BORDER + (image->width - BORDER * 2) / 2.f
 		- glyphs_max_size.x * scale / 2.f;
 	i = 0;
 	while (string[i]
-		&& x_offset + font->long_hor_metric[(int8_t)string[i]].advanceWidth * scale < image->width)
+		&& offsets.x + font->long_hor_metric[(int8_t)string[i]].advanceWidth
+		* scale < image->width)
 	{
-		if (string[i] == ' ')
-		{
-			x_offset += font->long_hor_metric[(int8_t)string[i]].advanceWidth * scale;
-			i++;
-			continue ;
-		}
-		draw_glyph(font->glyphs + string[i], (t_draw_glyph_data){scale, image,
-			COLOR_WHITE, x_offset
-			+ font->long_hor_metric[(int8_t)string[i]].leftSideBearing * scale,
-			y_offset});
-		x_offset += font->long_hor_metric[(int8_t)string[i]].advanceWidth * scale;
+		write_character(string[i], font, image,
+			(t_write_character_data){scale, &offsets});
 		i++;
 	}
 }
@@ -87,4 +81,22 @@ static float	get_glyphs_y_min(const t_font *font, const char *string)
 		result = fminf(result, font->glyphs[(int8_t)string[i]].bounds.yMin);
 	}
 	return (result);
+}
+
+static void	write_character(const char c, const t_font *font, t_image *image,
+				const t_write_character_data write_character_data)
+{
+	const float	scale = write_character_data.scale;
+	t_vector2f	*offsets;
+
+	offsets = write_character_data.offsets;
+	if (c == ' ')
+	{
+		offsets->x += font->long_hor_metric[(int8_t)c].advanceWidth * scale;
+		return ;
+	}
+	draw_glyph(font->glyphs + c, (t_draw_glyph_data){scale, image,
+		COLOR_WHITE, offsets->x + \
+		font->long_hor_metric[(int8_t)c].leftSideBearing * scale, offsets->y});
+		offsets->x += font->long_hor_metric[(int8_t)c].advanceWidth * scale;
 }

@@ -91,11 +91,9 @@ static int	get_contour_points(const int16_t contour_index,
 static int	get_points(uint32_t *i, const t_glyph_outline *glyph,
 				const t_contour_info contour_info, t_vector *current_points)
 {
-
 	if (glyph->flags[*i].on_curve)
 		return (handle_on_curve(current_points, glyph, i));
 	return (handle_off_curve(current_points, glyph, i, contour_info));
-
 }
 
 static int	handle_on_curve(t_vector *current_points,
