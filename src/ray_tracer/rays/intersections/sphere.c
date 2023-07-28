@@ -20,12 +20,13 @@ t_hit	hit_sphere(const t_ray *ray, const t_object *sphere,
 {
 	t_hit		hit;
 
-	hit.distance = hit_distance.distance;
-	if (hit.distance < 0)
+	if (hit_distance.distance < 0.f)
 	{
 		hit.hit = false;
 		return (hit);
 	}
+	hit.context = hit_distance.context;
+	hit.distance = hit_distance.distance;
 	hit.position = ray_at(ray, hit.distance);
 	hit.normal = vector3f_unit(vector3f_subtract(hit.position,
 				sphere->position));

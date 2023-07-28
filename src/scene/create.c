@@ -132,13 +132,13 @@ void	scene_pilier(t_engine *engine)
 	material = material_create(vector3f_create(1.f, 1.f, 1.0f), 0.f, 0.f);
 	free_cap_texture(&material);
 //	set_outline_ppm_texture(&material, "data/earth.ppm");
-	set_outline_ppm_texture(&material, "data/coca-cola.ppm");
+//	set_outline_ppm_texture(&material, "data/coca-cola.ppm");
 //	set_cap_ppm_texture(&material, "data/can_top.ppm");
 //	free_outline_texture(&material);
 //	set_outline_checkerboard(&material, (t_vector2f){10.f, 6.f},
 //								  vector3f_create(0, 0, 0));
-	set_cap_checkerboard(&material, (t_vector2f) {10.f, 10.f},
-						 vector3f_create(0, 0, 0));
+//	set_cap_checkerboard(&material, (t_vector2f) {10.f, 10.f},
+//						 vector3f_create(0, 0, 0));
 //	object = sphere_create(vector3f_create(0.f, -3.f, 15.f), 1.5f, material);
 	object = cylinder_create(vector3f_create(0.f, -3.f, 15.f), vector3f_create(0, 1, 0), (t_object_size){1, 1}, material);
 	add_object(engine, object);

@@ -27,12 +27,12 @@ t_hit	hit_cylinder(const t_ray *ray, const t_object *cylinder,
 {
 	t_hit	hit;
 
-	hit.distance = hit_distance.distance;
-	if (hit.distance < 0)
+	if (hit_distance.distance < 0.f)
 	{
 		hit.hit = false;
 		return (hit);
 	}
+	hit.distance = hit_distance.distance;
 	hit.context = hit_distance.context;
 	hit.hit = true;
 	hit.position = ray_at(ray, hit.distance);

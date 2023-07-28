@@ -42,7 +42,6 @@ typedef struct s_hit
 	t_vector3f			normal;
 	t_ray				ray;
 	t_vector3f			albedo;
-	float				t;
 	enum e_hit_context	context;
 }	t_hit;
 
