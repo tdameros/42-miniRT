@@ -22,8 +22,12 @@ void	print_fps_counter(t_engine *engine, const struct timeval start_time)
 		}
 		engine->gui.fps.last_update = ft_get_current_time();
 	}
-	mlx_string_put(engine->window.mlx, engine->window.window, 40, 40, 0xFF0000,
-		engine->gui.fps.fps_count);
+	if (engine->gui.fps.fps_count)
+		mlx_string_put(engine->window.mlx, engine->window.window, 40, 40,
+			0xFF0000, engine->gui.fps.fps_count);
+	else
+		mlx_string_put(engine->window.mlx, engine->window.window, 40, 40,
+			0xFF0000, "Failed to get fps count");
 }
 
 inline static bool	should_update_fps(const struct timeval last_update)

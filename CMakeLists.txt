@@ -281,7 +281,7 @@ add_executable(minirt
         src/gui/create_n_horizontal_boxes.c
         src/gui/create_vertical_boxes.c
         src/gui/draw_icon.c
-        src/gui/float_input_box.c
+        src/gui/float_input_box/create_float_input_box.c
         src/gui/init_gui.c
         src/hooks/update_object_attributes_modification_box/add_boxes/cap_checkerboard_size_on_clicks/x.c
         src/hooks/update_object_attributes_modification_box/add_boxes/cap_checkerboard_size_on_clicks/y.c
@@ -425,4 +425,6 @@ add_executable(minirt
         src/close_miniRT.c
         src/color.c
         src/init_minirt.c
-        src/main.c src/hooks/update_object_attributes_modification_box/add_boxes/add_checkered_pattern_color_toggle_box.c src/font/parsing/read_8_bits.c src/font/parsing/read_16_bits.c src/font/parsing/read_32_bits.c)
+        src/main.c src/hooks/update_object_attributes_modification_box/add_boxes/add_checkered_pattern_color_toggle_box.c src/font/parsing/read_8_bits.c src/font/parsing/read_16_bits.c src/font/parsing/read_32_bits.c
+        src/gui/float_input_box/update_float_input_box.c
+        src/gui/float_input_box/draw_float_input_box.c)

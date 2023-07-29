@@ -55,6 +55,10 @@ void				update_float_input_box(const t_engine *engine, float f,
 						t_gui_box *input_box);
 int					create_float_input_box(t_engine *engine, t_gui_box *gui_box,
 						t_float_input_box_on_click on_click);
+int					init_left_box_image(t_engine *engine, t_gui_box *gui_box);
+int					init_center_box_image(t_engine *engine, t_gui_box *gui_box);
+void				draw_center_box_image(t_image *image);
+int					init_right_box_image(t_engine *engine, t_gui_box *gui_box);
 
 int					draw_icon(t_image *image, int type,
 						unsigned int background_color, t_material material);

@@ -39,6 +39,10 @@ SRC				=\
 	gui/box/get_clicked_gui_box.c		\
 	gui/box/mouse_utils.c				\
 	\
+	gui/float_input_box/create_float_input_box.c	\
+	gui/float_input_box/draw_float_input_box.c		\
+	gui/float_input_box/update_float_input_box.c	\
+	\
 	gui/main_box/menu_box/init_menu_box.c		\
 	gui/main_box/menu_box/init_settings_icon.c	\
 	\
@@ -63,7 +67,6 @@ SRC				=\
 	gui/object_modification_box/init_object_modification_box.c				\
 	\
 	gui/create_boxes_utils.c		\
-	gui/float_input_box.c			\
 	gui/create_horizontal_boxes.c	\
 	gui/create_n_horizontal_boxes.c	\
 	gui/create_vertical_boxes.c		\
