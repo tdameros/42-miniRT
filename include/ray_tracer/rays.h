@@ -40,6 +40,7 @@ typedef struct s_hit
 	const t_object		*object;
 	t_vector3f			position;
 	t_vector3f			normal;
+	t_vector3f			shade_normal;
 	t_ray				ray;
 	t_vector3f			albedo;
 	enum e_hit_context	context;

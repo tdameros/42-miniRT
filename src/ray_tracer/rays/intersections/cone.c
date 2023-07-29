@@ -42,6 +42,7 @@ t_hit	hit_cone(const t_ray *ray, const t_object *cone, const t_hit hit_distance)
 	hit.ray = *ray;
 	// TODO : get cone texture
 	hit.albedo = cone->material.albedo;
+	hit.shade_normal = hit.normal;
 	return (hit);
 
 }

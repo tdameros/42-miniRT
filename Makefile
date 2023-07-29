@@ -230,6 +230,7 @@ SRC				=\
 	ray_tracer/shade/shadow.c	\
 	\
 	ray_tracer/texture/mapping.c		\
+	ray_tracer/texture/normal.c			\
 	ray_tracer/texture/texture.c		\
 	\
 	ray_tracer/interpolate_ray_tracing.c	\

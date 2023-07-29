@@ -78,6 +78,7 @@ t_material	material_create(const t_vector3f albedo, \
 							const float specular_intensity);
 
 //	texture.c
+int	set_outline_ppm_normal(t_material *material, const char *filename);
 t_texture	create_empty_texture(void);
 int			set_outline_ppm_texture(t_material *material,
 				const char *filename);

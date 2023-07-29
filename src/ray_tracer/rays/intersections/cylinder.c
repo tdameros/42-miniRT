@@ -42,6 +42,7 @@ t_hit	hit_cylinder(const t_ray *ray, const t_object *cylinder,
 	hit.object = cylinder;
 	hit.ray = *ray;
 	hit.albedo = get_texture_color(hit, cylinder);
+	hit.shade_normal = hit.normal;
 	return (hit);
 }
 

@@ -36,6 +36,17 @@ int	set_outline_ppm_texture(t_material *material, const char *filename)
 	return (0);
 }
 
+int	set_outline_ppm_normal(t_material *material, const char *filename)
+{
+	t_ppm_p6	ppm;
+
+	if (initialize_ppm_p6_file(&ppm, filename) < 0)
+		return (-1);
+	material->texture.outline.bump_map = ppm;
+	material->texture.outline.has_bum_map = true;
+	return (0);
+}
+
 int	set_cap_ppm_texture(t_material * material, const char *filename)
 {
 	t_ppm_p6	ppm;

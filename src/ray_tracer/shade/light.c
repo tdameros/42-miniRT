@@ -51,7 +51,7 @@ static t_vector3f	calculate_diffuse_light(const t_light light,
 									const t_hit object_hit)
 {
 	const float			scalar_product = ft_maxf(0,
-			vector3f_dot(object_hit.normal, reverse_light_direction));
+			vector3f_dot(object_hit.shade_normal, reverse_light_direction));
 
 	return (vector3f_multiply(vector3f_mult_vector3f(object_hit.albedo,
 				light.emitted_color), scalar_product));
@@ -62,7 +62,7 @@ static t_vector3f	calculate_specular_light(const t_light light,
 											const t_hit object_hit)
 {
 	const t_vector3f	reflect_ray = vector3f_unit(reflect(light_direction,
-				object_hit.normal));
+				object_hit.shade_normal));
 	float				scalar_product;
 	t_vector3f			specular_albedo;
 
