@@ -55,13 +55,8 @@ void	camera_rotate_up(t_camera *camera, float degrees)
 
 void	camera_move_up(t_camera *camera, float distance)
 {
-	t_vector3f	direction;
-
-	direction = quaternionf_rotate_vector3f(90.f, (t_vector3f){1.f, 0.f, 0.f},
-			camera->direction);
-	direction = vector3f_unit(direction);
 	camera->position = vector3f_add(camera->position, vector3f_multiply(
-				direction, distance));
+				camera->up_vector, distance));
 }
 
 void	camera_peek(t_camera *camera, float degrees)
