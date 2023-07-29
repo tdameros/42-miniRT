@@ -79,8 +79,7 @@ static int	create_boxes(t_engine *engine, t_gui_box *gui_box,
 							* (gui_box->size.y - position) \
 						+ (i + 1 != boxes_size.nb_of_boxes) \
 							* (gui_box->size.y \
-							* (boxes_size.box_size[i] / 100.f))},
-				false});
+							* (boxes_size.box_size[i] / 100.f))}, false});
 		if (errno == EINVAL || errno == ENOMEM)
 			return (failed_to_create_all_boxes(engine, &gui_box->children, i));
 		position += gui_box->children.data[i].size.y;
