@@ -13,26 +13,41 @@
 #include "scene.h"
 #include "ray_tracer/rays.h"
 
+static t_hit	calculate_shadow_ray_intersection(const t_ray *ray,
+					const float light_distance,
+					const t_scene *scene);
+
 bool	is_shadow_pixel(const t_scene *scene, const t_light light,
 						const t_hit object_hit,
 						const t_vector3f reverse_light_direction)
 {
-//	const t_vector3f	new_position = vector3f_add(object_hit.position, \
-//								vector3f_multiply(object_hit.normal, 0.01f));
 	const t_vector3f	new_position = vector3f_add(object_hit.position, \
-								vector3f_multiply(vector3f_multiply(object_hit.ray.direction, -1), 0.01f));
-	const t_ray			light_ray = ray_create(new_position, \
+			vector3f_multiply(vector3f_multiply(object_hit.ray.direction, -1), \
+			HIT_DISPLACEMENT));
+	const t_ray			shadow_ray = ray_create(new_position, \
 								reverse_light_direction);
-	const t_hit			light_hit = calculate_ray_intersection(\
-								&light_ray, scene);
-	float				light_distance;
-	float				hit_distance;
+	const float			light_distance = vector3f_length(
+			vector3f_subtract(light.position, object_hit.position));
+	const t_hit			shadow_hit = calculate_shadow_ray_intersection(\
+								&shadow_ray, light_distance, scene);
 
-	if (!light_hit.hit)
-		return (false);
-	light_distance = vector3f_length(vector3f_subtract(light.position,
-				object_hit.position));
-	hit_distance = vector3f_length(vector3f_subtract(light_hit.position,
-				object_hit.position));
-	return (light_hit.hit && hit_distance < light_distance);
+	return (shadow_hit.hit);
+}
+
+static t_hit	calculate_shadow_ray_intersection(const t_ray *ray,
+												const float light_distance,
+												const t_scene *scene)
+{
+	size_t		index;
+	t_hit		hit;
+
+	index = 0;
+	while (index < scene->objects.length)
+	{
+		hit = calculate_object_distance(ray, scene->objects.data + index);
+		if (hit.distance > 0.f && hit.distance < light_distance)
+			return (hit_object(ray, scene->objects.data + index, hit));
+		index++;
+	}
+	return (miss_hit());
 }

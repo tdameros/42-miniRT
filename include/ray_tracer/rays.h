@@ -20,6 +20,8 @@
 # include "scene.h"
 # include "object.h"
 
+# define HIT_DISPLACEMENT 0.01f
+
 typedef struct s_ray
 {
 	t_vector3f	origin;

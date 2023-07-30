@@ -52,7 +52,7 @@ t_hit	calculate_sphere_distance(const t_ray *ray, const t_object *sphere)
 
 	hit.distance = -1;
 	hit.context = OUTLINE;
-	equation.a = 1;
+	equation.a = vector3f_dot(ray->direction, ray->direction);
 	equation.b = 2 * vector3f_dot(origin, ray->direction);
 	equation.c = vector3f_dot(origin, origin)
 		- sphere->cache.sphere.square_radius;

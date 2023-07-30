@@ -69,14 +69,12 @@ t_vector3f	render_ray_icon(t_ray ray, const t_scene *scene, int *missed_object)
 				(*missed_object)++;
 			return (ray_color);
 		}
-
-		// Lights
-//		color = calculate_color(scene, ray_hit, multiplier);
 		color = calculate_shade(scene, ray_hit, multiplier);
 		ray_color = vector3f_add(ray_color, color);
 		multiplier *= ray_hit.object->material.reflect;
 		ray.origin = vector3f_add(ray_hit.position,
-				vector3f_multiply(ray_hit.normal, 0.01f));
+				vector3f_multiply(vector3f_multiply(ray.direction, -1),
+					HIT_DISPLACEMENT));
 		ray.direction = reflect(ray.direction, ray_hit.normal);
 	}
 	return (ray_color);
