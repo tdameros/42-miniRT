@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   put_image_to_image.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/30 18:40:01 by vfries            #+#    #+#             */
+/*   Updated: 2023/07/30 18:40:13 by vfries           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "image.h"
 #include "math/vector.h"
 
@@ -84,14 +96,6 @@ static unsigned int	mix_colors(unsigned int added_color,
 		return (base_color);
 	if (added_color_transparency == 0)
 		return (added_color);
-
-	// TODO check how it looks with this (Applies 0.25 transparency instead of calculating actual transparency)
-	//  								 (is faster but doesn't allow precise transparency)
-//	return ((((added_color & 0x00FF0000) >> 16) / 4 * 3 + ((base_color & 0x00FF0000) / 4 >> 16)) << 16
-//		| (((added_color & 0x0000FF00) >> 8) / 4 * 3 + ((base_color & 0x0000FF00) >> 8) / 4) << 8
-//		| ((added_color & 0x000000FF) / 4 * 3 + (base_color & 0x000000FF) / 4));
-
-
 	inverse_transparency = added_color_transparency / 255.f;
 	transparency = 1.f - inverse_transparency;
 	return (((unsigned int)(transparency * ((added_color & 0x00FF0000) >> 16)
