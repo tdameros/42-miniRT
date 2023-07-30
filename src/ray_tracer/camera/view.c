@@ -24,7 +24,6 @@ void	camera_recalculate_view(t_camera *camera)
 
 	camera->view = camera_look_at(camera->position, center,
 			camera->up_vector);
-	camera->view = matrix4_round_diagonal(camera->view);
 	camera->inverse_view = matrix4_inverse(camera->view);
 }
 

@@ -138,6 +138,7 @@ SRC =\
 	numbers/atof.c				\
 	numbers/atoi.c				\
 	numbers/atoll.c				\
+	numbers/equals.c			\
 	numbers/get_smallest_int.c	\
 	numbers/itoa.c				\
 \
