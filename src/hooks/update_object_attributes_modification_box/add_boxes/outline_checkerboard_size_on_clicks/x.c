@@ -50,7 +50,8 @@ void	outline_checkerboard_size_input_box_x_on_click_minus(t_gui_box *self,
 		<= 1.f)
 		return ;
 	object->material.texture.outline.checkerboard.size.x--;
-	if (object->material.texture.outline.checkerboard.size.x <= 1.f && object->material.texture.outline.checkerboard.size.y <= 1.f)
+	if (object->material.texture.outline.checkerboard.size.x <= 1.f
+		&& object->material.texture.outline.checkerboard.size.y <= 1.f)
 		object->material.texture.outline.texture_type = NONE;
 	engine->scene_changed = true;
 	update_xy_float_input_boxes(engine,

@@ -21,7 +21,8 @@ void	add_checkered_pattern_color_toggle_box(t_engine *engine,
 			t_gui_box *gui_box, int *i, t_gui_box *parent)
 {
 	if (engine->gui.selected_object.object == NULL
-		|| engine->gui.selected_object.object->material.texture.outline.texture_type != CHECKERBOARD)
+		|| engine->gui.selected_object.object->material.texture.outline.\
+			texture_type != CHECKERBOARD)
 		engine->gui.color_being_changed_is_checked_pattern = false;
 	add_toggle_box(engine, gui_box, i, parent);
 	change_image_color(&gui_box->children.data->image, COLOR_TRANSPARENT);
