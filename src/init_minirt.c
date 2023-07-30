@@ -39,7 +39,7 @@ int	init_engine(t_engine *engine, const char *start_up_scene)
 	print_scene_content(&engine->raytracing_data);
 
 	init_image(&engine->ray_traced_image, &engine->window,
-			   engine->window.size.x, engine->window.size.y); // TODO secure me
+		engine->window.size.x, engine->window.size.y);
 	engine->raytraced_pixels.data = malloc(sizeof(*engine->raytraced_pixels.data) * engine->ray_traced_image.size); // TODO secure
 	ft_bzero(engine->raytraced_pixels.data, sizeof(*engine->raytraced_pixels.data) * engine->ray_traced_image.size); // TODO remove me
 	engine->raytraced_pixels.size = engine->ray_traced_image.size;
@@ -49,8 +49,8 @@ int	init_engine(t_engine *engine, const char *start_up_scene)
 	engine->should_render_ray_tracing = true;
 	engine->should_render_at_full_resolution = true;
 
-	init_image(&engine->main_image, &engine->window,
-			   engine->window.size.x, engine->window.size.y); // TODO secure me
+	init_image(&engine->main_image, &engine->window, engine->window.size.x,
+		engine->window.size.y);
 	change_image_color(&engine->main_image, COLOR_BLACK);
 
 	init_hooks(engine);

@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 05:28:00 by vfries            #+#    #+#             */
-/*   Updated: 2023/06/03 05:28:00 by vfries           ###   ########lyon.fr   */
+/*   Updated: 2023/07/30 18:32:18 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,3 @@ static int8_t	get_specific_index(char click_type)
 		return (2);
 	return (-1);
 }
-

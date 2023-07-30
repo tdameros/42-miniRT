@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   button_press.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vfries <vfries@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:55:00 by vfries            #+#    #+#             */
-/*   Updated: 2023/05/03 17:55:18 by vfries           ###   ########.fr       */
+/*   Updated: 2023/07/30 18:31:42 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ static void	select_new_object(int button, t_engine *engine, int x, int y)
 		return ;
 	engine->gui.selected_object.object = get_clicked_object(engine, x, y);
 	engine->gui.selected_object.light = NULL;
-
 	if (engine->gui.selected_object.object == NULL)
 	{
 		update_object_attributes_modification_box(engine);

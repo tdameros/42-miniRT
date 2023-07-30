@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   update_xyz_float_input_box.c                       :+:      :+:    :+:   */
+/*   update_float_input_boxes.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:38:00 by vfries            #+#    #+#             */
-/*   Updated: 2023/07/13 18:38:00 by vfries           ###   ########lyon.fr   */
+/*   Updated: 2023/07/30 18:38:00 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,12 @@ static void	update_float_input_boxes_object(t_engine *engine)
 		engine->gui.selected_object.object->material.specular,
 		engine->gui.float_input_boxes.specular_reflection);
 	update_xy_float_input_boxes(engine,
-		engine->gui.selected_object.object->material.texture. \
+		engine->gui.selected_object.object->material.texture.\
 		outline_checkerboard.size,
 		&engine->gui.float_input_boxes.outline_checkerboard_size);
 	update_xy_float_input_boxes(engine,
-		engine->gui.selected_object.object->material.texture. \
-		cap_checkerboard.size,
-		&engine->gui.float_input_boxes.cap_checkerboard_size);
+		engine->gui.selected_object.object->material.texture.cap_checkerboard.\
+		size, &engine->gui.float_input_boxes.cap_checkerboard_size);
 }
 
 static void	update_float_input_boxes_light(t_engine *engine)
