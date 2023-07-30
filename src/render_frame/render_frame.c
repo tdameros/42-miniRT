@@ -80,7 +80,8 @@ static void	render_minirt(t_engine *engine, const uint64_t start_time)
 		if (incrementer > 1)
 			interpolate_ray_tracing(&engine->raytraced_pixels, incrementer);
 		for (size_t i = 0; i < engine->ray_traced_image.size; i++)
-			engine->ray_traced_image.address[i] = vec_rgb_to_uint(engine->raytraced_pixels.data[i]);
+			engine->ray_traced_image.address[i]
+				= vec_rgb_to_uint(engine->raytraced_pixels.data[i]);
 		engine->scene_changed = false;
 	}
 	else if (engine->should_render_ray_tracing
@@ -160,7 +161,7 @@ static void	update_scene(t_engine *engine)
 	{
 		if (was_rendered_at_full_resolution)
 			engine->should_render_ray_tracing = false;
-		else if (engine->gui.hide_animation_finished)
+		else if (engine->gui.hide_animation.hide_animation_finished)
 		{
 			engine->should_render_at_full_resolution = true;
 			was_rendered_at_full_resolution = true;

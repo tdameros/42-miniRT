@@ -16,14 +16,14 @@ void	update_color_picker_color(t_gui *gui)
 {
 	if (gui->selected_object.object != NULL)
 	{
-		gui->color_picker_base_color_was_changed = true;
-		gui->color_picker_base_color = vector3f_multiply(
+		gui->rgb_color_and_material.color_picker_base_color_was_changed = true;
+		gui->rgb_color_and_material.color_picker_base_color = vector3f_multiply(
 				gui->selected_object.object->material.albedo, 255.f);
 	}
 	else if (gui->selected_object.light != NULL)
 	{
-		gui->color_picker_base_color_was_changed = true;
-		gui->color_picker_base_color = vector3f_multiply(
+		gui->rgb_color_and_material.color_picker_base_color_was_changed = true;
+		gui->rgb_color_and_material.color_picker_base_color = vector3f_multiply(
 				gui->selected_object.light->color, 255.f);
 	}
 }

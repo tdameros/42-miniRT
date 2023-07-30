@@ -77,10 +77,11 @@ static void	color_picker_draw(t_gui_box *self, t_engine *engine,
 static void	color_picker_draw(t_gui_box *self, t_engine *engine,
 				t_draw_data draw_data)
 {
-	if (engine->gui.color_picker_base_color_was_changed)
+	if (engine->gui.rgb_color_and_material.color_picker_base_color_was_changed)
 	{
 		update_image(self, engine);
-		engine->gui.color_picker_base_color_was_changed = false;
+		engine->gui.rgb_color_and_material.color_picker_base_color_was_changed
+			= false;
 	}
 	mlx_put_image_to_window(engine->window.mlx, engine->window.window,
 		self->image.data, self->position.x + draw_data.offset.x,
@@ -107,13 +108,13 @@ static void	update_image(t_gui_box *self, t_engine *engine)
 		x = -1;
 		limit = (int)roundf((float)self->image.width / 2);
 		while (++x < limit)
-			put_pixel_on_image(&self->image, y, x, get_darker_color(x, limit,
-					engine->gui.color_picker_base_color));
+			put_pixel_on_image(&self->image, y, x, get_darker_color(x, limit, \
+				engine->gui.rgb_color_and_material.color_picker_base_color));
 		x--;
 		while (++x < self->image.width)
-			put_pixel_on_image(&self->image, y, x, get_lighter_color(x,
-					self->image.width, limit,
-					engine->gui.color_picker_base_color));
+			put_pixel_on_image(&self->image, y, x, get_lighter_color(x, \
+				self->image.width, limit, \
+				engine->gui.rgb_color_and_material.color_picker_base_color));
 	}
 	round_image_corners(&self->image, 10);
 }

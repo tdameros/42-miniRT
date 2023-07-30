@@ -99,7 +99,7 @@ static void	toggle_camera_lock(t_engine *engine)
 	mlx_mouse_move(engine->window.window, screen_center.x, screen_center.y);
 	if (engine->camera.lock == true)
 	{
-		if (engine->gui.is_hidden == false)
+		if (engine->gui.hide_animation.is_hidden == false)
 		{
 			toggle_gui(&engine->gui);
 			engine->gui.should_show_gui_on_camera_lock = true;
@@ -111,7 +111,8 @@ static void	toggle_camera_lock(t_engine *engine)
 		mlx_mouse_hide();
 		return ;
 	}
-	if (engine->gui.should_show_gui_on_camera_lock && engine->gui.is_hidden)
+	if (engine->gui.should_show_gui_on_camera_lock
+		&& engine->gui.hide_animation.is_hidden)
 		toggle_gui(&engine->gui);
 	engine->camera.lock = true;
 	mlx_mouse_show();

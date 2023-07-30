@@ -39,15 +39,16 @@ void	render_user_interface(t_engine *engine, const uint64_t start_time)
 
 static float	get_gui_hidden_ration(t_gui *gui, const uint64_t start_time)
 {
-	const float	time_passed = start_time - gui->start_animation_time;
+	const float	time_passed = start_time
+		- gui->hide_animation.start_animation_time;
 	const float	time_passed_squared = time_passed * time_passed;
 
 	if (time_passed_squared > TIME_TO_HIDE_GUI)
 	{
-		gui->hide_animation_finished = true;
-		return (gui->is_hidden);
+		gui->hide_animation.hide_animation_finished = true;
+		return (gui->hide_animation.is_hidden);
 	}
-	if (gui->is_hidden)
+	if (gui->hide_animation.is_hidden)
 	{
 		return (time_passed_squared / TIME_TO_HIDE_GUI);
 	}

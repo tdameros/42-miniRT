@@ -14,11 +14,11 @@
 
 void	toggle_gui(t_gui *gui)
 {
-	if (gui->hide_animation_finished)
+	if (gui->hide_animation.hide_animation_finished)
 	{
-		gui->is_hidden = !gui->is_hidden;
-		gui->start_animation_time = ft_timeval_to_ms(
+		gui->hide_animation.is_hidden = !gui->hide_animation.is_hidden;
+		gui->hide_animation.start_animation_time = ft_timeval_to_ms(
 				ft_get_current_time());
-		gui->hide_animation_finished = false;
+		gui->hide_animation.hide_animation_finished = false;
 	}
 }
