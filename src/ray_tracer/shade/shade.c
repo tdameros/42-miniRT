@@ -25,6 +25,8 @@ t_vector3f	calculate_shade(const t_scene *scene, const t_hit object_hit,
 
 	shade_albedo = vector3f_mult_vector3f(scene->ambient_light.emitted_color,
 			object_hit.albedo);
+//	t_vector3f ambiant = vector3f_mult_vector3f(scene->ambient_light.emitted_color,
+//										  object_hit.albedo);
 	i = 0;
 	while (i < scene->lights.length)
 	{
@@ -34,5 +36,8 @@ t_vector3f	calculate_shade(const t_scene *scene, const t_hit object_hit,
 		shade_albedo = vector3f_add(shade_albedo, light_contribution);
 		i++;
 	}
+//	if (shade_albedo.x == ambiant.x && shade_albedo.y == ambiant.y && shade_albedo.z == ambiant.z)
+//		shade_albedo = vector3f_mult_vector3f(scene->ambient_light.emitted_color,
+//											  object_hit.normal);
 	return (vector3f_multiply(shade_albedo, intensity));
 }

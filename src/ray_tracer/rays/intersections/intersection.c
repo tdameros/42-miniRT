@@ -26,7 +26,7 @@ t_hit	calculate_ray_intersection(const t_ray *ray, const t_scene *scene)
 	{
 		hit = calculate_object_distance(ray, scene->objects.data + index);
 		if ((hit.distance < near_hit.distance || near_hit.distance == -1)
-			&& hit.distance > 0)
+			&& hit.distance > 0.f)
 		{
 			near_hit = hit;
 			near_object_index = index;
@@ -35,8 +35,7 @@ t_hit	calculate_ray_intersection(const t_ray *ray, const t_scene *scene)
 	}
 	if (near_hit.distance == -1)
 		return (miss_hit());
-	return (hit_object(ray, scene->objects.data + near_object_index,
-					   near_hit));
+	return (hit_object(ray, scene->objects.data + near_object_index, near_hit));
 }
 
 t_hit	calculate_object_distance(const t_ray *ray, const t_object *object)

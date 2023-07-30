@@ -16,18 +16,18 @@ void	set_outline_checkerboard(t_material *material,
 								const t_vector2f size,
 								const t_vector3f albedo)
 {
-	material->texture.outline_type = CHECKERBOARD;
-	material->texture.outline_checkerboard.size.x = size.x;
-	material->texture.outline_checkerboard.size.y = size.y;
-	material->texture.outline_checkerboard.albedo = albedo;
+	material->texture.outline.texture_type = CHECKERBOARD;
+	material->texture.outline.checkerboard.size.x = size.x;
+	material->texture.outline.checkerboard.size.y = size.y;
+	material->texture.outline.checkerboard.albedo = albedo;
 }
 
 void	set_cap_checkerboard(t_material *material,
 							const t_vector2f size,
 							const t_vector3f albedo)
 {
-	material->texture.cap_type = CHECKERBOARD;
-	material->texture.cap_checkerboard.size.x = size.x;
-	material->texture.cap_checkerboard.size.y = size.y;
-	material->texture.cap_checkerboard.albedo = albedo;
+	material->texture.cap.texture_type = CHECKERBOARD;
+	material->texture.cap.checkerboard.size.x = size.x;
+	material->texture.cap.checkerboard.size.y = size.y;
+	material->texture.cap.checkerboard.albedo = albedo;
 }

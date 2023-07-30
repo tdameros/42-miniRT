@@ -32,5 +32,6 @@ t_vector2f	calculate_cap_map(const t_vector3f hit_position,
 
 t_vector3f	get_texture_color(t_hit hit, const t_object *object);
 
+t_vector3f	calculate_normal_perturbation(t_hit hit, const t_object *object);
 
 #endif

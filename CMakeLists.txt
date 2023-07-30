@@ -52,6 +52,7 @@ add_executable(minirt
         lib/libft/include/ft_bools.h
         lib/libft/include/ft_char.h
         lib/libft/include/ft_colors.h
+        lib/libft/include/ft_error.h
         lib/libft/include/ft_hashmap.h
         lib/libft/include/ft_io.h
         lib/libft/include/ft_linked_list.h
@@ -78,6 +79,7 @@ add_executable(minirt
         lib/libft/src/char/isspace.c
         lib/libft/src/char/tolower.c
         lib/libft/src/char/toupper.c
+        lib/libft/src/error/fatal_error.c
         lib/libft/src/hashmap/hm_add_elem.c
         lib/libft/src/hashmap/hm_clear.c
         lib/libft/src/hashmap/hm_delete_elem.c
@@ -172,6 +174,7 @@ add_executable(minirt
         lib/libft/src/numbers/atof.c
         lib/libft/src/numbers/atoi.c
         lib/libft/src/numbers/atoll.c
+        lib/libft/src/numbers/equals.c
         lib/libft/src/numbers/get_smallest_int.c
         lib/libft/src/numbers/itoa.c
         lib/libft/src/sort/msort_int.c
@@ -235,8 +238,11 @@ add_executable(minirt
         src/font/parsing/get_glyph_offset.c
         src/font/parsing/get_glyph_outlines.c
         src/font/parsing/get_long_hor_metric.c
-        src/font/parsing/read_cmap.c
+        src/font/parsing/read_16_bits.c
+        src/font/parsing/read_32_bits.c
         src/font/parsing/read_64_bits.c
+        src/font/parsing/read_8_bits.c
+        src/font/parsing/read_cmap.c
         src/font/parsing/read_font_directory.c
         src/font/parsing/read_format4.c
         src/font/parsing/read_glyph_outline.c
@@ -259,6 +265,9 @@ add_executable(minirt
         src/gui/box/destroy_t_gui_box.c
         src/gui/box/get_clicked_gui_box.c
         src/gui/box/mouse_utils.c
+        src/gui/float_input_box/create_float_input_box.c
+        src/gui/float_input_box/draw_float_input_box.c
+        src/gui/float_input_box/update_float_input_box.c
         src/gui/main_box/menu_box/init_menu_box.c
         src/gui/main_box/menu_box/init_settings_icon.c
         src/gui/main_box/object_creation_box/init_object_creation_box.c
@@ -266,6 +275,7 @@ add_executable(minirt
         src/gui/main_box/init_main_box.c
         src/gui/object_list_box/create_light_gui_box.c
         src/gui/object_list_box/create_object_gui_box.c
+        src/gui/object_list_box/get_selected_object_index.c
         src/gui/object_list_box/init_object_list_box.c
         src/gui/object_list_box/object_box_getters.c
         src/gui/object_list_box/object_list_gui_box_draw.c
@@ -281,7 +291,6 @@ add_executable(minirt
         src/gui/create_n_horizontal_boxes.c
         src/gui/create_vertical_boxes.c
         src/gui/draw_icon.c
-        src/gui/float_input_box/create_float_input_box.c
         src/gui/init_gui.c
         src/hooks/update_object_attributes_modification_box/add_boxes/cap_checkerboard_size_on_clicks/x.c
         src/hooks/update_object_attributes_modification_box/add_boxes/cap_checkerboard_size_on_clicks/y.c
@@ -302,6 +311,7 @@ add_executable(minirt
         src/hooks/update_object_attributes_modification_box/add_boxes/utils/init_description_box.c
         src/hooks/update_object_attributes_modification_box/add_boxes/add_brightness_box.c
         src/hooks/update_object_attributes_modification_box/add_boxes/add_cap_checkerboard_size_box.c
+        src/hooks/update_object_attributes_modification_box/add_boxes/add_checkered_pattern_color_toggle_box.c
         src/hooks/update_object_attributes_modification_box/add_boxes/add_height_box.c
         src/hooks/update_object_attributes_modification_box/add_boxes/add_normal_box.c
         src/hooks/update_object_attributes_modification_box/add_boxes/add_outline_checkerboard_size_box.c
@@ -342,7 +352,6 @@ add_executable(minirt
         src/math/matrix/matrix4.c
         src/math/matrix/matrix4_inverse.c
         src/math/matrix/matrix4_math.c
-        src/math/matrix/matrix4_round.c
         src/math/quaternion/quaternion.c
         src/math/quaternion/quaternion_math.c
         src/math/quaternion/quaternion_operations.c
@@ -410,6 +419,7 @@ add_executable(minirt
         src/ray_tracer/shade/shade.c
         src/ray_tracer/shade/shadow.c
         src/ray_tracer/texture/mapping.c
+        src/ray_tracer/texture/normal.c
         src/ray_tracer/texture/texture.c
         src/ray_tracer/interpolate_ray_tracing.c
         src/ray_tracer/render.c
@@ -425,8 +435,4 @@ add_executable(minirt
         src/close_miniRT.c
         src/color.c
         src/init_minirt.c
-        src/main.c src/hooks/update_object_attributes_modification_box/add_boxes/add_checkered_pattern_color_toggle_box.c src/font/parsing/read_8_bits.c src/font/parsing/read_16_bits.c src/font/parsing/read_32_bits.c
-        src/gui/float_input_box/update_float_input_box.c
-        src/gui/float_input_box/draw_float_input_box.c
-        lib/libft/src/error/fatal_error.c
-        lib/libft/include/ft_error.h)
+        src/main.c)

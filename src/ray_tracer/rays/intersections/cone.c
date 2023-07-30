@@ -26,12 +26,13 @@ t_hit	hit_cone(const t_ray *ray, const t_object *cone, const t_hit hit_distance)
 {
 	t_hit	hit;
 
-	hit.distance = hit_distance.distance;
-	if (hit.distance < 0)
+	if (hit_distance.distance < 0.f)
 	{
 		hit.hit = false;
 		return (hit);
 	}
+	hit.distance = hit_distance.distance;
+	hit.context = hit_distance.context;
 	hit.hit = true;
 	hit.position = ray_at(ray, hit.distance);
 	hit.normal = calculate_cone_normal(ray, cone, hit_distance);
@@ -39,10 +40,9 @@ t_hit	hit_cone(const t_ray *ray, const t_object *cone, const t_hit hit_distance)
 		hit.normal = vector3f_multiply(hit.normal, -1);
 	hit.object = cone;
 	hit.ray = *ray;
-//	if (hit.object->material.is_checked_pattern)
-//		hit.albedo = get_checked_pattern(hit, cone);
-//	else
+	// TODO : get cone texture
 	hit.albedo = cone->material.albedo;
+	hit.shade_normal = hit.normal;
 	return (hit);
 
 }

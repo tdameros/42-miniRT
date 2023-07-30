@@ -41,7 +41,7 @@ t_vector2f	calculate_spherical_map(const t_vector3f hit_position,
 	const float			phi = acosf(position.y / sphere->radius);
 	const float			raw_u = (float)(theta / (2.f * M_PI));
 
-	return (vector2f_create(1.f - (raw_u + 0.5f), (float)(1.f - phi / M_PI)));
+	return (vector2f_create((raw_u + 0.5f), (float)(phi / M_PI)));
 }
 
 t_vector2f	calculate_cylindrical_map(const t_vector3f hit_position,

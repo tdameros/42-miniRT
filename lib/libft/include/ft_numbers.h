@@ -37,4 +37,6 @@ float		ft_minf_positive(float a, float b);
 
 float		ft_maxf(float a, float b);
 
+bool		ft_is_equalsf(const float a, const float b, const float tolerance);
+
 #endif

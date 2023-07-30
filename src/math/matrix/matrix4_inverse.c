@@ -10,6 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <float.h>
+
+#include "libft.h"
+
 #include "math/matrix.h"
 
 static void		swap_pivot(t_matrix4 *matrix, t_matrix4 *identity,
@@ -31,8 +35,11 @@ t_matrix4	matrix4_inverse(t_matrix4 matrix)
 	while (x < matrix.size)
 	{
 		pivot = matrix.matrix[x][x];
-		if (pivot == 0)
+		if (ft_is_equalsf(pivot, 0, FLT_EPSILON))
+		{
+			matrix.matrix[x][x] = 0;
 			swap_pivot(&matrix, &identity_matrix, x);
+		}
 		factor = 1 / matrix.matrix[x][x];
 		multiply_row(&identity_matrix, x, factor);
 		multiply_row(&matrix, x, factor);

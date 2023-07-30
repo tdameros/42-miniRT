@@ -150,7 +150,6 @@ SRC				=\
 	math/matrix/matrix4.c			\
 	math/matrix/matrix4_inverse.c	\
 	math/matrix/matrix4_math.c		\
-	math/matrix/matrix4_round.c		\
 	\
 	math/quaternion/quaternion.c				\
 	math/quaternion/quaternion_math.c			\
@@ -237,6 +236,7 @@ SRC				=\
 	ray_tracer/shade/shadow.c	\
 	\
 	ray_tracer/texture/mapping.c		\
+	ray_tracer/texture/normal.c			\
 	ray_tracer/texture/texture.c		\
 	\
 	ray_tracer/interpolate_ray_tracing.c	\

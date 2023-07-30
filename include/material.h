@@ -18,6 +18,7 @@
 
 enum e_texture_type
 {
+	NONE,
 	CHECKERBOARD,
 	PPM_TEXTURE,
 };
@@ -28,16 +29,29 @@ typedef struct s_checker_board
 	t_vector3f	albedo;
 }	t_checkerboard;
 
+typedef struct s_surface
+{
+	enum e_texture_type	texture_type;
+	t_ppm_p6			texture;
+	t_ppm_p6			bump_map;
+	t_checkerboard		checkerboard;
+	bool				has_bum_map;
+
+}	t_surface;
 typedef struct s_texture
 {
-	enum e_texture_type	outline_type;
-	enum e_texture_type	cap_type;
-	t_ppm_p6			outline_texture;
-	t_ppm_p6			cap_texture;
-	t_ppm_p6			bump_map;
-	t_checkerboard		outline_checkerboard;
-	t_checkerboard		cap_checkerboard;
-	bool				has_bump_map;
+//	enum e_texture_type	outline_type;
+//	enum e_texture_type	cap_type;
+//	t_ppm_p6			outline_texture;
+//	t_ppm_p6			cap_texture;
+//	t_ppm_p6			bump_map;
+//	t_checkerboard		outline_checkerboard;
+//	t_checkerboard		cap_checkerboard;
+//	bool				has_bump_map;
+
+
+	t_surface	cap;
+	t_surface	outline;
 
 }	t_texture;
 
@@ -64,6 +78,7 @@ t_material	material_create(const t_vector3f albedo, \
 							const float specular_intensity);
 
 //	texture.c
+int	set_outline_ppm_normal(t_material *material, const char *filename);
 t_texture	create_empty_texture(void);
 int			set_outline_ppm_texture(t_material *material,
 				const char *filename);

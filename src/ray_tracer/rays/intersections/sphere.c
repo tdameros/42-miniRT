@@ -20,12 +20,13 @@ t_hit	hit_sphere(const t_ray *ray, const t_object *sphere,
 {
 	t_hit		hit;
 
-	hit.distance = hit_distance.distance;
-	if (hit.distance < 0)
+	if (hit_distance.distance < 0.f)
 	{
 		hit.hit = false;
 		return (hit);
 	}
+	hit.context = hit_distance.context;
+	hit.distance = hit_distance.distance;
 	hit.position = ray_at(ray, hit.distance);
 	hit.normal = vector3f_unit(vector3f_subtract(hit.position,
 				sphere->position));
@@ -35,6 +36,10 @@ t_hit	hit_sphere(const t_ray *ray, const t_object *sphere,
 	hit.ray = *ray;
 	hit.hit = true;
 	hit.albedo = get_texture_color(hit, sphere);
+	if (sphere->material.texture.outline.has_bum_map)
+		hit.shade_normal = calculate_normal_perturbation(hit, sphere);
+	else
+		hit.shade_normal = hit.normal;
 	return (hit);
 }
 
@@ -47,7 +52,7 @@ t_hit	calculate_sphere_distance(const t_ray *ray, const t_object *sphere)
 
 	hit.distance = -1;
 	hit.context = OUTLINE;
-	equation.a = 1;
+	equation.a = vector3f_dot(ray->direction, ray->direction);
 	equation.b = 2 * vector3f_dot(origin, ray->direction);
 	equation.c = vector3f_dot(origin, origin)
 		- sphere->cache.sphere.square_radius;

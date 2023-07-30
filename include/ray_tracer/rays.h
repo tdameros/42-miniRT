@@ -20,6 +20,8 @@
 # include "scene.h"
 # include "object.h"
 
+# define HIT_DISPLACEMENT 0.01f
+
 typedef struct s_ray
 {
 	t_vector3f	origin;
@@ -40,9 +42,9 @@ typedef struct s_hit
 	const t_object		*object;
 	t_vector3f			position;
 	t_vector3f			normal;
+	t_vector3f			shade_normal;
 	t_ray				ray;
 	t_vector3f			albedo;
-	float				t;
 	enum e_hit_context	context;
 }	t_hit;
 

@@ -19,13 +19,13 @@ t_hit	hit_plane(const t_ray *ray, const t_object *plane, const t_hit hit_distanc
 {
 	t_hit		hit;
 
-	hit.distance = hit_distance.distance;
-	if (hit.distance < 0)
+	if (hit_distance.distance < 0.f)
 	{
 		hit.hit = false;
 		return (hit);
 	}
-	hit.t = hit_distance.distance;
+	hit.context = hit_distance.context;
+	hit.distance = hit_distance.distance;
 	hit.position = ray_at(ray, hit.distance);
 	hit.normal = plane->axe;
 	if (vector3f_dot(hit.normal, ray->direction) > 0)
@@ -34,6 +34,10 @@ t_hit	hit_plane(const t_ray *ray, const t_object *plane, const t_hit hit_distanc
 	hit.ray = *ray;
 	hit.hit = true;
 	hit.albedo = get_texture_color(hit, plane);
+	if (plane->material.texture.outline.has_bum_map)
+		hit.shade_normal = calculate_normal_perturbation(hit, plane);
+	else
+		hit.shade_normal = hit.normal;
 	return (hit);
 }
 
