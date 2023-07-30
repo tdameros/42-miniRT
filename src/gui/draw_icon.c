@@ -75,7 +75,7 @@ static void	tmp_camera_create(t_camera *camera, t_vector2f viewport)
 	camera->inverse_view = matrix4_create_identity();
 	camera->projection = matrix4_create_identity();
 	camera->inverse_projection = matrix4_create_identity();
-	camera->vertical_fov = 45;
+	camera->vertical_fov = 20.f;
 	camera->near_clip = 0.1f;
 	camera->far_clip = 100;
 	camera->pitch = 0;
@@ -157,29 +157,53 @@ static t_object	get_cylinder(const t_camera *camera, const t_material material)
 	t_vector3f	left;
 	t_vector3f	right;
 	float		height;
+	t_object	cylinder;
 
-	top = get_ray_direction(camera, camera->viewport.size.y / 10.f, \
+	top = get_ray_direction(camera, camera->viewport.size.y / 7.5f, \
 			camera->viewport.size.x / 2.f);
 	bottom = get_ray_direction(camera, camera->viewport.size.y \
-			- camera->viewport.size.y / 10.f, camera->viewport.size.x / 2.f);
+			- camera->viewport.size.y / 7.5f, camera->viewport.size.x / 2.f);
 	top = vector3f_multiply(top, 2.f / top.z);
 	bottom = vector3f_multiply(bottom, 2.f / bottom.z);
 	radius = vector3f_length(vector3f_subtract(top, bottom)) / 2.f;
-	left = get_ray_direction(camera, camera->viewport.size.x / 4.f, \
+	left = get_ray_direction(camera, camera->viewport.size.x / 8.f, \
 		camera->viewport.size.y / 2.f);
 	right = get_ray_direction(camera, camera->viewport.size.x \
-		- camera->viewport.size.x / 4.f, camera->viewport.size.y / 2.f);
+		- camera->viewport.size.x / 8.f, camera->viewport.size.y / 2.f);
 	left = vector3f_multiply(left, 2.f / left.z);
 	right = vector3f_multiply(right, 2.f / right.z);
 	height = vector3f_length(vector3f_subtract(left, right));
-	return (cylinder_create(vector3f_create(0, 0, -2.f),
+	cylinder = cylinder_create(vector3f_create(0, 0, -2.f),
 			vector3f_create(1, 0, 0), (t_object_size){radius, height},
-		material));
+		material);
+	object_rotate(&cylinder, (t_vector3f){0.f, 1.f, 0.f}, -35);
+	return (cylinder);
 }
 
 static t_object	get_cone(const t_camera *camera, const t_material material)
 {
 	(void)camera;
+	t_vector3f	top;
+	t_vector3f	bottom;
+	float		height;
+	t_vector3f	left;
+	t_vector3f	right;
+	float 		radius;
+
+	top = get_ray_direction(camera, camera->viewport.size.y / 7.5f, \
+			camera->viewport.size.x / 2.f);
+	bottom = get_ray_direction(camera, camera->viewport.size.y \
+			- camera->viewport.size.y / 7.5f, camera->viewport.size.x / 2.f);
+	top = vector3f_multiply(top, 2.f / top.z);
+	bottom = vector3f_multiply(bottom, 2.f / bottom.z);
+	height = vector3f_length(vector3f_subtract(top, bottom));
+	left = get_ray_direction(camera, camera->viewport.size.x / 3.5f, \
+		camera->viewport.size.y / 2.f);
+	right = get_ray_direction(camera, camera->viewport.size.x \
+		- camera->viewport.size.x / 3.5f, camera->viewport.size.y / 2.f);
+	left = vector3f_multiply(left, 2.f / left.z);
+	right = vector3f_multiply(right, 2.f / right.z);
+	radius = vector3f_length(vector3f_subtract(left, right)) / 2.f;
 	return (cone_create(vector3f_create(0, 0, -2),
-			vector3f_create(0, 1, 0), (t_object_size){2, 5}, material));
+			vector3f_create(0, 1, 0), (t_object_size){radius, height}, material));
 }
