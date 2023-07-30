@@ -16,8 +16,8 @@
 
 void	ft_fatal_error(const char *error_message)
 {
-	ft_putstr_fd("Error\n", STDERR_FILENO);
-	ft_putstr_fd(error_message, STDERR_FILENO);
-	ft_putstr_fd("\n", STDERR_FILENO);
+	ft_print_error("Error\n");
+	ft_print_error(error_message);
+	ft_print_error("\n");
 	exit(EXIT_FAILURE);
 }

@@ -17,16 +17,16 @@
 
 static void		draw_light_icon(t_image *image, unsigned int background_color,
 					t_color color);
-static int		tmp_camera_create(t_camera *camera, t_vector2f viewport);
-static int		init_tmp_scene(t_engine *tmp_engine, enum e_object_type type,
+static void		tmp_camera_create(t_camera *camera, t_vector2f viewport);
+static void		init_tmp_scene(t_engine *tmp_engine, enum e_object_type type,
 					t_material material, t_vector3f sky_color);
 static t_object	get_sphere(const t_camera *camera, t_material material);
 static t_object	get_plane(t_material material);
 static t_object	get_cylinder(const t_camera *camera, t_material material);
 static t_object	get_cone(const t_camera *camera, t_material material);
 
-int	draw_icon(t_image *image, const int type,
-		const unsigned int background_color, const t_material material)
+void	draw_icon(t_image *image, const int type,
+			const unsigned int background_color, const t_material material)
 {
 	t_engine		tmp_engine;
 	const t_color	sky_color = vector3f_divide(
@@ -36,24 +36,21 @@ int	draw_icon(t_image *image, const int type,
 	{
 		draw_light_icon(image, background_color,
 			vector3f_multiply(material.albedo, 255.f));
-		return (0);
+		return ;
 	}
 	ft_bzero(&tmp_engine, sizeof(tmp_engine));
 	tmp_engine.ray_traced_image = *image;
-	if (tmp_camera_create(&tmp_engine.camera,
-			(t_vector2f){image->width, image->height}) < 0)
-		return (-1);
-	if (init_tmp_scene(&tmp_engine, type, material, sky_color) < 0)
-		return (-1);
+	tmp_camera_create(&tmp_engine.camera,
+		(t_vector2f){image->width, image->height});
+	init_tmp_scene(&tmp_engine, type, material, sky_color);
 	render_icon(&tmp_engine, background_color);
 //	free(tmp_engine.camera.rays);
 	free_objects(&tmp_engine.scene.objects);
 	free_lights(&tmp_engine.scene.lights);
-	return (0);
 }
 
-static void		draw_light_icon(t_image *image,
-					const unsigned int background_color, const t_color color)
+static void	draw_light_icon(t_image *image,
+				const unsigned int background_color, const t_color color)
 {
 	const float			radius = fminf(image->width, image->height) / 3.f;
 	const t_vector2i	center = {image->width / 2, image->height / 2};
@@ -63,7 +60,7 @@ static void		draw_light_icon(t_image *image,
 	image_draw_circle(image, center, radius, vec_rgb_to_uint(color));
 }
 
-static int	tmp_camera_create(t_camera *camera, t_vector2f viewport)
+static void	tmp_camera_create(t_camera *camera, t_vector2f viewport)
 {
 	camera->viewport.number_of_pixels = viewport.x * viewport.y;
 //	camera->rays = malloc(sizeof(*camera->rays)
@@ -86,17 +83,15 @@ static int	tmp_camera_create(t_camera *camera, t_vector2f viewport)
 	camera->lock = true;
 	camera_recalculate_view(camera);
 	camera_recalculate_projection(camera);
+	// TODO exit on error
 //	camera_recalculate_rays(camera);
-	return (0);
 }
 
-static int	init_tmp_scene(t_engine *tmp_engine, const enum e_object_type type,
+static void	init_tmp_scene(t_engine *tmp_engine, const enum e_object_type type,
 				const t_material material, const t_vector3f sky_color)
 {
 	t_object		object;
 	t_light			light;
-
-	// TODO secure all the things
 
 	initialize_objects_array(&tmp_engine->scene.objects, 1);
 	initialize_lights_array(&tmp_engine->scene.lights, 1);
@@ -110,15 +105,16 @@ static int	init_tmp_scene(t_engine *tmp_engine, const enum e_object_type type,
 	else
 		object = get_cone(&tmp_engine->camera, material);
 	add_object_in_objects(&tmp_engine->scene.objects, object);
+	// TODO exit on error
 
 	light = light_create(vector3f_create(5, 5, 5), vector3f_create(1, 1, 1),
 			1.f);
 	add_light_in_lights(&tmp_engine->scene.lights, light);
+	// TODO exit on error
 
 	tmp_engine->scene.sky_color = sky_color;
 	tmp_engine->scene.ambient_light.color = vector3f_create(1, 1, 1);
 	tmp_engine->scene.ambient_light.brightness = 0.2f;
-	return (0);
 }
 
 static t_object	get_sphere(const t_camera *camera, const t_material material)

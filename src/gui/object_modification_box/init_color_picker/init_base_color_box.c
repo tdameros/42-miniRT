@@ -49,9 +49,10 @@ static void	write_color_row(t_image *image, int y);
 static void	base_color_picker_on_click(t_gui_box *self, t_engine *engine,
 				t_click_data click_data);
 
-int	init_base_color_box(t_engine *engine, t_gui_box *gui_box,
-		t_gui_box *parent)
+void	init_base_color_box(t_engine *engine, t_gui_box *gui_box,
+			t_gui_box *parent)
 {
+	// TODO the struct above should be in a header !! NORM ERROR
 	int	y;
 
 	*gui_box = create_t_gui_box(engine, (t_gui_box_create){parent, \
@@ -59,11 +60,8 @@ int	init_base_color_box(t_engine *engine, t_gui_box *gui_box,
 			.y = parent->size.y - parent->size.y / 2 + 4}, \
 		(t_vector2i){.y = parent->size.y / 2 - 4, \
 			.x = parent->size.x}, true});
-	if (errno == EINVAL)
-		return (-1);
-	if (init_image(&gui_box->on_hover_image, &engine->window,
-			parent->size.x, parent->size.y / 2 - 4) < 0)
-		return (-1); // TODO free above
+	init_image(&gui_box->on_hover_image, &engine->window, parent->size.x,
+		parent->size.y / 2 - 4);
 	gui_box->draw = &base_color_box_draw;
 	gui_box->on_click = &base_color_picker_on_click;
 	engine->gui.color_picker_base_color = vector3f_multiply(
@@ -73,7 +71,6 @@ int	init_base_color_box(t_engine *engine, t_gui_box *gui_box,
 	while (++y < gui_box->size.y)
 		write_color_row(&gui_box->image, y);
 	round_image_corners(&gui_box->image, 10);
-	return (0);
 }
 
 #if defined __linux__

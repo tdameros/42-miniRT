@@ -17,9 +17,8 @@
 void	init_description_box(t_engine *engine, t_gui_box *gui_box,
 			const char *description)
 {
-	if (init_image(&gui_box->image, &engine->window, gui_box->size.x,
-			gui_box->size.y) < 0)
-		ft_fatal_error("Failed to init description box");
+	init_image(&gui_box->image, &engine->window, gui_box->size.x,
+		gui_box->size.y);
 	change_image_color(&gui_box->image, COLOR_TRANSPARENT);
 	write_centered_string_to_image(&engine->gui.font, &gui_box->image,
 		description);

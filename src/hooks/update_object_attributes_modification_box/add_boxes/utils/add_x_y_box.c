@@ -29,7 +29,7 @@ void	add_x_y_box(t_engine *engine, t_gui_box *gui_box, int *i,
 {
 	const t_vector2i	position = {.x = 0, .y = *i};
 	const t_vector2i	size = {.x = parent->size.x, \
-								.y = get_xyz_box_size(parent)};
+								.y = get_xy_box_size(parent)};
 
 	*gui_box = create_t_gui_box(engine, (t_gui_box_create){parent, position,
 			size, true});

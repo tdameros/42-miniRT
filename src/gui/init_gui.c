@@ -8,46 +8,29 @@
 #include "gui/object_modification_box.h"
 #include "gui/object_list_box.h"
 
-static int	init_boxes(t_engine *engine);
+static void	init_boxes(t_engine *engine);
 
-int	init_gui(t_engine *engine)
+void	init_gui(t_engine *engine)
 {
 	engine->gui.gui_boxes.size = 3;
 	engine->gui.gui_boxes.data = malloc(sizeof(*engine->gui.gui_boxes.data)
 			* engine->gui.gui_boxes.size);
 	if (engine->gui.gui_boxes.data == NULL)
-		return (-1);
+		ft_fatal_error("init_gui: malloc failed");
 	engine->gui.draw_gui_image = &put_image_to_image_unsafe;
 	engine->gui.object_modification_amount = 0.1f;
 	engine->gui.object_rotation_degrees = 10.0f;
 	engine->gui.fps.last_update = ft_get_current_time();
 	engine->gui.material_to_assign_to_new_objects = material_create(
 			(t_color){0.f, 0.f, 1.f}, 0.f, 0.f);
-	return (init_boxes(engine));
+	init_boxes(engine);
 }
 
-static int	init_boxes(t_engine *engine)
+static void	init_boxes(t_engine *engine)
 {
-	if (init_main_gui_box(engine,
-			engine->gui.gui_boxes.data) < 0)
-	{
-		free(engine->gui.gui_boxes.data);
-		return (-1);
-	}
-	if (init_object_modification_gui_box(engine,
-			engine->gui.gui_boxes.data + 1, engine->gui.gui_boxes.data) < 0)
-	{
-		destroy_t_gui_box(&engine->window, engine->gui.gui_boxes.data);
-		free(engine->gui.gui_boxes.data);
-		return (-1);
-	}
-	if (init_object_list_box(engine, engine->gui.gui_boxes.data + 2,
-			engine->gui.gui_boxes.data, engine->gui.gui_boxes.data + 1) < 0)
-	{
-		destroy_t_gui_box(&engine->window, engine->gui.gui_boxes.data);
-		destroy_t_gui_box(&engine->window, engine->gui.gui_boxes.data + 1);
-		free(engine->gui.gui_boxes.data);
-		return (-1);
-	}
-	return (0);
+	init_main_gui_box(engine, engine->gui.gui_boxes.data);
+	init_object_modification_gui_box(engine,
+		engine->gui.gui_boxes.data + 1, engine->gui.gui_boxes.data);
+	init_object_list_box(engine, engine->gui.gui_boxes.data + 2,
+		engine->gui.gui_boxes.data, engine->gui.gui_boxes.data + 1);
 }

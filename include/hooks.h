@@ -25,7 +25,7 @@ void		redraw_icons(t_engine *engine, t_material material);
 void		toggle_gui(t_gui *gui);
 void		update_color_picker_color(t_gui *gui);
 
-int			update_object_attributes_modification_box(t_engine *engine);
+void		update_object_attributes_modification_box(t_engine *engine);
 void		update_xyz_float_input_boxes(t_engine *engine,
 				t_vector3f xyz, t_xyz_float_input_boxes *xyz_input_boxes);
 void		update_xy_float_input_boxes(t_engine *engine,
@@ -39,22 +39,22 @@ int			get_reflections_boxes_index(
 int			get_texture_boxes_index(
 				t_gui_box *object_attribute_modification_box);
 
-int			init_cone_attributes_modification_box(t_engine *engine,
+void		init_cone_attributes_modification_box(t_engine *engine,
 				t_gui_box *gui_box);
-int			init_cylinder_attributes_modification_box(t_engine *engine,
+void		init_cylinder_attributes_modification_box(t_engine *engine,
 				t_gui_box *gui_box);
-int			init_light_attributes_modification_box(t_engine *engine,
+void		init_light_attributes_modification_box(t_engine *engine,
 				t_gui_box *gui_box);
-int			init_plane_attributes_modification_box(t_engine *engine,
+void		init_plane_attributes_modification_box(t_engine *engine,
 				t_gui_box *gui_box);
-int			init_sphere_attributes_modification_box(t_engine *engine,
+void		init_sphere_attributes_modification_box(t_engine *engine,
 				t_gui_box *gui_box);
 
-int			add_toggle_box(t_engine *engine, t_gui_box *gui_box, int *i,
+void		add_toggle_box(t_engine *engine, t_gui_box *gui_box, int *i,
 				t_gui_box *parent);
 void		add_x_y_box(t_engine *engine, t_gui_box *gui_box, int *i,
 				t_gui_box *parent);
-int			add_x_y_z_box(t_engine *engine, t_gui_box *gui_box, int *i,
+void		add_x_y_z_box(t_engine *engine, t_gui_box *gui_box, int *i,
 				t_gui_box *parent);
 int			get_xyz_box_size(t_gui_box *attribute_box);
 int			get_xy_box_size(t_gui_box *attribute_box);
@@ -62,27 +62,27 @@ int			get_normal_box_size(t_gui_box *attribute_box);
 void		init_description_box(t_engine *engine, t_gui_box *gui_box,
 				const char *description);
 
-int			add_brightness_box(t_engine *engine, t_gui_box *gui_box, int *i,
+void		add_brightness_box(t_engine *engine, t_gui_box *gui_box, int *i,
 				t_gui_box *parent);
-int			add_cap_checkerboard_size_box(t_engine *engine, t_gui_box *gui_box,
+void		add_cap_checkerboard_size_box(t_engine *engine, t_gui_box *gui_box,
 				int *i, t_gui_box *parent);
-int			add_checkered_pattern_color_toggle_box(t_engine *engine,
+void		add_checkered_pattern_color_toggle_box(t_engine *engine,
 				t_gui_box *gui_box, int *i, t_gui_box *parent);
 void		checkered_pattern_color_toggle_box_on_click(t_gui_box *self,
 				t_engine *engine, t_click_data click_data);
-int			add_outline_checkerboard_size_box(t_engine *engine,
+void		add_outline_checkerboard_size_box(t_engine *engine,
 				t_gui_box *gui_box, int *i, t_gui_box *parent);
-int			add_height_box(t_engine *engine, t_gui_box *gui_box, int *i,
+void		add_height_box(t_engine *engine, t_gui_box *gui_box, int *i,
 				t_gui_box *parent);
-int			add_normal_box(t_engine *engine, t_gui_box *gui_box, int *i,
+void		add_normal_box(t_engine *engine, t_gui_box *gui_box, int *i,
 				t_gui_box *parent);
-int			add_position_box(t_engine *engine, t_gui_box *gui_box, int *i,
+void		add_position_box(t_engine *engine, t_gui_box *gui_box, int *i,
 				t_gui_box *parent);
-int			add_radius_box(t_engine *engine, t_gui_box *gui_box, int *i,
+void		add_radius_box(t_engine *engine, t_gui_box *gui_box, int *i,
 				t_gui_box *parent);
-int			add_reflection_box(t_engine *engine, t_gui_box *gui_box, int *i,
+void		add_reflection_box(t_engine *engine, t_gui_box *gui_box, int *i,
 				t_gui_box *parent);
-int			add_specular_reflection_box(t_engine *engine, t_gui_box *gui_box,
+void		add_specular_reflection_box(t_engine *engine, t_gui_box *gui_box,
 				int *i, t_gui_box *parent);
 
 t_gui_box	*get_x_y_z_input_box(t_gui_box *gui_box, char type,

@@ -55,11 +55,7 @@ int	init_engine(t_engine *engine, const char *start_up_scene)
 
 	init_hooks(engine);
 
-	if (init_gui(engine))
-	{
-		// TODO: free everything
-		return (-1);
-	}
+	init_gui(engine);
 	// TODO: secure me
 	camera_create(&engine->camera, vector2f_create(engine->window.size.x,
 		engine->window.size.y));

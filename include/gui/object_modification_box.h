@@ -30,18 +30,18 @@
 # define OBJECT_ATTRIBUTE_BOX_REFLECTION_NB_OF_XYZ_BOXES 0
 # define OBJECT_ATTRIBUTE_BOX_REFLECTION_NB_OF_NORMAL_BOXES 2
 
-int		init_object_modification_gui_box(t_engine *minirt,
+void	init_object_modification_gui_box(t_engine *minirt,
 			t_gui_box *gui_box, const t_gui_box *main_gui_box);
 
-int		init_rgb_picker(t_engine *minirt, t_gui_box *gui_box);
-int		init_base_color_box(t_engine *minirt, t_gui_box *gui_box,
+void	init_rgb_picker(t_engine *minirt, t_gui_box *gui_box);
+void	init_base_color_box(t_engine *minirt, t_gui_box *gui_box,
 			t_gui_box *parent);
 int		get_increasing_color(float color, float x, float decal,
 			float ratio);
 int		get_decreasing_color(float color, float x, float decal,
 			float ratio);
 int		get_base_color(float color, float x, float decal, float ratio);
-int		init_color_picker_box(t_engine *minirt, t_gui_box *gui_box,
+void	init_color_picker_box(t_engine *minirt, t_gui_box *gui_box,
 			t_gui_box *parent);
 void	add_hover_color_circle(t_gui_box *self, t_vector2i offset,
 			t_vector2i mouse_position);

@@ -34,11 +34,3 @@ t_boxes_to_create	get_boxes_size(const char *boxes_setup)
 	ft_free_split(boxes);
 	return (result);
 }
-
-int	failed_to_create_all_boxes(t_engine *engine, t_gui_boxes *gui_boxes,
-		size_t nb_of_boxes)
-{
-	while (nb_of_boxes--)
-		destroy_t_image(&engine->window, &gui_boxes->data[nb_of_boxes].image);
-	return (-1);
-}

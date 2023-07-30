@@ -13,10 +13,10 @@
 #ifndef MAIN_GUI_BOX_H
 # define MAIN_GUI_BOX_H
 
-int		init_main_gui_box(t_engine *engine, t_gui_box *gui_box);
-int		init_object_creation_gui_box(t_engine *engine,
+void	init_main_gui_box(t_engine *engine, t_gui_box *gui_box);
+void	init_object_creation_gui_box(t_engine *engine,
 			t_gui_box *gui_box, t_gui_box *parent);
-int		init_menu_gui_box(t_engine *engine, t_gui_box *gui_box,
+void	init_menu_gui_box(t_engine *engine, t_gui_box *gui_box,
 			t_gui_box *parent);
 void	icon_box_draw_method(t_gui_box *self, t_engine *engine,
 			int x_offset, int y_offset);

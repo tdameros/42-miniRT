@@ -19,8 +19,8 @@ static unsigned int	get_lighter_color(float x, float limit, float start,
 static void			color_picker_on_click(t_gui_box *self, t_engine *engine,
 						t_click_data click_data);
 
-int	init_color_picker_box(t_engine *engine, t_gui_box *gui_box,
-		t_gui_box *parent)
+void	init_color_picker_box(t_engine *engine, t_gui_box *gui_box,
+			t_gui_box *parent)
 {
 	*gui_box = create_t_gui_box(engine, (t_gui_box_create){parent, \
 		(t_vector2i){
@@ -28,15 +28,12 @@ int	init_color_picker_box(t_engine *engine, t_gui_box *gui_box,
 			.y = 0}, \
 		(t_vector2i){
 			.x = parent->size.x,
-			.y = parent->size.y / 2 - 4}, true});
-	if (errno == EINVAL || errno == ENOMEM)
-		return (-1);
-	if (init_image(&gui_box->on_hover_image,
-			&engine->window, parent->size.x, parent->size.y / 2 - 4) < 0)
-		return (-1); // TODO free previous image
+			.y = parent->size.y / 2 - 4}, \
+		true});
+	init_image(&gui_box->on_hover_image,
+		&engine->window, parent->size.x, parent->size.y / 2 - 4);
 	gui_box->draw = &color_picker_draw;
 	gui_box->on_click = &color_picker_on_click;
-	return (0);
 }
 #if defined __linux__
 

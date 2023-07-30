@@ -16,7 +16,7 @@
 #include "gui/box.h"
 #include "gui/utils.h"
 
-static int	create_boxes(t_engine *engine, t_gui_box *gui_box,
+static void	create_boxes(t_engine *engine, t_gui_box *gui_box,
 				t_boxes_to_create boxes_size, int side_offset);
 
 ///
@@ -27,37 +27,25 @@ static int	create_boxes(t_engine *engine, t_gui_box *gui_box,
 /// of the available place. The sum of all numbers numbers needs to be > 0
 ///  && \<= 100
 /// \return
-int	create_horizontal_boxes(t_engine *engine, t_gui_box *gui_box,
-		const char *boxes_setup, int side_offset)
+void	create_horizontal_boxes(t_engine *engine, t_gui_box *gui_box,
+			const char *boxes_setup, int side_offset)
 {
 	t_boxes_to_create	boxes_size;
 
 	ft_bzero(&gui_box->children, sizeof(gui_box->children));
 	if (side_offset * 2 >= gui_box->size.y)
-		return (-1);
+		ft_fatal_error("create_horizontal_boxes: side_offset too big");
 	boxes_size = get_boxes_size(boxes_setup);
-	if (boxes_size.box_size == NULL)
-		return (-1);
 	gui_box->children.data = malloc(sizeof(*gui_box->children.data)
 			* boxes_size.nb_of_boxes);
 	if (gui_box->children.data == NULL)
-	{
-		ft_bzero(&gui_box->children, sizeof(gui_box->children));
-		return (free(boxes_size.box_size), -1);
-	}
+		ft_fatal_error("create_horizontal_boxes: malloc error");
 	gui_box->children.size = boxes_size.nb_of_boxes;
-	if (create_boxes(engine, gui_box, boxes_size, side_offset) < 0)
-	{
-		free(gui_box->children.data);
-		ft_bzero(&gui_box->children, sizeof(gui_box->children));
-		free(boxes_size.box_size);
-		return (-1);
-	}
+	create_boxes(engine, gui_box, boxes_size, side_offset);
 	free(boxes_size.box_size);
-	return (0);
 }
 
-static int	create_boxes(t_engine *engine, t_gui_box *gui_box,
+static void	create_boxes(t_engine *engine, t_gui_box *gui_box,
 				t_boxes_to_create boxes_size, int side_offset)
 {
 	int		position;
@@ -79,9 +67,6 @@ static int	create_boxes(t_engine *engine, t_gui_box *gui_box,
 									* (boxes_size.box_size[i] / 100.f)), \
 							.y = gui_box->size.y - side_offset * 2},
 				false});
-		if (errno == EINVAL || errno == ENOMEM)
-			return (failed_to_create_all_boxes(engine, &gui_box->children, i));
 		position += gui_box->children.data[i].size.x;
 	}
-	return (0);
 }

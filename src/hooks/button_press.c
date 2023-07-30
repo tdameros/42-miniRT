@@ -21,8 +21,8 @@
 #include "ray_tracer_gui_api.h"
 #include "hooks.h"
 
-static int	select_new_object(int button, t_engine *engine, int x, int y);
-static int	placing_object(int button, t_engine *engine);
+static void	select_new_object(int button, t_engine *engine, int x, int y);
+static void	placing_object(int button, t_engine *engine);
 static void	toggle_camera_lock(t_engine *engine);
 
 int	button_press_handler(int button, int x, int y, t_engine *engine)
@@ -35,51 +35,59 @@ int	button_press_handler(int button, int x, int y, t_engine *engine)
 		return (0);
 	if (engine->object_being_placed.object != NULL
 		|| engine->object_being_placed.light != NULL)
-		return (placing_object(button, engine));
+	{
+		placing_object(button, engine);
+		return (0);
+	}
 	clicked_gui_box = get_clicked_gui_box(engine->gui.gui_boxes, &x, &y);
 	if (clicked_gui_box == NULL)
-		return (select_new_object(button, engine, x, y));
+	{
+		select_new_object(button, engine, x, y);
+		return (0);
+	}
 	if (clicked_gui_box->on_click != NULL)
 		clicked_gui_box->on_click(clicked_gui_box, engine,
 			(t_click_data){(t_vector2i){x, y}, button});
 	return (0);
 }
 
-static int	placing_object(int button, t_engine *engine)
+static void	placing_object(int button, t_engine *engine)
 {
 	if (button == SCROLL_DOWN)
 	{
 		engine->object_being_placed_distance -= 0.5f;
 		engine->scene_changed = true;
-		return (0);
+		return ;
 	}
 	else if (button == SCROLL_UP)
 	{
 		engine->object_being_placed_distance += 0.5f;
 		engine->scene_changed = true;
-		return (0);
+		return ;
 	}
 	else if (button != BUTTON_LEFT)
-		return (0);
+		return ;
 	update_float_input_boxes(engine);
 	ft_bzero(&engine->object_being_placed, sizeof(engine->object_being_placed));
-	return (0);
 }
 
-static int	select_new_object(int button, t_engine *engine, int x, int y)
+static void	select_new_object(int button, t_engine *engine, int x, int y)
 {
 	if (button != BUTTON_LEFT || x < 0 || y < 0
 		|| x >= engine->ray_traced_image.width
 		|| y >= engine->ray_traced_image.height)
-		return (0);
+		return ;
 	engine->gui.selected_object.object = get_clicked_object(engine, x, y);
 	engine->gui.selected_object.light = NULL;
 
 	if (engine->gui.selected_object.object == NULL)
-		return (update_object_attributes_modification_box(engine));
+	{
+		update_object_attributes_modification_box(engine);
+		return ;
+	}
 	update_color_picker_color(&engine->gui);
 	redraw_icons(engine, engine->gui.selected_object.object->material);
-	return (update_object_attributes_modification_box(engine));
+	update_object_attributes_modification_box(engine);
 }
 
 static void	toggle_camera_lock(t_engine *engine)

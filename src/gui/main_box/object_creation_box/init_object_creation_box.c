@@ -11,48 +11,38 @@
 
 #define NUMBER_OF_OBJECT_TYPES 5
 
-static int	init_object_creation_children(t_engine *engine, t_gui_box *gui_box);
+static void	init_object_creation_children(t_engine *engine, t_gui_box *gui_box);
 static void	init_object_creation_box(const t_engine *engine, t_gui_box *gui_box,
 				int type);
 
-int	init_object_creation_gui_box(t_engine *minirt, t_gui_box *gui_box,
-		t_gui_box *parent)
+void	init_object_creation_gui_box(t_engine *minirt, t_gui_box *gui_box,
+			t_gui_box *parent)
 {
 	*gui_box = create_t_gui_box(minirt, (t_gui_box_create){parent,
 			(t_vector2i){8, 8},
 			(t_vector2i){.y = parent->size.y - 16, \
 							.x = parent->size.x / 4 * 3 - 16}, true});
-	if (errno == EINVAL || errno == ENOMEM)
-		return (-1);
 	gui_box->draw = &default_gui_box_draw;
 	gui_box->on_click = &default_gui_box_on_click;
 	change_image_color(&gui_box->image, SUB_GUI_COLOR);
 	round_image_corners(&gui_box->image, BOX_ROUNDING_RADIUS);
-	if (init_object_creation_children(minirt, gui_box) < 0)
-	{
-		destroy_t_image(&minirt->window, &gui_box->image);
-		ft_bzero(gui_box, sizeof(*gui_box));
-		return (-1);
-	}
-	return (0);
+	init_object_creation_children(minirt, gui_box);
 }
 
-static int	init_object_creation_children(t_engine *engine, t_gui_box *gui_box)
+static void	init_object_creation_children(t_engine *engine, t_gui_box *gui_box)
 {
 	int	i;
 
-	if (create_n_horizontal_boxes(engine, gui_box, NUMBER_OF_OBJECT_TYPES,
-			(t_boxes_offsets){ICON_BOX_SEPARATOR, ICON_BOX_SEPARATOR}) < 0)
-		return (-1);
+	create_n_horizontal_boxes(engine, gui_box, NUMBER_OF_OBJECT_TYPES,
+		(t_boxes_offsets){ICON_BOX_SEPARATOR, ICON_BOX_SEPARATOR});
 	i = -1;
 	while (++i < NUMBER_OF_OBJECT_TYPES)
 	{
-		if (init_image(&gui_box->children.data[i].image, &engine->window,
-				gui_box->children.data[i].size.x, gui_box->children.data[i].size.y) < 0)
-			return (-1); // TODO free stuff
-		if (init_image(&gui_box->children.data[i].on_hover_image, &engine->window,
-				gui_box->children.data[i].size.x, gui_box->children.data[i].size.y) < 0)
-			return (-1); // TODO free stuff
+		init_image(&gui_box->children.data[i].image, &engine->window,
+			gui_box->children.data[i].size.x, gui_box->children.data[i].size.y);
+		init_image(&gui_box->children.data[i].on_hover_image, &engine->window,
+			gui_box->children.data[i].size.x, gui_box->children.data[i].size.y);
+		// TODO move image inits in init_object_creation_box()?
 	}
 	init_object_creation_box(engine, gui_box->children.data + 0, SPHERE);
 	init_object_creation_box(engine, gui_box->children.data + 1, PLANE);
@@ -60,7 +50,6 @@ static int	init_object_creation_children(t_engine *engine, t_gui_box *gui_box)
 	init_object_creation_box(engine, gui_box->children.data + 3, CONE);
 	init_object_creation_box(engine, gui_box->children.data + 4, LIGHT);
 	engine->gui.object_creation_boxes = &gui_box->children;
-	return (0);
 }
 
 static void	init_object_creation_box(const t_engine *engine, t_gui_box *gui_box,

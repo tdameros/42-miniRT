@@ -41,9 +41,7 @@ t_vector2i			get_mouse_position_in_box(const t_gui_box *self,
 t_vector2i			get_mouse_position(t_engine *engine);
 
 t_boxes_to_create	get_boxes_size(const char *boxes_setup);
-int					failed_to_create_all_boxes(t_engine *engine,
-						t_gui_boxes *gui_boxes, size_t nb_of_boxes);
-int					create_horizontal_boxes(t_engine *engine,
+void				create_horizontal_boxes(t_engine *engine,
 						t_gui_box *gui_box, const char *boxes_setup,
 						int side_offset);
 void				create_n_horizontal_boxes(t_engine *engine,
@@ -57,7 +55,7 @@ void				create_float_input_box(t_engine *engine, t_gui_box *gui_box,
 						t_float_input_box_on_click on_click);
 void				draw_center_box_image(t_image *image);
 
-int					draw_icon(t_image *image, int type,
+void				draw_icon(t_image *image, int type,
 						unsigned int background_color, t_material material);
 
 #endif

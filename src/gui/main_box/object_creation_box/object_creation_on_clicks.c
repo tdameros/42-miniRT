@@ -31,11 +31,7 @@ void	sphere_create_on_click(t_gui_box *self, t_engine *engine,
 	if (engine->object_being_placed.object || engine->object_being_placed.light)
 		return ;
 	object = sphere_create(vector3f_create(0, 0, 0), 0.5f, material);
-	if (add_object(engine, object) < 0)
-	{
-		ft_print_error("Failed to create new sphere\n");
-		return ;
-	}
+	add_object(engine, object);
 	engine->object_being_placed_distance = DEFAULT_DISTANCE;
 	engine->object_being_placed.object = engine->scene.objects.data
 		+ engine->scene.objects.length - 1;
@@ -56,11 +52,7 @@ void	plane_create_on_click(t_gui_box *self, t_engine *engine,
 		return ;
 	object = plane_create(vector3f_create(0, 0, 0),
 			vector3f_multiply(engine->camera.direction, -1.f), material);
-	if (add_object(engine, object) < 0)
-	{
-		ft_print_error("Failed to create new plane\n");
-		return ;
-	}
+	add_object(engine, object);
 	engine->object_being_placed_distance = DEFAULT_DISTANCE;
 	engine->object_being_placed.object = engine->scene.objects.data
 		+ engine->scene.objects.length - 1;
@@ -82,11 +74,7 @@ void	cylinder_create_on_click(t_gui_box *self, t_engine *engine,
 		return ;
 	object = cylinder_create(vector3f_create(0, 0, 0),
 			vector3f_rotate_y(engine->camera.direction, 90), size, material);
-	if (add_object(engine, object) < 0)
-	{
-		ft_print_error("Failed to create new cylinder\n");
-		return ;
-	}
+	add_object(engine, object);
 	engine->object_being_placed_distance = DEFAULT_DISTANCE;
 	engine->object_being_placed.object = engine->scene.objects.data
 		+ engine->scene.objects.length - 1;
@@ -108,11 +96,7 @@ void	cone_create_on_click(t_gui_box *self, t_engine *engine,
 		return ;
 	object = cone_create(vector3f_create(0, 0, 0),
 			vector3f_rotate_x(engine->camera.direction, 90), size, material);
-	if (add_object(engine, object) < 0)
-	{
-		ft_print_error("Failed to create new cone\n");
-		return ;
-	}
+	add_object(engine, object);
 	engine->object_being_placed_distance = DEFAULT_DISTANCE;
 	engine->object_being_placed.object = engine->scene.objects.data
 		+ engine->scene.objects.length - 1;
@@ -132,11 +116,7 @@ void	light_create_on_click(t_gui_box *self, t_engine *engine,
 	light = light_create(vector3f_create(0, 0, 0),
 			engine->gui.material_to_assign_to_new_objects.albedo,
 			0.5f);
-	if (add_light(engine, light) < 0)
-	{
-		ft_print_error("Failed to create new light\n");
-		return ;
-	}
+	add_light(engine, light);
 	engine->object_being_placed_distance = DEFAULT_DISTANCE;
 	engine->object_being_placed.light = engine->scene.lights.data
 		+ engine->scene.lights.length - 1;

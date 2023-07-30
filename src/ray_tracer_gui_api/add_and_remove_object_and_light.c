@@ -20,23 +20,9 @@ int	add_object(t_engine *engine, const t_object object)
 
 	if (add_object_in_objects(&engine->scene.objects, object) < 0)
 		return (ft_print_error("Failed to add new object\n"), -1);
-	if (create_object_gui_box(engine, &gui_box, &object) < 0)
-	{
-		remove_object_in_objects(&engine->scene.objects,
-			engine->scene.objects.length - 1);
-		free(object.name);
-		ft_print_error("Failed to add new object\n");
-		return (-1);
-	}
+	create_object_gui_box(engine, &gui_box, &object);
 	if (ft_vector_add_elem(&engine->gui.object_boxes, &gui_box) < 0)
-	{
-		remove_object_in_objects(&engine->scene.objects,
-			engine->scene.objects.length - 1);
-		destroy_t_gui_box(&engine->window, &gui_box);
-		free(object.name);
-		ft_print_error("Failed to add new object\n");
-		return (-1);
-	}
+		ft_fatal_error("add_object: ft_vector_add_elem failed");
 	return (0);
 }
 
@@ -46,23 +32,9 @@ int	add_light(t_engine *engine, const t_light light)
 
 	if (add_light_in_lights(&engine->scene.lights, light) < 0)
 		return (ft_print_error("Failed to add new light\n"), -1);
-	if (create_light_gui_box(engine, &gui_box, &light) < 0)
-	{
-		remove_light_in_lights(&engine->scene.lights,
-			engine->scene.lights.length - 1);
-		free(light.name);
-		ft_print_error("Failed to add new light\n");
-		return (-1);
-	}
+	create_light_gui_box(engine, &gui_box, &light);
 	if (ft_vector_add_elem(&engine->gui.light_boxes, &gui_box) < 0)
-	{
-		remove_light_in_lights(&engine->scene.lights,
-			engine->scene.lights.length - 1);
-		destroy_t_gui_box(&engine->window, &gui_box);
-		free(light.name);
-		ft_print_error("Failed to add new light\n");
-		return (-1);
-	}
+		ft_fatal_error("add_light: ft_vector_add_elem failed");
 	return (0);
 }
 
