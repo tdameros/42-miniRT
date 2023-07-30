@@ -31,8 +31,6 @@ int	init_object_modification_gui_box(t_engine *engine, t_gui_box *gui_box,
 				.y = engine->window.size.y \
 					- (main_gui_box->size.y + main_gui_box->position.y * 3)}, \
 			true});
-	if (errno == EINVAL || errno == ENOMEM)
-		return (-1);
 	change_image_color(&gui_box->image, BASE_GUI_COLOR);
 	round_image_corners(&gui_box->image, BOX_ROUNDING_RADIUS);
 	if (init_object_modification_gui_box_children(engine, gui_box))
@@ -43,9 +41,8 @@ int	init_object_modification_gui_box(t_engine *engine, t_gui_box *gui_box,
 static int	init_object_modification_gui_box_children(t_engine *engine,
 				t_gui_box *parent)
 {
-	if (create_vertical_boxes(engine, parent, "1 12 1 69 1 15 1",
-			roundf(parent->size.y / 100.f)) < 0)
-		return (-1);
+	create_vertical_boxes(engine, parent, "1 12 1 69 1 15 1",
+		roundf(parent->size.y / 100.f));
 	engine->gui.object_attributes_modification_box = parent->children.data + 3;
 	if (init_box_deleter(engine, parent->children.data + 1) < 0)
 		return (-1); // TODO free stuff

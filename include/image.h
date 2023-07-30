@@ -31,9 +31,9 @@ typedef struct s_image
 	size_t			size;
 }	t_image;
 
-int				init_image(t_image *image, t_window *window, int width,
+void			init_image(t_image *image, t_window *window, int width,
 					int height);
-int				init_image_from_xpm(t_image *image, t_window *window,
+void			init_image_from_xpm(t_image *image, t_window *window,
 					char *xmp_file);
 void			destroy_t_image(t_window *minirt_window, t_image *image);
 void			put_pixel_on_image(t_image *image, int y, int x,

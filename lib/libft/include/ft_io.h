@@ -15,6 +15,8 @@
 
 # include <unistd.h>
 
+# include "ft_string.h"
+
 char		*get_next_line_multi_fd(int fd);
 char		*get_next_line(int fd);
 

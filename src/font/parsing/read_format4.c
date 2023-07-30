@@ -131,7 +131,6 @@ static int	read_glyph_id_array(const t_string *file, t_format4 *format4,
 
 	remaining_bytes_divided_by_2 = (format4->length - (i - i_starting_value))
 		/ 2;
-	printf("test == %zu\n", remaining_bytes_divided_by_2);
 	j = -1;
 	while (++j < remaining_bytes_divided_by_2)
 		if (read_uint16_move(file, &i, format4->glyphIdArray + j) < 0)

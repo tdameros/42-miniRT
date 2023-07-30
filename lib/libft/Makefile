@@ -27,6 +27,9 @@ SRC =\
 	char/is_in_set.c	\
 \
 \
+	error/fatal_error.c	\
+\
+\
 	hashmap/hm_add_elem.c		\
 	hashmap/hm_delete_elem.c	\
 	hashmap/hm_clear.c			\

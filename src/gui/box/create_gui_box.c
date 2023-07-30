@@ -31,21 +31,11 @@ t_gui_box	create_t_gui_box(t_engine *engine, t_gui_box_create args)
 
 	errno = 0;
 	ft_bzero(&gui_box, sizeof(gui_box));
-	if (can_gui_box_be_placed(engine, args.parent, args.position,
-			args.size) == false)
-	{
-		errno = EINVAL;
-		return (gui_box);
-	}
+	if (can_gui_box_be_placed(engine, args.parent, args.position, args.size)
+		== false)
+		ft_fatal_error("Failed to create gui box, is out of bounds");
 	if (args.should_create_an_image)
-	{
-		if (init_image(&gui_box.image, &engine->window, args.size.x,
-				args.size.y) < 0)
-		{
-			errno = ENOMEM;
-			return (gui_box);
-		}
-	}
+		init_image(&gui_box.image, &engine->window, args.size.x, args.size.y);
 	gui_box.parent = args.parent;
 	gui_box.position = args.position;
 	gui_box.size = args.size;

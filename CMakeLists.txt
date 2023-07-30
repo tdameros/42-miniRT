@@ -427,4 +427,6 @@ add_executable(minirt
         src/init_minirt.c
         src/main.c src/hooks/update_object_attributes_modification_box/add_boxes/add_checkered_pattern_color_toggle_box.c src/font/parsing/read_8_bits.c src/font/parsing/read_16_bits.c src/font/parsing/read_32_bits.c
         src/gui/float_input_box/update_float_input_box.c
-        src/gui/float_input_box/draw_float_input_box.c)
+        src/gui/float_input_box/draw_float_input_box.c
+        lib/libft/src/error/fatal_error.c
+        lib/libft/include/ft_error.h)

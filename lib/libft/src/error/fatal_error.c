@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_float_input_box.c                             :+:      :+:    :+:   */
+/*   fatal_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vincent <vincent@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/29 19:30:59 by vincent           #+#    #+#             */
-/*   Updated: 2023/07/29 19:31:17 by vincent          ###   ########lyon.fr   */
+/*   Created: 2023/07/29 23:27:00 by vfries            #+#    #+#             */
+/*   Updated: 2023/07/29 23:27:00 by vfries           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "engine.h"
-#include "gui/UI.h"
-#include "gui/utils.h"
+#include <stdlib.h>
 
-void	draw_center_box_image(t_image *image)
+#include "ft_io.h"
+
+void	ft_fatal_error(const char *error_message)
 {
-	change_image_color(image, SUB_GUI_COLOR);
-	image_draw_top_outline(image, 2, COLOR_BLACK);
-	image_draw_bottom_outline(image, 2, COLOR_BLACK);
+	ft_putstr_fd("Error\n", STDERR_FILENO);
+	ft_putstr_fd(error_message, STDERR_FILENO);
+	ft_putstr_fd("\n", STDERR_FILENO);
+	exit(EXIT_FAILURE);
 }

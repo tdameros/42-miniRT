@@ -16,35 +16,23 @@
 #include "gui/box.h"
 #include "gui/utils.h"
 
-static int	create_boxes(t_engine *engine, t_gui_box *gui_box, int n,
+static void	create_boxes(t_engine *engine, t_gui_box *gui_box, int n,
 				t_boxes_offsets offset);
-static void	free_gui_boxes_on_error(t_engine *engine, t_gui_boxes *gui_boxes,
-				int nb);
 
-int	create_n_horizontal_boxes(t_engine *engine, t_gui_box *gui_box, const int n,
-		const t_boxes_offsets offset)
+void	create_n_horizontal_boxes(t_engine *engine, t_gui_box *gui_box,
+			const int n, const t_boxes_offsets offset)
 {
 	if (n <= 0 || offset.x < 0 || offset.y < 0 || gui_box == NULL
 		|| (gui_box->size.x - (n + 1) * offset.x) / n <= 0)
-	{
-		ft_bzero(&gui_box->children, sizeof(gui_box->children));
-		return (-1);
-	}
+		ft_fatal_error("create_n_horizontal_boxes: invalid parameters");
 	gui_box->children.data = malloc(sizeof(*gui_box->children.data) * n);
 	if (gui_box->children.data == NULL)
-	{
-		ft_bzero(&gui_box->children, sizeof(gui_box->children));
-		return (-1);
-	}
+		ft_fatal_error("create_n_horizontal_boxes: malloc error");
 	gui_box->children.size = n;
-	if (create_boxes(engine, gui_box, n, offset) >= 0)
-		return (0);
-	free(gui_box->children.data);
-	ft_bzero(&gui_box->children, sizeof(gui_box->children));
-	return (-1);
+	create_boxes(engine, gui_box, n, offset);
 }
 
-static int	create_boxes(t_engine *engine, t_gui_box *gui_box, int n,
+static void	create_boxes(t_engine *engine, t_gui_box *gui_box, int n,
 				const t_boxes_offsets offset)
 {
 	int	i;
@@ -63,18 +51,5 @@ static int	create_boxes(t_engine *engine, t_gui_box *gui_box, int n,
 					.x = (gui_box->size.x - (n + 1) * offset.x) / n, \
 					.y = gui_box->size.y - offset.y * 2},
 				false});
-		if (errno == EINVAL || errno == ENOMEM)
-		{
-			free_gui_boxes_on_error(engine, &gui_box->children, i + 1);
-			return (-1);
-		}
 	}
-	return (0);
-}
-
-static void	free_gui_boxes_on_error(t_engine *engine, t_gui_boxes *gui_boxes,
-				int nb)
-{
-	while (nb--)
-		destroy_t_image(&engine->window, &gui_boxes->data[nb].image);
 }

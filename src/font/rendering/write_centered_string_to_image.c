@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <math.h>
-#include <float.h>
+#include "float.h"
 
 #include "engine.h"
 #include "font/render.h"
@@ -98,5 +98,5 @@ static void	write_character(const char c, const t_font *font, t_image *image,
 	draw_glyph(font->glyphs + c, (t_draw_glyph_data){scale, image,
 		COLOR_WHITE, offsets->x + \
 		font->long_hor_metric[(int8_t)c].leftSideBearing * scale, offsets->y});
-		offsets->x += font->long_hor_metric[(int8_t)c].advanceWidth * scale;
+	offsets->x += font->long_hor_metric[(int8_t)c].advanceWidth * scale;
 }

@@ -12,7 +12,7 @@
 
 #include <stdlib.h>
 #include <math.h>
-#include <float.h>
+#include "float.h"
 
 #include "font/render.h"
 

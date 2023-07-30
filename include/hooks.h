@@ -52,14 +52,14 @@ int			init_sphere_attributes_modification_box(t_engine *engine,
 
 int			add_toggle_box(t_engine *engine, t_gui_box *gui_box, int *i,
 				t_gui_box *parent);
-int			add_x_y_box(t_engine *engine, t_gui_box *gui_box, int *i,
+void		add_x_y_box(t_engine *engine, t_gui_box *gui_box, int *i,
 				t_gui_box *parent);
 int			add_x_y_z_box(t_engine *engine, t_gui_box *gui_box, int *i,
 				t_gui_box *parent);
 int			get_xyz_box_size(t_gui_box *attribute_box);
 int			get_xy_box_size(t_gui_box *attribute_box);
 int			get_normal_box_size(t_gui_box *attribute_box);
-int			init_description_box(t_engine *engine, t_gui_box *gui_box,
+void		init_description_box(t_engine *engine, t_gui_box *gui_box,
 				const char *description);
 
 int			add_brightness_box(t_engine *engine, t_gui_box *gui_box, int *i,
