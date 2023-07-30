@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_settings_icon.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/30 17:22:26 by vfries            #+#    #+#             */
+/*   Updated: 2023/07/30 17:23:04 by vfries           ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <math.h>
 
 #include "libft.h"
@@ -28,21 +40,21 @@ static void	write_setting_icon(t_image *image, const unsigned int color)
 	float		theta;
 
 	change_image_color(image, color);
-	image_draw_circle(image, (t_vector2i) {
-							  .x = image->width / 2,
-							  .y = image->height / 2},
-					  circle_radius, CIRCLE_COLOR);
+	image_draw_circle(image, (t_vector2i){\
+			.x = image->width / 2, \
+			.y = image->height / 2},
+		circle_radius, CIRCLE_COLOR);
 	theta = M_PI / 2.f;
 	while (theta < M_PI * 2.f + M_PI / 2.f)
 	{
-		image_draw_circle(image, (t_vector2i) {
-								  .x = image->width / 2.f + circle_radius * cosf(theta),
-								  .y = image->height / 2.f + circle_radius * sinf(theta)},
-						  circle_radius * 0.42f, CIRCLE_COLOR);
+		image_draw_circle(image, (t_vector2i){\
+				.x = image->width / 2.f + circle_radius * cosf(theta), \
+				.y = image->height / 2.f + circle_radius * sinf(theta)},
+			circle_radius * 0.42f, CIRCLE_COLOR);
 		theta += M_PI * 2.f / 6.f;
 	}
-	image_draw_circle(image, (t_vector2i) {
-							  .x = image->width / 2,
-							  .y = image->height / 2},
-					  circle_diameter / 2.4f, color);
+	image_draw_circle(image, (t_vector2i){\
+			.x = image->width / 2, \
+			.y = image->height / 2},
+		circle_diameter / 2.4f, color);
 }

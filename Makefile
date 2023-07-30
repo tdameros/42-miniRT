@@ -53,6 +53,7 @@ SRC				=\
 	\
 	gui/object_list_box/create_light_gui_box.c			\
 	gui/object_list_box/create_object_gui_box.c			\
+	gui/object_list_box/get_selected_object_index.c		\
 	gui/object_list_box/init_object_list_box.c			\
 	gui/object_list_box/object_box_getters.c			\
 	gui/object_list_box/object_list_gui_box_draw.c		\
@@ -271,7 +272,7 @@ DEBUG_CLFAGS	=	-g3 -fsanitize=address
 #-ffast-math reduces calculation precision, need to check behaviour before using
 OPTI_CFLAGS		=	-O3 -march=native #-ffast-math
 CFLAGS			=	$(BASE_CFLAGS) $(OPTI_CFLAGS)
-#CFLAGS			=	$(BASE_CFLAGS) $(DEBUG_CLFAGS)
+# CFLAGS			=	$(BASE_CFLAGS) $(DEBUG_CLFAGS)
 #CFLAGS			=	$(BASE_CFLAGS) $(OPTI_CFLAGS) $(DEBUG_CLFAGS)
 RM				=	rm -rf
 AR				=	ar rcs

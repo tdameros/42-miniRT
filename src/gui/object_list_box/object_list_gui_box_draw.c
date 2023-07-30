@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 17:11:00 by vfries            #+#    #+#             */
-/*   Updated: 2023/07/18 17:11:00 by vfries           ###   ########lyon.fr   */
+/*   Updated: 2023/07/30 18:22:11 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,47 @@
 #include "gui/box.h"
 #include "gui/object_list_box.h"
 
+static void	draw_light_boxes(t_engine *engine, int *y, t_draw_data draw_data);
+static void	draw_object_boxes(t_engine *engine, int y, t_draw_data draw_data);
+
 void	object_list_gui_box_draw(t_gui_box *self, t_engine *engine,
 			t_draw_data draw_data)
 {
-	size_t	i;
 	int		y;
 
 	change_image_color(&self->image, BASE_GUI_COLOR);
 	round_image_corners(&self->image, BOX_ROUNDING_RADIUS);
 	y = self->scroll;
+	draw_light_boxes(engine, &y, draw_data);
+	y += (engine->gui.light_boxes.length > 0) * (OBJECT_LIST_SUB_BOX_SIZE / 4);
+	draw_object_boxes(engine, y, draw_data);
+	mlx_put_image_to_window(engine->window.mlx, engine->window.window,
+		self->image.data, self->position.x + draw_data.offset.x,
+		self->position.y + draw_data.offset.y);
+	// TODO make a linux version of the function
+}
+
+static void	draw_light_boxes(t_engine *engine, int *y, t_draw_data draw_data)
+{
+	size_t	i;
+
 	i = engine->gui.light_boxes.length;
 	while (i--)
 	{
 		((t_gui_box *)engine->gui.light_boxes.data)[i].draw(
 			(t_gui_box *)engine->gui.light_boxes.data + i, engine,
 			(t_draw_data){
-				(t_vector2i){0, y},
+				(t_vector2i){0, *y},
 				draw_data.mouse_position});
-		y += ((t_gui_box *)engine->gui.light_boxes.data)[i].size.y
+		*y += ((t_gui_box *)engine->gui.light_boxes.data)[i].size.y
 			+ OBJECT_LIST_OFFSET;
 	}
-	y += (engine->gui.light_boxes.length > 0) * (OBJECT_LIST_SUB_BOX_SIZE / 4);
+}
+
+static void	draw_object_boxes(t_engine *engine, int y, t_draw_data draw_data)
+{
+	size_t	i;
+
 	i = engine->gui.object_boxes.length;
 	while (i--)
 	{
@@ -49,10 +69,6 @@ void	object_list_gui_box_draw(t_gui_box *self, t_engine *engine,
 		y += ((t_gui_box *)engine->gui.object_boxes.data)[i].size.y
 			+ OBJECT_LIST_OFFSET;
 	}
-	mlx_put_image_to_window(engine->window.mlx, engine->window.window,
-		self->image.data, self->position.x + draw_data.offset.x,
-		self->position.y + draw_data.offset.y);
-	// TODO make a linux version of the function
 }
 
 void	object_and_light_gui_box_draw(t_gui_box *self, t_engine *engine,

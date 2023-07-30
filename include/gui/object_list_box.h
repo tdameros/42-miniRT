@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 11:50:00 by vfries            #+#    #+#             */
-/*   Updated: 2023/07/16 11:50:00 by vfries           ###   ########lyon.fr   */
+/*   Updated: 2023/07/30 17:44:47 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	object_list_gui_box_on_click(t_gui_box *self, t_engine *engine,
 			t_click_data click_data);
 void	object_and_light_gui_box_draw(t_gui_box *self, t_engine *engine,
 			t_draw_data draw_data);
+size_t	get_selected_object_index(t_gui_box *self, t_engine *engine,
+			t_vector2i click_position);
 
 void	create_object_gui_box(t_engine *engine, t_gui_box *gui_box,
 			const t_object *object);

@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 23:26:00 by vfries            #+#    #+#             */
-/*   Updated: 2023/07/18 23:26:00 by vfries           ###   ########lyon.fr   */
+/*   Updated: 2023/07/30 17:45:32 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 #include "hooks.h"
 
 static bool		handle_scroll(t_gui_box *self, t_engine *engine, int button);
-static size_t	get_selected_object_index(t_gui_box *self, t_engine *engine,
-					t_vector2i click_position);
 static void		select_light(t_engine *engine, size_t index);
 static void		select_object(t_engine *engine, size_t index);
 
@@ -62,46 +60,12 @@ static bool	handle_scroll(t_gui_box *self, t_engine *engine, const int button)
 			self->scroll = OBJECT_LIST_OFFSET;
 		return (true);
 	}
-	if (button == SCROLL_DOWN)
-	{
-		self->scroll += 10;
-		if (self->scroll > OBJECT_LIST_OFFSET)
-			self->scroll = OBJECT_LIST_OFFSET;
-		return (true);
-	}
-	return (false);
-}
-
-static size_t	get_selected_object_index(t_gui_box *self, t_engine *engine,
-					t_vector2i click_position)
-{
-	size_t	i;
-	int		y;
-
-	if (click_position.x < OBJECT_LIST_OFFSET
-		|| click_position.x >= self->size.y - OBJECT_LIST_OFFSET * 2)
-		return (SIZE_MAX);
-	y = self->scroll;
-	i = engine->gui.light_boxes.length;
-	while (i--)
-	{
-		if (y <= click_position.y
-			&& y + OBJECT_LIST_SUB_BOX_SIZE >= click_position.y)
-			return (i);
-		y += ((t_gui_box *)engine->gui.light_boxes.data)[i].size.y
-			+ OBJECT_LIST_OFFSET;
-	}
-	y += OBJECT_LIST_SUB_BOX_SIZE / 4;
-	i = engine->gui.object_boxes.length;
-	while (i--)
-	{
-		if (y <= click_position.y
-			&& y + OBJECT_LIST_SUB_BOX_SIZE >= click_position.y)
-			return (i + engine->gui.light_boxes.length);
-		y += ((t_gui_box *)engine->gui.object_boxes.data)[i].size.y
-			+ OBJECT_LIST_OFFSET;
-	}
-	return (SIZE_MAX);
+	if (button != SCROLL_DOWN)
+		return (false);
+	self->scroll += 10;
+	if (self->scroll > OBJECT_LIST_OFFSET)
+		self->scroll = OBJECT_LIST_OFFSET;
+	return (true);
 }
 
 static void	select_light(t_engine *engine, size_t index)

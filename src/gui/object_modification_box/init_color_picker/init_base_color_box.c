@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 01:50:32 by vfries            #+#    #+#             */
-/*   Updated: 2023/05/06 20:30:01 by vfries           ###   ########lyon.fr   */
+/*   Updated: 2023/07/30 18:24:44 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	init_base_color_box(t_engine *engine, t_gui_box *gui_box,
 	round_image_corners(&gui_box->image, 10);
 }
 
-#if defined __linux__
+#ifdef __linux__
 
 static void	base_color_box_draw(t_gui_box *self, t_engine *engine,
 				int x_offset, int y_offset)
@@ -92,7 +92,8 @@ static void	base_color_box_draw(t_gui_box *self, t_engine *engine,
 			.x = self->position.x + x_offset, \
 			.y = self->position.y + y_offset});
 }
-#elif defined __APPLE__
+#endif
+#ifdef __APPLE__
 
 static void	base_color_box_draw(t_gui_box *self, t_engine *engine,
 				t_draw_data draw_data)
@@ -108,8 +109,6 @@ static void	base_color_box_draw(t_gui_box *self, t_engine *engine,
 		self->on_hover_image.data, self->position.x + draw_data.offset.x,
 		self->position.y + draw_data.offset.y);
 }
-#else
-# error "Unsuported OS"
 #endif
 
 static void	write_color_row(t_image *image, int y)

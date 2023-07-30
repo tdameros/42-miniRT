@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_color_picker_box.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/30 18:23:59 by vfries            #+#    #+#             */
+/*   Updated: 2023/07/30 18:24:04 by vfries           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <errno.h>
 #include <math.h>
 
@@ -35,7 +47,7 @@ void	init_color_picker_box(t_engine *engine, t_gui_box *gui_box,
 	gui_box->draw = &color_picker_draw;
 	gui_box->on_click = &color_picker_on_click;
 }
-#if defined __linux__
+#ifdef __linux__
 
 static void	color_picker_draw(t_gui_box *self, t_engine *engine,
 				int x_offset, int y_offset)
@@ -59,7 +71,8 @@ static void	color_picker_draw(t_gui_box *self, t_engine *engine,
 			.x = self->position.x + x_offset, \
 			.y = self->position.y + y_offset});
 }
-#elif defined __APPLE__
+#endif
+#ifdef __APPLE__
 
 static void	color_picker_draw(t_gui_box *self, t_engine *engine,
 				t_draw_data draw_data)
@@ -80,8 +93,6 @@ static void	color_picker_draw(t_gui_box *self, t_engine *engine,
 		self->on_hover_image.data, self->position.x + draw_data.offset.x,
 		self->position.y + draw_data.offset.y);
 }
-#else
-# error "Unsuported OS"
 #endif
 
 static void	update_image(t_gui_box *self, t_engine *engine)

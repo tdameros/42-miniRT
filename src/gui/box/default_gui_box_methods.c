@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   default_gui_box_methods.c                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/30 18:23:22 by vfries            #+#    #+#             */
+/*   Updated: 2023/07/30 18:23:22 by vfries           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "mlx.h"
 
 #include "gui/box.h"
 #include "engine.h"
 #include "gui/utils.h"
 
-#if defined __linux__
+#ifdef __linux__
 
 void	default_gui_box_draw(t_gui_box *self, t_engine *minirt,
 			int x_offset, int y_offset)
@@ -21,7 +33,8 @@ void	default_gui_box_draw(t_gui_box *self, t_engine *minirt,
 			self->children.data[i].draw(self->children.data + i, minirt,
 				x_offset + self->position.x, y_offset + self->position.y);
 }
-#elif defined __APPLE__
+#endif
+#ifdef __APPLE__
 
 static void	draw_gui_box_image(t_gui_box *self, t_engine *engine, \
 				t_draw_data draw_data);
@@ -69,9 +82,6 @@ static void	draw_gui_box_image(t_gui_box *self, t_engine *engine,
 			self->image.data, self->position.x + draw_data.offset.x,
 			self->position.y + draw_data.offset.y);
 }
-
-#else
-# error "Unsuported OS"
 #endif
 
 void	default_gui_box_on_click(t_gui_box *self, t_engine *engine,

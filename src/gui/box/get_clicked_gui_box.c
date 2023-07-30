@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_clicked_gui_box.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/30 18:22:32 by vfries            #+#    #+#             */
+/*   Updated: 2023/07/30 18:22:43 by vfries           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdbool.h>
 
 #include "gui/box.h"
@@ -24,8 +36,7 @@ t_gui_box	*get_clicked_gui_box(t_gui_boxes gui_boxes, int *x, int *y)
 static bool	is_point_in_gui_box(const t_gui_box *gui_box, int x, int y)
 {
 	return (x >= gui_box->position.x
-			&& x < gui_box->position.x + gui_box->size.x
-			\
+		&& x < gui_box->position.x + gui_box->size.x
 		&& y >= gui_box->position.y
-			&& y < gui_box->position.y + gui_box->size.y);
+		&& y < gui_box->position.y + gui_box->size.y);
 }

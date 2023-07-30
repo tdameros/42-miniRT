@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mouse_in_box.c                                     :+:      :+:    :+:   */
+/*   mouse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vfries <vfries@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:57:29 by vfries            #+#    #+#             */
-/*   Updated: 2023/05/03 17:59:33 by vfries           ###   ########.fr       */
+/*   Updated: 2023/07/30 18:21:28 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_vector2i	get_mouse_position_in_box(const t_gui_box *self,
 	return (mouse_position);
 }
 
-#if defined __APPLE__
+#ifdef __APPLE__
 
 t_vector2i	get_mouse_position(t_engine *engine)
 {
@@ -50,7 +50,8 @@ t_vector2i	get_mouse_position(t_engine *engine)
 		&mouse_position.x, &mouse_position.y);
 	return (mouse_position);
 }
-#elif defined __linux__
+#endif
+#ifdef __linux__
 
 t_vector2i	get_mouse_position(t_engine *engine)
 {
@@ -60,6 +61,4 @@ t_vector2i	get_mouse_position(t_engine *engine)
 		&mouse_position.x, &mouse_position.y);
 	return (mouse_position);
 }
-#else
-# error "Unsuport OS"
 #endif

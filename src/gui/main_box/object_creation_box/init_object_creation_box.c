@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_object_creation_box.c                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/30 17:23:22 by vfries            #+#    #+#             */
+/*   Updated: 2023/07/30 17:25:13 by vfries           ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdlib.h>
 #include <math.h>
 #include "errno.h"
@@ -12,6 +24,7 @@
 #define NUMBER_OF_OBJECT_TYPES 5
 
 static void	init_object_creation_children(t_engine *engine, t_gui_box *gui_box);
+static void	create_images(t_engine *engine, t_gui_box *gui_box);
 static void	init_object_creation_box(const t_engine *engine, t_gui_box *gui_box,
 				int type);
 
@@ -31,10 +44,21 @@ void	init_object_creation_gui_box(t_engine *minirt, t_gui_box *gui_box,
 
 static void	init_object_creation_children(t_engine *engine, t_gui_box *gui_box)
 {
-	int	i;
-
 	create_n_horizontal_boxes(engine, gui_box, NUMBER_OF_OBJECT_TYPES,
 		(t_boxes_offsets){ICON_BOX_SEPARATOR, ICON_BOX_SEPARATOR});
+	create_images(engine, gui_box);
+	init_object_creation_box(engine, gui_box->children.data + 0, SPHERE);
+	init_object_creation_box(engine, gui_box->children.data + 1, PLANE);
+	init_object_creation_box(engine, gui_box->children.data + 2, CYLINDER);
+	init_object_creation_box(engine, gui_box->children.data + 3, CONE);
+	init_object_creation_box(engine, gui_box->children.data + 4, LIGHT);
+	engine->gui.object_creation_boxes = &gui_box->children;
+}
+
+static void	create_images(t_engine *engine, t_gui_box *gui_box)
+{
+	int	i;
+
 	i = -1;
 	while (++i < NUMBER_OF_OBJECT_TYPES)
 	{
@@ -42,14 +66,7 @@ static void	init_object_creation_children(t_engine *engine, t_gui_box *gui_box)
 			gui_box->children.data[i].size.x, gui_box->children.data[i].size.y);
 		init_image(&gui_box->children.data[i].on_hover_image, &engine->window,
 			gui_box->children.data[i].size.x, gui_box->children.data[i].size.y);
-		// TODO move image inits in init_object_creation_box()?
 	}
-	init_object_creation_box(engine, gui_box->children.data + 0, SPHERE);
-	init_object_creation_box(engine, gui_box->children.data + 1, PLANE);
-	init_object_creation_box(engine, gui_box->children.data + 2, CYLINDER);
-	init_object_creation_box(engine, gui_box->children.data + 3, CONE);
-	init_object_creation_box(engine, gui_box->children.data + 4, LIGHT);
-	engine->gui.object_creation_boxes = &gui_box->children;
 }
 
 static void	init_object_creation_box(const t_engine *engine, t_gui_box *gui_box,
