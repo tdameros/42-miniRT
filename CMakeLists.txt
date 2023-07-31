@@ -1,13 +1,19 @@
 cmake_minimum_required(VERSION 3.25)
-project(minirt C)
+project(42_miniRT C)
 
 set(CMAKE_C_STANDARD 11)
 
 include_directories(include)
+include_directories(include/deprecated)
+include_directories(include/font)
+include_directories(include/gui)
+include_directories(include/math)
+include_directories(include/ray_tracer)
 include_directories(lib/libft/include)
+include_directories(lib/libft/src/io/get_next_line)
 include_directories(lib/minilibx_opengl_20191021)
 
-add_executable(minirt
+add_executable(42_miniRT
         include/deprecated/t_ambient_light.h
         include/deprecated/t_raytracing_data.h
         include/font/render.h
@@ -36,6 +42,7 @@ add_executable(minirt
         include/colors.h
         include/engine.h
         include/events.h
+        include/export.h
         include/hooks.h
         include/image.h
         include/init_scene.h
@@ -235,6 +242,11 @@ add_executable(minirt
         lib/minilibx_opengl_20191021/mlx_rgb.c
         lib/minilibx_opengl_20191021/mlx_shaders.c
         lib/minilibx_opengl_20191021/mlx_xpm.c
+        src/export/scene/material.c
+        src/export/scene/object.c
+        src/export/scene/scene.c
+        src/export/image_to_ppm.c
+        src/export/screenshot.c
         src/font/parsing/get_glyph_offset.c
         src/font/parsing/get_glyph_outlines.c
         src/font/parsing/get_long_hor_metric.c
@@ -345,10 +357,10 @@ add_executable(minirt
         src/light/lights.c
         src/material/checkerboard.c
         src/material/material.c
+        src/material/normals_map.c
         src/material/texture.c
         src/math/matrix/matrix3.c
         src/math/matrix/matrix3_math.c
-        src/math/matrix/matrix3_rotation.c
         src/math/matrix/matrix4.c
         src/math/matrix/matrix4_inverse.c
         src/math/matrix/matrix4_math.c
@@ -360,10 +372,8 @@ add_executable(minirt
         src/math/vector/vector2_math.c
         src/math/vector/vector2_operations.c
         src/math/vector/vector3.c
-        src/math/vector/vector3_angle.c
         src/math/vector/vector3_math.c
         src/math/vector/vector3_operations.c
-        src/math/vector/vector3_random.c
         src/math/vector/vector3_rotation.c
         src/math/vector/vector4.c
         src/math/vector/vector4_math.c
@@ -405,6 +415,7 @@ add_executable(minirt
         src/ray_tracer/camera/movement.c
         src/ray_tracer/camera/projection.c
         src/ray_tracer/camera/ray.c
+        src/ray_tracer/camera/rotation.c
         src/ray_tracer/camera/view.c
         src/ray_tracer/rays/intersections/cone.c
         src/ray_tracer/rays/intersections/cone_utils.c
@@ -435,4 +446,4 @@ add_executable(minirt
         src/close_miniRT.c
         src/color.c
         src/init_minirt.c
-        src/main.c src/export/image_to_ppm.c include/export.h src/export/screenshot.c src/export/scene/scene.c src/export/scene/material.c src/export/scene/object.c src/material/normals_map.c src/ray_tracer/camera/rotation.c src/ray_tracer/camera/rotation.c)
+        src/main.c)
