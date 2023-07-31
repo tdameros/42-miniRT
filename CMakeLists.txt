@@ -435,4 +435,4 @@ add_executable(minirt
         src/close_miniRT.c
         src/color.c
         src/init_minirt.c
-        src/main.c src/export/image_to_ppm.c include/export.h src/export/screenshot.c)
+        src/main.c src/export/image_to_ppm.c include/export.h src/export/screenshot.c src/export/scene/scene.c src/export/scene/material.c src/export/scene/object.c)

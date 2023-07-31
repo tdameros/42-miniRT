@@ -25,7 +25,13 @@ int	key_press_handler(int key_code, t_engine *engine)
 		toggle_gui(&engine->gui);
 	else if (key_code == KEY_T)
 	{
-		take_screenshot(&engine->ray_traced_image);
+		if (take_screenshot(&engine->ray_traced_image) < 0)
+			ft_print_error("An error has occurred during the screenshot.\n");
+	}
+	else if (key_code == KEY_G)
+	{
+		if (export_scene(engine, "exported_scene.rt") < 0)
+			ft_print_error("An error has occurred during export.\n");
 	}
 	if (key_code != KEY_W && key_code != KEY_S && key_code != KEY_A
 		&& key_code != KEY_D && key_code != KEY_SPACE && key_code != KEY_L_SHIFT

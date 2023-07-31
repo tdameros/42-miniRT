@@ -43,7 +43,7 @@ int	set_outline_ppm_normal(t_material *material, const char *filename)
 	if (initialize_ppm_p6_file(&ppm, filename) < 0)
 		return (-1);
 	material->texture.outline.bump_map = ppm;
-	material->texture.outline.has_bum_map = true;
+	material->texture.outline.has_bump_map = true;
 	return (0);
 }
 
@@ -62,7 +62,7 @@ int	set_cap_ppm_texture(t_material * material, const char *filename)
 void	free_outline_texture(t_material *material)
 {
 	free(material->texture.outline.texture.pixels);
-	material->texture.outline.texture_type = CHECKERBOARD;
+	material->texture.outline.texture_type = NONE;
 	ft_bzero(&material->texture.outline.checkerboard,
 		sizeof(material->texture.outline.checkerboard));
 }
@@ -70,7 +70,7 @@ void	free_outline_texture(t_material *material)
 void	free_cap_texture(t_material *material)
 {
 	free(material->texture.cap.texture.pixels);
-	material->texture.cap.texture_type = CHECKERBOARD;
+	material->texture.cap.texture_type = NONE;
 	ft_bzero(&material->texture.cap.checkerboard,
 		sizeof(material->texture.cap.checkerboard));
 }

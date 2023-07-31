@@ -17,5 +17,8 @@
 
 int	export_image_to_ppm(const t_image *image, const char *output_file);
 int	take_screenshot(const t_image *image);
+int	export_scene(const t_engine *engine, const char *output_file);
+int	write_object(const t_object object, int fd);
+int	write_material(t_material material, int fd);
 
 #endif

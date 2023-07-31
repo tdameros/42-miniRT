@@ -4,6 +4,9 @@ NAME			=	miniRT
 SRC_PATH		=	src/
 
 SRC				=\
+	export/scene/material.c	\
+	export/scene/object.c	\
+	export/scene/scene.c	\
 	export/image_to_ppm.c	\
 	export/screenshot.c		\
 	\

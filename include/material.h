@@ -33,23 +33,16 @@ typedef struct s_surface
 {
 	enum e_texture_type	texture_type;
 	t_ppm_p6			texture;
+	char				*texture_file;
 	t_ppm_p6			bump_map;
+	char				*bump_map_file;
 	t_checkerboard		checkerboard;
-	bool				has_bum_map;
+	bool				has_bump_map;
 
 }	t_surface;
+
 typedef struct s_texture
 {
-//	enum e_texture_type	outline_type;
-//	enum e_texture_type	cap_type;
-//	t_ppm_p6			outline_texture;
-//	t_ppm_p6			cap_texture;
-//	t_ppm_p6			bump_map;
-//	t_checkerboard		outline_checkerboard;
-//	t_checkerboard		cap_checkerboard;
-//	bool				has_bump_map;
-
-
 	t_surface	cap;
 	t_surface	outline;
 
