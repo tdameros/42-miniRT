@@ -97,16 +97,17 @@ SRC				=\
 	hooks/update_object_attributes_modification_box/add_boxes/utils/get_x_y_z_input_box.c	\
 	hooks/update_object_attributes_modification_box/add_boxes/utils/init_description_box.c	\
 	\
-	hooks/update_object_attributes_modification_box/add_boxes/add_brightness_box.c						\
-	hooks/update_object_attributes_modification_box/add_boxes/add_cap_checkerboard_size_box.c			\
-	hooks/update_object_attributes_modification_box/add_boxes/add_checkered_pattern_color_toggle_box.c	\
-	hooks/update_object_attributes_modification_box/add_boxes/add_height_box.c							\
-	hooks/update_object_attributes_modification_box/add_boxes/add_normal_box.c							\
-	hooks/update_object_attributes_modification_box/add_boxes/add_outline_checkerboard_size_box.c		\
-	hooks/update_object_attributes_modification_box/add_boxes/add_position_box.c						\
-	hooks/update_object_attributes_modification_box/add_boxes/add_radius_box.c							\
-	hooks/update_object_attributes_modification_box/add_boxes/add_reflection_box.c						\
-	hooks/update_object_attributes_modification_box/add_boxes/add_specular_reflection_box.c				\
+	hooks/update_object_attributes_modification_box/add_boxes/add_brightness_box.c								\
+	hooks/update_object_attributes_modification_box/add_boxes/add_cap_checkerboard_size_box.c					\
+	hooks/update_object_attributes_modification_box/add_boxes/add_cap_checkered_pattern_color_toggle_box.c		\
+	hooks/update_object_attributes_modification_box/add_boxes/add_height_box.c									\
+	hooks/update_object_attributes_modification_box/add_boxes/add_normal_box.c									\
+	hooks/update_object_attributes_modification_box/add_boxes/add_outline_checkerboard_size_box.c				\
+	hooks/update_object_attributes_modification_box/add_boxes/add_outline_checkered_pattern_color_toggle_box.c	\
+	hooks/update_object_attributes_modification_box/add_boxes/add_position_box.c								\
+	hooks/update_object_attributes_modification_box/add_boxes/add_radius_box.c									\
+	hooks/update_object_attributes_modification_box/add_boxes/add_reflection_box.c								\
+	hooks/update_object_attributes_modification_box/add_boxes/add_specular_reflection_box.c						\
 	\
 	hooks/update_object_attributes_modification_box/get_box_category_index.c					\
 	hooks/update_object_attributes_modification_box/init_cone_attributes_modification_box.c		\

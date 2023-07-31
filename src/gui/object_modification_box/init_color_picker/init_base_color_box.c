@@ -64,11 +64,11 @@ void	init_base_color_box(t_engine *engine, t_gui_box *gui_box,
 		parent->size.y / 2 - 4);
 	gui_box->draw = &base_color_box_draw;
 	gui_box->on_click = &base_color_picker_on_click;
-	engine->gui.rgb_color_and_material.color_picker_base_color
+	engine->gui.color_and_material.color_picker_base_color
 		= vector3f_multiply(
-			engine->gui.rgb_color_and_material.\
+			engine->gui.color_and_material.\
 			material_to_assign_to_new_objects.albedo, 255.f);
-	engine->gui.rgb_color_and_material.color_picker_base_color_was_changed
+	engine->gui.color_and_material.color_picker_base_color_was_changed
 		= true;
 	y = -1;
 	while (++y < gui_box->size.y)
@@ -201,11 +201,11 @@ static void	base_color_picker_on_click(t_gui_box *self, t_engine *engine,
 
 	if (click_data.button != BUTTON_LEFT || uint_color == COLOR_TRANSPARENT)
 		return ;
-	engine->gui.rgb_color_and_material.color_picker_base_color
+	engine->gui.color_and_material.color_picker_base_color
 		= get_t_color_from_uint(uint_color);
-	engine->gui.rgb_color_and_material.color_picker_base_color_was_changed
+	engine->gui.color_and_material.color_picker_base_color_was_changed
 		= true;
-	albedo = vector3f_divide(engine->gui.rgb_color_and_material.\
+	albedo = vector3f_divide(engine->gui.color_and_material.\
 		color_picker_base_color, 255.f);
 	if (engine->gui.selected_object.object == NULL
 		&& engine->gui.selected_object.light == NULL)
@@ -216,7 +216,7 @@ static void	base_color_picker_on_click(t_gui_box *self, t_engine *engine,
 		light_set_color(engine->gui.selected_object.light, albedo);
 		return (redraw_icons(engine, material_create(albedo, 0, 0)));
 	}
-	if (engine->gui.color_being_changed_is_checked_pattern)
+	if (engine->gui.color_and_material.color_being_changed == OUTLINE_COLOR)
 		engine->gui.selected_object.object->material.texture.\
 			outline.checkerboard.albedo = albedo;
 	else

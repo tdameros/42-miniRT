@@ -69,35 +69,42 @@ typedef struct s_gui_hide_animation
 	bool		hide_animation_finished;
 }	t_gui_hide_animation;
 
-typedef struct s_selected_color_and_material
+enum e_color_being_changed
 {
-	bool		color_picker_base_color_was_changed;
-	t_color		color_picker_base_color;
-	t_material	material_to_assign_to_new_objects;
-}	t_selected_color_and_material;
+	BASE_COLOR,
+	OUTLINE_COLOR,
+	CAP_COLOR
+};
+
+typedef struct s_color_and_material
+{
+	bool						color_picker_base_color_was_changed;
+	t_color						color_picker_base_color;
+	t_material					material_to_assign_to_new_objects;
+	struct s_gui_box			*outline_checkered_pattern_color_toggle_box;
+	struct s_gui_box			*cap_checkered_pattern_color_toggle_box;
+	enum e_color_being_changed	color_being_changed;
+}	t_color_and_material;
 
 typedef struct s_gui
 {
-	t_font							font;
-	t_gui_hide_animation			hide_animation;
-	bool							should_show_gui_on_camera_lock;
-	t_gui_boxes						gui_boxes;
-	t_selected_color_and_material	rgb_color_and_material;
-	void							(*draw_gui_image)(t_image *destination, \
-										const t_image *source, \
-										t_vector2i position);
-	t_fps							fps;
-	t_selected_object				selected_object;
-	float							object_modification_amount;
-	float							object_rotation_degrees;
-	struct s_gui_box				*object_attributes_modification_box;
-	struct s_gui_boxes				*object_creation_boxes;
-	struct s_gui_box				*object_list_box;
-	t_vector						object_boxes;
-	t_vector						light_boxes;
-	t_float_input_boxes				float_input_boxes;
-	struct s_gui_box				*checkered_pattern_color_toggle_box;
-	bool							color_being_changed_is_checked_pattern;
+	t_font					font;
+	t_gui_hide_animation	hide_animation;
+	bool					should_show_gui_on_camera_lock;
+	t_gui_boxes				gui_boxes;
+	t_color_and_material	color_and_material;
+	void					(*draw_gui_image)(t_image *destination, \
+								const t_image *source, t_vector2i position);
+	t_fps					fps;
+	t_selected_object		selected_object;
+	float					object_modification_amount;
+	float					object_rotation_degrees;
+	struct s_gui_box		*object_attributes_modification_box;
+	struct s_gui_boxes		*object_creation_boxes;
+	struct s_gui_box		*object_list_box;
+	t_vector				object_boxes;
+	t_vector				light_boxes;
+	t_float_input_boxes		float_input_boxes;
 }	t_gui;
 
 #endif

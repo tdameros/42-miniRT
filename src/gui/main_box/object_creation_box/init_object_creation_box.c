@@ -75,9 +75,9 @@ static void	init_object_creation_box(const t_engine *engine, t_gui_box *gui_box,
 	change_image_color(&gui_box->image, COLOR_TRANSPARENT);
 	change_image_color(&gui_box->on_hover_image, HOVER_GUI_COLOR);
 	draw_icon(&gui_box->image, type, COLOR_TRANSPARENT,
-		engine->gui.rgb_color_and_material.material_to_assign_to_new_objects);
+		engine->gui.color_and_material.material_to_assign_to_new_objects);
 	draw_icon(&gui_box->on_hover_image, type, HOVER_GUI_COLOR,
-		engine->gui.rgb_color_and_material.material_to_assign_to_new_objects);
+		engine->gui.color_and_material.material_to_assign_to_new_objects);
 	round_image_corners(&gui_box->on_hover_image, BOX_ROUNDING_RADIUS);
 	round_image_corners(&gui_box->image, BOX_ROUNDING_RADIUS);
 	if (type == SPHERE)

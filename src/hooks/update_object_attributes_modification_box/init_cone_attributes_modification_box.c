@@ -22,7 +22,7 @@ static void	add_texture_boxes(t_engine *engine, t_gui_box *gui_box);
 void	init_cone_attributes_modification_box(t_engine *engine,
 			t_gui_box *gui_box)
 {
-	gui_box->children.size = 9;
+	gui_box->children.size = 10;
 	gui_box->children.data = malloc(sizeof(*gui_box->children.data)
 			* gui_box->children.size);
 	if (gui_box->children.data == NULL)
@@ -63,6 +63,8 @@ static void	add_texture_boxes(t_engine *engine, t_gui_box *gui_box)
 		&y, gui_box);
 	add_cap_checkerboard_size_box(engine, gui_box->children.data + 7,
 		&y, gui_box);
-	add_checkered_pattern_color_toggle_box(engine, gui_box->children.data + 8,
+	add_outline_checkerboard_color_toggle_box(engine, gui_box->children.data + 8,
+		&y, gui_box);
+	add_cap_checkerboard_color_toggle_box(engine, gui_box->children.data + 9,
 		&y, gui_box);
 }

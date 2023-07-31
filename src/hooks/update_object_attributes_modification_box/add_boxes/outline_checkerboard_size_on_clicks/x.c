@@ -27,12 +27,15 @@ void	outline_checkerboard_size_input_box_x_on_click_plus(t_gui_box *self,
 	object = engine->gui.selected_object.object;
 	if (object == NULL)
 		return ;
-	object->material.texture.outline.checkerboard.size.x++;
+	if ((int)object->material.texture.outline.checkerboard.size.x % 2)
+		object->material.texture.outline.checkerboard.size.x++;
+	object->material.texture.outline.checkerboard.size.x
+			= (int)object->material.texture.outline.checkerboard.size.x + 2;
 	object->material.texture.outline.texture_type = CHECKERBOARD;
 	engine->scene_changed = true;
 	update_xy_float_input_boxes(engine,
-		object->material.texture.outline.checkerboard.size,
-		&engine->gui.float_input_boxes.outline_checkerboard_size);
+		vector2f_divide(object->material.texture.outline.checkerboard.size, \
+		2.f), &engine->gui.float_input_boxes.outline_checkerboard_size);
 	redraw_icons(engine, engine->gui.selected_object.object->material);
 }
 
@@ -49,14 +52,17 @@ void	outline_checkerboard_size_input_box_x_on_click_minus(t_gui_box *self,
 	if (object == NULL || object->material.texture.outline.checkerboard.size.x
 		<= 1.f)
 		return ;
-	object->material.texture.outline.checkerboard.size.x--;
+	if ((int)object->material.texture.outline.checkerboard.size.x % 2)
+		object->material.texture.outline.checkerboard.size.x++;
+	object->material.texture.outline.checkerboard.size.x
+			= (int)object->material.texture.outline.checkerboard.size.x - 2;
 	if (object->material.texture.outline.checkerboard.size.x <= 1.f
 		&& object->material.texture.outline.checkerboard.size.y <= 1.f)
 		object->material.texture.outline.texture_type = NONE;
 	engine->scene_changed = true;
 	update_xy_float_input_boxes(engine,
-		object->material.texture.outline.checkerboard.size,
-		&engine->gui.float_input_boxes.outline_checkerboard_size);
+		vector2f_divide(object->material.texture.outline.checkerboard.size, \
+		2.f), &engine->gui.float_input_boxes.outline_checkerboard_size);
 	redraw_icons(engine, engine->gui.selected_object.object->material);
 }
 

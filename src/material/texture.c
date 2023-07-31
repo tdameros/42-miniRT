@@ -20,8 +20,8 @@ t_texture	create_empty_texture(void)
 	ft_bzero(&texture, sizeof(texture));
 	texture.outline.texture_type = NONE;
 	texture.cap.texture_type = NONE;
-	texture.outline.checkerboard.size = (t_vector2f){1, 1};
-	texture.cap.checkerboard.size = (t_vector2f){1, 1};
+	texture.outline.checkerboard.size = (t_vector2f){0, 0};
+	texture.cap.checkerboard.size = (t_vector2f){0, 0};
 	return (texture);
 }
 

@@ -33,7 +33,7 @@ void	init_gui(t_engine *engine)
 	engine->gui.object_modification_amount = 0.1f;
 	engine->gui.object_rotation_degrees = 10.0f;
 	engine->gui.fps.last_update = ft_get_current_time();
-	engine->gui.rgb_color_and_material.material_to_assign_to_new_objects
+	engine->gui.color_and_material.material_to_assign_to_new_objects
 		= material_create((t_color){0.f, 0.f, 1.f}, 0.f, 0.f);
 	init_boxes(engine);
 }
