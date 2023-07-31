@@ -42,3 +42,10 @@ void	camera_peek(t_camera *camera, float degrees)
 	camera->up_vector = quaternionf_rotate_vector3f(degrees,
 			camera->direction, camera->up_vector);
 }
+
+void	camera_set_horizontal_fov(t_camera *camera, float horizontal_fov)
+{
+	if (horizontal_fov <= 0 || horizontal_fov >= 180)
+		return ;
+	camera->horizontal_fov = horizontal_fov;
+}

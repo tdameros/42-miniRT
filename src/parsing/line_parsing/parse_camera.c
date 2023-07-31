@@ -33,7 +33,7 @@ int	parse_camera(t_engine *minirt, char **scene_content_line,
 			&minirt->raytracing_data.camera.direction) < 0)
 		return (error("Error\nFailed to get camera orientation\n"));
 	if (get_camera_fov(scene_content_line[3],
-			&minirt->raytracing_data.camera.vertical_fov) < 0)
+			&minirt->raytracing_data.camera.horizontal_fov) < 0)
 		return (error("Error\nFailed to get camera fov\n"));
 	rt_file_requirements->camera = true;
 	return (0);

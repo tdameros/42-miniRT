@@ -23,7 +23,7 @@ int	camera_create(t_camera *camera, t_vector2f viewport)
 	camera->inverse_view = matrix4_create_identity();
 	camera->projection = matrix4_create_identity();
 	camera->inverse_projection = matrix4_create_identity();
-	camera->vertical_fov = 45;
+	camera->horizontal_fov = 100;
 	camera->near_clip = 0.1f;
 	camera->far_clip = 100;
 	camera->pitch = 0;

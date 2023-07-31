@@ -52,7 +52,7 @@ static int	write_main_elements(const t_engine *engine, int fd)
 			camera.direction.x,
 			camera.direction.y,
 			camera.direction.z,
-			camera.vertical_fov);
+			camera.horizontal_fov);
 	if (return_code < 0)
 		return (-1);
 	return_code = dprintf(fd, "A\t%f\t%f,%f,%f\n",

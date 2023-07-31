@@ -101,7 +101,7 @@ static void	print_scene_content(t_raytracing_data *raytracing_data)
 	print_vector(&raytracing_data->camera.position);
 	printf("\tCamera orientation\n");
 	print_vector(&raytracing_data->camera.direction);
-	printf("\tCamera FOV == %f\n", raytracing_data->camera.vertical_fov);
+	printf("\tCamera FOV == %f\n", raytracing_data->camera.horizontal_fov);
 	printf("Light\n");
 	printf("\tLight position\n");
 	print_vector(&raytracing_data->light.position);

@@ -36,7 +36,7 @@ typedef struct s_camera
 	t_matrix4	inverse_projection;
 
 	t_viewport	viewport;
-	float		vertical_fov;
+	float		horizontal_fov;
 	float		near_clip;
 	float		far_clip;
 
@@ -67,6 +67,7 @@ t_vector3f	get_ray_direction(const t_camera *camera, float x, float y);
 void		camera_rotate_left(t_camera *camera, float degrees);
 void		camera_rotate_up(t_camera *camera, float degrees);
 void		camera_peek(t_camera *camera, float degrees);
+void		camera_set_horizontal_fov(t_camera *camera, float horizontal_fov);
 
 //	view.c
 void		camera_recalculate_view(t_camera *camera);
