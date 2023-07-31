@@ -28,8 +28,8 @@ int	parse_plane(t_engine *minirt, char **scene_content_line,
 		return (error("Error\nFailed to get plane line\n"));
 	if (get_position(scene_content_line[1], &plane.position) < 0)
 		return (error("Error\nFailed to get plane position\n"));
-	if (get_normalized_vector(scene_content_line[2], &plane.axe) < 0)
-		return (error("Error\nFailed to get plane axe\n"));
+	if (get_normalized_vector(scene_content_line[2], &plane.axis) < 0)
+		return (error("Error\nFailed to get plane axis\n"));
 	if (get_color(scene_content_line[3], &plane.material.albedo) < 0)
 		return (error("Error\nFailed to get plane albedo\n"));
 	return (add_object_to_object_list(object_list, plane));

@@ -13,8 +13,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "object.h"
 #include "libft.h"
+
+#include "object.h"
 
 int	initialize_objects_array(t_objects *objects, size_t size)
 {
@@ -68,16 +69,4 @@ int	free_objects(t_objects *objects)
 	objects->size = 0;
 	objects->length = 0;
 	return (0);
-}
-
-void	print_object2(t_object object)
-{
-	printf("Type: %d\n", object.type);
-	printf("Position:");
-	vector3f_print(object.position);
-	printf("Normal:");
-	vector3f_print(object.axe);
-	printf("Albedo:");
-	vector3f_print(object.material.albedo);
-	printf("Radius: %f\n", object.radius);
 }

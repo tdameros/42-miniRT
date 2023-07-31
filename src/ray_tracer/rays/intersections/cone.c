@@ -10,19 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "ray_tracer/rays.h"
 #include "math/equation.h"
 
-t_vector3f	calculate_outline_cone_normal(const t_ray *ray,
-											const t_object *cone,
-											const float distance);
-float	calculate_outline_cone_distance(const t_ray *ray, const t_object *cone);
-bool	is_in_outline_cone(const t_ray *ray, const t_object *cone, const float distance);
-t_vector3f	calculate_cone_normal(const t_ray *ray, const t_object *cone,
-									const t_hit hit_distance);
+static t_vector3f	calculate_cone_normal(const t_ray *ray,
+						const t_object *cone,
+						const t_hit hit_distance);
 
-t_hit	hit_cone(const t_ray *ray, const t_object *cone, const t_hit hit_distance)
+t_hit	hit_cone(const t_ray *ray, const t_object *cone,
+				const t_hit hit_distance)
 {
 	t_hit	hit;
 
@@ -44,9 +40,22 @@ t_hit	hit_cone(const t_ray *ray, const t_object *cone, const t_hit hit_distance)
 	hit.albedo = cone->material.albedo;
 	hit.shade_normal = hit.normal;
 	return (hit);
-
 }
 
+static t_vector3f	calculate_cone_normal(const t_ray *ray,
+										const t_object *cone,
+										const t_hit hit_distance)
+{
+	if (hit_distance.context == OUTLINE)
+		return (calculate_outline_cone_normal(ray, cone,
+				hit_distance.distance));
+	return (cone->cache.cone.cap_normal);
+}
+
+/**
+ * https://physique.cmaisonneuve.qc.ca/svezina/nyc/note_nyc/
+ * NYC_CHAP_6_IMPRIMABLE_4.pdf
+ */
 t_hit	calculate_cone_distance(const t_ray *ray, const t_object *cone)
 {
 	const float	distance_outline = calculate_outline_cone_distance(ray, cone);
@@ -69,13 +78,4 @@ t_hit	calculate_cone_distance(const t_ray *ray, const t_object *cone)
 	else
 		hit.context = CAP1;
 	return (hit);
-}
-
-t_vector3f	calculate_cone_normal(const t_ray *ray, const t_object *cone,
-									const t_hit hit_distance)
-{
-	if (hit_distance.context == OUTLINE)
-		return (calculate_outline_cone_normal(ray, cone,
-				hit_distance.distance));
-	return (cone->cache.cone.cap_normal);
 }

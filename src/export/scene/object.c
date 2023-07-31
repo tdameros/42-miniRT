@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scene_utils.c                                      :+:      :+:    :+:   */
+/*   object.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/31 05:47:00 by tdameros          #+#    #+#             */
-/*   Updated: 2023/07/31 05:47:00 by tdameros         ###   ########lyon.fr   */
+/*   Created: 2023/07/31 08:08:49 by tdameros          #+#    #+#             */
+/*   Updated: 2023/07/31 08:08:49 by tdameros         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ static int	write_plane(const t_object plane, int fd)
 			plane.position.x,
 			plane.position.y,
 			plane.position.z,
-			plane.axe.x,
-			plane.axe.y,
-			plane.axe.z,
+			plane.axis.x,
+			plane.axis.y,
+			plane.axis.z,
 			plane.material.albedo.x * 255.f,
 			plane.material.albedo.y * 255.f,
 			plane.material.albedo.z * 255.f);
@@ -73,9 +73,9 @@ static int	write_cylinder(const t_object cylinder, int fd)
 			cylinder.position.x,
 			cylinder.position.y,
 			cylinder.position.z,
-			cylinder.axe.x,
-			cylinder.axe.y,
-			cylinder.axe.z,
+			cylinder.axis.x,
+			cylinder.axis.y,
+			cylinder.axis.z,
 			cylinder.radius * 2,
 			cylinder.height,
 			cylinder.material.albedo.x * 255.f,
@@ -94,9 +94,9 @@ static int	write_cone(const t_object cone, int fd)
 			cone.position.x,
 			cone.position.y,
 			cone.position.z,
-			cone.axe.x,
-			cone.axe.y,
-			cone.axe.z,
+			cone.axis.x,
+			cone.axis.y,
+			cone.axis.z,
 			cone.radius * 2,
 			cone.height,
 			cone.material.albedo.x * 255.f,

@@ -12,13 +12,21 @@
 
 #include <math.h>
 
-
 #include "math/vector.h"
 #include "math/conversion.h"
 #include "math/quaternion.h"
 #include "math/modulo.h"
 #include "object.h"
 #include "ray_tracer/texture.h"
+
+static t_vector2f	calculate_spherical_map(const t_vector3f hit_position,
+						const t_object *sphere);
+
+static t_vector2f	calculate_cylindrical_map(const t_vector3f hit_position,
+						const t_object *cylinder);
+
+static t_vector2f	calculate_planar_map(const t_vector3f hit_position,
+						const t_object *plane);
 
 t_vector2f	calculate_object_map(const t_vector3f hit_position,
 								const t_object *object)
@@ -32,7 +40,7 @@ t_vector2f	calculate_object_map(const t_vector3f hit_position,
 	return ((t_vector2f){0.f, 0.f});
 }
 
-t_vector2f	calculate_spherical_map(const t_vector3f hit_position,
+static t_vector2f	calculate_spherical_map(const t_vector3f hit_position,
 									const t_object *sphere)
 {
 	const t_vector3f	position = vector3f_subtract(hit_position,
@@ -44,7 +52,7 @@ t_vector2f	calculate_spherical_map(const t_vector3f hit_position,
 	return (vector2f_create((raw_u + 0.5f), (float)(phi / M_PI)));
 }
 
-t_vector2f	calculate_cylindrical_map(const t_vector3f hit_position,
+static t_vector2f	calculate_cylindrical_map(const t_vector3f hit_position,
 										const t_object *cylinder)
 {
 	t_vector3f	position;
@@ -55,13 +63,12 @@ t_vector2f	calculate_cylindrical_map(const t_vector3f hit_position,
 
 	position = vector3f_subtract(hit_position,
 			cylinder->position);
-
-	if (cylinder->axe.y != 1.f)
+	if (cylinder->axis.y != 1.f)
 	{
-		rotation_phi = convert_radians_to_degrees(acosf(cylinder->axe.y));
+		rotation_phi = convert_radians_to_degrees(acosf(cylinder->axis.y));
 		position = quaternionf_rotate_vector3f(-rotation_phi,
 				vector3f_unit(vector3f_cross(vector3f_create(0, 1, 0), \
-				cylinder->axe)), position);
+				cylinder->axis)), position);
 	}
 	theta = atan2f(position.x / cylinder->radius,
 			position.z / cylinder->radius);
@@ -71,7 +78,7 @@ t_vector2f	calculate_cylindrical_map(const t_vector3f hit_position,
 	return (uv);
 }
 
-t_vector2f	calculate_planar_map(const t_vector3f hit_position,
+static t_vector2f	calculate_planar_map(const t_vector3f hit_position,
 									const t_object *plane)
 {
 	t_vector3f	position;
@@ -81,12 +88,12 @@ t_vector2f	calculate_planar_map(const t_vector3f hit_position,
 
 	position = vector3f_subtract(hit_position,
 			plane->position);
-	if (plane->axe.y != 1.f)
+	if (plane->axis.y != 1.f)
 	{
-		rotation_phi = convert_radians_to_degrees(acosf(plane->axe.y));
+		rotation_phi = convert_radians_to_degrees(acosf(plane->axis.y));
 		position = quaternionf_rotate_vector3f(-rotation_phi,
 				vector3f_unit(vector3f_cross(vector3f_create(0, 1, 0), \
-				plane->axe)), position);
+				plane->axis)), position);
 	}
 	u = modulof_positive(position.x, 1);
 	v = modulof_positive(position.z, 1);
@@ -102,12 +109,12 @@ t_vector2f	calculate_cap_map(const t_vector3f hit_position,
 	float		v;
 
 	position = vector3f_subtract(hit_position, object->position);
-	if (object->axe.y != 1.f)
+	if (object->axis.y != 1.f)
 	{
-		rotation_phi = convert_radians_to_degrees(acosf(object->axe.y));
+		rotation_phi = convert_radians_to_degrees(acosf(object->axis.y));
 		position = quaternionf_rotate_vector3f(-rotation_phi,
 				vector3f_unit(vector3f_cross(vector3f_create(0, 1, 0), \
-				object->axe)), position);
+				object->axis)), position);
 	}
 	u = modulof_positive((position.x + object->radius)
 			/ (object->radius * 2), 1);

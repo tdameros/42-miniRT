@@ -379,7 +379,7 @@ add_executable(minirt
         src/object/plane/transformations.c
         src/object/sphere/create.c
         src/object/sphere/transformations.c
-        src/object/object_calculate_cache.c
+        src/object/calculate_cache.c
         src/object/objects.c
         src/object/transformations.c
         src/parsing/line_parsing/utils/add_object_to_object_list.c
@@ -435,4 +435,4 @@ add_executable(minirt
         src/close_miniRT.c
         src/color.c
         src/init_minirt.c
-        src/main.c src/export/image_to_ppm.c include/export.h src/export/screenshot.c src/export/scene/scene.c src/export/scene/material.c src/export/scene/object.c)
+        src/main.c src/export/image_to_ppm.c include/export.h src/export/screenshot.c src/export/scene/scene.c src/export/scene/material.c src/export/scene/object.c src/material/normals_map.c src/ray_tracer/camera/rotation.c)

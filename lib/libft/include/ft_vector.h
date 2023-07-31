@@ -16,7 +16,7 @@
 # include <stddef.h>
 # include <stdbool.h>
 
-# define VECTOR_ALLOCATION_FAILED (-1)
+# define VECTOR_ALLOCATION_FAILED -1
 # define VECTOR_SIZE_TOO_SMALL 1
 # define VECTOR_VECTORS_ELEM_SIZE_DONT_MATCH 2
 # define VECTOR_SUCCESS 0

@@ -18,11 +18,12 @@
 #include "ray_tracer/rays.h"
 
 static t_vector3f	get_texture_at(const t_object *object,
-									const t_surface surface,
-									const t_vector2f uv);
+						const t_surface surface,
+						const t_vector2f uv);
+
 static t_vector3f	get_checked_pattern_at(const t_object *object,
-											const t_surface surface,
-											const t_vector2f uv);
+						const t_surface surface,
+						const t_vector2f uv);
 
 t_vector3f	get_texture_color(t_hit hit, const t_object *object)
 {

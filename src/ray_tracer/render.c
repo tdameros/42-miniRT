@@ -10,13 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include <stdio.h>
 #include <pthread.h>
 
 #include "math/vector.h"
-#include "ray_tracer/rays.h"
-#include "scene.h"
+#include "ray_tracer/render.h"
 #include "object.h"
 #include "ray_tracer/shade.h"
 #include "engine.h"

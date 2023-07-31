@@ -16,10 +16,8 @@
 
 int	camera_create(t_camera *camera, t_vector2f viewport)
 {
-//    camera->position = vector3f_create(0.f, 0.f, 0.f);
-//    camera->direction = vector3f_create(0, 0, 1);
-	camera->position = vector3f_create(-12.377809f, -2.864857f, 98.631340f);
-	camera->direction = vector3f_create(0.125273f, 0.031411f, -0.991639f);
+	camera->position = vector3f_create(0.f, 0.f, 0.f);
+	camera->direction = vector3f_create(0, 0, 1);
 	camera->up_vector = vector3f_create(0, 1, 0);
 	camera->view = matrix4_create_identity();
 	camera->inverse_view = matrix4_create_identity();

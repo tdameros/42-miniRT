@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector3_angle.c                                    :+:      :+:    :+:   */
+/*   calculate_cache.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/08 16:46:00 by tdameros          #+#    #+#             */
-/*   Updated: 2023/06/08 16:46:00 by tdameros         ###   ########lyon.fr   */
+/*   Created: 2023/07/31 08:28:50 by tdameros          #+#    #+#             */
+/*   Updated: 2023/07/31 08:28:53 by tdameros         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <math.h>
+#include "object.h"
 
-#include "math/vector.h"
-#include "math/conversion.h"
-
-float	vector3f_get_angle(t_vector3f a, t_vector3f b)
+void	object_calculate_cache(t_object *object)
 {
-	float	cos;
-
-	cos = vector3f_dot(a, b) / (vector3f_length(a) * vector3f_length(b));
-	return (convert_radians_to_degrees(acosf(cos)));
+	if (object->type == SPHERE)
+		return (sphere_calculate_cache(object));
+	if (object->type == PLANE)
+		return (plane_calculate_cache(object));
+	if (object->type == CYLINDER)
+		return (cylinder_calculate_cache(object));
+	return (cone_calculate_cache(object));
 }

@@ -58,6 +58,10 @@ static t_vector3f	calculate_cylinder_normal(const t_ray *ray,
 			hit_distance.distance));
 }
 
+/**
+ * https://physique.cmaisonneuve.qc.ca/svezina/nyc/note_nyc/
+ * NYC_CHAP_6_IMPRIMABLE_4.pdf
+ */
 t_hit	calculate_cylinder_distance(const t_ray *ray, const t_object *cylinder)
 {
 	const t_hit	outline_distance = calculate_inf_cylinder_distance(
@@ -91,6 +95,6 @@ static bool	is_in_outline_cylinder(const t_ray *ray, const t_object *cylinder,
 	const t_vector3f	endpoint2_position = vector3f_subtract(position,
 			cylinder->cache.cylinder.endpoint2);
 
-	return (vector3f_dot(endpoint1_position, cylinder->axe) > 0
-		&& vector3f_dot(endpoint2_position, cylinder->axe) < 0);
+	return (vector3f_dot(endpoint1_position, cylinder->axis) > 0
+		&& vector3f_dot(endpoint2_position, cylinder->axis) < 0);
 }

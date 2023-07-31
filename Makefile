@@ -147,12 +147,12 @@ SRC				=\
 	\
 	material/checkerboard.c	\
 	material/material.c		\
+	material/normals_map.c	\
 	material/texture.c		\
 	\
 	\
 	math/matrix/matrix3.c			\
 	math/matrix/matrix3_math.c		\
-	math/matrix/matrix3_rotation.c	\
 	math/matrix/matrix4.c			\
 	math/matrix/matrix4_inverse.c	\
 	math/matrix/matrix4_math.c		\
@@ -166,10 +166,8 @@ SRC				=\
 	math/vector/vector2_math.c			\
 	math/vector/vector2_operations.c	\
 	math/vector/vector3.c				\
-	math/vector/vector3_angle.c			\
 	math/vector/vector3_math.c			\
 	math/vector/vector3_operations.c	\
-	math/vector/vector3_random.c		\
 	math/vector/vector3_rotation.c		\
 	math/vector/vector4.c				\
 	math/vector/vector4_math.c			\
@@ -194,7 +192,7 @@ SRC				=\
 	\
 	object/objects.c				\
 	object/transformations.c		\
-	object/object_calculate_cache.c	\
+	object/calculate_cache.c		\
 	\
 	\
 	parsing/line_parsing/utils/add_object_to_object_list.c	\
@@ -224,6 +222,7 @@ SRC				=\
 	ray_tracer/camera/movement.c	\
 	ray_tracer/camera/projection.c	\
 	ray_tracer/camera/ray.c			\
+	ray_tracer/camera/rotation.c	\
 	ray_tracer/camera/view.c		\
 	\
 	ray_tracer/rays/intersections/cone.c				\

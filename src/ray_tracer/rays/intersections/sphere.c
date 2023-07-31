@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "math/equation.h"
 #include "object.h"
 #include "ray_tracer/rays.h"
-#include "math/equation.h"
 #include "ray_tracer/texture.h"
 
 t_hit	hit_sphere(const t_ray *ray, const t_object *sphere,
@@ -36,7 +36,7 @@ t_hit	hit_sphere(const t_ray *ray, const t_object *sphere,
 	hit.ray = *ray;
 	hit.hit = true;
 	hit.albedo = get_texture_color(hit, sphere);
-	if (sphere->material.texture.outline.has_bump_map)
+	if (sphere->material.texture.outline.has_normals_map)
 		hit.shade_normal = calculate_normal_perturbation(hit, sphere);
 	else
 		hit.shade_normal = hit.normal;

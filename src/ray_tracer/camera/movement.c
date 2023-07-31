@@ -29,38 +29,8 @@ void	camera_move_left(t_camera *camera, float distance)
 				vector3f_unit(right_direction), distance));
 }
 
-void	camera_rotate_left(t_camera *camera, float degrees)
-{
-	const t_vector3f	rotate_axis = camera->up_vector;
-
-	camera->direction = quaternionf_rotate_vector3f(degrees, rotate_axis,
-			camera->direction);
-}
-
-void	camera_rotate_up(t_camera *camera, float degrees)
-{
-	const t_vector3f	up_vector = camera->up_vector;
-	const t_vector3f	right_vector = vector3f_multiply(\
-				vector3f_unit(vector3f_cross(up_vector, \
-				vector3f_unit(camera->direction))), -1);
-
-	if (camera->pitch + degrees < 89.0f
-		&& camera->pitch + degrees > -89.0f)
-	{
-		camera->direction = quaternionf_rotate_vector3f(degrees, right_vector,
-				camera->direction);
-		camera->pitch += degrees;
-	}
-}
-
 void	camera_move_up(t_camera *camera, float distance)
 {
 	camera->position = vector3f_add(camera->position, vector3f_multiply(
 				camera->up_vector, distance));
-}
-
-void	camera_peek(t_camera *camera, float degrees)
-{
-	camera->up_vector = quaternionf_rotate_vector3f(degrees,
-			camera->direction, camera->up_vector);
 }

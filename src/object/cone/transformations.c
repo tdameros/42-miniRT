@@ -24,8 +24,8 @@ void	cone_move(t_object *cone, const t_vector3f movement_axis,
 void	cone_rotate(t_object *cone, const t_vector3f rotation_axis,
 					const float degrees)
 {
-	cone->axe = vector3f_unit(quaternionf_rotate_vector3f(degrees,
-				rotation_axis, cone->axe));
+	cone->axis = vector3f_unit(quaternionf_rotate_vector3f(degrees,
+				rotation_axis, cone->axis));
 	cone_calculate_cache(cone);
 }
 

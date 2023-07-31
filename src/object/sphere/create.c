@@ -24,7 +24,6 @@ t_object	sphere_create(const t_vector3f position, const float radius,
 	sphere.radius = radius;
 	sphere.material = material;
 	sphere.name = ft_strdup("Sphere");
-
 	sphere_calculate_cache(&sphere);
 	return (sphere);
 }

@@ -51,4 +51,3 @@ t_vector3f	vector3f_mult_vector3f(t_vector3f v1, t_vector3f v2)
 	v1.z = v1.z * v2.z;
 	return (v1);
 }
-

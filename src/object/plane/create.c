@@ -21,15 +21,14 @@ t_object	plane_create(const t_vector3f position, const t_vector3f normal,
 
 	plane.type = PLANE;
 	plane.position = position;
-	plane.axe = normal;
+	plane.axis = normal;
 	plane.material = material;
 	plane.name = ft_strdup("Plane");
-
 	plane_calculate_cache(&plane);
 	return (plane);
 }
 
 void	plane_calculate_cache(t_object *plane)
 {
-	plane->cache.plane.d = -vector3f_dot(plane->axe, plane->position);
+	plane->cache.plane.d = -vector3f_dot(plane->axis, plane->position);
 }

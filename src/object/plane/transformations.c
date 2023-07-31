@@ -24,8 +24,8 @@ void	plane_move(t_object *plane, const t_vector3f movement_axis,
 void	plane_rotate(t_object *plane, const t_vector3f rotation_axis,
 						const float degrees)
 {
-	plane->axe = vector3f_unit(quaternionf_rotate_vector3f(degrees,
-				rotation_axis, plane->axe));
+	plane->axis = vector3f_unit(quaternionf_rotate_vector3f(degrees,
+				rotation_axis, plane->axis));
 	plane_calculate_cache(plane);
 }
 

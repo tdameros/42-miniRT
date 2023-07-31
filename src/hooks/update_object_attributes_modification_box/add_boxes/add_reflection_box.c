@@ -76,10 +76,10 @@ static void	reflection_input_box_on_click_plus(struct s_gui_box *self,
 		return (reflection_input_box_on_click_text(self, engine, click_data));
 	if (object == NULL)
 		return ;
-	object->material.reflect = fminf(object->material.reflect + 0.01, 1.f);
+	object->material.reflection = fminf(object->material.reflection + 0.01, 1.f);
 	object_calculate_cache(object);
 	engine->scene_changed = true;
-	update_float_input_box(engine, object->material.reflect,
+	update_float_input_box(engine, object->material.reflection,
 		engine->gui.float_input_boxes.reflection);
 	redraw_icons(engine, engine->gui.selected_object.object->material);
 }
@@ -94,10 +94,10 @@ static void	reflection_input_box_on_click_minus(struct s_gui_box *self,
 		return (reflection_input_box_on_click_text(self, engine, click_data));
 	if (object == NULL)
 		return ;
-	object->material.reflect = fmaxf(object->material.reflect - 0.01, 0.f);
+	object->material.reflection = fmaxf(object->material.reflection - 0.01, 0.f);
 	object_calculate_cache(object);
 	engine->scene_changed = true;
-	update_float_input_box(engine, object->material.reflect,
+	update_float_input_box(engine, object->material.reflection,
 		engine->gui.float_input_boxes.reflection);
 	redraw_icons(engine, engine->gui.selected_object.object->material);
 }

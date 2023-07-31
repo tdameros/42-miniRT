@@ -43,14 +43,18 @@ t_vector3f	calculate_infinite_cylinder_normal(const t_ray *ray,
 	t_vector3f	ra;
 	t_vector3f	va;
 
-	ra = vector3f_cross(cylinder->axe, vector3f_subtract(ray->origin,
+	ra = vector3f_cross(cylinder->axis, vector3f_subtract(ray->origin,
 				cylinder->position));
-	ra = vector3f_cross(ra, cylinder->axe);
-	va = vector3f_cross(cylinder->axe, ray->direction);
-	va = vector3f_multiply(vector3f_cross(va, cylinder->axe), distance);
+	ra = vector3f_cross(ra, cylinder->axis);
+	va = vector3f_cross(cylinder->axis, ray->direction);
+	va = vector3f_multiply(vector3f_cross(va, cylinder->axis), distance);
 	return (vector3f_unit(vector3f_add(ra, va)));
 }
 
+/**
+ * https://physique.cmaisonneuve.qc.ca/svezina/nyc/note_nyc/
+ * NYC_CHAP_6_IMPRIMABLE_4.pdf
+ */
 t_hit	calculate_inf_cylinder_distance(const t_ray *ray,
 										const t_object *cylinder)
 {
@@ -59,13 +63,11 @@ t_hit	calculate_inf_cylinder_distance(const t_ray *ray,
 	t_quadf_equation	equation;
 	t_hit				hit;
 
-	ra0 = vector3f_cross(cylinder->axe, vector3f_subtract(ray->origin,
+	ra0 = vector3f_cross(cylinder->axis, vector3f_subtract(ray->origin,
 				cylinder->position));
-	ra0 = vector3f_cross(ra0, cylinder->axe);
-
-	va = vector3f_cross(cylinder->axe, ray->direction);
-	va = vector3f_cross(va, cylinder->axe);
-
+	ra0 = vector3f_cross(ra0, cylinder->axis);
+	va = vector3f_cross(cylinder->axis, ray->direction);
+	va = vector3f_cross(va, cylinder->axis);
 	equation.a = vector3f_dot(va, va);
 	equation.b = 2 * vector3f_dot(ra0, va);
 	equation.c = vector3f_dot(ra0, ra0) - cylinder->radius * cylinder->radius;

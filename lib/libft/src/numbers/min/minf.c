@@ -18,6 +18,6 @@ float	ft_minf(float a, float b)
 float	ft_minf_positive(float a, float b)
 {
 	return (((a < 0) * (a * (a >= b) + b * (b > a)))
-			+ ((b < 0 && a > 0) * (b * (b >= a) + a * (a > b)))
-			+ (a > 0 && b > 0) * (a * (a <= b) + b * (b < a)));
+		+ ((b < 0 && a > 0) * (b * (b >= a) + a * (a > b)))
+		+ (a > 0 && b > 0) * (a * (a <= b) + b * (b < a)));
 }

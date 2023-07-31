@@ -15,17 +15,21 @@
 
 # include "math/vector.h"
 # include "scene.h"
+# include "ray_tracer/rays.h"
+# include "engine.h"
 
-t_color	render_pixel(t_engine *engine, int x, int y);
-t_color	render_ray(t_ray ray, const t_scene *scene);
+# define BOUNCES_PER_PIXEL 5
+
 t_color	render_ray_icon(t_ray ray, const t_scene *scene,
-			int *missed_object);
+						   int *missed_object);
 void	render_raytracing(t_engine *minirt, int incrementer);
 void	render_anti_aliased_raytracing(t_engine *minirt);
 void	render_icon(t_engine *minirt, unsigned int background_color);
-//t_vector3f	render_ray(t_vector3f ray_origin, t_vector3f ray_direction);
 
 void	interpolate_ray_tracing(t_raytraced_pixels *pixels,
-			int incrementer);
+								int incrementer);
+
+//	render_ray.c
+t_color	render_ray(t_ray ray, const t_scene *scene);
 
 #endif

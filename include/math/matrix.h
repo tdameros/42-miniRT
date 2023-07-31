@@ -35,10 +35,6 @@ void		matrix3_print(t_matrix3 matrix);
 //	matrix3_math.c
 t_vector3f	matrix3_dot_vector3(t_matrix3 matrix, t_vector3f vector);
 
-//	matrix3_rotation.c
-t_matrix3	matrix3_rodrigues_rotation(t_vector3f axe, float degrees);
-t_matrix3	matrix3_calculate_rotation_axe(t_vector3f original_vec, t_vector3f axe);
-
 //	matrix4.c
 t_matrix4	matrix4_create(float value);
 t_matrix4	matrix4_create_identity(void);
@@ -52,4 +48,3 @@ t_matrix4	matrix4_multiply(t_matrix4 m1, t_matrix4 m2);
 t_vector4f	matrix4_multiply_vector4(t_matrix4 matrix, t_vector4f vector);
 
 #endif
-

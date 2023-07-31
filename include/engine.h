@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   engine.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/31 09:18:38 by tdameros          #+#    #+#             */
+/*   Updated: 2023/07/31 09:18:52 by tdameros         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef ENGINE_H
 # define ENGINE_H
 
@@ -8,7 +20,7 @@
 # include "scene.h"
 # include "window.h"
 
-#define NB_OF_THREADS 16
+# define NB_OF_THREADS 16
 
 typedef struct s_raytraced_pixels
 {

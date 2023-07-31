@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   img_to_ppm.c                                       :+:      :+:    :+:   */
+/*   image_to_ppm.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/31 02:33:00 by tdameros          #+#    #+#             */
-/*   Updated: 2023/07/31 02:33:00 by tdameros         ###   ########lyon.fr   */
+/*   Created: 2023/07/31 08:07:01 by tdameros          #+#    #+#             */
+/*   Updated: 2023/07/31 08:07:02 by tdameros         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ static unsigned char	*get_ppm_pixels(const t_image *image)
 	unsigned char	*ppm_pixels;
 	unsigned int	*transparent_pixels;
 	unsigned int	i;
-
 
 	ppm_pixels = malloc(image->size * 3 * sizeof(*ppm_pixels));
 	if (ppm_pixels == NULL)

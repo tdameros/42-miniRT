@@ -22,12 +22,11 @@ t_object	cone_create(const t_vector3f position, const t_vector3f axis,
 
 	cone.type = CONE;
 	cone.position = position;
-	cone.axe = axis;
+	cone.axis = axis;
 	cone.radius = size.radius;
 	cone.height = size.height;
 	cone.material = material;
 	cone.name = ft_strdup("Cone");
-
 	cone_calculate_cache(&cone);
 	return (cone);
 }
@@ -35,13 +34,12 @@ t_object	cone_create(const t_vector3f position, const t_vector3f axis,
 void	cone_calculate_cache(t_object *cone)
 {
 	cone->cache.cone.endpoint1 = vector3f_subtract(cone->position,
-			vector3f_multiply(cone->axe, cone->height / 2));
+			vector3f_multiply(cone->axis, cone->height / 2));
 	cone->cache.cone.endpoint2 = vector3f_add(cone->position,
-			vector3f_multiply(cone->axe, cone->height / 2));
+			vector3f_multiply(cone->axis, cone->height / 2));
 	cone->cache.cone.radius_divide_height = (cone->radius * cone->radius)
 		/ (cone->height * cone->height);
-	cone->cache.cone.cap_normal = vector3f_multiply(cone->axe, -1);
+	cone->cache.cone.cap_normal = vector3f_multiply(cone->axis, -1);
 	cone->cache.cone.cap_d = -vector3f_dot(cone->cache.cone.cap_normal,
 			cone->cache.cone.endpoint1);
 }
-

@@ -27,8 +27,8 @@ int	write_material(t_material material, int fd)
 		return (0);
 	if (dprintf(fd, "ma") < 0)
 		return (-1);
-	if (material.reflect != 0.f)
-		return_code = dprintf(fd, "\treflection:%f", material.reflect);
+	if (material.reflection != 0.f)
+		return_code = dprintf(fd, "\treflection:%f", material.reflection);
 	if (return_code < 0)
 		return (-1);
 	if (material.specular != 0.f)
@@ -46,17 +46,17 @@ int	write_material(t_material material, int fd)
 
 static	bool	is_default_material(t_material material)
 {
-	if (material.reflect != 0.f)
+	if (material.reflection != 0.f)
 		return (false);
 	else if (material.specular != 0.f)
 		return (false);
 	else if (material.texture.outline.texture_type != NONE)
 		return (false);
-	else if (material.texture.outline.has_bump_map)
+	else if (material.texture.outline.has_normals_map)
 		return (false);
 	else if (material.texture.cap.texture_type != NONE)
 		return (false);
-	else if (material.texture.cap.has_bump_map)
+	else if (material.texture.cap.has_normals_map)
 		return (false);
 	return (true);
 }
@@ -80,9 +80,9 @@ static int	write_outline_texture(t_material material, int fd)
 				material.texture.outline.checkerboard.albedo.z * 255.f);
 	if (return_code < 0)
 		return (-1);
-	if (material.texture.outline.has_bump_map)
+	if (material.texture.outline.has_normals_map)
 		return_code = dprintf(fd, "\toutline_bump_map:%s",
-				material.texture.outline.bump_map_file);
+				material.texture.outline.normals_map_file);
 	if (return_code < 0)
 		return (-1);
 	return (0);
@@ -107,9 +107,9 @@ static int	write_cap_texture(t_material material, int fd)
 				material.texture.cap.checkerboard.albedo.z * 255.f);
 	if (return_code < 0)
 		return (-1);
-	if (material.texture.cap.has_bump_map)
+	if (material.texture.cap.has_normals_map)
 		return_code = dprintf(fd, "\tcap_bump_map:%s",
-				material.texture.cap.bump_map_file);
+				material.texture.cap.normals_map_file);
 	if (return_code < 0)
 		return (-1);
 	return (0);

@@ -23,7 +23,6 @@ t_light	light_create(const t_vector3f position, const t_vector3f color,
 	light.color = vector3f_clamp(color, 0, 1);
 	light.brightness = brightness;
 	light.name = ft_strdup("Light");
-
 	light_calculate_cache(&light);
 	return (light);
 }

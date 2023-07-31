@@ -45,7 +45,7 @@ static void	update_float_input_boxes_object(t_engine *engine)
 		engine->gui.selected_object.object->height,
 		engine->gui.float_input_boxes.height);
 	update_xyz_float_input_boxes(engine,
-		engine->gui.selected_object.object->axe,
+		engine->gui.selected_object.object->axis,
 		&engine->gui.float_input_boxes.normal);
 	update_xyz_float_input_boxes(engine,
 		engine->gui.selected_object.object->position,
@@ -54,7 +54,7 @@ static void	update_float_input_boxes_object(t_engine *engine)
 		engine->gui.selected_object.object->radius,
 		engine->gui.float_input_boxes.radius);
 	update_float_input_box(engine,
-		engine->gui.selected_object.object->material.reflect,
+		engine->gui.selected_object.object->material.reflection,
 		engine->gui.float_input_boxes.reflection);
 	update_float_input_box(engine,
 		engine->gui.selected_object.object->material.specular,

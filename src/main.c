@@ -20,20 +20,8 @@
 
 static bool	arguments_are_bad(int argc, char **argv);
 
-#include "export.h"
-#include "parsing.h"
 int	main(int argc, char **argv)
 {
-//	(void ) argc;
-//	(void) argv;
-//	(void) arguments_are_bad;
-//	t_image truc;
-//
-//	truc.size = 100;
-//	truc.width = 100;
-//	truc.height= 103;
-//	export_image_to_ppm(&truc, "bidule.ppm");
-
 	t_engine	minirt;
 
 	if (arguments_are_bad(argc, argv))

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cone_infinite.c                                    :+:      :+:    :+:   */
+/*   cone_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/07 00:06:00 by tdameros          #+#    #+#             */
-/*   Updated: 2023/07/07 00:06:00 by tdameros         ###   ########lyon.fr   */
+/*   Created: 2023/07/31 08:41:11 by tdameros          #+#    #+#             */
+/*   Updated: 2023/07/31 08:41:13 by tdameros         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,21 @@
 
 float	calculate_outline_cone_distance(const t_ray *ray, const t_object *cone)
 {
-	const t_vector3f	va = vector3f_cross(vector3f_cross(cone->axe,
-				ray->direction), cone->axe);
-	const float			vs = vector3f_dot(ray->direction, cone->axe);
-	const t_vector3f	ra0 = vector3f_cross(vector3f_cross(cone->axe, \
-		vector3f_subtract(ray->origin, cone->cache.cone.endpoint1)), cone->axe);
+	const t_vector3f	va = vector3f_cross(vector3f_cross(cone->axis,
+				ray->direction), cone->axis);
+	const float			vs = vector3f_dot(ray->direction, cone->axis);
+	const t_vector3f	ra0 = vector3f_cross(vector3f_cross(cone->axis, \
+	vector3f_subtract(ray->origin, cone->cache.cone.endpoint1)), cone->axis);
 	const float			big_w = cone->height - vector3f_dot(vector3f_subtract(\
-			ray->origin, cone->cache.cone.endpoint1), cone->axe);
+			ray->origin, cone->cache.cone.endpoint1), cone->axis);
 	t_quadf_equation	equation;
 
 	equation.a = vector3f_dot(va, va);
 	equation.a -= (vs * vs) * cone->cache.cone.radius_divide_height;
-
 	equation.b = vector3f_dot(vector3f_multiply(ra0, 2), va);
 	equation.b += 2 * big_w * vs * cone->cache.cone.radius_divide_height;
-
 	equation.c = vector3f_dot(ra0, ra0);
 	equation.c -= (big_w * big_w) * cone->cache.cone.radius_divide_height;
-
 	if (!solve_quadratic_equation(&equation))
 		return (-1);
 	if (equation.s1 >= 0 && !is_in_outline_cone(ray, cone, equation.s1))
@@ -66,8 +63,8 @@ bool	is_in_outline_cone(const t_ray *ray, const t_object *cone,
 	const t_vector3f	endpoint2_position = vector3f_subtract(position,
 			cone->cache.cone.endpoint2);
 
-	return (vector3f_dot(endpoint1_position, cone->axe) > 0
-		&& vector3f_dot(endpoint2_position, cone->axe) < 0);
+	return (vector3f_dot(endpoint1_position, cone->axis) > 0
+		&& vector3f_dot(endpoint2_position, cone->axis) < 0);
 }
 
 float	calculate_cap_cone_distance(const t_ray *ray, const t_object *cone)

@@ -14,10 +14,10 @@
 
 float	convert_degrees_to_radians(float degree)
 {
-	return (degree * M_PI / 180);
+	return (degree * (float)M_PI / 180.f);
 }
 
 float	convert_radians_to_degrees(float radians)
 {
-	return (radians * 180 / M_PI);
+	return (radians * 180.f / (float)M_PI);
 }

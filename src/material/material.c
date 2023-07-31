@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
 #include "material.h"
 
 t_material	material_create(const t_vector3f albedo,
@@ -22,7 +20,7 @@ t_material	material_create(const t_vector3f albedo,
 
 	material.texture = create_empty_texture();
 	material.albedo = albedo;
-	material.reflect = reflect_intensity;
+	material.reflection = reflect_intensity;
 	material.specular = specular_intensity;
 	return (material);
 }

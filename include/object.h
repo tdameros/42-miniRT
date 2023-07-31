@@ -81,7 +81,7 @@ typedef struct s_object
 	t_vector3f				position;
 	float					radius;
 	float					height;
-	t_vector3f				axe;
+	t_vector3f				axis;
 	t_material				material;
 	union u_object_cache	cache;
 	char					*name;
@@ -150,17 +150,13 @@ void		sphere_move(t_object *sphere, const t_vector3f movement_axis,
 void		sphere_set_position(t_object *sphere, const t_vector3f position);
 void		sphere_set_radius(t_object *sphere, const float radius);
 
-//	material.c
-t_material	material_create(t_vector3f albedo, float roughness, float metallic);
-
 //	objects.c
 int			initialize_objects_array(t_objects *objects, size_t size);
 int			add_object_in_objects(t_objects *objects, t_object object);
 int			remove_object_in_objects(t_objects *objects, size_t index);
 int			free_objects(t_objects *objects);
-void		print_object2(t_object object);
 
-// recalculate_cache.c
+//	calculate_cache.c
 void		object_calculate_cache(t_object *object);
 
 //	transformations.c

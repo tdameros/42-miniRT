@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lights.h                                           :+:      :+:    :+:   */
+/*   shade.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 23:34:00 by tdameros          #+#    #+#             */
-/*   Updated: 2023/05/19 23:34:00 by tdameros         ###   ########lyon.fr   */
+/*   Created: 2023/07/31 08:50:59 by tdameros          #+#    #+#             */
+/*   Updated: 2023/07/31 08:51:01 by tdameros         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHADE_H
 # define SHADE_H
 
-#include "scene.h"
-#include "ray_tracer/rays.h"
+# include "scene.h"
+# include "ray_tracer/rays.h"
 
 //	light.c
 t_vector3f	calculate_light_contribution(const t_scene *scene, \

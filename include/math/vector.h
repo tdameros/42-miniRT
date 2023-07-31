@@ -13,7 +13,7 @@
 #ifndef VECTOR_H
 # define VECTOR_H
 
-#include <stdbool.h>
+# include <stdbool.h>
 
 typedef struct s_vector2i
 {
@@ -48,8 +48,6 @@ typedef struct s_vector4f
 	float	w;
 }	t_vector4f;
 
-t_vector3f	vector3f_random(float min, float max);
-
 //	vector2.c
 t_vector2f	vector2f_create(float x, float y);
 void		vector2f_print(t_vector2f vector);
@@ -73,9 +71,6 @@ t_vector3f	vector3f_create(float x, float y, float z);
 void		vector3f_print(t_vector3f vector);
 t_vector3f	vector3f_clamp(t_vector3f vector, float min, float max);
 
-//	vector3_angle.c
-float		vector3f_get_angle(t_vector3f a, t_vector3f b);
-
 //	vector3_math.c
 t_vector3f	vector3f_add(t_vector3f v1, t_vector3f v2);
 t_vector3f	vector3f_subtract(t_vector3f v1, t_vector3f v2);
@@ -89,7 +84,6 @@ float		vector3f_length(t_vector3f vector);
 t_vector3f	vector3f_unit(t_vector3f vector);
 float		vector3f_dot(t_vector3f v1, t_vector3f v2);
 t_vector3f	vector3f_cross(t_vector3f v1, t_vector3f v2);
-t_vector3f	vector3f_normalize(t_vector3f vector);
 
 //	vector3_rotation.c
 t_vector3f	vector3f_rotate_x(t_vector3f vector, float degrees);

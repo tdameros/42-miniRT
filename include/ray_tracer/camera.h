@@ -23,8 +23,8 @@ typedef struct s_viewport
 	size_t		number_of_pixels;
 }	t_viewport;
 
-typedef struct s_camera {
-
+typedef struct s_camera
+{
 	t_vector3f	position;
 	t_vector3f	direction;
 
@@ -54,10 +54,7 @@ int			camera_create(t_camera *camera, t_vector2f viewport);
 //	movement.c
 void		camera_move_forward(t_camera *camera, float distance);
 void		camera_move_left(t_camera *camera, float distance);
-void		camera_rotate_left(t_camera *camera, float degrees);
-void		camera_rotate_up(t_camera *camera, float degrees);
 void		camera_move_up(t_camera *camera, float distance);
-void		camera_peek(t_camera *camera, float degrees);
 
 //	projection.c
 void		camera_recalculate_projection(t_camera *camera);
@@ -65,6 +62,11 @@ void		camera_recalculate_projection(t_camera *camera);
 //	ray.c
 void		camera_recalculate_rays(t_camera *camera);
 t_vector3f	get_ray_direction(const t_camera *camera, float x, float y);
+
+//	rotation.c
+void		camera_rotate_left(t_camera *camera, float degrees);
+void		camera_rotate_up(t_camera *camera, float degrees);
+void		camera_peek(t_camera *camera, float degrees);
 
 //	view.c
 void		camera_recalculate_view(t_camera *camera);

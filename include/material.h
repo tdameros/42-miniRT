@@ -34,10 +34,10 @@ typedef struct s_surface
 	enum e_texture_type	texture_type;
 	t_ppm_p6			texture;
 	char				*texture_file;
-	t_ppm_p6			bump_map;
-	char				*bump_map_file;
 	t_checkerboard		checkerboard;
-	bool				has_bump_map;
+	t_ppm_p6			normals_map;
+	char				*normals_map_file;
+	bool				has_normals_map;
 
 }	t_surface;
 
@@ -50,14 +50,13 @@ typedef struct s_texture
 
 typedef struct s_material
 {
-
 	t_vector3f	albedo;
-	float		reflect;
+	float		reflection;
 	float		specular;
 	t_texture	texture;
 }	t_material;
 
-//	checker_board.c
+//	checkerboard.c
 void		set_outline_checkerboard(t_material *material,
 				const t_vector2f size,
 				const t_vector3f albedo);
@@ -70,13 +69,17 @@ t_material	material_create(const t_vector3f albedo, \
 							const float reflect_intensity, \
 							const float specular_intensity);
 
+//	normals_map.c
+int			set_outline_normals_map(t_material *material, const char *filename);
+int			set_cap_normals_map(t_material *material, const char *filename);
+void		free_outline_normals_map(t_material *material);
+void		free_cap_normals_map(t_material *material);
+
 //	texture.c
-int	set_outline_ppm_normal(t_material *material, const char *filename);
 t_texture	create_empty_texture(void);
-int			set_outline_ppm_texture(t_material *material,
-				const char *filename);
-int			set_cap_ppm_texture(t_material * material,
-				const char *filename);
+int			set_outline_texture(t_material *material, const char *filename);
+int			set_cap_texture(t_material *material, const char *filename);
 void		free_outline_texture(t_material *material);
 void		free_cap_texture(t_material *material);
+
 #endif

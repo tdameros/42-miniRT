@@ -44,12 +44,3 @@ t_vector3f	vector3f_cross(t_vector3f v1, t_vector3f v2)
 	result.z = v1.x * v2.y - v1.y * v2.x;
 	return (result);
 }
-
-t_vector3f	vector3f_normalize(t_vector3f vector)
-{
-	const float	m = vector3f_length(vector);
-
-	if (m == 0.f)
-		return (vector);
-	return ((t_vector3f){vector.x / m, vector.y / m, vector.z / m});
-}

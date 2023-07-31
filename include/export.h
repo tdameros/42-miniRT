@@ -15,10 +15,19 @@
 
 # include "engine.h"
 
-int	export_image_to_ppm(const t_image *image, const char *output_file);
-int	take_screenshot(const t_image *image);
-int	export_scene(const t_engine *engine, const char *output_file);
-int	write_object(const t_object object, int fd);
+//	scene/material.c
 int	write_material(t_material material, int fd);
+
+//	scene/object.c
+int	write_object(const t_object object, int fd);
+
+//	scene/scene.c
+int	export_scene(const t_engine *engine, const char *output_file);
+
+//	image_to_ppm.c
+int	export_image_to_ppm(const t_image *image, const char *output_file);
+
+//	screenshot.c
+int	take_screenshot(const t_image *image);
 
 #endif
