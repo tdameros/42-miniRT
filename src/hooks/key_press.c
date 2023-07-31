@@ -13,6 +13,7 @@
 #include "events.h"
 #include "engine.h"
 #include "hooks.h"
+#include "export.h"
 
 int	key_press_handler(int key_code, t_engine *engine)
 {
@@ -22,6 +23,10 @@ int	key_press_handler(int key_code, t_engine *engine)
 		close_engine(engine);
 	else if (key_code == KEY_H)
 		toggle_gui(&engine->gui);
+	else if (key_code == KEY_T)
+	{
+		take_screenshot(&engine->ray_traced_image);
+	}
 	if (key_code != KEY_W && key_code != KEY_S && key_code != KEY_A
 		&& key_code != KEY_D && key_code != KEY_SPACE && key_code != KEY_L_SHIFT
 		&& key_code != KEY_Q && key_code != KEY_E)

@@ -4,6 +4,9 @@ NAME			=	miniRT
 SRC_PATH		=	src/
 
 SRC				=\
+	export/image_to_ppm.c	\
+	export/screenshot.c		\
+	\
 	font/parsing/get_glyph_offset.c					\
 	font/parsing/get_glyph_outlines.c				\
 	font/parsing/get_long_hor_metric.c				\
