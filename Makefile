@@ -276,7 +276,7 @@ DEPS_FLAGS		=	-MMD -MP
 BASE_CFLAGS		=	-Wall -Wextra -Werror
 DEBUG_CLFAGS	=	-g3 -fsanitize=address
 #-ffast-math reduces calculation precision, need to check behaviour before using
-OPTI_CFLAGS		=	-O3 -march=native #-ffast-math
+OPTI_CFLAGS		=	-Ofast -march=native -flto -fno-signed-zeros -funroll-loops #-ffast-math
 CFLAGS			=	$(BASE_CFLAGS) $(OPTI_CFLAGS)
 # CFLAGS			=	$(BASE_CFLAGS) $(DEBUG_CLFAGS)
 #CFLAGS			=	$(BASE_CFLAGS) $(OPTI_CFLAGS) $(DEBUG_CLFAGS)
