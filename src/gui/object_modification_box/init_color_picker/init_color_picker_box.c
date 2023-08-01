@@ -168,6 +168,9 @@ static void	color_picker_on_click(t_gui_box *self, t_engine *engine,
 	if (engine->gui.color_and_material.color_being_changed == OUTLINE_COLOR)
 		engine->gui.selected_object.object->material.texture.\
 			outline.checkerboard.albedo = albedo;
+	else if (engine->gui.color_and_material.color_being_changed == CAP_COLOR)
+		engine->gui.selected_object.object->material.texture.\
+			cap.checkerboard.albedo = albedo;
 	else
 		engine->gui.selected_object.object->material.albedo = albedo;
 	redraw_icons(engine, engine->gui.selected_object.object->material);
