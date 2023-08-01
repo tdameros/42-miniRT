@@ -53,6 +53,9 @@ int	init_engine(t_engine *engine, const char *start_up_scene)
 		engine->window.size.y);
 	change_image_color(&engine->main_image, COLOR_BLACK);
 
+	init_image(&engine->gui.screen_shot.image, &engine->window,
+		engine->window.size.x, engine->window.size.y);
+
 	init_hooks(engine);
 
 	init_gui(engine);

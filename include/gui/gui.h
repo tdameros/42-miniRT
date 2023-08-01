@@ -86,9 +86,16 @@ typedef struct s_color_and_material
 	enum e_color_being_changed	color_being_changed;
 }	t_color_and_material;
 
+typedef struct s_screen_shot
+{
+	uint64_t	last_screen_shot;
+	t_image		image;
+}	t_screen_shot;
+
 typedef struct s_gui
 {
 	t_font					font;
+	t_screen_shot			screen_shot;
 	t_gui_hide_animation	hide_animation;
 	bool					should_show_gui_on_camera_lock;
 	t_gui_boxes				gui_boxes;

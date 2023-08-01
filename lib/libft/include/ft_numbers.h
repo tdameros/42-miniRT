@@ -19,6 +19,8 @@
 float		ft_absf(float i);
 int			ft_absi(int i);
 
+int			ft_clamp(int nb, int min, int max);
+
 float		ft_atof(const char *string);
 int			ft_atoi(const char *str);
 long long	ft_atoll(const char *str);

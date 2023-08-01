@@ -127,6 +127,8 @@ SRC =\
 	numbers/abs/absf.c			\
 	numbers/abs/absi.c			\
 \
+	numbers/clamp/clamp.c		\
+\
 	numbers/max/maxf.c			\
 \
 	numbers/min/minf.c			\
@@ -185,6 +187,7 @@ SRC =\
 \
 	time/convert_timeval_to_ms.c	\
 	time/get_current_time.c			\
+	time/get_current_time_in_ms.c	\
 	time/get_number_of_fps.c		\
 \
 \

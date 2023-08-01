@@ -446,4 +446,4 @@ add_executable(42_miniRT
         src/close_miniRT.c
         src/color.c
         src/init_minirt.c
-        src/main.c src/hooks/update_object_attributes_modification_box/add_boxes/add_cap_checkered_pattern_color_toggle_box.c)
+        src/main.c src/hooks/update_object_attributes_modification_box/add_boxes/add_cap_checkered_pattern_color_toggle_box.c lib/libft/src/time/get_current_time_in_ms.c lib/libft/src/numbers/clamp/clamp.c)

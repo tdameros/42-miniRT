@@ -27,6 +27,9 @@ int	key_press_handler(int key_code, t_engine *engine)
 	{
 		if (take_screenshot(&engine->ray_traced_image) < 0)
 			ft_print_error("An error has occurred during the screenshot.\n");
+		else
+			engine->gui.screen_shot.last_screen_shot
+				= ft_get_current_time_in_ms();
 	}
 	else if (key_code == KEY_G)
 	{

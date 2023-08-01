@@ -30,6 +30,7 @@
 #define FPS_GOAL 45
 #define FRAME_BEFORE_ADAPTION 20
 
+static void			render_screen_shot_animation(t_engine *engine);
 static void			render_minirt(t_engine *engine, uint64_t start_time);
 static int			get_incrementer(t_engine *engine);
 static void			update_scene(t_engine *engine);
@@ -46,7 +47,32 @@ int	render_frame(t_engine *engine)
 	render_minirt(engine, ft_timeval_to_ms(start_time));
 	if (engine->should_render_ray_tracing)
 		print_fps_counter(engine, start_time);
+	render_screen_shot_animation(engine);
 	return (0);
+}
+
+#define SCREEN_SHOT_ANIMATION_DURATION 250.f
+static void	render_screen_shot_animation(t_engine *engine)
+{
+	const uint64_t	current_time = ft_get_current_time_in_ms();
+	const float		time_elapsed = current_time
+		- engine->gui.screen_shot.last_screen_shot;
+	int16_t			transparency;
+
+	if (time_elapsed > SCREEN_SHOT_ANIMATION_DURATION)
+		return ;
+	if (time_elapsed < SCREEN_SHOT_ANIMATION_DURATION / 2.f)
+		transparency = roundf((1.f - time_elapsed
+			/ (SCREEN_SHOT_ANIMATION_DURATION / 2.f)) * 255.f);
+	else
+		transparency = roundf(
+				(time_elapsed - SCREEN_SHOT_ANIMATION_DURATION / 2.f)
+				/ (SCREEN_SHOT_ANIMATION_DURATION / 2.f) * 255.f);
+	transparency = ft_clamp(transparency, 0, 255);
+	change_image_color(&engine->gui.screen_shot.image,
+		COLOR_WHITE | (transparency << 24));
+	mlx_put_image_to_window(engine->window.mlx, engine->window.window,
+		engine->gui.screen_shot.image.data, 0, 0); // TODO make linux version of this
 }
 
 #if defined __linux__
