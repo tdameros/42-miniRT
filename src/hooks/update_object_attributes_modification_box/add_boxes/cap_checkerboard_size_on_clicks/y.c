@@ -27,10 +27,14 @@ void	cap_checkerboard_size_input_box_y_on_click_plus(t_gui_box *self,
 	object = engine->gui.selected_object.object;
 	if (object == NULL)
 		return ;
-	object->material.texture.cap.checkerboard.size.y++;
+	if ((int)object->material.texture.cap.checkerboard.size.y % 2)
+		object->material.texture.cap.checkerboard.size.y++;
+	object->material.texture.cap.checkerboard.size.y
+			= (int)object->material.texture.cap.checkerboard.size.y + 2;
+	object->material.texture.cap.texture_type = CHECKERBOARD;
 	engine->scene_changed = true;
 	update_xy_float_input_boxes(engine,
-		object->material.texture.cap.checkerboard.size,
+		vector2f_divide(object->material.texture.cap.checkerboard.size, 2.f),
 		&engine->gui.float_input_boxes.cap_checkerboard_size);
 	redraw_icons(engine, engine->gui.selected_object.object->material);
 }
@@ -48,10 +52,25 @@ void	cap_checkerboard_size_input_box_y_on_click_minus(t_gui_box *self,
 	if (object == NULL || object->material.texture.cap.checkerboard.size.y
 		<= 1.f)
 		return ;
-	object->material.texture.cap.checkerboard.size.y--;
+	if ((int)object->material.texture.cap.checkerboard.size.y % 2)
+		object->material.texture.cap.checkerboard.size.y++;
+	object->material.texture.cap.checkerboard.size.y
+			= (int)object->material.texture.cap.checkerboard.size.y - 2;
+	if (object->material.texture.cap.checkerboard.size.x <= 1.f
+		&& object->material.texture.cap.checkerboard.size.y <= 1.f)
+	{
+		object->material.texture.cap.texture_type = NONE;
+		if (engine->gui.color_and_material.color_being_changed == CAP_COLOR)
+		{
+			engine->gui.color_and_material.color_being_changed = BASE_COLOR;
+			draw_cap_checkerboard_color_toggle_box(
+				engine->gui.color_and_material.\
+				cap_checkered_pattern_color_toggle_box, engine);
+		}
+	}
 	engine->scene_changed = true;
 	update_xy_float_input_boxes(engine,
-		object->material.texture.cap.checkerboard.size,
+		vector2f_divide(object->material.texture.cap.checkerboard.size, 2.f),
 		&engine->gui.float_input_boxes.cap_checkerboard_size);
 	redraw_icons(engine, engine->gui.selected_object.object->material);
 }

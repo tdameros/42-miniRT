@@ -60,12 +60,13 @@ static void	update_float_input_boxes_object(t_engine *engine)
 		engine->gui.selected_object.object->material.specular,
 		engine->gui.float_input_boxes.specular_reflection);
 	update_xy_float_input_boxes(engine,
-		engine->gui.selected_object.object->material.texture. \
-		outline.checkerboard.size,
+		vector2f_divide(engine->gui.selected_object.object->material.texture. \
+		outline.checkerboard.size, 2.f),
 		&engine->gui.float_input_boxes.outline_checkerboard_size);
 	update_xy_float_input_boxes(engine,
-		engine->gui.selected_object.object->material.texture.cap.checkerboard.\
-		size, &engine->gui.float_input_boxes.cap_checkerboard_size);
+		vector2f_divide(engine->gui.selected_object.object->material.texture.\
+		cap.checkerboard.size, 2.f),
+		&engine->gui.float_input_boxes.cap_checkerboard_size);
 }
 
 static void	update_float_input_boxes_light(t_engine *engine)

@@ -323,7 +323,7 @@ add_executable(42_miniRT
         src/hooks/update_object_attributes_modification_box/add_boxes/utils/init_description_box.c
         src/hooks/update_object_attributes_modification_box/add_boxes/add_brightness_box.c
         src/hooks/update_object_attributes_modification_box/add_boxes/add_cap_checkerboard_size_box.c
-        src/hooks/update_object_attributes_modification_box/add_boxes/add_checkered_pattern_color_toggle_box.c
+        src/hooks/update_object_attributes_modification_box/add_boxes/add_outline_checkered_pattern_color_toggle_box.c
         src/hooks/update_object_attributes_modification_box/add_boxes/add_height_box.c
         src/hooks/update_object_attributes_modification_box/add_boxes/add_normal_box.c
         src/hooks/update_object_attributes_modification_box/add_boxes/add_outline_checkerboard_size_box.c
@@ -446,4 +446,4 @@ add_executable(42_miniRT
         src/close_miniRT.c
         src/color.c
         src/init_minirt.c
-        src/main.c)
+        src/main.c src/hooks/update_object_attributes_modification_box/add_boxes/add_cap_checkered_pattern_color_toggle_box.c)

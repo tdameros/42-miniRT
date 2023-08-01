@@ -56,6 +56,7 @@ void		add_x_y_box(t_engine *engine, t_gui_box *gui_box, int *i,
 				t_gui_box *parent);
 void		add_x_y_z_box(t_engine *engine, t_gui_box *gui_box, int *i,
 				t_gui_box *parent);
+int			get_attribute_box_size(void);
 int			get_xyz_box_size(t_gui_box *attribute_box);
 int			get_xy_box_size(t_gui_box *attribute_box);
 int			get_normal_box_size(t_gui_box *attribute_box);
@@ -66,10 +67,14 @@ void		add_brightness_box(t_engine *engine, t_gui_box *gui_box, int *i,
 				t_gui_box *parent);
 void		add_cap_checkerboard_size_box(t_engine *engine, t_gui_box *gui_box,
 				int *i, t_gui_box *parent);
-void		add_checkered_pattern_color_toggle_box(t_engine *engine,
+void		add_outline_checkerboard_color_toggle_box(t_engine *engine,
 				t_gui_box *gui_box, int *i, t_gui_box *parent);
-void		checkered_pattern_color_toggle_box_on_click(t_gui_box *self,
-				t_engine *engine, t_click_data click_data);
+void		draw_outline_checkerboard_color_toggle_box(t_gui_box *self,
+				t_engine *engine);
+void		add_cap_checkerboard_color_toggle_box(t_engine *engine,
+				t_gui_box *gui_box, int *i, t_gui_box *parent);
+void		draw_cap_checkerboard_color_toggle_box(t_gui_box *self,
+				t_engine *engine);
 void		add_outline_checkerboard_size_box(t_engine *engine,
 				t_gui_box *gui_box, int *i, t_gui_box *parent);
 void		add_height_box(t_engine *engine, t_gui_box *gui_box, int *i,

@@ -23,7 +23,7 @@ void	sphere_create_on_click(t_gui_box *self, t_engine *engine,
 			t_click_data click_data)
 {
 	const t_material	material
-		= engine->gui.rgb_color_and_material.material_to_assign_to_new_objects;
+		= engine->gui.color_and_material.material_to_assign_to_new_objects;
 	t_object			object;
 
 	if (click_data.button != BUTTON_LEFT)
@@ -43,7 +43,7 @@ void	plane_create_on_click(t_gui_box *self, t_engine *engine,
 			t_click_data click_data)
 {
 	const t_material	material
-		= engine->gui.rgb_color_and_material.material_to_assign_to_new_objects;
+		= engine->gui.color_and_material.material_to_assign_to_new_objects;
 	t_object			object;
 
 	if (click_data.button != BUTTON_LEFT)
@@ -64,7 +64,7 @@ void	cylinder_create_on_click(t_gui_box *self, t_engine *engine,
 			t_click_data click_data)
 {
 	const t_material	material
-		= engine->gui.rgb_color_and_material.material_to_assign_to_new_objects;
+		= engine->gui.color_and_material.material_to_assign_to_new_objects;
 	const t_object_size	size = (t_object_size){0.5f, 3.f};
 	t_object			object;
 
@@ -86,7 +86,7 @@ void	cone_create_on_click(t_gui_box *self, t_engine *engine,
 			t_click_data click_data)
 {
 	const t_material	material
-		= engine->gui.rgb_color_and_material.material_to_assign_to_new_objects;
+		= engine->gui.color_and_material.material_to_assign_to_new_objects;
 	const t_object_size	size = (t_object_size){1.f, 3.f};
 	t_object			object;
 
@@ -114,7 +114,7 @@ void	light_create_on_click(t_gui_box *self, t_engine *engine,
 	if (engine->object_being_placed.object || engine->object_being_placed.light)
 		return ;
 	light = light_create(vector3f_create(0, 0, 0),
-			engine->gui.rgb_color_and_material.\
+			engine->gui.color_and_material.\
 			material_to_assign_to_new_objects.albedo, 0.5f);
 	add_light(engine, light);
 	engine->object_being_placed_distance = DEFAULT_DISTANCE;

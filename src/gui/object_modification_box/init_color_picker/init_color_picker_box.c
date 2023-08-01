@@ -77,10 +77,10 @@ static void	color_picker_draw(t_gui_box *self, t_engine *engine,
 static void	color_picker_draw(t_gui_box *self, t_engine *engine,
 				t_draw_data draw_data)
 {
-	if (engine->gui.rgb_color_and_material.color_picker_base_color_was_changed)
+	if (engine->gui.color_and_material.color_picker_base_color_was_changed)
 	{
 		update_image(self, engine);
-		engine->gui.rgb_color_and_material.color_picker_base_color_was_changed
+		engine->gui.color_and_material.color_picker_base_color_was_changed
 			= false;
 	}
 	mlx_put_image_to_window(engine->window.mlx, engine->window.window,
@@ -109,12 +109,12 @@ static void	update_image(t_gui_box *self, t_engine *engine)
 		limit = (int)roundf((float)self->image.width / 2);
 		while (++x < limit)
 			put_pixel_on_image(&self->image, y, x, get_darker_color(x, limit, \
-				engine->gui.rgb_color_and_material.color_picker_base_color));
+				engine->gui.color_and_material.color_picker_base_color));
 		x--;
 		while (++x < self->image.width)
 			put_pixel_on_image(&self->image, y, x, get_lighter_color(x, \
 				self->image.width, limit, \
-				engine->gui.rgb_color_and_material.color_picker_base_color));
+				engine->gui.color_and_material.color_picker_base_color));
 	}
 	round_image_corners(&self->image, 10);
 }
@@ -165,9 +165,12 @@ static void	color_picker_on_click(t_gui_box *self, t_engine *engine,
 		light_set_color(engine->gui.selected_object.light, albedo);
 		return (redraw_icons(engine, material_create(albedo, 0, 0)));
 	}
-	if (engine->gui.color_being_changed_is_checked_pattern)
+	if (engine->gui.color_and_material.color_being_changed == OUTLINE_COLOR)
 		engine->gui.selected_object.object->material.texture.\
 			outline.checkerboard.albedo = albedo;
+	else if (engine->gui.color_and_material.color_being_changed == CAP_COLOR)
+		engine->gui.selected_object.object->material.texture.\
+			cap.checkerboard.albedo = albedo;
 	else
 		engine->gui.selected_object.object->material.albedo = albedo;
 	redraw_icons(engine, engine->gui.selected_object.object->material);
