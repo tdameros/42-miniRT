@@ -28,6 +28,14 @@ void	object_move(t_object *object, const t_vector3f movement_axis,
 void	object_rotate(t_object *object, const t_vector3f rotation_axis,
 						const float distance)
 {
+	object->axis_degrees = vector3f_add(object->axis_degrees,
+			vector3f_multiply(rotation_axis, distance));
+	while (object->axis_degrees.x >= 360.f)
+		object->axis_degrees.x -= 360.f;
+	while (object->axis_degrees.y >= 360.f)
+		object->axis_degrees.y -= 360.f;
+	while (object->axis_degrees.z >= 360.f)
+		object->axis_degrees.z -= 360.f;
 	if (object->type == CONE)
 		cone_rotate(object, rotation_axis, distance);
 	else if (object->type == CYLINDER || object->type == CYLINDER_INF)

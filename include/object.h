@@ -82,6 +82,7 @@ typedef struct s_object
 	float					radius;
 	float					height;
 	t_vector3f				axis;
+	t_vector3f				axis_degrees;
 	t_material				material;
 	union u_object_cache	cache;
 	char					*name;

@@ -28,7 +28,7 @@ void	normal_input_box_z_on_click_plus(t_gui_box *self, t_engine *engine,
 	object_rotate(object, (t_vector3f){0.f, 0.f, 1.f},
 		engine->gui.object_rotation_degrees);
 	engine->scene_changed = true;
-	update_xyz_float_input_boxes(engine, object->axis,
+	update_xyz_float_input_boxes(engine, object->axis_degrees,
 		&engine->gui.float_input_boxes.normal);
 }
 
@@ -46,7 +46,7 @@ void	normal_input_box_z_on_click_minus(t_gui_box *self, t_engine *engine,
 	object_rotate(object, (t_vector3f){0.f, 0.f, 1.f},
 		-engine->gui.object_rotation_degrees);
 	engine->scene_changed = true;
-	update_xyz_float_input_boxes(engine, object->axis,
+	update_xyz_float_input_boxes(engine, object->axis_degrees,
 		&engine->gui.float_input_boxes.normal);
 }
 

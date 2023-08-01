@@ -45,7 +45,7 @@ static void	update_float_input_boxes_object(t_engine *engine)
 		engine->gui.selected_object.object->height,
 		engine->gui.float_input_boxes.height);
 	update_xyz_float_input_boxes(engine,
-		engine->gui.selected_object.object->axis,
+		engine->gui.selected_object.object->axis_degrees,
 		&engine->gui.float_input_boxes.normal);
 	update_xyz_float_input_boxes(engine,
 		engine->gui.selected_object.object->position,
