@@ -60,5 +60,5 @@ static void	add_texture_boxes(t_engine *engine, t_gui_box *gui_box)
 	add_outline_checkerboard_size_box(engine, gui_box->children.data + 4,
 		&y, gui_box);
 	add_outline_checkerboard_color_toggle_box(engine, gui_box->children.data + 5,
-											  &y, gui_box);
+		&y, gui_box);
 }

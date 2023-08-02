@@ -70,6 +70,8 @@ static void	outline_checkerboard_color_toggle_box_on_click(t_gui_box *self,
 void	draw_outline_checkerboard_color_toggle_box(
 			t_gui_box *outline_checkerboard_color_toggle_box, t_engine *engine)
 {
+	if (outline_checkerboard_color_toggle_box == NULL)
+		return ;
 	change_image_color(&outline_checkerboard_color_toggle_box->image,
 		COLOR_TRANSPARENT);
 	change_image_color(&outline_checkerboard_color_toggle_box->on_hover_image,

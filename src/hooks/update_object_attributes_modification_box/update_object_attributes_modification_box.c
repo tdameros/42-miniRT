@@ -22,6 +22,10 @@ void	update_object_attributes_modification_box(t_engine *engine)
 		engine->gui.object_attributes_modification_box);
 	ft_bzero(&engine->gui.float_input_boxes,
 		sizeof(engine->gui.float_input_boxes));
+	engine->gui.color_and_material.cap_checkered_pattern_color_toggle_box
+		= NULL;
+	engine->gui.color_and_material.outline_checkered_pattern_color_toggle_box
+		= NULL;
 	if (engine->object_being_placed.object != NULL)
 	{
 		engine->gui.selected_object.object = engine->object_being_placed.object;

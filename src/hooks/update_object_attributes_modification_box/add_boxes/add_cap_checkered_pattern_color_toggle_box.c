@@ -69,6 +69,8 @@ static void	cap_checkerboard_color_toggle_box_on_click(t_gui_box *self,
 void	draw_cap_checkerboard_color_toggle_box(
 			t_gui_box *cap_checkerboard_color_toggle_box, t_engine *engine)
 {
+	if (cap_checkerboard_color_toggle_box == NULL)
+		return ;
 	change_image_color(&cap_checkerboard_color_toggle_box->image,
 		COLOR_TRANSPARENT);
 	change_image_color(&cap_checkerboard_color_toggle_box->on_hover_image,
