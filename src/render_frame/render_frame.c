@@ -246,9 +246,9 @@ static void	deal_keys(t_engine *engine)
 		else if (engine->pressed_keys[i] == KEY_L_SHIFT)
 			camera_move_up(&engine->camera, -0.4f);
 		else if (engine->pressed_keys[i] == KEY_Q)
-			camera_peek(&engine->camera, 4.f);
-		else if (engine->pressed_keys[i] == KEY_E)
 			camera_peek(&engine->camera, -4.f);
+		else if (engine->pressed_keys[i] == KEY_E)
+			camera_peek(&engine->camera, 4.f);
 	}
 }
 
