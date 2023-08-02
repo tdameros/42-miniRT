@@ -67,7 +67,6 @@ static bool	can_gui_box_be_placed(const t_engine *engine,
 	{
 		same_level_gui_boxes = parent->children;
 		parent_size = parent->size;
-		// TODO this doesn't work as the other children might not have been initialised yet
 	}
 	else
 	{
