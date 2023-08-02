@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 17:27:20 by vfries            #+#    #+#             */
-/*   Updated: 2023/07/30 17:27:20 by vfries           ###   ########lyon.fr   */
+/*   Updated: 2023/08/02 19:32:00 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ static void	init_main_gui_box_children(t_engine *engine, t_gui_box *gui_box)
 
 {
 	gui_box->children.size = 2;
-	gui_box->children.data = malloc(sizeof(*gui_box->children.data)
-			* gui_box->children.size);
+	gui_box->children.data = ft_calloc(gui_box->children.size,
+			sizeof(*gui_box->children.data));
 	if (gui_box->children.data == NULL)
 		ft_fatal_error("init_main_gui_box_children: malloc failed");
 	init_object_creation_gui_box(engine, gui_box->children.data, gui_box);

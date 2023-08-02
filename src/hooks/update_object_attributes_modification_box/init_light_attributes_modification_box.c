@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 11:33:00 by vfries            #+#    #+#             */
-/*   Updated: 2023/06/01 11:33:00 by vfries           ###   ########lyon.fr   */
+/*   Updated: 2023/08/02 19:32:00 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	init_light_attributes_modification_box(t_engine *engine,
 	int	i;
 
 	gui_box->children.size = 2;
-	gui_box->children.data = malloc(sizeof(*gui_box->children.data)
-			* gui_box->children.size);
+	gui_box->children.data = ft_calloc(gui_box->children.size,
+			sizeof(*gui_box->children.data));
 	if (gui_box->children.data == NULL)
 		ft_fatal_error("init_light_attributes_modification_box: "
 			"malloc failed");

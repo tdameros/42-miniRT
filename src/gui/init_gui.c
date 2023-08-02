@@ -25,8 +25,8 @@ static void	init_boxes(t_engine *engine);
 void	init_gui(t_engine *engine)
 {
 	engine->gui.gui_boxes.size = 3;
-	engine->gui.gui_boxes.data = malloc(sizeof(*engine->gui.gui_boxes.data)
-			* engine->gui.gui_boxes.size);
+	engine->gui.gui_boxes.data = ft_calloc(engine->gui.gui_boxes.size,
+			sizeof(*engine->gui.gui_boxes.data));
 	if (engine->gui.gui_boxes.data == NULL)
 		ft_fatal_error("init_gui: malloc failed");
 	engine->gui.draw_gui_image = &put_image_to_image_unsafe;

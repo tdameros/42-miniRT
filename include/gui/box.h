@@ -43,6 +43,7 @@ typedef struct s_gui_box
 							t_click_data click_data);
 	t_gui_boxes			children;
 	int					scroll;
+	bool				was_initialised;
 }	t_gui_box;
 
 typedef struct s_gui_box_create

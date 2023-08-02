@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_horizontal_boxes.c                          :+:      :+:    :+:   */
+/*   create_vertical_boxes.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 18:00:00 by vfries            #+#    #+#             */
-/*   Updated: 2023/06/02 18:00:00 by vfries           ###   ########lyon.fr   */
+/*   Updated: 2023/08/02 19:32:00 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	create_vertical_boxes(t_engine *engine, t_gui_box *gui_box,
 	if (side_offset * 2 >= gui_box->size.x)
 		ft_fatal_error("create_vertical_boxes: side_offset too big");
 	boxes_size = get_boxes_size(boxes_setup);
-	gui_box->children.data = malloc(sizeof(*gui_box->children.data)
-			* boxes_size.nb_of_boxes);
+	gui_box->children.data = ft_calloc(boxes_size.nb_of_boxes,
+			sizeof(*gui_box->children.data));
 	if (gui_box->children.data == NULL)
 		ft_fatal_error("create_vertical_boxes: malloc error");
 	gui_box->children.size = boxes_size.nb_of_boxes;

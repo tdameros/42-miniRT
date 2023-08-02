@@ -53,6 +53,7 @@ t_gui_box	create_t_gui_box(t_engine *engine, t_gui_box_create args)
 	gui_box.size = args.size;
 	gui_box.draw = &default_gui_box_draw;
 	gui_box.on_click = &default_gui_box_on_click;
+	gui_box.was_initialised = true;
 	return (gui_box);
 }
 
@@ -66,12 +67,12 @@ static bool	can_gui_box_be_placed(const t_engine *engine,
 	{
 		same_level_gui_boxes = parent->children;
 		parent_size = parent->size;
+		// TODO this doesn't work as the other children might not have been initialised yet
 	}
 	else
 	{
 		same_level_gui_boxes = engine->gui.gui_boxes;
-		parent_size = (t_vector2i){.x = engine->window.size.x,
-			.y = engine->window.size.y};
+		parent_size = engine->window.size;
 	}
 	return (
 		!(is_gui_box_too_big_to_fit_in_parent(parent_size, position, size)
@@ -101,14 +102,15 @@ static bool	does_gui_box_overlap_with_another_on_the_same_level(
 
 	i = same_level_gui_boxes.size;
 	while (i--)
-		if (do_gui_boxes_overlap(new_gui_box_limit,
-				same_level_gui_boxes.data + i))
+		if (same_level_gui_boxes.data[i].was_initialised
+			&& do_gui_boxes_overlap(new_gui_box_limit,
+					same_level_gui_boxes.data + i))
 			return (true);
 	return (false);
 }
 
 static bool	do_gui_boxes_overlap(struct s_limit new_gui_box_limit,
-									const t_gui_box *gui_box_to_compare)
+				const t_gui_box *gui_box_to_compare)
 {
 	const struct s_limit	gui_box_to_compare_limit = {
 		.left = gui_box_to_compare->position.x,

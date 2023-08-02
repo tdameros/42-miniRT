@@ -31,7 +31,7 @@ static void	init_rgb_picker_children(t_engine *minirt, t_gui_boxes *gui_boxes,
 				t_gui_box *parent)
 {
 	gui_boxes->size = 2;
-	gui_boxes->data = malloc(sizeof(*gui_boxes->data) * gui_boxes->size);
+	gui_boxes->data = ft_calloc(gui_boxes->size, sizeof(*gui_boxes->data));
 	if (gui_boxes->data == NULL)
 		ft_fatal_error("init_rgb_picker_children: malloc failed");
 	init_base_color_box(minirt, gui_boxes->data, parent);

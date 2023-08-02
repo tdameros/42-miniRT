@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 17:52:00 by vfries            #+#    #+#             */
-/*   Updated: 2023/06/01 17:52:00 by vfries           ###   ########lyon.fr   */
+/*   Updated: 2023/08/02 19:32:00 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	create_n_horizontal_boxes(t_engine *engine, t_gui_box *gui_box,
 	if (n <= 0 || offset.x < 0 || offset.y < 0 || gui_box == NULL
 		|| (gui_box->size.x - (n + 1) * offset.x) / n <= 0)
 		ft_fatal_error("create_n_horizontal_boxes: invalid parameters");
-	gui_box->children.data = malloc(sizeof(*gui_box->children.data) * n);
+	gui_box->children.data = ft_calloc(n, sizeof(*gui_box->children.data));
 	if (gui_box->children.data == NULL)
 		ft_fatal_error("create_n_horizontal_boxes: malloc error");
 	gui_box->children.size = n;

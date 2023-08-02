@@ -4,13 +4,7 @@ project(42_miniRT C)
 set(CMAKE_C_STANDARD 11)
 
 include_directories(include)
-include_directories(include/deprecated)
-include_directories(include/font)
-include_directories(include/gui)
-include_directories(include/math)
-include_directories(include/ray_tracer)
 include_directories(lib/libft/include)
-include_directories(lib/libft/src/io/get_next_line)
 include_directories(lib/minilibx_opengl_20191021)
 
 add_executable(42_miniRT
