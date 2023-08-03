@@ -5,8 +5,8 @@
 #include "gui/utils.h"
 
 #define BASE_IMAGE_SIZE 1024.f
-#define TRANSPARENT_CERCLE_RADIUS 200
-#define COLOR_CERCLE_RADIUS 275
+#define TRANSPARENT_CIRCLE_RADIUS 200.f
+#define COLOR_CIRCLE_RADIUS 275.f
 
 void	draw_light_icon(t_image *image,
 			const unsigned int background_color, const t_color vec_color)
@@ -22,7 +22,7 @@ void	draw_light_icon(t_image *image,
 	draw_top_rectangles(image, color, scale, offset);
 	draw_bottom_rectangles(image, color, scale, offset);
 	draw_side_rectangles(image, color, scale, offset);
-	image_draw_circle(image, center, COLOR_CERCLE_RADIUS * scale, color);
-	image_draw_circle(image, center, TRANSPARENT_CERCLE_RADIUS * scale,
+	image_draw_circle(image, center, COLOR_CIRCLE_RADIUS * scale, color);
+	image_draw_circle(image, center, TRANSPARENT_CIRCLE_RADIUS * scale,
 		background_color);
 }
