@@ -296,7 +296,7 @@ add_executable(42_miniRT
         src/gui/create_horizontal_boxes.c
         src/gui/create_n_horizontal_boxes.c
         src/gui/create_vertical_boxes.c
-        src/gui/draw_icon.c
+        src/gui/draw_icon/draw_icon.c
         src/gui/init_gui.c
         src/hooks/update_object_attributes_modification_box/add_boxes/cap_checkerboard_size_on_clicks/x.c
         src/hooks/update_object_attributes_modification_box/add_boxes/cap_checkerboard_size_on_clicks/y.c
@@ -440,4 +440,4 @@ add_executable(42_miniRT
         src/close_miniRT.c
         src/color.c
         src/init_minirt.c
-        src/main.c src/hooks/update_object_attributes_modification_box/add_boxes/add_cap_checkered_pattern_color_toggle_box.c lib/libft/src/time/get_current_time_in_ms.c lib/libft/src/numbers/clamp/clamp.c)
+        src/main.c src/hooks/update_object_attributes_modification_box/add_boxes/add_cap_checkered_pattern_color_toggle_box.c lib/libft/src/time/get_current_time_in_ms.c lib/libft/src/numbers/clamp/clamp.c src/gui/draw_icon/draw_light_icon/draw_light_icon.c src/gui/draw_icon/draw_light_icon/draw_top_rectangles.c src/gui/draw_icon/draw_light_icon/draw_bottom_rectangles.c src/gui/draw_icon/draw_light_icon/draw_bottom_rectangles.c src/gui/draw_icon/draw_light_icon/draw_sides_rectangles.c)

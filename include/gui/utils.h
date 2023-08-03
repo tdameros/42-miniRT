@@ -58,4 +58,13 @@ void				draw_center_box_image(t_image *image);
 void				draw_icon(t_image *image, int type,
 						unsigned int background_color, t_material material);
 
+void				draw_light_icon(t_image *image,
+						unsigned int background_color, t_color color);
+void				draw_top_rectangles(t_image *image, unsigned int color,
+							float scale, t_vector2f offset);
+void				draw_bottom_rectangles(t_image *image, unsigned int color,
+						float scale, t_vector2f offset);
+void				draw_side_rectangles(t_image *image, unsigned int color,
+						float scale, t_vector2f offset);
+
 #endif

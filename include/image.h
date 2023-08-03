@@ -31,6 +31,12 @@ typedef struct s_image
 	size_t			size;
 }	t_image;
 
+typedef struct s_circle_info
+{
+	t_vector2f	circle_center;
+	float		radius_squared;
+}	t_circle_info;
+
 void			init_image(t_image *image, t_window *window, int width,
 					int height);
 void			init_image_from_xpm(t_image *image, t_window *window,
@@ -47,7 +53,7 @@ void			put_image_to_image_unsafe(register t_image *destination,
 					const t_image *source, t_vector2i position);
 void			put_background(t_image *destination, const t_image *source);
 
-void			image_draw_circle(t_image *image, t_vector2i circle_center,
+void			image_draw_circle(t_image *image, t_vector2f circle_center,
 					float radius, unsigned int color);
 void			image_draw_plus(t_image *image, float thickness,
 					float border, unsigned int color);

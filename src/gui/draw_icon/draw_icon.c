@@ -15,8 +15,6 @@
 #include "ray_tracer/render.h"
 #include "gui/utils.h"
 
-static void		draw_light_icon(t_image *image, unsigned int background_color,
-					t_color color);
 static void		tmp_camera_create(t_camera *camera, t_vector2f viewport);
 static void		init_tmp_scene(t_engine *tmp_engine, enum e_object_type type,
 					t_material material, t_vector3f sky_color);
@@ -33,11 +31,8 @@ void	draw_icon(t_image *image, const int type,
 			get_t_color_from_uint(background_color), 255.f);
 
 	if (type == LIGHT)
-	{
-		draw_light_icon(image, background_color,
-			vector3f_multiply(material.albedo, 255.f));
-		return ;
-	}
+		return (draw_light_icon(image, background_color,
+			vector3f_multiply(material.albedo, 255.f)));
 	ft_bzero(&tmp_engine, sizeof(tmp_engine));
 	tmp_engine.ray_traced_image = *image;
 	tmp_camera_create(&tmp_engine.camera,
@@ -47,17 +42,6 @@ void	draw_icon(t_image *image, const int type,
 //	free(tmp_engine.camera.rays);
 	free_objects(&tmp_engine.scene.objects);
 	free_lights(&tmp_engine.scene.lights);
-}
-
-static void	draw_light_icon(t_image *image,
-				const unsigned int background_color, const t_color color)
-{
-	const float			radius = fminf(image->width, image->height) / 3.f;
-	const t_vector2i	center = {image->width / 2, image->height / 2};
-
-	// TODO make a better icon
-	change_image_color(image, background_color);
-	image_draw_circle(image, center, radius, vec_rgb_to_uint(color));
 }
 
 static void	tmp_camera_create(t_camera *camera, t_vector2f viewport)

@@ -45,6 +45,12 @@ SRC				=\
 	gui/box/get_clicked_gui_box.c		\
 	gui/box/mouse_utils.c				\
 	\
+	gui/draw_icon/draw_icon.c								\
+	gui/draw_icon/draw_light_icon/draw_bottom_rectangles.c	\
+	gui/draw_icon/draw_light_icon/draw_light_icon.c			\
+	gui/draw_icon/draw_light_icon/draw_sides_rectangles.c	\
+	gui/draw_icon/draw_light_icon/draw_top_rectangles.c		\
+	\
 	gui/float_input_box/create_float_input_box.c	\
 	gui/float_input_box/draw_float_input_box.c		\
 	gui/float_input_box/update_float_input_box.c	\
@@ -77,7 +83,6 @@ SRC				=\
 	gui/create_horizontal_boxes.c	\
 	gui/create_n_horizontal_boxes.c	\
 	gui/create_vertical_boxes.c		\
-	gui/draw_icon.c					\
 	gui/init_gui.c					\
 	\
 	\

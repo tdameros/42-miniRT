@@ -13,6 +13,8 @@
 #ifndef COLORS_H
 # define COLORS_H
 
+# include <stdint.h>
+
 # include "math/vector.h"
 
 enum
@@ -35,6 +37,8 @@ typedef t_vector3f	t_color;
 
 unsigned int	rgb_to_uint(t_color color);
 unsigned int	vec_rgb_to_uint(t_color color);
+uint8_t			get_transparency(unsigned int color);
+float			get_transparency_ratio(unsigned int color);
 t_color			get_t_color_from_uint(unsigned int color);
 
 #endif
