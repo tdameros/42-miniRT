@@ -111,6 +111,7 @@ SRC				=\
 	hooks/update_object_attributes_modification_box/add_boxes/add_brightness_box.c								\
 	hooks/update_object_attributes_modification_box/add_boxes/add_cap_checkerboard_size_box.c					\
 	hooks/update_object_attributes_modification_box/add_boxes/add_cap_checkered_pattern_color_toggle_box.c		\
+	hooks/update_object_attributes_modification_box/add_boxes/add_delete_box.c									\
 	hooks/update_object_attributes_modification_box/add_boxes/add_height_box.c									\
 	hooks/update_object_attributes_modification_box/add_boxes/add_normal_box.c									\
 	hooks/update_object_attributes_modification_box/add_boxes/add_outline_checkerboard_size_box.c				\

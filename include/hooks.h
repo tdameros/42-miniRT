@@ -77,6 +77,8 @@ void		draw_cap_checkerboard_color_toggle_box(t_gui_box *self,
 				t_engine *engine);
 void		add_outline_checkerboard_size_box(t_engine *engine,
 				t_gui_box *gui_box, int *i, t_gui_box *parent);
+void		add_delete_box(t_engine *engine, t_gui_box *gui_box,
+				t_gui_box *parent);
 void		add_height_box(t_engine *engine, t_gui_box *gui_box, int *i,
 				t_gui_box *parent);
 void		add_normal_box(t_engine *engine, t_gui_box *gui_box, int *i,

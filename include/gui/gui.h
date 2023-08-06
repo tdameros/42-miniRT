@@ -92,6 +92,14 @@ typedef struct s_screen_shot
 	t_image		image;
 }	t_screen_shot;
 
+enum e_optional_window
+{
+	NO_OPTIONAL_WINDOW = -1,
+	SETTINGS_WINDOW,
+	BUMP_MAP_WINDOW,
+	TEXTURE_WINDOW,
+};
+
 typedef struct s_gui
 {
 	t_font					font;
