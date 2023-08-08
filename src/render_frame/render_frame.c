@@ -10,16 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include <sys/time.h>
 #include <math.h>
-#include <limits.h>
 
 #include "mlx.h"
 #include "libft.h"
 
 #include "engine.h"
-#include "gui/box.h"
 #include "render_frame.h"
 #include "ray_tracer/render.h"
 #include "gui/utils.h"
