@@ -19,6 +19,7 @@
 # include "math/vector.h"
 # include "colors.h"
 # include "material.h"
+# include "mesh.h"
 
 # define LIGHT (-1)
 
@@ -29,6 +30,8 @@ enum e_object_type
 	CYLINDER,
 	CYLINDER_INF,
 	CONE,
+	TRIANGLE,
+	MESH,
 };
 
 typedef struct s_cone_cache
@@ -86,6 +89,12 @@ typedef struct s_object
 	t_material				material;
 	union u_object_cache	cache;
 	char					*name;
+
+	// Triangle
+	t_vector3f				vertex_a;
+	t_vector3f				vertex_b;
+	t_vector3f				vertex_c;
+	t_mesh					mesh;
 }	t_object;
 
 typedef struct s_objects
@@ -94,6 +103,10 @@ typedef struct s_objects
 	size_t				length;
 	size_t				size;
 }	t_objects;
+
+t_object	mesh_create(const char *obj_file, t_material material);
+t_object	triangle_create(const t_vector3f vertex_a, const t_vector3f vertex_b,
+							const t_vector3f vertex_c, const t_vector3f normal, const t_material material);
 
 //	cone/create.c
 t_object	cone_create(const t_vector3f position, const t_vector3f axis,

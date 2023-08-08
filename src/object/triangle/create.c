@@ -14,21 +14,17 @@
 
 #include "object.h"
 
-t_object	plane_create(const t_vector3f position, const t_vector3f normal,
-						const t_material material)
+t_object	triangle_create(const t_vector3f vertex_a, const t_vector3f vertex_b,
+							const t_vector3f vertex_c, const t_vector3f normal, const t_material material)
 {
-	t_object	plane;
+	t_object	triangle;
 
-	plane.type = PLANE;
-	plane.position = position;
-	plane.axis = normal;
-	plane.material = material;
-	plane.name = ft_strdup("Plane");
-	plane_calculate_cache(&plane);
-	return (plane);
-}
-
-void	plane_calculate_cache(t_object *plane)
-{
-	plane->cache.plane.d = -vector3f_dot(plane->axis, plane->position);
+	triangle.type = TRIANGLE;
+	triangle.vertex_a = vertex_a;
+	triangle.vertex_b = vertex_b;
+	triangle.vertex_c = vertex_c;
+	triangle.axis = normal;
+	triangle.material = material;
+	triangle.name = ft_strdup("Triangle");
+	return (triangle);
 }

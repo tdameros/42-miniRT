@@ -10,7 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INC_42_MINIRT_TRIANGLE_H
-# define INC_42_MINIRT_TRIANGLE_H
+#ifndef TRIANGLE_H
+# define TRIANGLE_H
+
+# include <stdbool.h>
+
+# include "math/vector.h"
+
+bool	point_is_in_triangle(t_vector3f point, t_vector3f vertex_a,
+			t_vector3f vertex_b, t_vector3f vertex_c);
 
 #endif

@@ -128,6 +128,7 @@ void	scene_pilier(t_engine *engine)
 	material = material_create(vector3f_create(1.f, 1.f, 1.0f), 0.f, 0.f);
 	set_outline_texture(&material, "assets/textures/saturn.ppm");
 	object = sphere_create(vector3f_create(0.f, -3.f, 15.f), 1.5f, material);
+
 //    add_object(engine, object);
 
 	material = material_create(vector3f_create(1.f, 1.f, 1.0f), 0.f, 0.f);
@@ -167,8 +168,15 @@ void	scene_pilier(t_engine *engine)
 	t_object_size size = (t_object_size){3, 5};
 	object = cone_create(vector3f_create(-10.f, 0.f, 10.f), vector3f_create(0.f, 1.f, 0.f), size, material);
 	add_object(engine, object);
-	light = light_create(vector3f_create(0, 1, 15), vector3f_create(1, 1, 1), 1.f);
 
+	material = material_create(vector3f_create(1.f, 1.0f, 1.0f), 0.f, 0.f);
+	object = mesh_create("data/cube.obj", material);
+//	object = triangle_create(vector3f_create(1.f, 0.f, 0.f), vector3f_create(0.f, 1.f, 0.f),
+//							 vector3f_create(0.f, 0.f, 0.f), material);
+	add_object(engine, object);
+
+
+	light = light_create(vector3f_create(0, 1, 15), vector3f_create(1, 1, 1), 1.f);
 	add_light(engine, light);
 //    t_object_size size = (t_object_size) {0.25f, 2.f};
 	engine->scene.ambient_light = light_create(vector3f_create(0, 0, 0),

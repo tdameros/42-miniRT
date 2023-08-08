@@ -14,53 +14,53 @@
 
 #include "vectors.h"
 
-int	vectors3f_initialize(t_vectors3f *vectors3f, size_t size)
+int	mesh_faces_initialize(t_mesh_faces *mesh_faces, size_t size)
 {
 	if (size == 0)
 		size = 1;
-	vectors3f->data = malloc(sizeof(*vectors3f->data) * size);
-	if (vectors3f->data == NULL)
+	mesh_faces->data = malloc(sizeof(*mesh_faces->data) * size);
+	if (mesh_faces->data == NULL)
 		return (-1);
-	vectors3f->size = size;
-	vectors3f->length = 0;
+	mesh_faces->size = size;
+	mesh_faces->length = 0;
 	return (0);
 }
 
-int	vectors3f_add(t_vectors3f *vectors3f, t_vector3f vector3f)
+int	mesh_faces_add(t_mesh_faces *mesh_faces, t_mesh_face mesh_face)
 {
-	t_vector3f	*temp;
+	t_mesh_face	*temp;
 
-	if (vectors3f->length < vectors3f->size)
-		vectors3f->data[vectors3f->length] = vector3f;
+	if (mesh_faces->length < mesh_faces->size)
+		mesh_faces->data[mesh_faces->length] = mesh_face;
 	else
 	{
-		temp = malloc(sizeof(*vectors3f->data) * (vectors3f->size * 2));
+		temp = malloc(sizeof(*mesh_faces->data) * (mesh_faces->size * 2));
 		if (temp == NULL)
 			return (-1);
-		ft_memcpy(temp, vectors3f->data,
-			sizeof(*vectors3f->data) * vectors3f->size);
-		temp[vectors3f->length] = vector3f;
-		free(vectors3f->data);
-		vectors3f->data = temp;
-		vectors3f->size *= 2;
+		ft_memcpy(temp, mesh_faces->data,
+			sizeof(*mesh_faces->data) * mesh_faces->size);
+		temp[mesh_faces->length] = mesh_face;
+		free(mesh_faces->data);
+		mesh_faces->data = temp;
+		mesh_faces->size *= 2;
 	}
-	vectors3f->length += 1;
+	mesh_faces->length += 1;
 	return (0);
 }
 
-int	vectors3f_remove(t_vectors3f *vectors3f, const size_t index)
+int	mesh_faces_remove(t_mesh_faces *mesh_faces, const size_t index)
 {
-	if (vectors3f->length <= index)
+	if (mesh_faces->length <= index)
 		return (-1);
-	vectors3f->data[index] = vectors3f->data[vectors3f->length - 1];
-	vectors3f->length -= 1;
+	mesh_faces->data[index] = mesh_faces->data[mesh_faces->length - 1];
+	mesh_faces->length -= 1;
 	return (0);
 }
 
-int	vectors3f_free(t_vectors3f *vectors3f)
+int	mesh_faces_free(t_mesh_faces *mesh_faces)
 {
-	free(vectors3f->data);
-	vectors3f->size = 0;
-	vectors3f->length = 0;
+	free(mesh_faces->data);
+	mesh_faces->size = 0;
+	mesh_faces->length = 0;
 	return (0);
 }

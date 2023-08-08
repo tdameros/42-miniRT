@@ -10,7 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INC_42_MINIRT_MESH_H
-# define INC_42_MINIRT_MESH_H
+#ifndef MESH_H
+# define MESH_H
 
+# include "vectors.h"
+
+
+
+typedef struct s_mesh
+{
+	t_vectors3f		vertex;
+	t_vectors3f		normals;
+	t_mesh_faces	faces;
+}	t_mesh;
+
+int	initialize_mesh_with_obj(t_mesh *mesh, const char *file_name);
 #endif
