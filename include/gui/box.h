@@ -62,6 +62,7 @@ void		default_gui_box_draw(struct s_gui_box *self, t_engine *engine,
 void		default_gui_box_on_click(t_gui_box *self, t_engine *minirt,
 				t_click_data click_data);
 
-t_gui_box	*get_clicked_gui_box(t_gui_boxes gui_boxes, int *x, int *y);
+t_gui_box	*get_clicked_gui_box(t_engine *engine, t_gui_boxes gui_boxes,
+				int *x, int *y);
 
 #endif

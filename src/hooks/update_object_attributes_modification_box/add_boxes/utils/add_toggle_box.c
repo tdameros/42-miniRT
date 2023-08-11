@@ -27,18 +27,19 @@ static void	init_toggle_box_button(t_engine *engine, t_gui_box *gui_box,
 static void	init_toggle_box_text_box(t_engine *engine, t_gui_box *gui_box,
 				t_gui_box *parent, int button_size);
 
-void	add_toggle_box(t_engine *engine, t_gui_box *gui_box, int *i,
+void	add_toggle_box(t_engine *engine, t_gui_box *gui_box, int *y,
 			t_gui_box *parent)
 {
 	*gui_box = create_t_gui_box(engine, (t_gui_box_create){parent, \
 		(t_vector2i){
 			.x = 0,
-			.y = *i}, \
+			.y = *y}, \
 		(t_vector2i){
 			.x = parent->size.x,
-			.y = get_normal_box_size(parent)}, \
+			.y = get_normal_box_size(\
+					engine->gui.object_attributes_modification_box)}, \
 		true});
-	*i += gui_box->size.y + OBJECT_ATTRIBUTE_BOX_OFFSET;
+	*y += gui_box->size.y + OBJECT_ATTRIBUTE_BOX_OFFSET;
 	init_toggle_box_children(engine, gui_box);
 	change_image_color(&gui_box->image, SUB_GUI_COLOR);
 	round_image_corners(&gui_box->image, BOX_ROUNDING_RADIUS);

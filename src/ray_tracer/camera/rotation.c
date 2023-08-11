@@ -45,7 +45,10 @@ void	camera_peek(t_camera *camera, float degrees)
 
 void	camera_set_horizontal_fov(t_camera *camera, float horizontal_fov)
 {
-	if (horizontal_fov <= 0 || horizontal_fov >= 180)
-		return ;
-	camera->horizontal_fov = horizontal_fov;
+	if (horizontal_fov <= 0)
+		camera->horizontal_fov = 1;
+	else if (horizontal_fov >= 180)
+		camera->horizontal_fov = 179;
+	else
+		camera->horizontal_fov = horizontal_fov;
 }

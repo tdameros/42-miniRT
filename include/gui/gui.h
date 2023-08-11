@@ -92,12 +92,12 @@ typedef struct s_screen_shot
 	t_image		image;
 }	t_screen_shot;
 
-enum e_optional_window
+enum e_optional_box
 {
-	NO_OPTIONAL_WINDOW = -1,
-	SETTINGS_WINDOW,
-	BUMP_MAP_WINDOW,
-	TEXTURE_WINDOW,
+	NO_OPTIONAL_BOX = -1,
+	SETTINGS_BOX,
+	BUMP_MAP_BOX,
+	TEXTURE_BOX,
 };
 
 typedef struct s_gui
@@ -107,6 +107,8 @@ typedef struct s_gui
 	t_gui_hide_animation	hide_animation;
 	bool					should_show_gui_on_camera_lock;
 	t_gui_boxes				gui_boxes;
+	t_gui_boxes				optional_gui_boxes;
+	enum e_optional_box		current_optional_box;
 	t_color_and_material	color_and_material;
 	void					(*draw_gui_image)(t_image *destination, \
 								const t_image *source, t_vector2i position);

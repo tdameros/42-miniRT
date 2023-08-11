@@ -36,14 +36,6 @@ int	key_press_handler(int key_code, t_engine *engine)
 		if (export_scene(engine, "exported_scene.rt") < 0)
 			ft_print_error("An error has occurred during export.\n");
 	}
-	else if (key_code == KEY_F)
-	{
-		camera_set_horizontal_fov(&engine->camera,
-			engine->camera.horizontal_fov + 5);
-		camera_recalculate_projection(&engine->camera);
-		camera_recalculate_rays(&engine->camera);
-		engine->scene_changed = true;
-	}
 	if (key_code != KEY_W && key_code != KEY_S && key_code != KEY_A
 		&& key_code != KEY_D && key_code != KEY_SPACE && key_code != KEY_L_SHIFT
 		&& key_code != KEY_Q && key_code != KEY_E)

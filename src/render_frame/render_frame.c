@@ -24,11 +24,13 @@
 #include "events.h"
 #include "hooks.h"
 
-#define FPS_GOAL 45
+#define FPS_GOAL 45.f
 #define FRAME_BEFORE_ADAPTION 20
+#define DEFAULT_INCREMENTER_VALUE 2
 
 static void			render_screen_shot_animation(t_engine *engine);
 static void			render_minirt(t_engine *engine, uint64_t start_time);
+static int			adjust_incrementer(t_quality quality, int incrementer);
 static int			get_incrementer(t_engine *engine);
 static void			update_scene(t_engine *engine);
 static int			deal_mouse(t_engine *engine);
@@ -110,7 +112,18 @@ static void	render_minirt(t_engine *engine, const uint64_t start_time)
 	else if (engine->should_render_ray_tracing
 		&& engine->should_render_at_full_resolution)
 	{
-		render_anti_aliased_raytracing(engine);
+		if (engine->antialiasing)
+			render_anti_aliased_raytracing(engine);
+		else
+		{
+			render_raytracing(engine, engine->quality.min_reduction);
+			if (engine->quality.min_reduction > 1)
+				interpolate_ray_tracing(&engine->raytraced_pixels,
+					engine->quality.min_reduction);
+			for (size_t i = 0; i < engine->ray_traced_image.size; i++)
+				engine->ray_traced_image.address[i]
+						= vec_rgb_to_uint(engine->raytraced_pixels.data[i]);
+		}
 		engine->scene_changed = false;
 	}
 	mlx_put_image_to_window(engine->window.mlx, engine->window.window,
@@ -123,30 +136,35 @@ static void	render_minirt(t_engine *engine, const uint64_t start_time)
 
 static int	get_incrementer(t_engine *engine)
 {
-	static int	incrementer = 2;
+	static int	incrementer = DEFAULT_INCREMENTER_VALUE;
 	static int	fps_count = 0;
 	static int	frame_count = 0;
+	float		average_fps;
 
 	if (engine->should_render_at_full_resolution)
-		return (1);
+		return (engine->quality.min_reduction);
 	fps_count += engine->gui.fps.fps_nb;
-	if (frame_count >= FRAME_BEFORE_ADAPTION
-		&& fps_count / frame_count < FPS_GOAL * 0.66f)
-	{
-		incrementer++;
-		frame_count = 0;
-		fps_count = 0;
-		return (incrementer);
-	}
-	if (frame_count >= FRAME_BEFORE_ADAPTION && incrementer > 1
-		&& fps_count / frame_count > FPS_GOAL * 1.33f)
-	{
-		incrementer--;
-		frame_count = 0;
-		fps_count = 0;
-		return (incrementer);
-	}
 	frame_count++;
+	if (frame_count >= FRAME_BEFORE_ADAPTION)
+	{
+		average_fps = fps_count / (float)frame_count;
+		if (average_fps <= FPS_GOAL * 0.66f)
+			incrementer++;
+		else if (incrementer > 1 && average_fps > FPS_GOAL * 1.33f)
+			incrementer--;
+		frame_count = 0;
+		fps_count = 0;
+	}
+	incrementer = adjust_incrementer(engine->quality, incrementer);
+	return (incrementer);
+}
+
+static int	adjust_incrementer(t_quality quality, int incrementer)
+{
+	if (incrementer >= quality.max_reduction)
+		return (quality.max_reduction);
+	if (incrementer <= quality.min_reduction)
+		return (quality.min_reduction);
 	return (incrementer);
 }
 
@@ -248,22 +266,6 @@ static void	deal_keys(t_engine *engine)
 			camera_peek(&engine->camera, 4.f);
 	}
 }
-
-//static t_vector2i	clamp_mouse(t_engine *engine, t_vector2i mouse_position)
-//{
-//	if (mouse_position.x < 0)
-//		mouse_position.x = engine->camera.viewport.size.x - 1;
-//	else if (mouse_position.x >= engine->camera.viewport.size.x - 1)
-//		mouse_position.x = 0;
-//	if (mouse_position.y < 0)
-//		mouse_position.y = engine->camera.viewport.size.y - 1;
-//	else if (mouse_position.y >= engine->camera.viewport.size.y - 1)
-//		mouse_position.y = 0;
-//	mlx_mouse_move(engine->window.window,
-//		mouse_position.x,
-//		mouse_position.y);
-//	return (mouse_position);
-//}
 
 static void	update_placed_object_position(t_engine *engine)
 {

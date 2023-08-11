@@ -19,13 +19,17 @@
 #include "engine.h"
 #include "colors.h"
 #include "gui/UI.h"
+#include "events.h"
 
 #define CIRCLE_COLOR 0x00666666
 
 static void	write_setting_icon(t_image *image, unsigned int color);
+static void	settings_icon_on_click(t_gui_box *self, t_engine *engine,
+				t_click_data click_data);
 
 void	init_settings_icon(t_gui_box *gui_box)
 {
+	gui_box->on_click = &settings_icon_on_click;
 	write_setting_icon(&gui_box->image, COLOR_TRANSPARENT);
 	write_setting_icon(&gui_box->on_hover_image, HOVER_GUI_COLOR);
 	round_image_corners(&gui_box->on_hover_image, BOX_ROUNDING_RADIUS);
@@ -57,4 +61,16 @@ static void	write_setting_icon(t_image *image, const unsigned int color)
 			.x = image->width / 2, \
 			.y = image->height / 2},
 		circle_diameter / 2.4f, color);
+}
+
+static void	settings_icon_on_click(t_gui_box *self, t_engine *engine,
+				t_click_data click_data)
+{
+	(void)self;
+	if (click_data.button != BUTTON_LEFT)
+		return ;
+	if (engine->gui.current_optional_box == SETTINGS_BOX)
+		engine->gui.current_optional_box = NO_OPTIONAL_BOX;
+	else
+		engine->gui.current_optional_box = SETTINGS_BOX;
 }

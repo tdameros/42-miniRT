@@ -19,5 +19,7 @@ void	ft_fatal_error(const char *error_message)
 	ft_print_error("Error\n");
 	ft_print_error(error_message);
 	ft_print_error("\n");
+	// TODO remove below
+	char *test = NULL;*test = '\0';
 	exit(EXIT_FAILURE);
 }

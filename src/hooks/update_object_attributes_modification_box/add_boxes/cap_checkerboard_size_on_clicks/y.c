@@ -55,7 +55,7 @@ void	cap_checkerboard_size_input_box_y_on_click_minus(t_gui_box *self,
 	if ((int)object->material.texture.cap.checkerboard.size.y % 2)
 		object->material.texture.cap.checkerboard.size.y++;
 	object->material.texture.cap.checkerboard.size.y
-			= (int)object->material.texture.cap.checkerboard.size.y - 2;
+		= (int)object->material.texture.cap.checkerboard.size.y - 2;
 	if (object->material.texture.cap.checkerboard.size.x <= 1.f
 		&& object->material.texture.cap.checkerboard.size.y <= 1.f)
 	{
@@ -63,9 +63,9 @@ void	cap_checkerboard_size_input_box_y_on_click_minus(t_gui_box *self,
 		if (engine->gui.color_and_material.color_being_changed == CAP_COLOR)
 		{
 			engine->gui.color_and_material.color_being_changed = BASE_COLOR;
-			draw_cap_checkerboard_color_toggle_box(
+			draw_toggle_box(
 				engine->gui.color_and_material.\
-				cap_checkered_pattern_color_toggle_box, engine);
+				cap_checkered_pattern_color_toggle_box, false);
 		}
 	}
 	engine->scene_changed = true;

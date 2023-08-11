@@ -41,7 +41,8 @@ void	add_outline_checkerboard_color_toggle_box(t_engine *engine,
 		= &outline_checkerboard_color_toggle_box_on_click;
 	engine->gui.color_and_material.outline_checkered_pattern_color_toggle_box
 		= gui_box->children.data;
-	draw_outline_checkerboard_color_toggle_box(gui_box->children.data, engine);
+	draw_toggle_box(gui_box->children.data,
+		engine->gui.color_and_material.color_being_changed == OUTLINE_COLOR);
 	change_image_color(&gui_box->children.data[1].image, COLOR_TRANSPARENT);
 	write_centered_string_to_image(&engine->gui.font,
 		&gui_box->children.data[1].image, "Change outline checkerboard color");
@@ -60,32 +61,10 @@ static void	outline_checkerboard_color_toggle_box_on_click(t_gui_box *self,
 		engine->gui.color_and_material.color_being_changed = BASE_COLOR;
 	else
 		engine->gui.color_and_material.color_being_changed = OUTLINE_COLOR;
-	draw_outline_checkerboard_color_toggle_box(self, engine);
-	draw_cap_checkerboard_color_toggle_box(
+	draw_toggle_box(self,
+		engine->gui.color_and_material.color_being_changed == OUTLINE_COLOR);
+	draw_toggle_box(
 		engine->gui.color_and_material.cap_checkered_pattern_color_toggle_box,
-		engine);
+		engine->gui.color_and_material.color_being_changed == CAP_COLOR);
 	engine->scene_changed = true;
-}
-
-void	draw_outline_checkerboard_color_toggle_box(
-			t_gui_box *outline_checkerboard_color_toggle_box, t_engine *engine)
-{
-	if (outline_checkerboard_color_toggle_box == NULL)
-		return ;
-	change_image_color(&outline_checkerboard_color_toggle_box->image,
-		COLOR_TRANSPARENT);
-	change_image_color(&outline_checkerboard_color_toggle_box->on_hover_image,
-		HOVER_GUI_COLOR);
-	if (engine->gui.color_and_material.color_being_changed == OUTLINE_COLOR)
-	{
-		image_draw_check_mark(&outline_checkerboard_color_toggle_box->image,
-			COLOR_WHITE, TOGGLE_BOX_BUTTON_OUTLINE_WIDTH);
-		image_draw_check_mark(
-			&outline_checkerboard_color_toggle_box->on_hover_image, COLOR_WHITE,
-			TOGGLE_BOX_BUTTON_OUTLINE_WIDTH);
-	}
-	image_draw_outline(&outline_checkerboard_color_toggle_box->image,
-		TOGGLE_BOX_BUTTON_OUTLINE_WIDTH, COLOR_BLACK);
-	image_draw_outline(&outline_checkerboard_color_toggle_box->on_hover_image,
-		TOGGLE_BOX_BUTTON_OUTLINE_WIDTH, COLOR_BLACK);
 }

@@ -79,6 +79,16 @@ SRC				=\
 	\
 	gui/object_modification_box/init_object_modification_box.c				\
 	\
+	gui/optional_boxes/settings_box/init_antialiasing_toggle_box.c	\
+	gui/optional_boxes/settings_box/init_cam_fov_box.c				\
+	gui/optional_boxes/settings_box/init_max_resolution_reduction.c	\
+	gui/optional_boxes/settings_box/init_min_resolution_reduction.c	\
+	gui/optional_boxes/settings_box/init_reset_camera_peaking_box.c	\
+	gui/optional_boxes/settings_box/init_settings_box.c				\
+	\
+	gui/optional_boxes/add_button_box.c		\
+	gui/optional_boxes/add_plus_minus_box.c	\
+	\
 	gui/create_boxes_utils.c		\
 	gui/create_horizontal_boxes.c	\
 	gui/create_n_horizontal_boxes.c	\
@@ -103,6 +113,7 @@ SRC				=\
 	hooks/update_object_attributes_modification_box/add_boxes/utils/add_toggle_box.c		\
 	hooks/update_object_attributes_modification_box/add_boxes/utils/add_x_y_box.c			\
 	hooks/update_object_attributes_modification_box/add_boxes/utils/add_x_y_z_box.c			\
+	hooks/update_object_attributes_modification_box/add_boxes/utils/draw_toggle_box.c		\
 	hooks/update_object_attributes_modification_box/add_boxes/utils/get_box_size.c			\
 	hooks/update_object_attributes_modification_box/add_boxes/utils/get_x_y_input_box.c		\
 	hooks/update_object_attributes_modification_box/add_boxes/utils/get_x_y_z_input_box.c	\

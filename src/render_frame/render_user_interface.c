@@ -33,6 +33,13 @@ void	render_user_interface(t_engine *engine, const uint64_t start_time)
 			get_left_box_decal(engine, engine->gui.gui_boxes.data + 1, \
 				hidden_ratio), \
 			mouse_position});
+	if (engine->gui.current_optional_box >= 0)
+		engine->gui.optional_gui_boxes.data[engine->gui.current_optional_box].\
+		draw(engine->gui.optional_gui_boxes.data
+			+ engine->gui.current_optional_box, engine, (t_draw_data){\
+			get_left_box_decal(engine, engine->gui.gui_boxes.data + 1, \
+				hidden_ratio), \
+			mouse_position});
 }
 
 #define TIME_TO_HIDE_GUI 180000.f

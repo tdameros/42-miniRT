@@ -33,14 +33,15 @@ void	add_cap_checkerboard_color_toggle_box(t_engine *engine,
 		&& object->material.texture.cap.checkerboard.size.x <= 1.f)
 		object->material.texture.cap.texture_type = NONE;
 	else if (object != NULL
-			 && object->material.texture.cap.texture_type != PPM_TEXTURE)
+		&& object->material.texture.cap.texture_type != PPM_TEXTURE)
 		object->material.texture.cap.texture_type = CHECKERBOARD;
 	add_toggle_box(engine, gui_box, i, parent);
 	gui_box->children.data->on_click
 		= &cap_checkerboard_color_toggle_box_on_click;
 	engine->gui.color_and_material.cap_checkered_pattern_color_toggle_box
 		= gui_box->children.data;
-	draw_cap_checkerboard_color_toggle_box(gui_box->children.data, engine);
+	draw_toggle_box(gui_box->children.data,
+		engine->gui.color_and_material.color_being_changed == CAP_COLOR);
 	change_image_color(&gui_box->children.data[1].image, COLOR_TRANSPARENT);
 	write_centered_string_to_image(&engine->gui.font,
 		&gui_box->children.data[1].image, "Change cap checkerboard color");
@@ -59,33 +60,10 @@ static void	cap_checkerboard_color_toggle_box_on_click(t_gui_box *self,
 		engine->gui.color_and_material.color_being_changed = BASE_COLOR;
 	else
 		engine->gui.color_and_material.color_being_changed = CAP_COLOR;
-	draw_cap_checkerboard_color_toggle_box(self, engine);
-	draw_outline_checkerboard_color_toggle_box(
-		engine->gui.color_and_material.\
-		outline_checkered_pattern_color_toggle_box, engine);
+	draw_toggle_box(engine->gui.color_and_material.\
+		outline_checkered_pattern_color_toggle_box,
+		engine->gui.color_and_material.color_being_changed == OUTLINE_COLOR);
+	draw_toggle_box(self,
+		engine->gui.color_and_material.color_being_changed == CAP_COLOR);
 	engine->scene_changed = true;
-}
-
-void	draw_cap_checkerboard_color_toggle_box(
-			t_gui_box *cap_checkerboard_color_toggle_box, t_engine *engine)
-{
-	if (cap_checkerboard_color_toggle_box == NULL)
-		return ;
-	change_image_color(&cap_checkerboard_color_toggle_box->image,
-		COLOR_TRANSPARENT);
-	change_image_color(&cap_checkerboard_color_toggle_box->on_hover_image,
-		HOVER_GUI_COLOR);
-	if (engine->gui.color_and_material.color_being_changed == CAP_COLOR)
-	{
-		image_draw_check_mark(&cap_checkerboard_color_toggle_box->image,
-			COLOR_WHITE,
-			TOGGLE_BOX_BUTTON_OUTLINE_WIDTH);
-		image_draw_check_mark(
-			&cap_checkerboard_color_toggle_box->on_hover_image, COLOR_WHITE,
-			TOGGLE_BOX_BUTTON_OUTLINE_WIDTH);
-	}
-	image_draw_outline(&cap_checkerboard_color_toggle_box->image,
-		TOGGLE_BOX_BUTTON_OUTLINE_WIDTH, COLOR_BLACK);
-	image_draw_outline(&cap_checkerboard_color_toggle_box->on_hover_image,
-		TOGGLE_BOX_BUTTON_OUTLINE_WIDTH, COLOR_BLACK);
 }

@@ -21,6 +21,7 @@
 # include "window.h"
 
 # define NB_OF_THREADS 16
+# define NB_OF_MOVEMENT_KEYS 8
 
 typedef struct s_raytraced_pixels
 {
@@ -36,7 +37,11 @@ typedef struct s_object_being_placed
 	t_light		*light;
 }	t_object_being_placed;
 
-# define NB_OF_MOVEMENT_KEYS 8
+typedef struct s_quality
+{
+	int	min_reduction;
+	int	max_reduction;
+}	t_quality;
 
 typedef struct s_engine
 {
@@ -55,7 +60,9 @@ typedef struct s_engine
 	int						pressed_keys_index;
 	bool					should_render_ray_tracing;
 	bool					should_render_at_full_resolution;
+	bool					antialiasing;
 	bool					scene_changed;
+	t_quality				quality;
 }	t_engine;
 
 int		init_engine(t_engine *engine, const char *start_up_scene);

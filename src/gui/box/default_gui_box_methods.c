@@ -89,7 +89,7 @@ void	default_gui_box_on_click(t_gui_box *self, t_engine *engine,
 {
 	t_gui_box	*clicked_gui_box;
 
-	clicked_gui_box = get_clicked_gui_box(self->children,
+	clicked_gui_box = get_clicked_gui_box(NULL, self->children,
 			&click_data.click_position.x, &click_data.click_position.y);
 	if (clicked_gui_box != NULL && clicked_gui_box->on_click != NULL)
 		clicked_gui_box->on_click(clicked_gui_box, engine, click_data);
