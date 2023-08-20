@@ -5,40 +5,39 @@
 #include "gui/UI.h"
 #include "ray_tracer_gui_api.h"
 #include "events.h"
+#include "gui/optional_boxes.h"
 
-static void	draw_button(t_gui_box *gui_box);
 static void	delete_box_on_click(t_gui_box *self, t_engine *engine,
 				t_click_data click_data);
 
 void	add_delete_box(t_engine *engine, t_gui_box *gui_box, t_gui_box *parent)
 {
-	int	i;
+	int	y;
 
-	i = 0;
-	add_toggle_box(engine, gui_box, &i, parent);
-	gui_box->children.data->on_click = &delete_box_on_click;
-	draw_button(gui_box->children.data);
-	change_image_color(&gui_box->children.data[1].image, COLOR_TRANSPARENT);
+	y = 0;
+	add_button_box(engine, gui_box, &y, parent);
 	if (engine->gui.selected_object.object != NULL)
+	{
 		write_centered_string_to_image(&engine->gui.font,
-			&gui_box->children.data[1].image, "Delete object");
+			&gui_box->image, "Delete object");
+		write_centered_string_to_image(&engine->gui.font,
+			&gui_box->on_hover_image, "Delete object");
+	}
 	else if (engine->gui.selected_object.light != NULL)
+	{
 		write_centered_string_to_image(&engine->gui.font,
-			&gui_box->children.data[1].image, "Delete light");
+			&gui_box->image, "Delete light");
+		write_centered_string_to_image(&engine->gui.font,
+			&gui_box->on_hover_image, "Delete light");
+	}
 	else
+	{
 		write_centered_string_to_image(&engine->gui.font,
-			&gui_box->children.data[1].image,
-			"Error no object or light selected");
-}
-
-static void	draw_button(t_gui_box *gui_box)
-{
-	change_image_color(&gui_box->image, COLOR_TRANSPARENT);
-	change_image_color(&gui_box->on_hover_image, HOVER_GUI_COLOR);
-	image_draw_outline(&gui_box->image, TOGGLE_BOX_BUTTON_OUTLINE_WIDTH,
-		COLOR_BLACK);
-	image_draw_outline(&gui_box->on_hover_image,
-		TOGGLE_BOX_BUTTON_OUTLINE_WIDTH, COLOR_BLACK);
+			&gui_box->image, "Error no object or light selected");
+		write_centered_string_to_image(&engine->gui.font,
+			&gui_box->on_hover_image, "Error no object or light selected");
+	}
+	gui_box->on_click = &delete_box_on_click;
 }
 
 static void	delete_box_on_click(t_gui_box *self, t_engine *engine,
