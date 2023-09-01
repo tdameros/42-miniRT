@@ -63,9 +63,11 @@ typedef struct s_engine
 	bool					antialiasing;
 	bool					scene_changed;
 	t_quality				quality;
+	const char				**argv;
 }	t_engine;
 
-int		init_engine(t_engine *engine, const char *start_up_scene);
+int		init_engine(t_engine *engine, const char *start_up_scene,
+			const char **argv);
 int		close_engine(t_engine *engine);
 
 #endif //ENGINE_H

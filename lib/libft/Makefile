@@ -50,6 +50,7 @@ SRC =\
 	io/printf/formating/format.c		\
 	io/printf/formating/format_u_x.c	\
 	\
+	io/get_files_in_directory.c	\
 	io/print_error.c			\
 	io/print_position_in_code.c	\
 	io/putchar_fd.c				\
@@ -153,6 +154,7 @@ SRC =\
 	string/split/split_len.c				\
 	string/split/split.c					\
 	string/split/split_unless_in_quotes.c	\
+	string/split/strs_are_equal.c			\
 \
 	string/join/join_strs.c		\
 	string/join/strjoin.c		\
@@ -161,6 +163,7 @@ SRC =\
 	string/is_number.c			\
 	string/skip_char.c			\
 	string/skip_set.c			\
+	string/str_ends_with.c		\
 	string/str_is_in_strs.c		\
 	string/strchr.c				\
 	string/strcmp.c				\
@@ -185,11 +188,16 @@ SRC =\
 	sort/msort_str_ignore_case.c	\
 \
 \
-	time/convert_timeval_to_ms.c	\
-	time/get_current_time.c			\
-	time/get_current_time_in_ms.c	\
-	time/get_number_of_fps.c		\
+	time/convert_timeval_to_ms.c		\
+	time/get_current_time.c				\
+	time/get_current_time_in_ms.c		\
+	time/get_number_of_fps.c			\
+	time/get_time_elapsed_in_seconds.c	\
 \
+\
+	vector/str_vector/str_vector_destroy.c	\
+	vector/str_vector/str_vector_get_elem.c	\
+	vector/str_vector/str_vector_to_strs.c	\
 \
 	vector/vector_add_elem.c			\
 	vector/vector_append.c				\
@@ -198,6 +206,7 @@ SRC =\
 	vector/vector_create.c				\
 	vector/vector_delete_elem.c			\
 	vector/vector_destroy.c				\
+	vector/vector_get_ptr_to_elem.c		\
 	vector/vector_minimize_size.c
 
 

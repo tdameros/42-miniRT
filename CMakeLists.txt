@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.25)
-project(42_miniRT C)
+project(minirt C)
 
 set(CMAKE_C_STANDARD 11)
 
@@ -7,7 +7,7 @@ include_directories(include)
 include_directories(lib/libft/include)
 include_directories(lib/minilibx_opengl_20191021)
 
-add_executable(42_miniRT
+add_executable(minirt
         include/deprecated/t_ambient_light.h
         include/deprecated/t_raytracing_data.h
         include/font/render.h
@@ -20,6 +20,7 @@ add_executable(42_miniRT
         include/gui/main_gui_box.h
         include/gui/object_list_box.h
         include/gui/object_modification_box.h
+        include/gui/optional_boxes.h
         include/gui/UI.h
         include/gui/utils.h
         include/math/conversion.h
@@ -99,6 +100,7 @@ add_executable(42_miniRT
         lib/libft/src/io/printf/formating/format_u_x.c
         lib/libft/src/io/printf/get_final_str.c
         lib/libft/src/io/printf/printf.c
+        lib/libft/src/io/get_files_in_directory.c
         lib/libft/src/io/print_error.c
         lib/libft/src/io/print_position_in_code.c
         lib/libft/src/io/putchar_fd.c
@@ -164,6 +166,7 @@ add_executable(42_miniRT
         lib/libft/src/mem/memset.c
         lib/libft/src/numbers/abs/absf.c
         lib/libft/src/numbers/abs/absi.c
+        lib/libft/src/numbers/clamp/clamp.c
         lib/libft/src/numbers/max/maxf.c
         lib/libft/src/numbers/min/minf.c
         lib/libft/src/numbers/swap/swap_float.c
@@ -189,9 +192,11 @@ add_executable(42_miniRT
         lib/libft/src/string/split/split_len.c
         lib/libft/src/string/split/split_set.c
         lib/libft/src/string/split/split_unless_in_quotes.c
+        lib/libft/src/string/split/strs_are_equal.c
         lib/libft/src/string/is_number.c
         lib/libft/src/string/skip_char.c
         lib/libft/src/string/skip_set.c
+        lib/libft/src/string/str_ends_with.c
         lib/libft/src/string/str_is_in_strs.c
         lib/libft/src/string/strchr.c
         lib/libft/src/string/strcmp.c
@@ -211,7 +216,12 @@ add_executable(42_miniRT
         lib/libft/src/string/t_string_free.c
         lib/libft/src/time/convert_timeval_to_ms.c
         lib/libft/src/time/get_current_time.c
+        lib/libft/src/time/get_current_time_in_ms.c
         lib/libft/src/time/get_number_of_fps.c
+        lib/libft/src/time/get_time_elapsed_in_seconds.c
+        lib/libft/src/vector/str_vector/str_vector_destroy.c
+        lib/libft/src/vector/str_vector/str_vector_get_elem.c
+        lib/libft/src/vector/str_vector/str_vector_to_strs.c
         lib/libft/src/vector/vector_add_elem.c
         lib/libft/src/vector/vector_append.c
         lib/libft/src/vector/vector_change_size.c
@@ -219,6 +229,7 @@ add_executable(42_miniRT
         lib/libft/src/vector/vector_create.c
         lib/libft/src/vector/vector_delete_elem.c
         lib/libft/src/vector/vector_destroy.c
+        lib/libft/src/vector/vector_get_ptr_to_elem.c
         lib/libft/src/vector/vector_minimize_size.c
         lib/minilibx_opengl_20191021/font.c
         lib/minilibx_opengl_20191021/mlx.h
@@ -269,8 +280,14 @@ add_executable(42_miniRT
         src/gui/box/create_gui_box.c
         src/gui/box/default_gui_box_methods.c
         src/gui/box/destroy_t_gui_box.c
+        src/gui/box/destroy_t_gui_boxes.c
         src/gui/box/get_clicked_gui_box.c
         src/gui/box/mouse_utils.c
+        src/gui/draw_icon/draw_light_icon/draw_bottom_rectangles.c
+        src/gui/draw_icon/draw_light_icon/draw_light_icon.c
+        src/gui/draw_icon/draw_light_icon/draw_sides_rectangles.c
+        src/gui/draw_icon/draw_light_icon/draw_top_rectangles.c
+        src/gui/draw_icon/draw_icon.c
         src/gui/float_input_box/create_float_input_box.c
         src/gui/float_input_box/draw_float_input_box.c
         src/gui/float_input_box/update_float_input_box.c
@@ -292,11 +309,31 @@ add_executable(42_miniRT
         src/gui/object_modification_box/init_color_picker/init_color_picker_box.c
         src/gui/object_modification_box/init_color_picker/init_rgb_picker.c
         src/gui/object_modification_box/init_object_modification_box.c
+        src/gui/optional_boxes/settings_box/init_antialiasing_toggle_box.c
+        src/gui/optional_boxes/settings_box/init_cam_fov_box.c
+        src/gui/optional_boxes/settings_box/init_max_resolution_reduction.c
+        src/gui/optional_boxes/settings_box/init_min_resolution_reduction.c
+        src/gui/optional_boxes/settings_box/init_reset_camera_peaking_box.c
+        src/gui/optional_boxes/settings_box/init_settings_box.c
+        src/gui/optional_boxes/texture_box/outline_cap_picker/draw.c
+        src/gui/optional_boxes/texture_box/outline_cap_picker/init_outline_cap_picker.c
+        src/gui/optional_boxes/texture_box/outline_cap_picker/on_click.c
+        src/gui/optional_boxes/texture_box/texture_normal_map_picker/draw.c
+        src/gui/optional_boxes/texture_box/texture_normal_map_picker/init_texture_normal_map_picker.c
+        src/gui/optional_boxes/texture_box/texture_normal_map_picker/on_click.c
+        src/gui/optional_boxes/texture_box/click_ppm_box.c
+        src/gui/optional_boxes/texture_box/init_selection_boxes.c
+        src/gui/optional_boxes/texture_box/init_texture_box.c
+        src/gui/optional_boxes/texture_box/load_textures_and_normal_maps.c
+        src/gui/optional_boxes/texture_box/textures_and_normal_maps_draw.c
+        src/gui/optional_boxes/texture_box/textures_and_normal_maps_on_click.c
+        src/gui/optional_boxes/add_button_box.c
+        src/gui/optional_boxes/add_plus_minus_box.c
+        src/gui/optional_boxes/create_optional_box.c
         src/gui/create_boxes_utils.c
         src/gui/create_horizontal_boxes.c
         src/gui/create_n_horizontal_boxes.c
         src/gui/create_vertical_boxes.c
-        src/gui/draw_icon/draw_icon.c
         src/gui/init_gui.c
         src/hooks/update_object_attributes_modification_box/add_boxes/cap_checkerboard_size_on_clicks/x.c
         src/hooks/update_object_attributes_modification_box/add_boxes/cap_checkerboard_size_on_clicks/y.c
@@ -311,20 +348,24 @@ add_executable(42_miniRT
         src/hooks/update_object_attributes_modification_box/add_boxes/utils/add_toggle_box.c
         src/hooks/update_object_attributes_modification_box/add_boxes/utils/add_x_y_box.c
         src/hooks/update_object_attributes_modification_box/add_boxes/utils/add_x_y_z_box.c
+        src/hooks/update_object_attributes_modification_box/add_boxes/utils/draw_toggle_box.c
         src/hooks/update_object_attributes_modification_box/add_boxes/utils/get_box_size.c
         src/hooks/update_object_attributes_modification_box/add_boxes/utils/get_x_y_input_box.c
         src/hooks/update_object_attributes_modification_box/add_boxes/utils/get_x_y_z_input_box.c
         src/hooks/update_object_attributes_modification_box/add_boxes/utils/init_description_box.c
         src/hooks/update_object_attributes_modification_box/add_boxes/add_brightness_box.c
         src/hooks/update_object_attributes_modification_box/add_boxes/add_cap_checkerboard_size_box.c
-        src/hooks/update_object_attributes_modification_box/add_boxes/add_outline_checkered_pattern_color_toggle_box.c
+        src/hooks/update_object_attributes_modification_box/add_boxes/add_cap_checkered_pattern_color_toggle_box.c
+        src/hooks/update_object_attributes_modification_box/add_boxes/add_delete_box.c
         src/hooks/update_object_attributes_modification_box/add_boxes/add_height_box.c
         src/hooks/update_object_attributes_modification_box/add_boxes/add_normal_box.c
         src/hooks/update_object_attributes_modification_box/add_boxes/add_outline_checkerboard_size_box.c
+        src/hooks/update_object_attributes_modification_box/add_boxes/add_outline_checkered_pattern_color_toggle_box.c
         src/hooks/update_object_attributes_modification_box/add_boxes/add_position_box.c
         src/hooks/update_object_attributes_modification_box/add_boxes/add_radius_box.c
         src/hooks/update_object_attributes_modification_box/add_boxes/add_reflection_box.c
         src/hooks/update_object_attributes_modification_box/add_boxes/add_specular_reflection_box.c
+        src/hooks/update_object_attributes_modification_box/add_boxes/add_texture_button.c
         src/hooks/update_object_attributes_modification_box/get_box_category_index.c
         src/hooks/update_object_attributes_modification_box/init_cone_attributes_modification_box.c
         src/hooks/update_object_attributes_modification_box/init_cylinder_attributes_modification_box.c
@@ -440,4 +481,4 @@ add_executable(42_miniRT
         src/close_miniRT.c
         src/color.c
         src/init_minirt.c
-        src/main.c src/hooks/update_object_attributes_modification_box/add_boxes/add_cap_checkered_pattern_color_toggle_box.c lib/libft/src/time/get_current_time_in_ms.c lib/libft/src/numbers/clamp/clamp.c src/gui/draw_icon/draw_light_icon/draw_light_icon.c src/gui/draw_icon/draw_light_icon/draw_top_rectangles.c src/gui/draw_icon/draw_light_icon/draw_bottom_rectangles.c src/gui/draw_icon/draw_light_icon/draw_bottom_rectangles.c src/gui/draw_icon/draw_light_icon/draw_sides_rectangles.c src/hooks/update_object_attributes_modification_box/add_boxes/add_delete_box.c src/gui/optional_boxes/settings_box/init_settings_box.c include/gui/optional_boxes.h src/gui/optional_boxes/add_plus_minus_box.c src/gui/optional_boxes/settings_box/init_cam_fov_box.c src/gui/optional_boxes/add_button_box.c src/gui/optional_boxes/settings_box/init_reset_camera_peaking_box.c src/gui/optional_boxes/settings_box/init_antialiasing_toggle_box.c src/hooks/update_object_attributes_modification_box/add_boxes/utils/draw_toggle_box.c src/gui/optional_boxes/settings_box/init_max_resolution_reduction.c src/gui/optional_boxes/settings_box/init_min_resolution_reduction.c)
+        src/main.c)

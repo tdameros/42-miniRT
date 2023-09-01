@@ -57,7 +57,7 @@ void		add_x_y_box(t_engine *engine, t_gui_box *gui_box, int *i,
 void		add_x_y_z_box(t_engine *engine, t_gui_box *gui_box, int *i,
 				t_gui_box *parent);
 void		draw_toggle_box(t_gui_box *gui_box, bool is_checkered);
-int			get_attribute_box_size(void);
+float		get_attribute_box_size(void);
 int			get_xyz_box_size(t_gui_box *attribute_box);
 int			get_xy_box_size(t_gui_box *attribute_box);
 int			get_normal_box_size(t_gui_box *attribute_box);
@@ -74,6 +74,8 @@ void		add_cap_checkerboard_color_toggle_box(t_engine *engine,
 				t_gui_box *gui_box, int *i, t_gui_box *parent);
 void		add_outline_checkerboard_size_box(t_engine *engine,
 				t_gui_box *gui_box, int *i, t_gui_box *parent);
+void		add_texture_button(t_engine *engine, t_gui_box *gui_box,
+				int *y, t_gui_box *parent);
 void		add_delete_box(t_engine *engine, t_gui_box *gui_box,
 				t_gui_box *parent);
 void		add_height_box(t_engine *engine, t_gui_box *gui_box, int *i,

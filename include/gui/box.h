@@ -59,6 +59,9 @@ void		destroy_t_gui_box(t_window *window, t_gui_box *gui_box);
 
 void		default_gui_box_draw(struct s_gui_box *self, t_engine *engine,
 				t_draw_data draw_data);
+void		draw_gui_box_image(t_gui_box *self, t_engine *engine,
+				t_draw_data draw_data);
+
 void		default_gui_box_on_click(t_gui_box *self, t_engine *minirt,
 				t_click_data click_data);
 

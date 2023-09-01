@@ -28,7 +28,7 @@ void	init_gui(t_engine *engine)
 	engine->gui.gui_boxes.size = 3;
 	engine->gui.gui_boxes.data = ft_calloc(engine->gui.gui_boxes.size,
 			sizeof(*engine->gui.gui_boxes.data));
-	engine->gui.optional_gui_boxes.size = 1;
+	engine->gui.optional_gui_boxes.size = NUMBER_OF_OPTIONAL_BOXES;
 	engine->gui.optional_gui_boxes.data = ft_calloc(
 			engine->gui.optional_gui_boxes.size,
 			sizeof(*engine->gui.optional_gui_boxes.data));
@@ -52,6 +52,10 @@ static void	init_boxes(t_engine *engine)
 		engine->gui.gui_boxes.data + 1, engine->gui.gui_boxes.data);
 	init_object_list_box(engine, engine->gui.gui_boxes.data + 2,
 		engine->gui.gui_boxes.data, engine->gui.gui_boxes.data + 1);
-	init_settings_box(engine, engine->gui.optional_gui_boxes.data,
+	init_settings_box(engine,
+		engine->gui.optional_gui_boxes.data + SETTINGS_BOX,
+		engine->gui.gui_boxes.data, engine->gui.gui_boxes.data + 2);
+	init_texture_box(engine,
+		engine->gui.optional_gui_boxes.data + TEXTURE_BOX,
 		engine->gui.gui_boxes.data, engine->gui.gui_boxes.data + 2);
 }

@@ -60,7 +60,7 @@ void	outline_checkerboard_size_input_box_x_on_click_minus(t_gui_box *self,
 		&& object->material.texture.outline.checkerboard.size.y <= 1.f)
 	{
 		object->material.texture.outline.texture_type = NONE;
-		if (engine->gui.color_and_material.color_being_changed == OUTLINE_COLOR)
+		if (engine->gui.color_and_material.color_being_changed == OUTLINE_CHECKERBOARD_COLOR)
 		{
 			engine->gui.color_and_material.color_being_changed = BASE_COLOR;
 			draw_toggle_box(

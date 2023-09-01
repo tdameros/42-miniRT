@@ -28,9 +28,15 @@ void	object_list_gui_box_draw(t_gui_box *self, t_engine *engine,
 	change_image_color(&self->image, BASE_GUI_COLOR);
 	round_image_corners(&self->image, BOX_ROUNDING_RADIUS);
 	y = self->scroll;
-	draw_light_boxes(engine, &y, draw_data);
+	draw_light_boxes(engine, &y, (t_draw_data){\
+		(t_vector2i){draw_data.offset.x + self->position.x, \
+					draw_data.offset.y + self->position.y},
+		draw_data.mouse_position});
 	y += (engine->gui.light_boxes.length > 0) * (OBJECT_LIST_SUB_BOX_SIZE / 4);
-	draw_object_boxes(engine, y, draw_data);
+	draw_object_boxes(engine, y, (t_draw_data){\
+		(t_vector2i){draw_data.offset.x + self->position.x, \
+					draw_data.offset.y + self->position.y},
+		draw_data.mouse_position});
 	mlx_put_image_to_window(engine->window.mlx, engine->window.window,
 		self->image.data, self->position.x + draw_data.offset.x,
 		self->position.y + draw_data.offset.y);

@@ -1,0 +1,17 @@
+C	13.379021,-3.328878,23.567163	-0.425707,-0.015707,-0.904673	100.000000
+
+A	0.500000	255.000000,255.000000,255.000000
+L	0.000000,1.000000,15.000000	1.000000	255.000000,255.000000,255.000000
+
+pl	0.000000,-5.000000,0.000000	0.000000,1.000000,0.000000	102.000000,102.000000,102.000000
+ma	outline_bump_map:/Users/vincent/git/minirt/data/bump maps/normal_map.ppm
+pl	0.000000,5.000000,0.000000	0.000000,1.000000,0.000000	102.000000,102.000000,102.000000
+ma	outline_bump_map:/Users/vincent/git/minirt/data/bump maps/normal_map.ppm
+pl	0.000000,0.000000,-25.000000	0.000000,0.000000,1.000000	102.000000,102.000000,102.000000
+ma	outline_bump_map:/Users/vincent/git/minirt/data/bump maps/normal_map.ppm
+pl	-15.000000,0.000000,0.000000	1.000000,0.000000,0.000000	102.000000,102.000000,102.000000
+ma	outline_bump_map:/Users/vincent/git/minirt/data/bump maps/normal_map.ppm
+pl	15.000000,0.000000,0.000000	1.000000,0.000000,0.000000	102.000000,102.000000,102.000000
+ma	outline_bump_map:/Users/vincent/git/minirt/data/bump maps/normal_map.ppm
+cy	11.181412,-2.462267,17.358892	0.576361,0.762398,0.294206	1.000000	1.900001	255.000000,255.000000,255.000000
+ma	reflection:0.500000	specular:1.000000	outline_texture:/Users/vincent/git/minirt/data/textures/coca-cola.ppm	outline_bump_map:/Users/vincent/git/minirt/data/bump maps/normal_map.ppm	cap_texture:/Users/vincent/git/minirt/data/textures/can_top.ppm	cap_bump_map:/Users/vincent/git/minirt/data/bump maps/normal_map.ppm

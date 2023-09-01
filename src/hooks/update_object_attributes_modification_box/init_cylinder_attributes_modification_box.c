@@ -24,9 +24,9 @@ void	init_cylinder_attributes_modification_box(t_engine *engine,
 	int	i;
 
 	i = 0;
-	gui_box->children.size = 11;
+	gui_box->children.size = 12;
 	gui_box->children.data = ft_calloc(gui_box->children.size,
-		sizeof(*gui_box->children.data));
+			sizeof(*gui_box->children.data));
 	if (gui_box->children.data == NULL)
 		ft_fatal_error("init_cylinder_attributes_modification_box: "
 			"malloc failed");
@@ -63,6 +63,7 @@ static void	add_texture_boxes(t_engine *engine, t_gui_box *gui_box, int *i)
 	int	y;
 
 	y = get_texture_boxes_index(gui_box);
+	add_texture_button(engine, gui_box->children.data + (*i)++, &y, gui_box);
 	add_outline_checkerboard_size_box(engine, gui_box->children.data + (*i)++,
 		&y, gui_box);
 	add_cap_checkerboard_size_box(engine, gui_box->children.data + (*i)++,

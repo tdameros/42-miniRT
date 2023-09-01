@@ -27,10 +27,17 @@ t_gui_box	*get_clicked_gui_box(t_engine *engine, t_gui_boxes gui_boxes,
 			return (gui_boxes.data + i);
 	if (engine == NULL)
 		return (NULL);
-	if (engine->gui.current_optional_box == SETTINGS_BOX)
-		if (is_point_in_gui_box(
-				engine->gui.optional_gui_boxes.data + SETTINGS_BOX, x, y))
-			return (engine->gui.optional_gui_boxes.data + SETTINGS_BOX);
+	i = NUMBER_OF_OPTIONAL_BOXES;
+	while (i--)
+	{
+		if (engine->gui.current_optional_box == (enum e_optional_box)i)
+		{
+			if (is_point_in_gui_box(
+					engine->gui.optional_gui_boxes.data + i, x, y))
+				return (engine->gui.optional_gui_boxes.data + i);
+			return (NULL);
+		}
+	}
 	return (NULL);
 }
 

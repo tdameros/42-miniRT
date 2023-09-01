@@ -27,6 +27,7 @@ int	set_outline_texture(t_material *material, const char *filename)
 {
 	t_ppm_p6	ppm;
 
+	free_outline_texture(material);
 	if (initialize_ppm_p6_file(&ppm, filename) < 0)
 		return (-1);
 	material->texture.outline.texture_file = ft_strdup(filename);
@@ -44,6 +45,7 @@ int	set_cap_texture(t_material *material, const char *filename)
 {
 	t_ppm_p6	ppm;
 
+	free_cap_texture(material);
 	if (initialize_ppm_p6_file(&ppm, filename) < 0)
 		return (-1);
 	material->texture.cap.texture_file = ft_strdup(filename);

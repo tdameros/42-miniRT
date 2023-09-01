@@ -126,7 +126,7 @@ void	scene_pilier(t_engine *engine)
 
 	// sphere
 	material = material_create(vector3f_create(1.f, 1.f, 1.0f), 0.f, 0.f);
-	set_outline_texture(&material, "data/saturn.ppm");
+	set_outline_texture(&material, "data/textures/saturn.ppm");
 	object = sphere_create(vector3f_create(0.f, -3.f, 15.f), 1.5f, material);
 //    add_object(engine, object);
 
@@ -145,12 +145,12 @@ void	scene_pilier(t_engine *engine)
 	add_object(engine, object);
 
 	material = material_create(vector3f_create(1.f, 1.f, 1.0f), 0.f, 0.f);
-	set_outline_texture(&material, "data/moon.ppm");
+	set_outline_texture(&material, "data/textures/moon.ppm");
 	object = sphere_create(vector3f_create(0.f, -3.f, 15.f), 1.5f, material);
 //	add_object(engine, object);
 
 	material = material_create(vector3f_create(1.f, 1.f, 1.0f), 0.f, 0.f);
-	set_outline_texture(&material, "data/2k_stars.ppm");
+	set_outline_texture(&material, "data/textures/2k_stars.ppm");
 	object = sphere_create(vector3f_create(0.f, -3.f, 15.f), 1.5f, material);
 //	add_object(engine, object);
 

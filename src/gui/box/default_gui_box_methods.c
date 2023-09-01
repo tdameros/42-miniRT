@@ -36,9 +36,6 @@ void	default_gui_box_draw(t_gui_box *self, t_engine *minirt,
 #endif
 #ifdef __APPLE__
 
-static void	draw_gui_box_image(t_gui_box *self, t_engine *engine, \
-				t_draw_data draw_data);
-
 void	default_gui_box_draw(t_gui_box *self, t_engine *engine,
 			t_draw_data draw_data)
 {
@@ -55,8 +52,8 @@ void	default_gui_box_draw(t_gui_box *self, t_engine *engine,
 					draw_data.mouse_position});
 }
 
-static void	draw_gui_box_image(t_gui_box *self, t_engine *engine,
-				t_draw_data draw_data)
+void	draw_gui_box_image(t_gui_box *self, t_engine *engine,
+			t_draw_data draw_data)
 {
 	t_image	*image_to_check_hover_on;
 	bool	mouse_is_hovering_box;

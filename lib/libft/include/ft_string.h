@@ -28,6 +28,7 @@ size_t	ft_split_len(char **strs);
 void	ft_free_split(void *strs);
 char	**ft_split_unless_in_quotes(char *arg);
 size_t	ft_count_args_after_split_unless_quotes(char *arg);
+bool	ft_strs_are_equal(char **strs1, char **strs2);
 
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_join_strs(char **strs, char const *sep);
@@ -36,6 +37,7 @@ char	*ft_strjoin_three(char const *s1, char const *s2, char const *s3);
 bool	ft_is_number(char *s);
 char	*ft_skip_char(const char *str, char c);
 char	*ft_skip_set(const char *str, const char *set);
+bool	ft_str_ends_with(const char *str, const char *end);
 bool	ft_str_is_in_strs(char *str, char **strs);
 char	*ft_strchr(const char *s, int c);
 int		ft_strcmp(const char *s1, const char *s2);

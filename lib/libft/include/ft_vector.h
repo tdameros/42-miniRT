@@ -29,23 +29,25 @@ typedef struct s_vector
 	size_t	elem_size;
 }	t_vector;
 
+// str_vector
+void	ft_str_vector_destroy(t_vector *str_vector);
+char	*ft_str_vector_get_elem(const t_vector *str_vector, size_t index);
+char	**ft_str_vector_to_strs(t_vector *vector, bool copy,
+			bool destroy_vector);
+
+// Base
 int		ft_vector_add_elem(t_vector *vector, const void *new_elem);
-
 int		ft_vector_append(t_vector *dst, const t_vector *src);
-
 int		ft_vector_change_size(t_vector *vector, size_t size);
-
 void	*ft_vector_convert_to_array(t_vector *vector, size_t *size,
 			bool make_copy, bool destroy_vector);
-
 int		ft_vector_create(t_vector *vector, size_t elem_size,
 			size_t size);
-
 void	ft_vector_delete_elem(t_vector *vector, size_t index,
 			bool keep_same_order);
-
 void	ft_vector_destroy(t_vector *vector);
-
+void	*ft_vector_get_ptr_to_elem(const t_vector *vector, const size_t index);
 int		ft_vector_minimize_size(t_vector *vector);
+
 
 #endif

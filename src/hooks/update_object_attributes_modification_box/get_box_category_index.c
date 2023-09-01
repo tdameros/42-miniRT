@@ -17,7 +17,7 @@
 int	get_transformations_boxes_index(
 		t_gui_box *object_attribute_modification_box)
 {
-	const float size_of_delete_box = OBJECT_ATTRIBUTE_BOX_NORMAL_BOX_SIZE
+	const float	size_of_delete_box = OBJECT_ATTRIBUTE_BOX_NORMAL_BOX_SIZE
 		+ OBJECT_ATTRIBUTE_BOX_CATEGORY_OFFSET_SIZE;
 
 	return (object_attribute_modification_box->size.y

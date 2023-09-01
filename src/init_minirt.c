@@ -21,9 +21,10 @@
 static void	init_hooks(t_engine *engine);
 
 static void	print_scene_content(t_raytracing_data *raytracing_data);
-int	init_engine(t_engine *engine, const char *start_up_scene)
+int	init_engine(t_engine *engine, const char *start_up_scene, const char **argv)
 {
 	ft_bzero(engine, sizeof(t_engine));
+	engine->argv = argv;
 	engine->antialiasing = true;
 	engine->quality.max_reduction = DEFAULT_MAX_RESOLUTION_REDUCTION;
 	engine->quality.min_reduction = DEFAULT_MIN_RESOLUTION_REDUCTION;

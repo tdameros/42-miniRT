@@ -23,5 +23,6 @@ uint64_t		ft_timeval_to_ms(struct timeval time);
 struct timeval	ft_get_current_time(void);
 uint64_t		ft_get_current_time_in_ms(void);
 int				ft_get_number_of_fps(struct timeval start_time);
+float			ft_get_time_elapsed_in_seconds(struct timeval start_time);
 
 #endif

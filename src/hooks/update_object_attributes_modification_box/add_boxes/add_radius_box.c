@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <errno.h>
-
 #include "gui/box.h"
 #include "gui/UI.h"
 #include "gui/utils.h"

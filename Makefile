@@ -42,6 +42,7 @@ SRC				=\
 	gui/box/create_gui_box.c			\
 	gui/box/default_gui_box_methods.c	\
 	gui/box/destroy_t_gui_box.c			\
+	gui/box/destroy_t_gui_boxes.c		\
 	gui/box/get_clicked_gui_box.c		\
 	gui/box/mouse_utils.c				\
 	\
@@ -86,8 +87,24 @@ SRC				=\
 	gui/optional_boxes/settings_box/init_reset_camera_peaking_box.c	\
 	gui/optional_boxes/settings_box/init_settings_box.c				\
 	\
-	gui/optional_boxes/add_button_box.c		\
-	gui/optional_boxes/add_plus_minus_box.c	\
+	gui/optional_boxes/texture_box/outline_cap_picker/draw.c					\
+	gui/optional_boxes/texture_box/outline_cap_picker/init_outline_cap_picker.c	\
+	gui/optional_boxes/texture_box/outline_cap_picker/on_click.c				\
+	\
+	gui/optional_boxes/texture_box/texture_normal_map_picker/draw.c								\
+	gui/optional_boxes/texture_box/texture_normal_map_picker/init_texture_normal_map_picker.c	\
+	gui/optional_boxes/texture_box/texture_normal_map_picker/on_click.c							\
+	\
+	gui/optional_boxes/texture_box/click_ppm_box.c						\
+	gui/optional_boxes/texture_box/init_selection_boxes.c				\
+	gui/optional_boxes/texture_box/init_texture_box.c					\
+	gui/optional_boxes/texture_box/load_textures_and_normal_maps.c		\
+	gui/optional_boxes/texture_box/textures_and_normal_maps_draw.c		\
+	gui/optional_boxes/texture_box/textures_and_normal_maps_on_click.c	\
+	\
+	gui/optional_boxes/add_button_box.c			\
+	gui/optional_boxes/add_plus_minus_box.c		\
+	gui/optional_boxes/create_optional_box.c	\
 	\
 	gui/create_boxes_utils.c		\
 	gui/create_horizontal_boxes.c	\
@@ -131,6 +148,7 @@ SRC				=\
 	hooks/update_object_attributes_modification_box/add_boxes/add_radius_box.c									\
 	hooks/update_object_attributes_modification_box/add_boxes/add_reflection_box.c								\
 	hooks/update_object_attributes_modification_box/add_boxes/add_specular_reflection_box.c						\
+	hooks/update_object_attributes_modification_box/add_boxes/add_texture_button.c								\
 	\
 	hooks/update_object_attributes_modification_box/get_box_category_index.c					\
 	hooks/update_object_attributes_modification_box/init_cone_attributes_modification_box.c		\
@@ -294,6 +312,7 @@ BASE_CFLAGS		=	-Wall -Wextra -Werror
 DEBUG_CLFAGS	=	-g3 -fsanitize=address
 #-ffast-math reduces calculation precision, need to check behaviour before using
 OPTI_CFLAGS		=	-Ofast -march=native -flto -fno-signed-zeros -funroll-loops #-ffast-math
+#CFLAGS			=	$(BASE_CFLAGS)
 CFLAGS			=	$(BASE_CFLAGS) $(OPTI_CFLAGS)
 #CFLAGS			=	$(BASE_CFLAGS) $(DEBUG_CLFAGS)
 #CFLAGS			=	$(BASE_CFLAGS) $(OPTI_CFLAGS) $(DEBUG_CLFAGS)

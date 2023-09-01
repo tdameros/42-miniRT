@@ -21,6 +21,7 @@ int	set_outline_normals_map(t_material *material, const char *filename)
 {
 	t_ppm_p6	ppm;
 
+	free_outline_normals_map(material);
 	if (initialize_ppm_p6_file(&ppm, filename) < 0)
 		return (-1);
 	material->texture.outline.normals_map_file = ft_strdup(filename);
@@ -38,6 +39,7 @@ int	set_cap_normals_map(t_material *material, const char *filename)
 {
 	t_ppm_p6	ppm;
 
+	free_cap_normals_map(material);
 	if (initialize_ppm_p6_file(&ppm, filename) < 0)
 		return (-1);
 	material->texture.cap.normals_map_file = ft_strdup(filename);

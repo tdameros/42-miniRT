@@ -14,19 +14,18 @@
 #include "libft.h"
 
 #include "engine.h"
-#include "font/ttf_parser.h"
 
 #define EXPECTED_EXECUTION_COMMAND "./miniRT *.rt"
 
-static bool	arguments_are_bad(int argc, char **argv);
+static bool	arguments_are_bad(int argc, const char **argv);
 
-int	main(int argc, char **argv)
+int	main(const int argc, const char **argv)
 {
 	t_engine	minirt;
 
 	if (arguments_are_bad(argc, argv))
 		return (1);
-	if (init_engine(&minirt, argv[1]) < 0)
+	if (init_engine(&minirt, argv[1], argv) < 0)
 	{
 		ft_putstr_fd("Error: Failed to init miniRT\n", STDERR_FILENO);
 		return (2);
@@ -34,7 +33,7 @@ int	main(int argc, char **argv)
 	mlx_loop(minirt.window.mlx);
 }
 
-static bool	arguments_are_bad(int argc, char **argv)
+static bool	arguments_are_bad(const int argc, const char **argv)
 {
 	char	*file_extension;
 
