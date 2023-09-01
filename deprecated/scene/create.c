@@ -170,7 +170,7 @@ void	scene_pilier(t_engine *engine)
 	add_object(engine, object);
 
 	material = material_create(vector3f_create(1.f, 1.0f, 1.0f), 0.f, 0.f);
-	object = mesh_create("data/cube.obj", material);
+	object = mesh_create("data/tore.obj", material);
 //	object = triangle_create(vector3f_create(1.f, 0.f, 0.f), vector3f_create(0.f, 1.f, 0.f),
 //							 vector3f_create(0.f, 0.f, 0.f), material);
 	add_object(engine, object);
@@ -180,6 +180,6 @@ void	scene_pilier(t_engine *engine)
 	add_light(engine, light);
 //    t_object_size size = (t_object_size) {0.25f, 2.f};
 	engine->scene.ambient_light = light_create(vector3f_create(0, 0, 0),
-										vector3f_create(1, 1, 1), 0.5f);
+										vector3f_create(1, 1, 1), 0.1f);
 	engine->scene.sky_color = vector3f_create(0, 0, 0);
 }

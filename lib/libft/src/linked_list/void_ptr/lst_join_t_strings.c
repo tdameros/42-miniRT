@@ -27,10 +27,11 @@ t_string	lst_join_t_strings(t_list *list, const t_string separator)
 		return ((t_string){.data = NULL, .len = 0});
 	ft_bzero(&result, sizeof(result));
 	result.len = get_len(list, separator);
-	result.data = malloc(result.len);
+	result.data = malloc(result.len + 1);
 	if (result.data == NULL)
 		return ((t_string){.data = NULL, .len = 0});
 	fill_data(&result, list, separator);
+	result.data[result.len] = '\0';
 	return (result);
 }
 
