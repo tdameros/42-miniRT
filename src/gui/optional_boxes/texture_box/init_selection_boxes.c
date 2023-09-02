@@ -39,9 +39,9 @@ static void	get_paths_to_ppm_files(t_engine *engine)
 	textures_and_normal_maps
 		= &engine->gui.color_and_material.textures_and_normal_maps;
 	textures_and_normal_maps->path_to_textures_folder
-		= ft_strjoin(path_to_executable, "/data/textures");
+		= ft_strjoin(path_to_executable, "/assets/textures");
 	textures_and_normal_maps->path_to_normal_maps_folder
-		= ft_strjoin(path_to_executable, "/data/normal maps");
+		= ft_strjoin(path_to_executable, "/assets/normal_maps");
 	free(path_to_executable);
 	if (textures_and_normal_maps->path_to_textures_folder == NULL
 		|| textures_and_normal_maps->path_to_normal_maps_folder == NULL)

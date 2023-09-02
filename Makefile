@@ -327,6 +327,18 @@ LIBFT_A			=	$(LIBFT_PATH)libft.a
 LIBFT_A_DEBUG	=	$(LIBFT_PATH)libft_debug.a
 MAKE_LIBFT		=	$(MAKE) -C $(LIBFT_PATH)
 
+
+ASSETS_PATH			=	assets
+
+TEXTURES_PATH		=	$(ASSETS_PATH)/textures
+TEXTURES_ARCHIVE	=	$(TEXTURES_PATH)/textures.tar.gz
+TEXTURES			=	$(TEXTURES_PATH)/*.ppm
+
+NORMAL_MAPS_PATH	=	$(ASSETS_PATH)/normal_maps
+NORMAL_MAPS_ARCHIVE	=	$(NORMAL_MAPS_PATH)/normal_maps.tar.gz
+NORMAL_MAPS			=	$(NORMAL_MAPS_PATH)/*.ppm
+
+
 OS	= $(shell uname -s)
 
 ifeq ($(OS), Linux)
@@ -373,6 +385,7 @@ DEPENDENCIES =\
 
 .PHONY:		all
 all:
+			$(MAKE) decompress
 			$(MAKE_LIBFT)
 			$(MAKE_MINILIBX)
 			$(MAKE) $(NAME)
@@ -380,7 +393,7 @@ all:
 .PHONY:		run
 run:
 			$(MAKE) -j
-			./miniRT data/test.rt || true
+			./miniRT assets/scenes/test.rt || true
 
 $(NAME):	$(OBJS) src/get_window_size.swift
 	@if [ $(OS) = "Darwin" ]; then\
@@ -393,6 +406,7 @@ bonus:		all
 
 .PHONY:	clean
 clean:
+			$(MAKE) compress
 			$(MAKE_LIBFT) clean
 			$(MAKE_MINILIBX) clean
 			$(RM) $(DIR_BUILD)
@@ -415,3 +429,34 @@ re:		fclean
 $(DIR_BUILD)%.o : $(SRC_PATH)%.c $(LIBFT_A)
 			@mkdir -p $(shell dirname $@)
 			$(CC) $(CFLAGS) $(DEPS_FLAGS) $(INCLUDES) -c $< -o $@
+
+
+.PHONY: compress
+compress:
+	@if [ "$$(find $(TEXTURES_PATH) -maxdepth 1 -name '*.ppm' -print)" ]; then \
+		tar -czvf $(TEXTURES_ARCHIVE) $(TEXTURES); \
+		rm -rf $(TEXTURES); \
+    else \
+      echo "No textures (*.ppm) to compress found"; \
+    fi
+	@if [ "$$(find $(NORMAL_MAPS_PATH) -maxdepth 1 -name '*.ppm' -print)" ]; then \
+		tar -czvf $(NORMAL_MAPS_ARCHIVE) $(NORMAL_MAPS); \
+		rm -rf $(NORMAL_MAPS); \
+    else \
+      echo "No normal maps (*.ppm) to compress found"; \
+    fi
+
+.PHONY: decompress
+decompress:
+	@if [ -e $(TEXTURES_ARCHIVE) ]; then\
+        tar -xzvf $(TEXTURES_ARCHIVE); \
+        rm -rf $(TEXTURES_ARCHIVE); \
+    else \
+      echo "No textures archive to decompress was found"; \
+    fi
+	@if [ -e $(NORMAL_MAPS_ARCHIVE) ]; then\
+        tar -xzvf $(NORMAL_MAPS_ARCHIVE); \
+        rm -rf $(NORMAL_MAPS_ARCHIVE); \
+    else \
+      echo "No normal maps archive to decompress was found"; \
+    fi

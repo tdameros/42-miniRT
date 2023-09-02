@@ -66,12 +66,12 @@ int	init_engine(t_engine *engine, const char *start_up_scene, const char **argv)
 	// TODO: secure me
 	camera_create(&engine->camera, vector2f_create(engine->window.size.x,
 		engine->window.size.y));
-//	if (get_font(&engine->gui.font, "data/fonts/inconsolata/Inconsolata-VariableFont_wdth,wght.ttf") < 0)
-	if (get_font(&engine->gui.font, "data/fonts/Envy Code R PR7/Envy Code R.ttf") < 0)
-//	if (get_font(&engine->gui.font, "data/fonts/Roboto_Mono/RobotoMono-VariableFont_wght.ttf") < 0)
-//	if (get_font(&engine->gui.font, "data/fonts/JetBrains_Mono/JetBrainsMono-VariableFont_wght.ttf") < 0)
-//	if (get_font(&engine->gui.font, "data/fonts/Noto_Sans_Mono/NotoSansMono-VariableFont_wdth,wght.ttf") < 0)
-//	if (get_font(&engine->gui.font, "data/fonts/Fira_Code/FiraCode-VariableFont_wght.ttf") < 0)
+//	if (get_font(&engine->gui.font, "assets/fonts/inconsolata/Inconsolata-VariableFont_wdth,wght.ttf") < 0)
+	if (get_font(&engine->gui.font, "assets/fonts/Envy Code R PR7/Envy Code R.ttf") < 0)
+//	if (get_font(&engine->gui.font, "assets/fonts/Roboto_Mono/RobotoMono-VariableFont_wght.ttf") < 0)
+//	if (get_font(&engine->gui.font, "assets/fonts/JetBrains_Mono/JetBrainsMono-VariableFont_wght.ttf") < 0)
+//	if (get_font(&engine->gui.font, "assets/fonts/Noto_Sans_Mono/NotoSansMono-VariableFont_wdth,wght.ttf") < 0)
+//	if (get_font(&engine->gui.font, "assets/fonts/Fira_Code/FiraCode-VariableFont_wght.ttf") < 0)
 		return (-1); // TODO free everything
 	init_gui(engine);
 	init_scene(engine);

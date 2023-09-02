@@ -112,7 +112,7 @@ void	scene_pilier(t_engine *engine)
 //	add_object(engine, object);
 
 	material = material_create(vector3f_create(0.4f, 0.4f, 0.4f), 0.f, 0.f);
-//	set_outline_normals_map(&material, "data/normals_map.ppm");
+//	set_outline_normals_map(&material, "assets/normals_map.ppm");
 	object = plane_create(vector3f_create(0.f, 0.f, -25.f), vector3f_create(0.f, 0.f, 1.f), material);
 	add_object(engine, object);
 
@@ -126,15 +126,15 @@ void	scene_pilier(t_engine *engine)
 
 	// sphere
 	material = material_create(vector3f_create(1.f, 1.f, 1.0f), 0.f, 0.f);
-	set_outline_texture(&material, "data/textures/saturn.ppm");
+	set_outline_texture(&material, "assets/textures/saturn.ppm");
 	object = sphere_create(vector3f_create(0.f, -3.f, 15.f), 1.5f, material);
 //    add_object(engine, object);
 
 	material = material_create(vector3f_create(1.f, 1.f, 1.0f), 0.f, 0.f);
 	free_cap_texture(&material);
-//	set_outline_texture(&material, "data/earth.ppm");
-//	set_outline_texture(&material, "data/coca-cola.ppm");
-//	set_cap_texture(&material, "data/can_top.ppm");
+//	set_outline_texture(&material, "assets/earth.ppm");
+//	set_outline_texture(&material, "assets/coca-cola.ppm");
+//	set_cap_texture(&material, "assets/can_top.ppm");
 //	free_outline_texture(&material);
 //	set_outline_checkerboard(&material, (t_vector2f){10.f, 6.f},
 //								  vector3f_create(0, 0, 0));
@@ -145,19 +145,19 @@ void	scene_pilier(t_engine *engine)
 	add_object(engine, object);
 
 	material = material_create(vector3f_create(1.f, 1.f, 1.0f), 0.f, 0.f);
-	set_outline_texture(&material, "data/textures/moon.ppm");
+	set_outline_texture(&material, "assets/textures/moon.ppm");
 	object = sphere_create(vector3f_create(0.f, -3.f, 15.f), 1.5f, material);
 //	add_object(engine, object);
 
 	material = material_create(vector3f_create(1.f, 1.f, 1.0f), 0.f, 0.f);
-	set_outline_texture(&material, "data/textures/2k_stars.ppm");
+	set_outline_texture(&material, "assets/textures/2k_stars.ppm");
 	object = sphere_create(vector3f_create(0.f, -3.f, 15.f), 1.5f, material);
 //	add_object(engine, object);
 
 	material = material_create(vector3f_create(0.0f, 0.0f, 0.0f), 0.f, 0.f);
-//	set_outline_normals_map(&material, "data/normals_map.ppm");
-//	set_outline_normals_map(&material, "data/earth_normals.ppm");
-//	set_outline_texture(&material, "data/earth.ppm");
+//	set_outline_normals_map(&material, "assets/normals_map.ppm");
+//	set_outline_normals_map(&material, "assets/earth_normals.ppm");
+//	set_outline_texture(&material, "assets/earth.ppm");
 	material.reflection = 0.9f;
 	object = sphere_create(vector3f_create(10.f, -5.f, 10.f), 3.f, material);
 	add_object(engine, object);
