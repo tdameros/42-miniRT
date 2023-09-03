@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   get_normalized_vector.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vfries <vfries@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 18:43:00 by vfries            #+#    #+#             */
-/*   Updated: 2023/05/07 18:43:11 by vfries           ###   ########.fr       */
+/*   Updated: 2023/09/03 11:06:35 by vfries           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "math/vector.h"
-# include "parsing.h"
+#include "math/vector.h"
+#include "parsing.h"
 
 int	get_normalized_vector(char *vector_string, t_vector3f *vector_destination)
 {

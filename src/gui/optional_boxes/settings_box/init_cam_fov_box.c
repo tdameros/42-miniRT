@@ -21,6 +21,7 @@ void	init_cam_fov_box(t_engine *engine, t_gui_box *gui_box, int *y,
 	write_centered_string_to_image(&engine->gui.font,
 		&gui_box->children.data[0].image, "Camera FOV");
 	gui_box->children.data[0].on_click = &description_on_click;
+	engine->gui.float_input_boxes.camera_fov = gui_box->children.data + 1;
 	gui_box->children.data[1].children.data[0].on_click = &minus_on_click;
 	gui_box->children.data[1].children.data[1].on_click = &center_on_click;
 	gui_box->children.data[1].children.data[2].on_click = &plus_on_click;
@@ -37,7 +38,8 @@ static void	minus_on_click(t_gui_box *self, t_engine *engine,
 		engine->camera.horizontal_fov - 1);
 	camera_recalculate_projection(&engine->camera);
 	camera_recalculate_rays(&engine->camera);
-	update_float_input_box(engine, engine->camera.horizontal_fov, self->parent);
+	update_float_input_box(engine, engine->camera.horizontal_fov,
+		engine->gui.float_input_boxes.camera_fov);
 	engine->scene_changed = true;
 }
 
@@ -50,7 +52,8 @@ static void	plus_on_click(t_gui_box *self, t_engine *engine,
 		engine->camera.horizontal_fov + 1);
 	camera_recalculate_projection(&engine->camera);
 	camera_recalculate_rays(&engine->camera);
-	update_float_input_box(engine, engine->camera.horizontal_fov, self->parent);
+	update_float_input_box(engine, engine->camera.horizontal_fov,
+		engine->gui.float_input_boxes.camera_fov);
 	engine->scene_changed = true;
 }
 

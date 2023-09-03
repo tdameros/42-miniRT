@@ -24,7 +24,7 @@ static int	close_error(int fd);
 
 int	export_scene(const t_engine *engine, const char *output_file)
 {
-	const int		fd = open(output_file, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
+	const int		fd = open(output_file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 
 	if (fd < 0)
 		return (-1);

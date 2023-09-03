@@ -24,6 +24,8 @@ int	initialize_ppm_p6_file(t_ppm_p6 *ppm, const char *filename)
 	t_string	file_content;
 
 	file_content = ft_read_file(filename);
+	if (file_content.data == NULL)
+		return (-1);
 	if (parse_header(ppm, &file_content) < 0)
 		return (-1);
 	ppm->pixels = malloc(sizeof(*ppm->pixels) * ppm->size);

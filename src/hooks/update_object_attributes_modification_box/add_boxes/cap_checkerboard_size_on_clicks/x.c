@@ -31,6 +31,8 @@ void	cap_checkerboard_size_input_box_x_on_click_plus(t_gui_box *self,
 		object->material.texture.cap.checkerboard.size.x++;
 	object->material.texture.cap.checkerboard.size.x
 		= (int)object->material.texture.cap.checkerboard.size.x + 2;
+	if (object->material.texture.cap.texture_type == TEXTURE)
+		free_cap_texture(&object->material);
 	object->material.texture.cap.texture_type = CHECKERBOARD;
 	engine->scene_changed = true;
 	update_xy_float_input_boxes(engine,

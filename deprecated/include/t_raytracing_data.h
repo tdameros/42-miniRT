@@ -1,7 +1,7 @@
 #ifndef T_RAYTRACING_DATA_H
 # define T_RAYTRACING_DATA_H
 
-# include "deprecated/t_ambient_light.h"
+# include "t_ambient_light.h"
 # include "ray_tracer/camera.h"
 # include "light.h"
 # include "object.h"

@@ -33,15 +33,18 @@ int	add_object_in_objects(t_objects *objects, t_object object)
 {
 	t_object	*temp;
 
+	if (objects->size == 0)
+		if (initialize_objects_array(objects, 10) < 0)
+			return (-1);
 	if (objects->length < objects->size)
 		objects->data[objects->length] = object;
 	else
 	{
-		temp = malloc(sizeof(*objects->data)
-				* (objects->size * 2));
+		temp = malloc(sizeof(*objects->data) * (objects->size * 2));
 		if (temp == NULL)
 			return (-1);
-		ft_memcpy(temp, objects->data, sizeof(*objects->data) * objects->size);
+		ft_memcpy(temp, objects->data,
+			sizeof(*objects->data) * objects->length);
 		temp[objects->length] = object;
 		free(objects->data);
 		objects->data = temp;

@@ -91,16 +91,17 @@ SRC				=\
 	gui/optional_boxes/texture_box/outline_cap_picker/init_outline_cap_picker.c	\
 	gui/optional_boxes/texture_box/outline_cap_picker/on_click.c				\
 	\
+	gui/optional_boxes/texture_box/selection_box/click_ppm_box.c						\
+	gui/optional_boxes/texture_box/selection_box/init_selection_boxes.c					\
+	gui/optional_boxes/texture_box/selection_box/load_textures_and_normal_maps.c		\
+	gui/optional_boxes/texture_box/selection_box/textures_and_normal_maps_draw.c		\
+	gui/optional_boxes/texture_box/selection_box/textures_and_normal_maps_on_click.c	\
+	\
 	gui/optional_boxes/texture_box/texture_normal_map_picker/draw.c								\
 	gui/optional_boxes/texture_box/texture_normal_map_picker/init_texture_normal_map_picker.c	\
 	gui/optional_boxes/texture_box/texture_normal_map_picker/on_click.c							\
 	\
-	gui/optional_boxes/texture_box/click_ppm_box.c						\
-	gui/optional_boxes/texture_box/init_selection_boxes.c				\
 	gui/optional_boxes/texture_box/init_texture_box.c					\
-	gui/optional_boxes/texture_box/load_textures_and_normal_maps.c		\
-	gui/optional_boxes/texture_box/textures_and_normal_maps_draw.c		\
-	gui/optional_boxes/texture_box/textures_and_normal_maps_on_click.c	\
 	\
 	gui/optional_boxes/add_button_box.c			\
 	gui/optional_boxes/add_plus_minus_box.c		\
@@ -231,7 +232,16 @@ SRC				=\
 	object/calculate_cache.c		\
 	\
 	\
-	parsing/line_parsing/utils/add_object_to_object_list.c	\
+	parsing/line_parsing/utils/material/get_checkerboard_parsing_data.c	\
+	parsing/line_parsing/utils/material/parse_cap_checkerboard.c		\
+	parsing/line_parsing/utils/material/parse_cap_normal_map.c			\
+	parsing/line_parsing/utils/material/parse_cap_texture.c				\
+	parsing/line_parsing/utils/material/parse_outline_checkerboard.c	\
+	parsing/line_parsing/utils/material/parse_outline_normal_map.c		\
+	parsing/line_parsing/utils/material/parse_outline_texture.c			\
+	parsing/line_parsing/utils/material/parse_reflection.c				\
+	parsing/line_parsing/utils/material/parse_specular.c				\
+	\
 	parsing/line_parsing/utils/error.c						\
 	parsing/line_parsing/utils/get_color.c					\
 	parsing/line_parsing/utils/get_float.c					\
@@ -242,8 +252,10 @@ SRC				=\
 	parsing/line_parsing/invalid_scene_content_line.c	\
 	parsing/line_parsing/parse_ambient_light.c			\
 	parsing/line_parsing/parse_camera.c					\
+	parsing/line_parsing/parse_cone.c					\
 	parsing/line_parsing/parse_cylinder.c				\
 	parsing/line_parsing/parse_light.c					\
+	parsing/line_parsing/parse_material.c				\
 	parsing/line_parsing/parse_plane.c					\
 	parsing/line_parsing/parse_sphere.c					\
 	\
@@ -294,9 +306,6 @@ SRC				=\
 	render_frame/print_fps_counter.c		\
 	render_frame/render_frame.c				\
 	render_frame/render_user_interface.c	\
-	\
-	\
-	scene/create.c	\
 	\
 	\
 	close_miniRT.c		\
@@ -393,7 +402,7 @@ all:
 .PHONY:		run
 run:
 			$(MAKE) -j
-			./miniRT assets/scenes/test.rt || true
+			./miniRT exported_scene.rt || true
 
 $(NAME):	$(OBJS) src/get_window_size.swift
 	@if [ $(OS) = "Darwin" ]; then\

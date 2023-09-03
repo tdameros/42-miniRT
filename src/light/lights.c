@@ -32,15 +32,17 @@ int	add_light_in_lights(t_lights *lights, t_light light)
 {
 	t_light	*temp;
 
+	if (lights->size == 0)
+		if (initialize_lights_array(lights, 10) < 0)
+			return (-1);
 	if (lights->length < lights->size)
 		lights->data[lights->length] = light;
 	else
 	{
-		temp = malloc(sizeof(*lights->data)
-				* (lights->size * 2));
+		temp = malloc(sizeof(*lights->data) * (lights->size * 2));
 		if (temp == NULL)
 			return (-1);
-		ft_memcpy(temp, lights->data, sizeof(*lights->data) * lights->size);
+		ft_memcpy(temp, lights->data, sizeof(*lights->data) * lights->length);
 		temp[lights->length] = light;
 		free(lights->data);
 		lights->data = temp;

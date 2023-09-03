@@ -13,7 +13,7 @@
 #ifndef ENGINE_H
 # define ENGINE_H
 
-# include "deprecated/t_raytracing_data.h"
+# include "../deprecated/include/t_raytracing_data.h"
 # include "gui/gui.h"
 # include "image.h"
 # include "ray_tracer/camera.h"
@@ -50,7 +50,6 @@ typedef struct s_engine
 	t_image					main_image;
 	t_image					ray_traced_image;
 	t_raytraced_pixels		raytraced_pixels;
-	t_raytracing_data		raytracing_data;
 	t_camera				camera;
 	t_scene					scene;
 	t_object_being_placed	object_being_placed;

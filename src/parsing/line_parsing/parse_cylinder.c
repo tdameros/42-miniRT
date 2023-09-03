@@ -14,16 +14,15 @@
 
 #include "engine.h"
 #include "parsing.h"
+#include "ray_tracer_gui_api.h"
 
-int	parse_cylinder(t_engine *minirt, char **scene_content_line,
-					  t_rt_file_requirements *rt_file_requirements, t_list **object_list)
+int	parse_cylinder(t_engine *engine, char **scene_content_line,
+		t_rt_file_requirements *rt_file_requirements)
 {
 	t_object	cylinder;
 
-	(void)minirt;
 	(void)rt_file_requirements;
-	ft_bzero(&cylinder, sizeof(t_object));
-	cylinder.type = CYLINDER;
+	ft_bzero(&cylinder, sizeof(cylinder));
 	if (ft_split_len(scene_content_line) != 6)
 		return (error("Error\nFailed to get cylinder line\n"));
 	if (get_position(scene_content_line[1], &cylinder.position) < 0)
@@ -32,9 +31,13 @@ int	parse_cylinder(t_engine *minirt, char **scene_content_line,
 		return (error("Error\nFailed to get cylinder orientation\n"));
 	if (get_float(scene_content_line[3], &cylinder.radius) < 0)
 		return (error("Error\nFailed to get cylinder radius\n"));
+	cylinder.radius /= 2.f;
 	if (get_float(scene_content_line[4], &cylinder.height) < 0)
 		return (error("Error\nFailed to get cylinder y\n"));
 	if (get_color(scene_content_line[5], &cylinder.material.albedo) < 0)
 		return (error("Error\nFailed to get cylinder albedo\n"));
-	return (add_object_to_object_list(object_list, cylinder));
+	cylinder.material.albedo = vector3f_divide(cylinder.material.albedo, 255.f);
+	cylinder = cylinder_create(cylinder.position, cylinder.axis, \
+		(t_object_size){cylinder.radius, cylinder.height}, cylinder.material);
+	return (add_object(engine, cylinder));
 }

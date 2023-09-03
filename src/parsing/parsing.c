@@ -19,7 +19,7 @@
 #include "engine.h"
 #include "parsing.h"
 
-int	parse_scene(t_engine *minirt, const char *start_up_scene)
+int	parse_scene(t_engine *engine, const char *start_up_scene)
 {
 	const int	fd = open(start_up_scene, O_RDONLY);
 	char		***scene_content;
@@ -36,7 +36,7 @@ int	parse_scene(t_engine *minirt, const char *start_up_scene)
 		perror("Error\nFailed to init scene_content from .rt file");
 		return (-1);
 	}
-	if (parse_scene_content(minirt, scene_content))
+	if (parse_scene_content(engine, scene_content))
 	{
 		ft_putstr_fd("Failed to parse scene_content\n", STDERR_FILENO);
 		free_scene_content(scene_content);

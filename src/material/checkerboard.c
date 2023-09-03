@@ -13,8 +13,8 @@
 #include "material.h"
 
 void	set_outline_checkerboard(t_material *material,
-								const t_vector2f size,
-								const t_vector3f albedo)
+			const t_vector2f size,
+			const t_vector3f albedo)
 {
 	material->texture.outline.texture_type = CHECKERBOARD;
 	material->texture.outline.checkerboard.size.x = size.x;
@@ -23,8 +23,8 @@ void	set_outline_checkerboard(t_material *material,
 }
 
 void	set_cap_checkerboard(t_material *material,
-							const t_vector2f size,
-							const t_vector3f albedo)
+			const t_vector2f size,
+			const t_vector3f albedo)
 {
 	material->texture.cap.texture_type = CHECKERBOARD;
 	material->texture.cap.checkerboard.size.x = size.x;
