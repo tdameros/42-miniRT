@@ -4,6 +4,7 @@ NAME			=	miniRT
 SRC_PATH		=	src/
 
 SRC				=\
+	export/scene/datetime.c	\
 	export/scene/material.c	\
 	export/scene/object.c	\
 	export/scene/scene.c	\
@@ -402,7 +403,7 @@ all:
 .PHONY:		run
 run:
 			$(MAKE) -j
-			./miniRT exported_scene.rt || true
+			./miniRT assets/scenes/test.rt || true
 
 $(NAME):	$(OBJS) src/get_window_size.swift
 	@if [ $(OS) = "Darwin" ]; then\

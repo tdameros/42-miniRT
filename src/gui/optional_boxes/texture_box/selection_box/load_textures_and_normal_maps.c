@@ -16,6 +16,7 @@
 #include "hooks.h"
 #include "gui/UI.h"
 #include "font/render.h"
+#include "path.h"
 
 static void	update_ppm_boxes(t_engine *engine, char ***files,
 				t_gui_boxes *boxes, const char *path);
@@ -30,11 +31,9 @@ void	load_textures_and_normal_maps(t_engine *engine)
 	textures_and_normal_maps
 		= &engine->gui.color_and_material.textures_and_normal_maps;
 	update_ppm_boxes(engine, &textures_and_normal_maps->textures_files,
-		&textures_and_normal_maps->textures_boxes,
-		textures_and_normal_maps->path_to_textures_folder);
+		&textures_and_normal_maps->textures_boxes, TEXTURES_PATH);
 	update_ppm_boxes(engine, &textures_and_normal_maps->normal_maps_files,
-		&textures_and_normal_maps->normal_maps_boxes,
-		textures_and_normal_maps->path_to_normal_maps_folder);
+		&textures_and_normal_maps->normal_maps_boxes, NORMAL_MAPS_PATH);
 	textures_and_normal_maps->last_update = ft_get_current_time();
 }
 

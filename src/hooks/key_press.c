@@ -33,7 +33,7 @@ int	key_press_handler(int key_code, t_engine *engine)
 	}
 	else if (key_code == KEY_G)
 	{
-		if (export_scene(engine, "exported_scene.rt") < 0)
+		if (export_scene_with_datetime(engine) < 0)
 			ft_print_error("An error has occurred during export.\n");
 	}
 	if (key_code != KEY_W && key_code != KEY_S && key_code != KEY_A

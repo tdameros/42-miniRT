@@ -93,10 +93,8 @@ typedef struct s_textures_and_normal_maps
 {
 	struct s_gui_box	*selection_box;
 	struct timeval		last_update;
-	char				*path_to_textures_folder;
 	t_gui_boxes			textures_boxes;
 	char				**textures_files;
-	char				*path_to_normal_maps_folder;
 	t_gui_boxes			normal_maps_boxes;
 	char				**normal_maps_files;
 }	t_textures_and_normal_maps;
