@@ -25,7 +25,7 @@ int	main(const int argc, const char **argv)
 
 	if (arguments_are_bad(argc, argv))
 		return (1);
-	if (init_engine(&minirt, argv[1], argv) < 0)
+	if (init_engine(&minirt, argv[1], argv[0]) < 0)
 	{
 		ft_putstr_fd("Error: Failed to init miniRT\n", STDERR_FILENO);
 		return (2);

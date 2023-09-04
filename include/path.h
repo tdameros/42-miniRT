@@ -16,7 +16,7 @@
 # define ASSETS_PATH "assets"
 
 # define FONTS_PATH "assets/fonts"
-# define NORMAL_MAPS "assets/normal_maps"
+# define NORMAL_MAPS_PATH "assets/normal_maps"
 # define SCENES_PATH "assets/scenes"
 # define SCREENSHOTS_PATH "assets/screenshots"
 # define TEXTURES_PATH "assets/textures"

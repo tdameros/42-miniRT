@@ -17,32 +17,29 @@
 #define DEFAULT_MIN_RESOLUTION_REDUCTION 1
 
 static void	init_hooks(t_engine *engine);
-static char	*get_path_to_minirt_folder(const char *argv0);
+static int	set_minirt_folder_as_current_working_directory(
+				const char *path_to_minirt_binary);
+static char	*get_path_to_minirt_folder(const char *path_to_minirt_binary);
 
-#include <stdio.h>
-int	init_engine(t_engine *engine, const char *start_up_scene, const char **argv)
+int	init_engine(t_engine *engine, const char *start_up_scene,
+		const char *path_to_minirt_binary)
 {
+	char	*start_up_scene_realpath;
+
+	start_up_scene_realpath = realpath(start_up_scene, NULL);
+	if (start_up_scene_realpath == NULL)
+		return (-1);
+	if (set_minirt_folder_as_current_working_directory(path_to_minirt_binary))
+		return (free(start_up_scene_realpath), -1);
+
 	ft_bzero(engine, sizeof(t_engine));
-	engine->argv = argv;
 	engine->antialiasing = true;
 	engine->quality.max_reduction = DEFAULT_MAX_RESOLUTION_REDUCTION;
 	engine->quality.min_reduction = DEFAULT_MIN_RESOLUTION_REDUCTION;
 	get_screen_size(&engine->window.size.x, &engine->window.size.y); // TODO check that screen size is not too small
 //	printf("%i, %i\n", engine->window.size.x, engine->window.size.y);
 //	exit(0);
-	char	*start_up_scene_realpath = realpath(start_up_scene, NULL);
-	if (start_up_scene_realpath == NULL)
-		return (-1);
 
-	char	*path_to_minirt_folder = get_path_to_minirt_folder(argv[0]);
-	if (path_to_minirt_folder == NULL)
-		return (-1);
-	if (chdir(path_to_minirt_folder) < 0)
-	{
-		free(path_to_minirt_folder);
-		return (-1);
-	}
-	free(path_to_minirt_folder);
 	engine->window.mlx = mlx_init();
 	if (engine->window.mlx == NULL)
 		return (-1);
@@ -73,7 +70,7 @@ int	init_engine(t_engine *engine, const char *start_up_scene, const char **argv)
 	if (get_font(&engine->gui.font, "assets/fonts/Envy Code R PR7/Envy Code R.ttf") < 0)
 		return (-1); // TODO free everything
 	init_gui(engine);
-	if (parse_scene(engine, start_up_scene) < 0)
+	if (parse_scene(engine, start_up_scene_realpath) < 0)
 		return (-1); // TODO free stuff
 	free(start_up_scene_realpath);
 	return (0);
@@ -94,13 +91,30 @@ static void	init_hooks(t_engine *engine)
 	mlx_loop_hook(engine->window.mlx, &render_frame, engine);
 }
 
-static char	*get_path_to_minirt_folder(const char *argv0)
+static int	set_minirt_folder_as_current_working_directory(
+				const char *path_to_minirt_binary)
+{
+	char	*path_to_minirt_folder;
+
+	path_to_minirt_folder = get_path_to_minirt_folder(path_to_minirt_binary);
+	if (path_to_minirt_folder == NULL)
+		return (-1);
+	if (chdir(path_to_minirt_folder) < 0)
+	{
+		free(path_to_minirt_folder);
+		return (-1);
+	}
+	free(path_to_minirt_folder);
+	return (0);
+}
+
+static char	*get_path_to_minirt_folder(const char *path_to_minirt_binary)
 {
 	char	*path_to_executable;
 	char	*last_backslash;
 	char	*path_to_minirt_folder;
 
-	path_to_executable = realpath(argv0, NULL);
+	path_to_executable = realpath(path_to_minirt_binary, NULL);
 	if (path_to_executable == NULL)
 		return (NULL);
 	last_backslash = ft_strrchr(path_to_executable, '/');
