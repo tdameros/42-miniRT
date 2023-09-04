@@ -86,10 +86,11 @@ static void	init_hooks(t_engine *engine)
 
 static char	*get_path_to_minirt_folder(const char *argv0)
 {
-	const char	*path_to_executable = realpath(argv0, NULL);
-	char		*last_backslash;
-	char		*path_to_minirt_folder;
+	char	*path_to_executable;
+	char	*last_backslash;
+	char	*path_to_minirt_folder;
 
+	path_to_executable = realpath(argv0, NULL);
 	if (path_to_executable == NULL)
 		return (NULL);
 	last_backslash = ft_strrchr(path_to_executable, '/');
