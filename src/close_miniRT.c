@@ -13,6 +13,7 @@ int	close_engine(t_engine *engine)
 	destroy_t_image(&engine->window, &engine->main_image);
 	if (engine->window.mlx != NULL && engine->window.window != NULL)
 		mlx_destroy_window(engine->window.mlx, engine->window.window);
+	free(engine->path_to_minirt_folder);
 	// TODO destroy font
 	exit(0); // TODO: free everything
 }

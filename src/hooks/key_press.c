@@ -25,7 +25,7 @@ int	key_press_handler(int key_code, t_engine *engine)
 		toggle_gui(&engine->gui);
 	else if (key_code == KEY_T)
 	{
-		if (take_screenshot(&engine->ray_traced_image) < 0)
+		if (take_screenshot(&engine->ray_traced_image, engine->path_to_minirt_folder) < 0)
 			ft_print_error("An error has occurred during the screenshot.\n");
 		else
 			engine->gui.screen_shot.last_screen_shot
@@ -33,7 +33,7 @@ int	key_press_handler(int key_code, t_engine *engine)
 	}
 	else if (key_code == KEY_G)
 	{
-		if (export_scene_with_datetime(engine) < 0)
+		if (export_scene_with_datetime(engine, engine->path_to_minirt_folder) < 0)
 			ft_print_error("An error has occurred during export.\n");
 	}
 	if (key_code != KEY_W && key_code != KEY_S && key_code != KEY_A

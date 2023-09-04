@@ -403,7 +403,7 @@ all:
 .PHONY:		run
 run:
 			$(MAKE) -j
-			./miniRT exported_scene.rt || true
+			./miniRT assets/scenes/test.rt || true
 
 $(NAME):	$(OBJS) src/get_window_size.swift
 	@if [ $(OS) = "Darwin" ]; then\

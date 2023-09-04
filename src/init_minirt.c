@@ -17,7 +17,9 @@
 #define DEFAULT_MIN_RESOLUTION_REDUCTION 1
 
 static void	init_hooks(t_engine *engine);
+static char	*get_path_to_minirt_folder(const char *argv0);
 
+#include <stdio.h>
 int	init_engine(t_engine *engine, const char *start_up_scene, const char **argv)
 {
 	ft_bzero(engine, sizeof(t_engine));
@@ -28,6 +30,10 @@ int	init_engine(t_engine *engine, const char *start_up_scene, const char **argv)
 	get_screen_size(&engine->window.size.x, &engine->window.size.y); // TODO check that screen size is not too small
 //	printf("%i, %i\n", engine->window.size.x, engine->window.size.y);
 //	exit(0);
+	engine->path_to_minirt_folder = get_path_to_minirt_folder(argv[0]);
+	if (engine->path_to_minirt_folder == NULL)
+		return (-1);
+
 	engine->window.mlx = mlx_init();
 	if (engine->window.mlx == NULL)
 		return (-1);
@@ -35,7 +41,6 @@ int	init_engine(t_engine *engine, const char *start_up_scene, const char **argv)
 			engine->window.size.x, engine->window.size.y, "miniRT");
 	if (engine->window.window == NULL)
 		return (-1); // TODO: free mlx
-
 	init_image(&engine->ray_traced_image, &engine->window,
 		engine->window.size.x, engine->window.size.y);
 	engine->raytraced_pixels.data = malloc(sizeof(*engine->raytraced_pixels.data) * engine->ray_traced_image.size); // TODO secure
@@ -77,4 +82,22 @@ static void	init_hooks(t_engine *engine)
 	mlx_hook(engine->window.window, DESTROY_NOTIFY, STRUCTURE_NOTIFY_MASK,
 		&close_engine, engine);
 	mlx_loop_hook(engine->window.mlx, &render_frame, engine);
+}
+
+static char	*get_path_to_minirt_folder(const char *argv0)
+{
+	const char	*path_to_executable = realpath(argv0, NULL);
+	char		*last_backslash;
+	char		*path_to_minirt_folder;
+
+	if (path_to_executable == NULL)
+		return (NULL);
+	last_backslash = ft_strrchr(path_to_executable, '/');
+	if (last_backslash == NULL)
+		path_to_minirt_folder = ft_strdup(path_to_executable);
+	else
+		path_to_minirt_folder = ft_substr(path_to_executable, 0,
+				last_backslash - path_to_executable);
+	free(path_to_executable);
+	return (path_to_minirt_folder);
 }

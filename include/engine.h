@@ -63,6 +63,7 @@ typedef struct s_engine
 	bool					scene_changed;
 	t_quality				quality;
 	const char				**argv;
+	char					*path_to_minirt_folder;
 }	t_engine;
 
 int		init_engine(t_engine *engine, const char *start_up_scene,
