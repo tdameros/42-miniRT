@@ -15,12 +15,8 @@
 
 # include "engine.h"
 
-# define SCENES_PATH "assets/scenes"
-# define SCREENSHOTS_PATH "assets/screenshots"
-
 //	scene/datetime.c
-int	export_scene_with_datetime(const t_engine *engine,
-		const char *path_to_minirt_folder);
+int	export_scene_with_datetime(const t_engine *engine);
 
 //	scene/material.c
 int	write_material(t_material material, int fd);
@@ -35,6 +31,6 @@ int	export_scene(const t_engine *engine, const char *output_file);
 int	export_image_to_ppm(const t_image *image, const char *output_file);
 
 //	screenshot.c
-int	take_screenshot(const t_image *image, const char *path_to_minirt_folder);
+int	take_screenshot(const t_image *image);
 
 #endif

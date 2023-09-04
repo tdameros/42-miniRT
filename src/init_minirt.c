@@ -30,10 +30,19 @@ int	init_engine(t_engine *engine, const char *start_up_scene, const char **argv)
 	get_screen_size(&engine->window.size.x, &engine->window.size.y); // TODO check that screen size is not too small
 //	printf("%i, %i\n", engine->window.size.x, engine->window.size.y);
 //	exit(0);
-	engine->path_to_minirt_folder = get_path_to_minirt_folder(argv[0]);
-	if (engine->path_to_minirt_folder == NULL)
+	char	*start_up_scene_realpath = realpath(start_up_scene, NULL);
+	if (start_up_scene_realpath == NULL)
 		return (-1);
 
+	char	*path_to_minirt_folder = get_path_to_minirt_folder(argv[0]);
+	if (path_to_minirt_folder == NULL)
+		return (-1);
+	if (chdir(path_to_minirt_folder) < 0)
+	{
+		free(path_to_minirt_folder);
+		return (-1);
+	}
+	free(path_to_minirt_folder);
 	engine->window.mlx = mlx_init();
 	if (engine->window.mlx == NULL)
 		return (-1);
@@ -66,6 +75,7 @@ int	init_engine(t_engine *engine, const char *start_up_scene, const char **argv)
 	init_gui(engine);
 	if (parse_scene(engine, start_up_scene) < 0)
 		return (-1); // TODO free stuff
+	free(start_up_scene_realpath);
 	return (0);
 }
 

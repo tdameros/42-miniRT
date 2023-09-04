@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   datetime.c                                         :+:      :+:    :+:   */
+/*   path.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/02 22:29:00 by tdameros          #+#    #+#             */
-/*   Updated: 2023/09/02 22:29:00 by tdameros         ###   ########lyon.fr   */
+/*   Created: 2023/09/04 17:36:00 by tdameros          #+#    #+#             */
+/*   Updated: 2023/09/04 17:36:00 by tdameros         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "engine.h"
-#include "export.h"
-#include "path.h"
+#ifndef PATH_H
+# define PATH_H
 
-int	export_scene_with_datetime(const t_engine *engine)
-{
-	time_t		raw_time;
-	struct tm	time_info;
-	char		scene_name[100];
+# define ASSETS_PATH "assets"
 
-	time(&raw_time);
-	localtime_r(&raw_time, &time_info);
-	strftime(scene_name, 100, SCENES_PATH"/Scene %Y-%m-%d at %H.%M.%S.rt",
-		&time_info);
-	return (export_scene(engine, scene_name));
-}
+# define FONTS_PATH "assets/fonts"
+# define NORMAL_MAPS "assets/normal_maps"
+# define SCENES_PATH "assets/scenes"
+# define SCREENSHOTS_PATH "assets/screenshots"
+# define TEXTURES_PATH "assets/textures"
+# define OBJS_PATH "assets/objs"
+
+#endif
