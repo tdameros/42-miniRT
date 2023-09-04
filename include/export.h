@@ -15,6 +15,12 @@
 
 # include "engine.h"
 
+# define SCENES_PATH "assets/scenes"
+# define SCREENSHOTS_PATH "assets/screenshots"
+
+//	scene/datetime.c
+int	export_scene_with_datetime(const t_engine *engine);
+
 //	scene/material.c
 int	write_material(t_material material, int fd);
 

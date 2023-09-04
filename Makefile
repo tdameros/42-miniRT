@@ -4,6 +4,7 @@ NAME			=	miniRT
 SRC_PATH		=	src/
 
 SRC				=\
+	export/scene/datetime.c	\
 	export/scene/material.c	\
 	export/scene/object.c	\
 	export/scene/scene.c	\
