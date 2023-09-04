@@ -406,7 +406,7 @@ run:
 
 $(NAME):	$(OBJS) src/get_window_size.swift
 	@if [ $(OS) = "Darwin" ]; then\
-		swiftc -emit-library -module-name SwiftCode -o $(DIR_BUILD)libget_window_size.a $(SRC_PATH)get_window_size.swift;\
+		swiftc -emit-library -module-name SwiftCode -o $(CURDIR)/$(DIR_BUILD)libget_window_size.a $(SRC_PATH)get_window_size.swift;\
 	fi
 	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) $(FRAMEWORKS) $(LIBS) -o $(NAME)
 
