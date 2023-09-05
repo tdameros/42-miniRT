@@ -12,6 +12,7 @@
 
 #include "events.h"
 #include "gui/box.h"
+#include "gui/optional_boxes.h"
 
 void	texture_picker_on_click(t_gui_box *self, t_engine *engine,
 			t_click_data click_data)
@@ -22,7 +23,7 @@ void	texture_picker_on_click(t_gui_box *self, t_engine *engine,
 		== TEXTURE)
 		return ;
 	engine->gui.color_and_material.textures_and_normal_maps.selection_box->\
-		scroll = 0;
+		scroll = TEXTURE_BOX_PPM_OFFSET;
 	engine->gui.color_and_material.changing_normal_map_or_texture = TEXTURE;
 }
 
@@ -35,6 +36,6 @@ void	normal_map_picker_on_click(t_gui_box *self, t_engine *engine,
 		== NORMAL_MAP)
 		return ;
 	engine->gui.color_and_material.textures_and_normal_maps.selection_box->\
-		scroll = 0;
+		scroll = TEXTURE_BOX_PPM_OFFSET;
 	engine->gui.color_and_material.changing_normal_map_or_texture = NORMAL_MAP;
 }
