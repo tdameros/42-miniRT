@@ -68,6 +68,8 @@ void		set_cap_checkerboard(t_material *material,
 t_material	material_create(const t_vector3f albedo, \
 							const float reflect_intensity, \
 							const float specular_intensity);
+void		material_free(t_material *material);
+int			material_deep_copy(t_material *dst, t_material *src);
 
 //	normals_map.c
 int			set_outline_normals_map(t_material *material, const char *filename);
