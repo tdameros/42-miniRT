@@ -41,19 +41,19 @@ typedef struct s_surface
 
 }	t_surface;
 
-typedef struct s_texture
+typedef struct s_textures
 {
 	t_surface	cap;
 	t_surface	outline;
 
-}	t_texture;
+}	t_textures;
 
 typedef struct s_material
 {
 	t_vector3f	albedo;
 	float		reflection;
 	float		specular;
-	t_texture	texture;
+	t_textures	textures;
 }	t_material;
 
 //	checkerboard.c
@@ -68,6 +68,8 @@ void		set_cap_checkerboard(t_material *material,
 t_material	material_create(const t_vector3f albedo, \
 							const float reflect_intensity, \
 							const float specular_intensity);
+void		material_free(t_material *material);
+int			material_deep_copy(t_material *dst, t_material *src);
 
 //	normals_map.c
 int			set_outline_normals_map(t_material *material, const char *filename);
@@ -75,8 +77,8 @@ int			set_cap_normals_map(t_material *material, const char *filename);
 void		free_outline_normals_map(t_material *material);
 void		free_cap_normals_map(t_material *material);
 
-//	texture.c
-t_texture	create_empty_texture(void);
+//	textures.c
+t_textures	create_empty_texture(void);
 int			set_outline_texture(t_material *material, const char *filename);
 int			set_cap_texture(t_material *material, const char *filename);
 void		free_outline_texture(t_material *material);

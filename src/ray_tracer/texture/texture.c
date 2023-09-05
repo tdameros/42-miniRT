@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   texture.c                                          :+:      :+:    :+:   */
+/*   textures.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -32,12 +32,12 @@ t_vector3f	get_texture_color(t_hit hit, const t_object *object)
 
 	if (hit.context == CAP1 || hit.context == CAP2)
 	{
-		surface = object->material.texture.cap;
+		surface = object->material.textures.cap;
 		uv = calculate_cap_map(hit.position, object);
 	}
 	else
 	{
-		surface = object->material.texture.outline;
+		surface = object->material.textures.outline;
 		uv = calculate_object_map(hit.position, object);
 	}
 	if (surface.texture_type == NONE)

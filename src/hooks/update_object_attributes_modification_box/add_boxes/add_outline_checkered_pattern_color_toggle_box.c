@@ -29,13 +29,13 @@ void	add_outline_checkerboard_color_toggle_box(t_engine *engine,
 	engine->gui.color_and_material.color_being_changed = BASE_COLOR;
 	object = engine->gui.selected_object.object;
 	if (object != NULL
-		&& object->material.texture.outline.texture_type != PPM_TEXTURE
-		&& object->material.texture.outline.checkerboard.size.y <= 1.f
-		&& object->material.texture.outline.checkerboard.size.x <= 1.f)
-		object->material.texture.outline.texture_type = NONE;
+		&& object->material.textures.outline.texture_type != PPM_TEXTURE
+		&& object->material.textures.outline.checkerboard.size.y <= 1.f
+		&& object->material.textures.outline.checkerboard.size.x <= 1.f)
+		object->material.textures.outline.texture_type = NONE;
 	else if (object != NULL
-		&& object->material.texture.outline.texture_type != PPM_TEXTURE)
-		object->material.texture.outline.texture_type = CHECKERBOARD;
+		&& object->material.textures.outline.texture_type != PPM_TEXTURE)
+		object->material.textures.outline.texture_type = CHECKERBOARD;
 	add_toggle_box(engine, gui_box, i, parent);
 	gui_box->children.data->on_click
 		= &outline_checkerboard_color_toggle_box_on_click;
@@ -57,7 +57,7 @@ static void	outline_checkerboard_color_toggle_box_on_click(t_gui_box *self,
 	if (click_data.button != BUTTON_LEFT || object == NULL)
 		return ;
 	if (engine->gui.color_and_material.color_being_changed == OUTLINE_CHECKERBOARD_COLOR
-		|| object->material.texture.outline.texture_type != CHECKERBOARD)
+		|| object->material.textures.outline.texture_type != CHECKERBOARD)
 		engine->gui.color_and_material.color_being_changed = BASE_COLOR;
 	else
 		engine->gui.color_and_material.color_being_changed = OUTLINE_CHECKERBOARD_COLOR;

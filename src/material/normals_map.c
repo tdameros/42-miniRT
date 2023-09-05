@@ -24,14 +24,14 @@ int	set_outline_normals_map(t_material *material, const char *filename)
 	free_outline_normals_map(material);
 	if (initialize_ppm_p6_file(&ppm, filename) < 0)
 		return (-1);
-	material->texture.outline.normals_map_file = ft_strdup(filename);
-	if (material->texture.outline.normals_map_file == NULL)
+	material->textures.outline.normals_map_file = ft_strdup(filename);
+	if (material->textures.outline.normals_map_file == NULL)
 	{
 		free_outline_normals_map(material);
 		return (-1);
 	}
-	material->texture.outline.normals_map = ppm;
-	material->texture.outline.has_normals_map = true;
+	material->textures.outline.normals_map = ppm;
+	material->textures.outline.has_normals_map = true;
 	return (0);
 }
 
@@ -42,33 +42,33 @@ int	set_cap_normals_map(t_material *material, const char *filename)
 	free_cap_normals_map(material);
 	if (initialize_ppm_p6_file(&ppm, filename) < 0)
 		return (-1);
-	material->texture.cap.normals_map_file = ft_strdup(filename);
-	if (material->texture.cap.normals_map_file == NULL)
+	material->textures.cap.normals_map_file = ft_strdup(filename);
+	if (material->textures.cap.normals_map_file == NULL)
 	{
 		free_cap_normals_map(material);
 		return (-1);
 	}
-	material->texture.cap.normals_map = ppm;
-	material->texture.cap.has_normals_map = true;
+	material->textures.cap.normals_map = ppm;
+	material->textures.cap.has_normals_map = true;
 	return (0);
 }
 
 void	free_outline_normals_map(t_material *material)
 {
-	free(material->texture.outline.normals_map.pixels);
-	free(material->texture.outline.normals_map_file);
-	ft_bzero(&material->texture.outline.normals_map,
-		sizeof(material->texture.outline.normals_map));
-	material->texture.outline.normals_map_file = NULL;
-	material->texture.outline.has_normals_map = false;
+	free(material->textures.outline.normals_map.pixels);
+	free(material->textures.outline.normals_map_file);
+	ft_bzero(&material->textures.outline.normals_map,
+		sizeof(material->textures.outline.normals_map));
+	material->textures.outline.normals_map_file = NULL;
+	material->textures.outline.has_normals_map = false;
 }
 
 void	free_cap_normals_map(t_material *material)
 {
-	free(material->texture.cap.normals_map.pixels);
-	free(material->texture.cap.normals_map_file);
-	ft_bzero(&material->texture.cap.normals_map,
-		sizeof(material->texture.cap.normals_map));
-	material->texture.cap.normals_map_file = NULL;
-	material->texture.cap.has_normals_map = false;
+	free(material->textures.cap.normals_map.pixels);
+	free(material->textures.cap.normals_map_file);
+	ft_bzero(&material->textures.cap.normals_map,
+		sizeof(material->textures.cap.normals_map));
+	material->textures.cap.normals_map_file = NULL;
+	material->textures.cap.has_normals_map = false;
 }

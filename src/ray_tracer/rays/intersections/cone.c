@@ -36,7 +36,7 @@ t_hit	hit_cone(const t_ray *ray, const t_object *cone,
 		hit.normal = vector3f_multiply(hit.normal, -1);
 	hit.object = cone;
 	hit.ray = *ray;
-	// TODO : get cone texture
+	// TODO : get cone textures
 	hit.albedo = cone->material.albedo;
 	hit.shade_normal = hit.normal;
 	return (hit);

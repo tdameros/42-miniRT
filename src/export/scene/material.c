@@ -50,13 +50,13 @@ static	bool	is_default_material(t_material material)
 		return (false);
 	else if (material.specular != 0.f)
 		return (false);
-	else if (material.texture.outline.texture_type != NONE)
+	else if (material.textures.outline.texture_type != NONE)
 		return (false);
-	else if (material.texture.outline.has_normals_map)
+	else if (material.textures.outline.has_normals_map)
 		return (false);
-	else if (material.texture.cap.texture_type != NONE)
+	else if (material.textures.cap.texture_type != NONE)
 		return (false);
-	else if (material.texture.cap.has_normals_map)
+	else if (material.textures.cap.has_normals_map)
 		return (false);
 	return (true);
 }
@@ -66,23 +66,23 @@ static int	write_outline_texture(t_material material, int fd)
 	ssize_t	return_code;
 
 	return_code = 1;
-	if (material.texture.outline.texture_type == PPM_TEXTURE)
+	if (material.textures.outline.texture_type == PPM_TEXTURE)
 		return_code = dprintf(fd, "\toutline_texture:%s",
-				material.texture.outline.texture_file);
+				material.textures.outline.texture_file);
 	if (return_code < 0)
 		return (-1);
-	if (material.texture.outline.texture_type == CHECKERBOARD)
+	if (material.textures.outline.texture_type == CHECKERBOARD)
 		return_code = dprintf(fd, "\toutline_checkerboard:%u,%u-%f,%f,%f",
-				(u_int32_t)material.texture.outline.checkerboard.size.x,
-				(u_int32_t)material.texture.outline.checkerboard.size.y,
-				material.texture.outline.checkerboard.albedo.x * 255.f,
-				material.texture.outline.checkerboard.albedo.y * 255.f,
-				material.texture.outline.checkerboard.albedo.z * 255.f);
+				(u_int32_t)material.textures.outline.checkerboard.size.x,
+				(u_int32_t)material.textures.outline.checkerboard.size.y,
+							  material.textures.outline.checkerboard.albedo.x * 255.f,
+							  material.textures.outline.checkerboard.albedo.y * 255.f,
+							  material.textures.outline.checkerboard.albedo.z * 255.f);
 	if (return_code < 0)
 		return (-1);
-	if (material.texture.outline.has_normals_map)
+	if (material.textures.outline.has_normals_map)
 		return_code = dprintf(fd, "\toutline_normal_map:%s",
-				material.texture.outline.normals_map_file);
+				material.textures.outline.normals_map_file);
 	if (return_code < 0)
 		return (-1);
 	return (0);
@@ -93,23 +93,23 @@ static int	write_cap_texture(t_material material, int fd)
 	ssize_t	return_code;
 
 	return_code = 1;
-	if (material.texture.cap.texture_type == PPM_TEXTURE)
+	if (material.textures.cap.texture_type == PPM_TEXTURE)
 		return_code = dprintf(fd, "\tcap_texture:%s",
-				material.texture.cap.texture_file);
+				material.textures.cap.texture_file);
 	if (return_code < 0)
 		return (-1);
-	if (material.texture.cap.texture_type == CHECKERBOARD)
+	if (material.textures.cap.texture_type == CHECKERBOARD)
 		return_code = dprintf(fd, "\tcap_checkerboard:%f,%f-%f,%f,%f",
-				material.texture.cap.checkerboard.size.x,
-				material.texture.cap.checkerboard.size.y,
-				material.texture.cap.checkerboard.albedo.x * 255.f,
-				material.texture.cap.checkerboard.albedo.y * 255.f,
-				material.texture.cap.checkerboard.albedo.z * 255.f);
+				material.textures.cap.checkerboard.size.x,
+				material.textures.cap.checkerboard.size.y,
+							  material.textures.cap.checkerboard.albedo.x * 255.f,
+							  material.textures.cap.checkerboard.albedo.y * 255.f,
+							  material.textures.cap.checkerboard.albedo.z * 255.f);
 	if (return_code < 0)
 		return (-1);
-	if (material.texture.cap.has_normals_map)
+	if (material.textures.cap.has_normals_map)
 		return_code = dprintf(fd, "\tcap_normal_map:%s",
-				material.texture.cap.normals_map_file);
+				material.textures.cap.normals_map_file);
 	if (return_code < 0)
 		return (-1);
 	return (0);

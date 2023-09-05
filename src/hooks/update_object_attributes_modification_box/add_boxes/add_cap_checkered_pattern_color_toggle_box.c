@@ -28,13 +28,13 @@ void	add_cap_checkerboard_color_toggle_box(t_engine *engine,
 	engine->gui.color_and_material.color_being_changed = BASE_COLOR;
 	object = engine->gui.selected_object.object;
 	if (object != NULL
-		&& object->material.texture.cap.texture_type != PPM_TEXTURE
-		&& object->material.texture.cap.checkerboard.size.y <= 1.f
-		&& object->material.texture.cap.checkerboard.size.x <= 1.f)
-		object->material.texture.cap.texture_type = NONE;
+		&& object->material.textures.cap.texture_type != PPM_TEXTURE
+		&& object->material.textures.cap.checkerboard.size.y <= 1.f
+		&& object->material.textures.cap.checkerboard.size.x <= 1.f)
+		object->material.textures.cap.texture_type = NONE;
 	else if (object != NULL
-		&& object->material.texture.cap.texture_type != PPM_TEXTURE)
-		object->material.texture.cap.texture_type = CHECKERBOARD;
+		&& object->material.textures.cap.texture_type != PPM_TEXTURE)
+		object->material.textures.cap.texture_type = CHECKERBOARD;
 	add_toggle_box(engine, gui_box, i, parent);
 	gui_box->children.data->on_click
 		= &cap_checkerboard_color_toggle_box_on_click;
@@ -56,7 +56,7 @@ static void	cap_checkerboard_color_toggle_box_on_click(t_gui_box *self,
 	if (click_data.button != BUTTON_LEFT || object == NULL)
 		return ;
 	if (engine->gui.color_and_material.color_being_changed == CAP_CHECKERBOARD_COLOR
-		|| object->material.texture.cap.texture_type != CHECKERBOARD)
+		|| object->material.textures.cap.texture_type != CHECKERBOARD)
 		engine->gui.color_and_material.color_being_changed = BASE_COLOR;
 	else
 		engine->gui.color_and_material.color_being_changed = CAP_CHECKERBOARD_COLOR;

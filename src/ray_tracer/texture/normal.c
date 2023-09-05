@@ -26,12 +26,12 @@ t_vector3f	calculate_normal_perturbation(t_hit hit, const t_object *object)
 
 	if (hit.context == CAP1 || hit.context == CAP2)
 	{
-		surface = object->material.texture.cap;
+		surface = object->material.textures.cap;
 		uv = calculate_cap_map(hit.position, object);
 	}
 	else
 	{
-		surface = object->material.texture.outline;
+		surface = object->material.textures.outline;
 		uv = calculate_object_map(hit.position, object);
 	}
 	return (vector3f_unit(vector3f_add(get_normal_in_map(uv, surface),

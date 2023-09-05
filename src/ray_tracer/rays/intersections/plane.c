@@ -33,7 +33,7 @@ t_hit	hit_plane(const t_ray *ray, const t_object *plane,
 	hit.ray = *ray;
 	hit.hit = true;
 	hit.albedo = get_texture_color(hit, plane);
-	if (plane->material.texture.outline.has_normals_map)
+	if (plane->material.textures.outline.has_normals_map)
 		hit.shade_normal = calculate_normal_perturbation(hit, plane);
 	else
 		hit.shade_normal = hit.normal;

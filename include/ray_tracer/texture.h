@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   texture.h                                          :+:      :+:    :+:   */
+/*   textures.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -26,7 +26,7 @@ t_vector2f	calculate_cap_map(const t_vector3f hit_position,
 //	normal.c
 t_vector3f	calculate_normal_perturbation(t_hit hit, const t_object *object);
 
-//	texture.c
+//	textures.c
 t_vector3f	get_texture_color(t_hit hit, const t_object *object);
 
 #endif
