@@ -295,6 +295,7 @@ SRC				=\
 	ray_tracer/texture/texture.c		\
 	\
 	ray_tracer/interpolate_ray_tracing.c	\
+	ray_tracer/post_processing.c			\
 	ray_tracer/render.c						\
 	ray_tracer/render_icon.c				\
 	ray_tracer/render_ray.c					\

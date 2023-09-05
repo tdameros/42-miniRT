@@ -87,6 +87,7 @@ static t_color	render_pixel(t_engine *engine, size_t ray_index)
 	t_vector3f	pixel_color;
 
 	pixel_color = render_ray(ray, &engine->scene);
+	pixel_color = calculate_post_processing_color(engine, pixel_color);
 	pixel_color = vector3f_clamp(pixel_color, 0, 1);
 	pixel_color = vector3f_multiply(pixel_color, 255);
 	return (pixel_color);

@@ -31,8 +31,8 @@ int	init_engine(t_engine *engine, const char *start_up_scene,
 		return (-1);
 	if (set_minirt_folder_as_current_working_directory(path_to_minirt_binary))
 		return (free(start_up_scene_realpath), -1);
-
 	ft_bzero(engine, sizeof(t_engine));
+	engine->is_black_and_white_render = false;
 	engine->antialiasing = true;
 	engine->quality.max_reduction = DEFAULT_MAX_RESOLUTION_REDUCTION;
 	engine->quality.min_reduction = DEFAULT_MIN_RESOLUTION_REDUCTION;

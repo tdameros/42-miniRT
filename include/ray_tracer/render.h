@@ -20,6 +20,7 @@
 
 # define BOUNCES_PER_PIXEL 5
 
+t_vector3f	calculate_post_processing_color(const t_engine *engine, t_vector3f color);
 t_color	render_ray_icon(t_ray ray, const t_scene *scene,
 						   int *missed_object);
 void	render_raytracing(t_engine *minirt, int incrementer);

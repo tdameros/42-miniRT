@@ -19,7 +19,12 @@ int	key_press_handler(int key_code, t_engine *engine)
 {
 	int	i;
 
-	if (key_code == KEY_ESC)
+	if (key_code == KEY_B)
+	{
+		ft_reverse_bool(&engine->is_black_and_white_render);
+		engine->scene_changed = true;
+	}
+	else if (key_code == KEY_ESC)
 		close_engine(engine);
 	else if (key_code == KEY_H)
 		toggle_gui(&engine->gui);

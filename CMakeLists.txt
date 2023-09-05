@@ -490,4 +490,5 @@ add_executable(minirt
         src/color.c
         src/init_minirt.c
         src/main.c
-        src/export/scene/datetime.c src/gui/object_list_box/update_object_list_icons.c)
+        src/export/scene/datetime.c src/gui/object_list_box/update_object_list_icons.c
+        src/ray_tracer/post_processing.c)

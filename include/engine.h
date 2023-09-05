@@ -61,6 +61,7 @@ typedef struct s_engine
 	bool					should_render_at_full_resolution;
 	bool					antialiasing;
 	bool					scene_changed;
+	bool					is_black_and_white_render;
 	t_quality				quality;
 }	t_engine;
 

@@ -93,7 +93,8 @@ static unsigned int	get_color(const t_engine *engine, const int x, const int y)
 					x + sub_x / PIXEL_DIVISION + 1.f / PIXEL_DIVISION / 2.f,
 					engine->ray_traced_image.height - 1.f
 						- y + sub_y / PIXEL_DIVISION + 1.f / PIXEL_DIVISION / 2.f);
-			color = vector3f_add(color, render_ray(ray, &engine->scene));
+			color = vector3f_add(color, calculate_post_processing_color(engine,
+						render_ray(ray, &engine->scene)));
 		}
 	}
 	color = vector3f_divide(color, PIXEL_DIVISION * PIXEL_DIVISION);
