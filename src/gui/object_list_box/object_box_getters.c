@@ -19,5 +19,5 @@ t_image	*object_box_get_icon_image(const t_gui_box *object_box)
 
 t_image	*object_box_get_name_image(const t_gui_box *object_box)
 {
-	return (&object_box->children.data->children.data[2].image);
+	return (&object_box->children.data->children.data[2].children.data->image);
 }

@@ -18,7 +18,7 @@
 
 # define OBJECT_LIST_OFFSET 4
 # define OBJECT_LIST_SUB_BOX_SIZE 50
-# define OBJECT_LIST_SUB_BOX_BOXES "9 1 90"
+# define OBJECT_LIST_SUB_BOX_BOXES "25 1 74"
 
 
 void	init_object_list_box(t_engine *engine, t_gui_box *gui_box,
@@ -29,8 +29,6 @@ void	object_list_gui_box_draw(t_gui_box *self, t_engine *engine,
 			t_draw_data draw_data);
 void	object_list_gui_box_on_click(t_gui_box *self, t_engine *engine,
 			t_click_data click_data);
-void	object_and_light_gui_box_draw(t_gui_box *self, t_engine *engine,
-			t_draw_data draw_data);
 size_t	get_selected_object_index(t_gui_box *self, t_engine *engine,
 			t_vector2i click_position);
 
@@ -40,6 +38,7 @@ void	create_light_gui_box(t_engine *engine, t_gui_box *gui_box,
 			const t_light *light);
 
 t_image	*object_box_get_icon_image(const t_gui_box *object_box);
-t_image	*object_box_get_name_image(const t_gui_box *object_box);
+
+void	update_object_list_icons(t_engine *engine);
 
 #endif

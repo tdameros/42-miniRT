@@ -36,24 +36,24 @@ void	create_object_gui_box(t_engine *engine, t_gui_box *gui_box,
 						OBJECT_LIST_SUB_BOX_SIZE},
 			true});
 	init_object_gui_box_children(engine, gui_box, object);
-	gui_box->draw = &object_and_light_gui_box_draw;
+	init_image(&gui_box->on_hover_image, &engine->window, gui_box->size.x,
+		gui_box->size.y);
 	change_image_color(&gui_box->image, SUB_GUI_COLOR);
 	round_image_corners(&gui_box->image, BOX_ROUNDING_RADIUS);
+	change_image_color(&gui_box->on_hover_image, HOVER_GUI_COLOR);
+	round_image_corners(&gui_box->on_hover_image, BOX_ROUNDING_RADIUS);
 }
 
 static void	init_object_gui_box_children(t_engine *engine, t_gui_box *parent,
 				const t_object *object)
 {
 	create_n_horizontal_boxes(engine, parent, 1,
-		(t_boxes_offsets){OBJECT_LIST_OFFSET, OBJECT_LIST_OFFSET});
+		(t_boxes_offsets){OBJECT_LIST_OFFSET, OBJECT_LIST_OFFSET}); // TODO check why x offset?
 	create_horizontal_boxes(engine, parent->children.data,
 		OBJECT_LIST_SUB_BOX_BOXES, 0);
+	create_n_horizontal_boxes(engine, parent->children.data->children.data + 2,
+		1, (t_boxes_offsets){OBJECT_LIST_OFFSET, OBJECT_LIST_OFFSET});
 	init_images(engine, parent->children.data);
-	parent->children.data->draw = &object_and_light_gui_box_draw;
-	parent->children.data->children.data[0].draw
-		= &object_and_light_gui_box_draw;
-	parent->children.data->children.data[2].draw
-		= &object_and_light_gui_box_draw;
 	draw_images(engine, parent->children.data, object);
 }
 
@@ -61,8 +61,9 @@ static void	init_images(t_engine *engine, t_gui_box *gui_box)
 {
 	init_image(&gui_box->children.data[0].image, &engine->window, \
 		gui_box->children.data[0].size.x, gui_box->children.data[0].size.y);
-	init_image(&gui_box->children.data[2].image, &engine->window, \
-		gui_box->children.data[2].size.x, gui_box->children.data[2].size.y);
+	init_image(&gui_box->children.data[2].children.data->image, &engine->window,
+		gui_box->children.data[2].children.data->size.x,
+		gui_box->children.data[2].children.data->size.y);
 }
 
 static void	draw_images(t_engine *engine, t_gui_box *parent,
@@ -70,11 +71,12 @@ static void	draw_images(t_engine *engine, t_gui_box *parent,
 {
 	draw_icon(&parent->children.data[0].image, object->type, COLOR_TRANSPARENT,
 		object->material);
-	change_image_color(&parent->children.data[2].image, COLOR_TRANSPARENT);
+	change_image_color(&parent->children.data[2].children.data->image,
+		COLOR_TRANSPARENT);
 	if (object->name != NULL)
 		write_centered_string_to_image(&engine->gui.font,
-			&parent->children.data[2].image, object->name);
+			&parent->children.data[2].children.data->image, object->name);
 	else
 		write_centered_string_to_image(&engine->gui.font,
-			&parent->children.data[2].image, "(null)");
+			&parent->children.data[2].children.data->image, "(null)");
 }

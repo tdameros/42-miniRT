@@ -72,6 +72,7 @@ SRC				=\
 	gui/object_list_box/object_box_getters.c			\
 	gui/object_list_box/object_list_gui_box_draw.c		\
 	gui/object_list_box/object_list_gui_box_on_click.c	\
+	gui/object_list_box/update_object_list_icons.c		\
 	\
 	gui/object_modification_box/init_color_picker/add_hover_color_circle.c	\
 	gui/object_modification_box/init_color_picker/color_getter_functions.c	\
@@ -322,7 +323,7 @@ BASE_CFLAGS		=	-Wall -Wextra -Werror
 DEBUG_CLFAGS	=	-g3 -fsanitize=address
 #-ffast-math reduces calculation precision, need to check behaviour before using
 OPTI_CFLAGS		=	-Ofast -march=native -flto -fno-signed-zeros -funroll-loops #-ffast-math
-#CFLAGS			=	$(BASE_CFLAGS)
+#CFLAGS			=	$(BASE_CFLAGS) -g3
 CFLAGS			=	$(BASE_CFLAGS) $(OPTI_CFLAGS)
 #CFLAGS			=	$(BASE_CFLAGS) $(DEBUG_CLFAGS)
 #CFLAGS			=	$(BASE_CFLAGS) $(OPTI_CFLAGS) $(DEBUG_CLFAGS)

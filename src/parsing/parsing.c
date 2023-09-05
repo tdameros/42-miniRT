@@ -18,6 +18,7 @@
 
 #include "engine.h"
 #include "parsing.h"
+#include "gui/object_list_box.h"
 
 int	parse_scene(t_engine *engine, const char *start_up_scene)
 {
@@ -42,6 +43,7 @@ int	parse_scene(t_engine *engine, const char *start_up_scene)
 		free_scene_content(scene_content);
 		return (-1);
 	}
+	update_object_list_icons(engine);
 	free_scene_content(scene_content);
 	return (0);
 }

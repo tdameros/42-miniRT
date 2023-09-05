@@ -32,8 +32,6 @@ void	init_object_list_box(t_engine *engine, t_gui_box *gui_box,
 	engine->gui.object_list_box->draw = &object_list_gui_box_draw;
 	engine->gui.object_list_box->on_click = &object_list_gui_box_on_click;
 	engine->gui.object_list_box->scroll = OBJECT_LIST_OFFSET;
-	change_image_color(&gui_box->image, BASE_GUI_COLOR);
-	round_image_corners(&gui_box->image, BOX_ROUNDING_RADIUS);
 	ft_vector_create(&engine->gui.light_boxes, sizeof(t_gui_box), 0);
 	ft_vector_create(&engine->gui.object_boxes, sizeof(t_gui_box), 0);
 }

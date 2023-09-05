@@ -19,6 +19,7 @@ void	init_selection_boxes(t_engine *engine, t_gui_box *gui_box)
 		gui_box->size.y);
 	gui_box->draw = &textures_and_normal_maps_draw;
 	gui_box->on_click = &textures_and_normal_maps_on_click;
+//	gui_box->scroll = TEXTURE_BOX_PPM_OFFSET;
 	engine->gui.color_and_material.textures_and_normal_maps.selection_box
 		= gui_box;
 	load_textures_and_normal_maps(engine);
