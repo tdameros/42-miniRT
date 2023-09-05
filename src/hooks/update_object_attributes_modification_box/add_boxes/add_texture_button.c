@@ -4,7 +4,7 @@
 #include "events.h"
 #include "gui/optional_boxes.h"
 
-#define CAP_TEXTURE_BUTTON_TEXT "Change texture"
+#define CAP_TEXTURE_BUTTON_TEXT "Change textures"
 
 static void	texture_button_on_click(t_gui_box *self, t_engine *engine,
 				t_click_data click_data);

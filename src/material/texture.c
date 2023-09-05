@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   texture.c                                          :+:      :+:    :+:   */
+/*   textures.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,9 +13,9 @@
 #include "material.h"
 #include "parsing.h"
 
-t_texture	create_empty_texture(void)
+t_textures	create_empty_texture(void)
 {
-	t_texture	texture;
+	t_textures	texture;
 
 	ft_bzero(&texture, sizeof(texture));
 	texture.outline.texture_type = NONE;
@@ -30,14 +30,14 @@ int	set_outline_texture(t_material *material, const char *filename)
 	free_outline_texture(material);
 	if (initialize_ppm_p6_file(&ppm, filename) < 0)
 		return (-1);
-	material->texture.outline.texture_file = ft_strdup(filename);
-	if (material->texture.outline.texture_file == NULL)
+	material->textures.outline.texture_file = ft_strdup(filename);
+	if (material->textures.outline.texture_file == NULL)
 	{
 		free_outline_texture(material);
 		return (-1);
 	}
-	material->texture.outline.texture = ppm;
-	material->texture.outline.texture_type = PPM_TEXTURE;
+	material->textures.outline.texture = ppm;
+	material->textures.outline.texture_type = PPM_TEXTURE;
 	return (0);
 }
 
@@ -48,37 +48,37 @@ int	set_cap_texture(t_material *material, const char *filename)
 	free_cap_texture(material);
 	if (initialize_ppm_p6_file(&ppm, filename) < 0)
 		return (-1);
-	material->texture.cap.texture_file = ft_strdup(filename);
-	if (material->texture.cap.texture_file == NULL)
+	material->textures.cap.texture_file = ft_strdup(filename);
+	if (material->textures.cap.texture_file == NULL)
 	{
 		free_cap_texture(material);
 		return (-1);
 	}
-	material->texture.cap.texture = ppm;
-	material->texture.cap.texture_type = PPM_TEXTURE;
+	material->textures.cap.texture = ppm;
+	material->textures.cap.texture_type = PPM_TEXTURE;
 	return (0);
 }
 
 void	free_outline_texture(t_material *material)
 {
-	free(material->texture.outline.texture.pixels);
-	free(material->texture.outline.texture_file);
-	material->texture.outline.texture_file = NULL;
-	material->texture.outline.texture_type = NONE;
-	ft_bzero(&material->texture.outline.checkerboard,
-		sizeof(material->texture.outline.checkerboard));
-	ft_bzero(&material->texture.outline.texture,
-		sizeof(material->texture.outline.texture));
+	free(material->textures.outline.texture.pixels);
+	free(material->textures.outline.texture_file);
+	material->textures.outline.texture_file = NULL;
+	material->textures.outline.texture_type = NONE;
+	ft_bzero(&material->textures.outline.checkerboard,
+		sizeof(material->textures.outline.checkerboard));
+	ft_bzero(&material->textures.outline.texture,
+		sizeof(material->textures.outline.texture));
 }
 
 void	free_cap_texture(t_material *material)
 {
-	free(material->texture.cap.texture.pixels);
-	free(material->texture.cap.texture_file);
-	material->texture.cap.texture_file = NULL;
-	material->texture.cap.texture_type = NONE;
-	ft_bzero(&material->texture.cap.checkerboard,
-		sizeof(material->texture.cap.checkerboard));
-	ft_bzero(&material->texture.cap.texture,
-		sizeof(material->texture.cap.texture));
+	free(material->textures.cap.texture.pixels);
+	free(material->textures.cap.texture_file);
+	material->textures.cap.texture_file = NULL;
+	material->textures.cap.texture_type = NONE;
+	ft_bzero(&material->textures.cap.checkerboard,
+		sizeof(material->textures.cap.checkerboard));
+	ft_bzero(&material->textures.cap.texture,
+		sizeof(material->textures.cap.texture));
 }

@@ -27,16 +27,16 @@ void	cap_checkerboard_size_input_box_x_on_click_plus(t_gui_box *self,
 	object = engine->gui.selected_object.object;
 	if (object == NULL)
 		return ;
-	if ((int)object->material.texture.cap.checkerboard.size.x % 2)
-		object->material.texture.cap.checkerboard.size.x++;
-	object->material.texture.cap.checkerboard.size.x
-		= (int)object->material.texture.cap.checkerboard.size.x + 2;
-	if (object->material.texture.cap.texture_type == TEXTURE)
+	if ((int)object->material.textures.cap.checkerboard.size.x % 2)
+		object->material.textures.cap.checkerboard.size.x++;
+	object->material.textures.cap.checkerboard.size.x
+		= (int)object->material.textures.cap.checkerboard.size.x + 2;
+	if (object->material.textures.cap.texture_type == TEXTURE)
 		free_cap_texture(&object->material);
-	object->material.texture.cap.texture_type = CHECKERBOARD;
+	object->material.textures.cap.texture_type = CHECKERBOARD;
 	engine->scene_changed = true;
 	update_xy_float_input_boxes(engine,
-		vector2f_divide(object->material.texture.cap.checkerboard.size, 2.f),
+		vector2f_divide(object->material.textures.cap.checkerboard.size, 2.f),
 		&engine->gui.float_input_boxes.cap_checkerboard_size);
 	redraw_icons(engine, engine->gui.selected_object.object->material);
 }
@@ -51,17 +51,17 @@ void	cap_checkerboard_size_input_box_x_on_click_minus(t_gui_box *self,
 		return (cap_checkerboard_size_input_box_x_on_click_text(self,
 				engine, click_data));
 	object = engine->gui.selected_object.object;
-	if (object == NULL || object->material.texture.cap.checkerboard.size.x
+	if (object == NULL || object->material.textures.cap.checkerboard.size.x
 		<= 1.f)
 		return ;
-	if ((int)object->material.texture.cap.checkerboard.size.x % 2)
-		object->material.texture.cap.checkerboard.size.x++;
-	object->material.texture.cap.checkerboard.size.x
-		= (int)object->material.texture.cap.checkerboard.size.x - 2;
-	if (object->material.texture.cap.checkerboard.size.x <= 1.f
-		&& object->material.texture.cap.checkerboard.size.y <= 1.f)
+	if ((int)object->material.textures.cap.checkerboard.size.x % 2)
+		object->material.textures.cap.checkerboard.size.x++;
+	object->material.textures.cap.checkerboard.size.x
+		= (int)object->material.textures.cap.checkerboard.size.x - 2;
+	if (object->material.textures.cap.checkerboard.size.x <= 1.f
+		&& object->material.textures.cap.checkerboard.size.y <= 1.f)
 	{
-		object->material.texture.cap.texture_type = NONE;
+		object->material.textures.cap.texture_type = NONE;
 		if (engine->gui.color_and_material.color_being_changed == CAP_CHECKERBOARD_COLOR)
 		{
 			engine->gui.color_and_material.color_being_changed = BASE_COLOR;
@@ -71,7 +71,7 @@ void	cap_checkerboard_size_input_box_x_on_click_minus(t_gui_box *self,
 	}
 	engine->scene_changed = true;
 	update_xy_float_input_boxes(engine,
-		vector2f_divide(object->material.texture.cap.checkerboard.size, 2.f),
+		vector2f_divide(object->material.textures.cap.checkerboard.size, 2.f),
 		&engine->gui.float_input_boxes.cap_checkerboard_size);
 	redraw_icons(engine, engine->gui.selected_object.object->material);
 }

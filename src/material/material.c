@@ -25,7 +25,7 @@ t_material	material_create(const t_vector3f albedo,
 {
 	t_material	material;
 
-	material.texture = create_empty_texture();
+	material.textures = create_empty_texture();
 	material.albedo = albedo;
 	material.reflection = reflect_intensity;
 	material.specular = specular_intensity;
@@ -46,14 +46,14 @@ int	material_deep_copy(t_material *dst, t_material *src)
 	dst->albedo = src->albedo;
 	dst->reflection = src->reflection;
 	dst->specular = src->specular;
-	if (surface_deep_copy(&dst->texture.outline,
-			&src->texture.outline) < 0)
+	if (surface_deep_copy(&dst->textures.outline,
+			&src->textures.outline) < 0)
 	{
 		material_free(dst);
 		return (-1);
 	}
-	if (surface_deep_copy(&dst->texture.cap,
-			&src->texture.cap) < 0)
+	if (surface_deep_copy(&dst->textures.cap,
+			&src->textures.cap) < 0)
 	{
 		material_free(dst);
 		return (-1);
