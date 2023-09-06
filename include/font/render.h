@@ -40,12 +40,15 @@ typedef struct s_write_character_data
 {
 	float		scale;
 	t_vector2f	*offsets;
+	bool		*is_decimal;
 }	t_write_character_data;
 
 int			get_font(t_font *font, char *font_file);
 
 void		write_centered_string_to_image(const t_font *font, t_image *image,
 				const char *string);
+void		write_centered_number_to_image(const t_font *font, t_image *image,
+				const char *number);
 
 void		draw_glyph(const t_glyph_generated_points *raw_points,
 				t_draw_glyph_data data);

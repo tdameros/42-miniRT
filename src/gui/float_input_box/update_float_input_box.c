@@ -35,7 +35,7 @@ void	update_float_input_box(const t_engine *engine, const float f,
 		return (write_centered_string_to_image(&engine->gui.font,
 				&input_box->children.data[1].image, "ENOMEM"));
 	snprintf(buffer, size, SPRINTF_PARAM, f);
-	write_centered_string_to_image(&engine->gui.font,
+	write_centered_number_to_image(&engine->gui.font,
 		&input_box->children.data[1].image, buffer);
 	free(buffer);
 }
