@@ -50,6 +50,8 @@ void		textures_and_normal_maps_draw(t_gui_box *self, t_engine *engine,
 void		textures_and_normal_maps_on_click(t_gui_box *self, t_engine *engine,
 				t_click_data click_data);
 void		click_ppm_box(t_engine *engine, size_t index);
+void		init_delete_box(t_engine *engine, t_gui_box *delete_box);
+void		update_delete_box(t_engine *engine);
 
 void		add_button_box(t_engine *engine, t_gui_box *gui_box, int *y,
 				t_gui_box *parent);

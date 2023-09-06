@@ -25,6 +25,7 @@ void	texture_picker_on_click(t_gui_box *self, t_engine *engine,
 	engine->gui.color_and_material.textures_and_normal_maps.selection_box->\
 		scroll = TEXTURE_BOX_PPM_OFFSET;
 	engine->gui.color_and_material.changing_normal_map_or_texture = TEXTURE;
+	update_delete_box(engine);
 }
 
 void	normal_map_picker_on_click(t_gui_box *self, t_engine *engine,
@@ -38,4 +39,5 @@ void	normal_map_picker_on_click(t_gui_box *self, t_engine *engine,
 	engine->gui.color_and_material.textures_and_normal_maps.selection_box->\
 		scroll = TEXTURE_BOX_PPM_OFFSET;
 	engine->gui.color_and_material.changing_normal_map_or_texture = NORMAL_MAP;
+	update_delete_box(engine);
 }

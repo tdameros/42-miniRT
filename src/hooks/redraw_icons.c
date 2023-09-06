@@ -22,9 +22,9 @@ static void	redraw_object_creation_box(t_gui_box *gui_box, int type,
 
 void	redraw_icons(t_engine *engine, t_material material)
 {
-	update_object_list_icon(engine, material);
 	engine->gui.color_and_material.material_to_assign_to_new_objects
 		= material;
+	update_object_list_icon(engine, material);
 	redraw_object_creation_box(engine->gui.object_creation_boxes->data + 0,
 		SPHERE, material);
 	redraw_object_creation_box(engine->gui.object_creation_boxes->data + 1,

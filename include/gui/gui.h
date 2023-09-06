@@ -110,6 +110,7 @@ typedef struct s_color_and_material
 	enum e_texture_being_changed	texture_being_changed;
 	enum e_normal_map_and_texture	changing_normal_map_or_texture;
 	t_textures_and_normal_maps		textures_and_normal_maps;
+	struct s_gui_box				*delete_texture_normal_map_box;
 }	t_color_and_material;
 
 typedef struct s_screen_shot

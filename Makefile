@@ -104,7 +104,8 @@ SRC				=\
 	gui/optional_boxes/texture_box/texture_normal_map_picker/init_texture_normal_map_picker.c	\
 	gui/optional_boxes/texture_box/texture_normal_map_picker/on_click.c							\
 	\
-	gui/optional_boxes/texture_box/init_texture_box.c					\
+	gui/optional_boxes/texture_box/delete_box.c			\
+	gui/optional_boxes/texture_box/init_texture_box.c	\
 	\
 	gui/optional_boxes/add_button_box.c			\
 	gui/optional_boxes/add_plus_minus_box.c		\
