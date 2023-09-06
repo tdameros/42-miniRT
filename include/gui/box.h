@@ -65,6 +65,8 @@ void		draw_gui_box_image(t_gui_box *self, t_engine *engine,
 void		default_gui_box_on_click(t_gui_box *self, t_engine *minirt,
 				t_click_data click_data);
 
+t_vector2i	get_box_offset(t_gui_box *box);
+
 t_gui_box	*get_clicked_gui_box(t_engine *engine, t_gui_boxes gui_boxes,
 				int *x, int *y);
 

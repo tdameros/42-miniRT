@@ -48,7 +48,7 @@ static void	init_light_gui_box_children(t_engine *engine, t_gui_box *parent,
 				const t_light *light)
 {
 	create_n_horizontal_boxes(engine, parent, 1,
-		(t_boxes_offsets){OBJECT_LIST_OFFSET, OBJECT_LIST_OFFSET}); // TODO check why x offset?
+		(t_boxes_offsets){OBJECT_LIST_OFFSET, OBJECT_LIST_OFFSET});
 	create_horizontal_boxes(engine, parent->children.data,
 		OBJECT_LIST_SUB_BOX_BOXES, 0);
 	create_n_horizontal_boxes(engine, parent->children.data->children.data + 2,

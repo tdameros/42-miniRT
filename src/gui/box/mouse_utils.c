@@ -28,8 +28,7 @@ bool	is_mouse_hovering_box(const t_gui_box *gui_box,
 		&& mouse_position.y >= 0
 		&& mouse_position.y < image_to_check_for_hover->height
 		&& get_image_pixel_color(image_to_check_for_hover,
-			mouse_position.y, mouse_position.x)
-		!= COLOR_TRANSPARENT);
+			mouse_position.y, mouse_position.x) != COLOR_TRANSPARENT);
 }
 
 t_vector2i	get_mouse_position_in_box(const t_gui_box *self,

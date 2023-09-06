@@ -21,7 +21,7 @@
 static void	draw_light_boxes(t_engine *engine, int *y, t_draw_data draw_data);
 static void	draw_object_boxes(t_engine *engine, int y, t_draw_data draw_data);
 static void	draw_object_and_light_gui_box(t_gui_box *self, t_engine *engine,
-				t_vector2i offset, t_draw_data draw_data);
+				int y, t_draw_data draw_data);
 void		draw_object_and_light_gui_box_children(t_gui_box *gui_box,
 				t_engine *engine, t_vector2i offset);
 
@@ -56,8 +56,7 @@ static void	draw_light_boxes(t_engine *engine, int *y, t_draw_data draw_data)
 	while (i--)
 	{
 		draw_object_and_light_gui_box(
-			&((t_gui_box *)engine->gui.light_boxes.data)[i], engine,
-			(t_vector2i){0, *y},
+			&((t_gui_box *)engine->gui.light_boxes.data)[i], engine, *y,
 			(t_draw_data){\
 				(t_vector2i){draw_data.offset.x, draw_data.offset.y + *y}, \
 				draw_data.mouse_position});
@@ -74,8 +73,7 @@ static void	draw_object_boxes(t_engine *engine, int y, t_draw_data draw_data)
 	while (i--)
 	{
 		draw_object_and_light_gui_box(
-			&((t_gui_box *)engine->gui.object_boxes.data)[i], engine,
-			(t_vector2i){0, y},
+			&((t_gui_box *)engine->gui.object_boxes.data)[i], engine, y,
 			(t_draw_data){\
 				(t_vector2i){draw_data.offset.x, draw_data.offset.y + y}, \
 				draw_data.mouse_position});
@@ -85,30 +83,26 @@ static void	draw_object_boxes(t_engine *engine, int y, t_draw_data draw_data)
 }
 
 static void	draw_object_and_light_gui_box(t_gui_box *self, t_engine *engine,
-			t_vector2i offset, t_draw_data draw_data)
+			int y, t_draw_data draw_data)
 {
 	size_t	i;
 
-	if (self->image.data != NULL)
-	{
-		if (self->on_hover_image.data == NULL
-			|| is_mouse_hovering_box(self, draw_data.offset, &self->image,
-				draw_data.mouse_position) == false)
-			put_image_to_image(&engine->gui.object_list_box->image,
-				&self->image,
-				(t_vector2i){self->position.x + offset.x, \
-					self->position.y + offset.y});
-		else
-			put_image_to_image(&engine->gui.object_list_box->image,
-				&self->on_hover_image,
-				(t_vector2i){self->position.x + offset.x, \
-					self->position.y + offset.y});
-	}
+	if (is_mouse_hovering_box(self, draw_data.offset, &self->image,
+			draw_data.mouse_position)
+		&& is_mouse_hovering_box(self->parent,
+			get_box_offset(self->parent), \
+			&self->parent->image, draw_data.mouse_position))
+		put_image_to_image(&engine->gui.object_list_box->image,
+			&self->on_hover_image,
+			(t_vector2i){self->position.x, self->position.y + y});
+	else
+		put_image_to_image(&engine->gui.object_list_box->image,
+			&self->image,
+			(t_vector2i){self->position.x, self->position.y + y});
 	i = self->children.size;
 	while (i--)
 		draw_object_and_light_gui_box_children(self->children.data + i, engine,
-			(t_vector2i){self->position.x + offset.x, \
-						self->position.y + offset.y});
+			(t_vector2i){self->position.x, self->position.y + y});
 	// TODO Make a custom version of put_image_to_image() to not change the
 	// color if == COLOR_TRANSPARENT since it currently writes over the rounded
 	// edges

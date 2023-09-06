@@ -45,6 +45,7 @@ SRC				=\
 	gui/box/default_gui_box_methods.c	\
 	gui/box/destroy_t_gui_box.c			\
 	gui/box/destroy_t_gui_boxes.c		\
+	gui/box/get_box_offset.c			\
 	gui/box/get_clicked_gui_box.c		\
 	gui/box/mouse_utils.c				\
 	\
