@@ -50,8 +50,6 @@ t_hit	calculate_object_distance(const t_ray *ray, const t_object *object)
 		return (calculate_cylinder_distance(ray, object));
 	else if (object->type == CONE)
 		return (calculate_cone_distance(ray, object));
-	else if (object->type == TRIANGLE)
-		return (calculate_triangle_distance(ray, object));
 	else if (object->type == MESH)
 		return (calculate_mesh_distance(ray, object));
 	return (miss_hit());
@@ -79,8 +77,6 @@ t_hit	hit_object(const t_ray *ray, const t_object *object,
 		return (hit_cylinder(ray, object, hit_distance));
 	else if (object->type == CONE)
 		return (hit_cone(ray, object, hit_distance));
-	else if (object->type == TRIANGLE)
-		return (hit_triangle(ray, object, hit_distance));
 	else if (object->type == MESH)
 		return (hit_mesh(ray, object, hit_distance));
 	return (miss_hit());

@@ -10,10 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "float.h"
+
 #include "ray_tracer/rays.h"
 
-static float calculate_face_distance(const t_ray *ray, const t_mesh *mesh,
-									 const t_mesh_face *face);
+static float	calculate_face_distance(const t_ray *ray, const t_mesh *mesh, \
+										const t_mesh_face *face);
+static float	calculate_moller_triangle_distance(const t_ray *ray, \
+												const t_vector3f vertex[3], \
+												const t_vector3f edge[2]);
+
 t_hit	hit_mesh(const t_ray *ray, const t_object *mesh,
 					const t_hit hit_distance)
 {
@@ -41,17 +47,12 @@ t_hit	hit_mesh(const t_ray *ray, const t_object *mesh,
 	return (hit);
 }
 
-#include <stdio.h>
-void	vector2i_print(t_vector2i v)
-{
-	printf("Vector2i => x: %d y: %d\n", v.x, v.y);
-}
 t_hit	calculate_mesh_distance(const t_ray *ray, const t_object *mesh)
 {
-	float		t;
-	t_hit		test;
 	t_hit		hit;
 	size_t		i;
+	float		t;
+	float		distance;
 
 	hit.distance = -1;
 	hit.context = OUTLINE;
@@ -59,12 +60,13 @@ t_hit	calculate_mesh_distance(const t_ray *ray, const t_object *mesh)
 	t = -1;
 	while (i < mesh->mesh.faces.length)
 	{
-		t_vector3f normal = mesh->mesh.normals.data[mesh->mesh.faces.data[i].vertex_a.y - 1];
-		test.distance = calculate_face_distance(ray, &mesh->mesh, &mesh->mesh.faces.data[i]);
-		if (test.distance > 0.f && (t == -1.f || test.distance < t))
+		distance = calculate_face_distance(ray, &mesh->mesh,
+				&mesh->mesh.faces.data[i]);
+		if (distance > 0.f && (t == -1.f || distance < t))
 		{
-			t = test.distance;
-			hit.normal = normal;
+			t = distance;
+			hit.normal = mesh->mesh.normals.data[\
+						mesh->mesh.faces.data[i].vertex_a.y - 1];
 		}
 		i++;
 	}
@@ -73,35 +75,43 @@ t_hit	calculate_mesh_distance(const t_ray *ray, const t_object *mesh)
 	return (hit);
 }
 
-#include "float.h"
-static float calculate_face_distance(const t_ray *ray, const t_mesh *mesh,
-							  const t_mesh_face *face)
+static float	calculate_face_distance(const t_ray *ray, const t_mesh *mesh,
+										const t_mesh_face *face)
 {
-	float		t;
+	const t_vector3f	vertex_a = mesh->vertex.data[face->vertex_a.x - 1];
+	const t_vector3f	vertex_b = mesh->vertex.data[face->vertex_b.x - 1];
+	const t_vector3f	vertex_c = mesh->vertex.data[face->vertex_c.x - 1];
+	const t_vector3f	edge_1 = vector3f_subtract(vertex_b, vertex_a);
+	const t_vector3f	edge_2 = vector3f_subtract(vertex_c, vertex_a);
 
-	t_vector3f	vertex_a = mesh->vertex.data[face->vertex_a.x - 1];
-	t_vector3f	vertex_b = mesh->vertex.data[face->vertex_b.x - 1];
-	t_vector3f	vertex_c = mesh->vertex.data[face->vertex_c.x - 1];
-	t_vector3f edge_1 = vector3f_subtract(vertex_b, vertex_a);
-	t_vector3f edge_2 = vector3f_subtract(vertex_c, vertex_a);
-	t_vector3f h = vector3f_cross(ray->direction, edge_2);
-	float a = vector3f_dot(edge_1, h);
+	return (calculate_moller_triangle_distance(ray, \
+		(t_vector3f[3]){vertex_a, vertex_b, vertex_c}, \
+		(t_vector3f[2]){edge_1, edge_2}));
+}
+
+/*
+https://en.wikipedia.org/wiki/M%C3%B6ller%E2%80%93Trumbore_intersection_algorithm
+*/
+static float	calculate_moller_triangle_distance(const t_ray *ray,
+												const t_vector3f vertex[3],
+												const t_vector3f edge[2])
+{
+	const t_vector3f	h = vector3f_cross(ray->direction, edge[1]);
+	const float			a = vector3f_dot(edge[0], h);
+	float				f;
+	t_vector3f			sq[2];
+	float				uv[2];
 
 	if (ft_is_equalsf(a, 0, FLT_EPSILON))
 		return (-1);
-	float f = 1.0f / a;
-	t_vector3f s = vector3f_subtract(ray->origin, vertex_a);
-	float u = f * vector3f_dot(s, h);
-
-	if (u < 0.f || u > 1.f)
+	f = 1.f / a;
+	sq[0] = vector3f_subtract(ray->origin, vertex[0]);
+	uv[0] = f * vector3f_dot(sq[0], h);
+	if (uv[0] < 0.f || uv[0] > 1.f)
 		return (-1);
-
-	t_vector3f q = vector3f_cross(s, edge_1);
-	float v = f * vector3f_dot(ray->direction, q);
-
-	if (v < 0.f || u + v > 1.f)
+	sq[1] = vector3f_cross(sq[0], edge[0]);
+	uv[1] = f * vector3f_dot(ray->direction, sq[1]);
+	if (uv[1] < 0.f || uv[0] + uv[1] > 1.f)
 		return (-1);
-
-	t = f * vector3f_dot(edge_2, q);
-	return (t);
+	return (f * vector3f_dot(edge[1], sq[1]));
 }

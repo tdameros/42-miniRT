@@ -25,4 +25,6 @@ typedef struct s_mesh
 }	t_mesh;
 
 int	initialize_mesh_with_obj(t_mesh *mesh, const char *file_name);
+int	parse_line_in_obj_file(t_mesh *mesh, const char *line);
+
 #endif

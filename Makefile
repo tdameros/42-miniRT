@@ -223,6 +223,8 @@ SRC				=\
 	object/cylinder/create.c			\
 	object/cylinder/transformations.c	\
 	\
+	object/mesh/create.c				\
+	\
 	object/plane/create.c				\
 	object/plane/transformations.c		\
 	\
@@ -261,6 +263,9 @@ SRC				=\
 	parsing/line_parsing/parse_plane.c					\
 	parsing/line_parsing/parse_sphere.c					\
 	\
+	parsing/obj_file/parse_obj_file.c	\
+	parsing/obj_file/parse_line.c		\
+	\
 	parsing/free_scene_content.c	\
 	parsing/get_scene_content.c		\
 	parsing/parse_ppm_file.c		\
@@ -281,6 +286,7 @@ SRC				=\
 	ray_tracer/rays/intersections/cylinder_caps.c		\
 	ray_tracer/rays/intersections/cylinder_infinite.c	\
 	ray_tracer/rays/intersections/intersection.c		\
+	ray_tracer/rays/intersections/mesh.c				\
 	ray_tracer/rays/intersections/plane.c				\
 	ray_tracer/rays/intersections/sphere.c				\
 	\
@@ -311,6 +317,10 @@ SRC				=\
 	render_frame/render_user_interface.c	\
 	\
 	\
+	vectors/mesh_faces.c	\
+	vectors/vectors3f.c		\
+	vectors/vectors3i.c		\
+	\
 	close_miniRT.c		\
 	color.c				\
 	init_minirt.c		\
@@ -325,9 +335,9 @@ DEBUG_CLFAGS	=	-g3 -fsanitize=address
 #-ffast-math reduces calculation precision, need to check behaviour before using
 OPTI_CFLAGS		=	-Ofast -march=native -flto -fno-signed-zeros -funroll-loops #-ffast-math
 #CFLAGS			=	$(BASE_CFLAGS) -g3
-CFLAGS			=	$(BASE_CFLAGS) $(OPTI_CFLAGS)
+#CFLAGS			=	$(BASE_CFLAGS) $(OPTI_CFLAGS)
 #CFLAGS			=	$(BASE_CFLAGS) $(DEBUG_CLFAGS)
-#CFLAGS			=	$(BASE_CFLAGS) $(OPTI_CFLAGS) $(DEBUG_CLFAGS)
+CFLAGS			=	$(BASE_CFLAGS) $(OPTI_CFLAGS) $(DEBUG_CLFAGS)
 RM				=	rm -rf
 AR				=	ar rcs
 

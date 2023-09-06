@@ -13,14 +13,23 @@
 #include "libft.h"
 
 #include "object.h"
+#include "vectors.h"
 
-t_object	mesh_create(const char *obj_file, t_material material)
+int	mesh_create(t_object *mesh_object, const char *obj_file,
+				t_material material)
 {
-	t_object	mesh;
+	mesh_object->type = MESH;
+	mesh_object->material = material;
+	if (initialize_mesh_with_obj(&mesh_object->mesh, obj_file) < 0)
+		return (-1);
+	mesh_object->name = ft_strdup("Mesh");
+	return (0);
+}
 
-	mesh.type = MESH;
-	mesh.material = material;
-	mesh.name = ft_strdup("Mesh");
-	initialize_mesh_with_obj(&mesh.mesh, obj_file);
-	return (mesh);
+void	mesh_free(t_mesh *mesh)
+{
+	vectors3f_free(&mesh->vertex);
+	vectors3f_free(&mesh->normals);
+	mesh_faces_free(&mesh->faces);
+	ft_bzero(mesh, sizeof(*mesh));
 }
