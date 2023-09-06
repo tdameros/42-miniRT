@@ -15,15 +15,32 @@
 #include "object.h"
 #include "vectors.h"
 
-int	mesh_create(t_object *mesh_object, const char *obj_file,
+/*
+ * Return code:
+ * 1 mesh object has been successful initialize
+ * 0 obj_file is empty
+ * -1 an error has been encountered
+ */
+int	mesh_object_initialize(t_object *mesh_object, const char *obj_file,
 				t_material material)
 {
+	int	return_code;
+
+
 	mesh_object->type = MESH;
 	mesh_object->material = material;
-	if (initialize_mesh_with_obj(&mesh_object->mesh, obj_file) < 0)
+	return_code = initialize_mesh_with_obj(&mesh_object->mesh, obj_file);
+	if (return_code < 0)
 		return (-1);
+	else if (return_code == 0)
+		return (0);
 	mesh_object->name = ft_strdup("Mesh");
-	return (0);
+	if (mesh_object->name == NULL)
+	{
+		mesh_free(&mesh_object->mesh);
+		return (-1);
+	}
+	return (1);
 }
 
 void	mesh_free(t_mesh *mesh)

@@ -98,8 +98,8 @@ typedef struct s_objects
 	size_t				size;
 }	t_objects;
 
-int	mesh_create(t_object *mesh_object, const char *obj_file,
-				   t_material material);
+int	mesh_object_initialize(t_object *mesh_object, const char *obj_file,
+							  t_material material);
 void	mesh_free(t_mesh *mesh);
 t_object	triangle_create(const t_vector3f vertex_a, const t_vector3f vertex_b,
 							const t_vector3f vertex_c, const t_vector3f normal, const t_material material);
