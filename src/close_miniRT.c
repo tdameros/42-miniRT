@@ -11,6 +11,8 @@ int	close_engine(t_engine *engine)
 {
 	destroy_gui(engine);
 	destroy_t_image(&engine->window, &engine->main_image);
+	if (engine->command_key_is_pressed)
+		mlx_do_key_autorepeaton(engine->window.mlx);
 	if (engine->window.mlx != NULL && engine->window.window != NULL)
 		mlx_destroy_window(engine->window.mlx, engine->window.window);
 	// TODO destroy font

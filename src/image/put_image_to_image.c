@@ -19,11 +19,11 @@ static unsigned int	mix_colors(unsigned int added_color,
 void	put_image_to_image(register t_image *destination, const t_image *source,
 			t_vector2i position)
 {
-	const size_t	y_max = source->height * source->line_length;
+	const int		y_max = source->height * source->line_length;
 	const int		position_y_max = destination->height
 		* destination->line_length;
 	int				position_x_backup;
-	register size_t	y;
+	register int	y;
 	register int	x;
 
 	position_x_backup = position.x;

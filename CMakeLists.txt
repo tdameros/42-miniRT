@@ -491,4 +491,8 @@ add_executable(minirt
         src/init_minirt.c
         src/main.c
         src/export/scene/datetime.c src/gui/object_list_box/update_object_list_icons.c
-        src/ray_tracer/post_processing.c src/font/rendering/write_centered_number_to_image.c)
+
+        src/ray_tracer/post_processing.c src/hooks/pressed_keys.c
+
+        src/font/rendering/write_centered_number_to_image.c)
+

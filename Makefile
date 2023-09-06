@@ -167,6 +167,7 @@ SRC				=\
 	hooks/button_release.c				\
 	hooks/key_press.c					\
 	hooks/key_release.c					\
+	hooks/pressed_keys.c				\
 	hooks/redraw_icons.c				\
 	hooks/toggle_gui.c					\
 	hooks/update_color_picker_color.c	\

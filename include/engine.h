@@ -57,8 +57,9 @@ typedef struct s_engine
 	t_vector2i				previous_mouse_position;
 	int						pressed_keys[NB_OF_MOVEMENT_KEYS];
 	int						pressed_keys_index;
-	bool					should_render_ray_tracing;
-	bool					should_render_at_full_resolution;
+	bool					command_key_is_pressed;
+	bool					should_render_ray_tracing; // TODO refactor this with an enum
+	bool					should_render_at_full_resolution; // enum {NO_RENDER, RENDER, FULL_RENDER}
 	bool					antialiasing;
 	bool					scene_changed;
 	bool					is_black_and_white_render;
