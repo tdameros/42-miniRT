@@ -26,5 +26,8 @@ static void	texture_button_on_click(t_gui_box *self, t_engine *engine,
 	(void)self;
 	if (click_data.button != BUTTON_LEFT)
 		return ;
-	engine->gui.current_optional_box = TEXTURE_BOX;
+	if (engine->gui.current_optional_box == TEXTURE_BOX)
+		engine->gui.current_optional_box = NO_OPTIONAL_BOX;
+	else
+		engine->gui.current_optional_box = TEXTURE_BOX;
 }
