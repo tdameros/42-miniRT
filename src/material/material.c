@@ -42,6 +42,8 @@ void	material_free(t_material *material)
 
 int	material_deep_copy(t_material *dst, t_material *src)
 {
+	if (dst == src)
+		return (0);
 	material_free(dst);
 	dst->albedo = src->albedo;
 	dst->reflection = src->reflection;
@@ -92,6 +94,8 @@ static int	surface_deep_copy(t_surface *dst, t_surface *src)
 
 static int	ppm_p6_deep_copy(t_ppm_p6 *dst, t_ppm_p6 *src)
 {
+	const size_t	size_in_bytes = sizeof(*src->pixels) * src->size;
+
 	dst->width = src->width;
 	dst->height = src->height;
 	dst->size = src->size;
@@ -99,10 +103,10 @@ static int	ppm_p6_deep_copy(t_ppm_p6 *dst, t_ppm_p6 *src)
 		dst->pixels = NULL;
 	else
 	{
-		dst->pixels = malloc(sizeof(*src->pixels) * src->size);
+		dst->pixels = malloc(size_in_bytes);
 		if (dst->pixels == NULL)
 			return (-1);
-		ft_memcpy(dst->pixels, src->pixels, src->size);
+		ft_memcpy(dst->pixels, src->pixels, size_in_bytes);
 	}
 	return (0);
 }

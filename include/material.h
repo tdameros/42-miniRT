@@ -45,7 +45,6 @@ typedef struct s_textures
 {
 	t_surface	cap;
 	t_surface	outline;
-
 }	t_textures;
 
 typedef struct s_material
