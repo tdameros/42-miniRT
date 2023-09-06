@@ -42,7 +42,7 @@ static bool	handle_command_hooks(int key_code, t_engine *engine)
 	}
 	else if (key_code == KEY_S)
 	{
-		if (export_scene_with_datetime(engine) < 0)
+		if (export_scene(engine, engine->start_up_scene) < 0)
 			ft_print_error("Warning: Failed to export scene.\n");
 	}
 	return (true);

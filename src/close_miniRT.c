@@ -16,6 +16,7 @@ int	close_engine(t_engine *engine)
 	if (engine->window.mlx != NULL && engine->window.window != NULL)
 		mlx_destroy_window(engine->window.mlx, engine->window.window);
 	// TODO destroy font
+	free(engine->start_up_scene);
 	exit(0); // TODO: free everything
 }
 

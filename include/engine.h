@@ -53,6 +53,7 @@ typedef struct s_engine
 	t_camera				camera;
 	t_scene					scene;
 	t_object_being_placed	object_being_placed;
+	char					*start_up_scene;
 	float					object_being_placed_distance;
 	t_vector2i				previous_mouse_position;
 	int						pressed_keys[NB_OF_MOVEMENT_KEYS];

@@ -24,14 +24,13 @@ static char	*get_path_to_minirt_folder(const char *path_to_minirt_binary);
 int	init_engine(t_engine *engine, const char *start_up_scene,
 		const char *path_to_minirt_binary)
 {
-	char	*start_up_scene_realpath;
-
-	start_up_scene_realpath = realpath(start_up_scene, NULL);
-	if (start_up_scene_realpath == NULL)
+	ft_bzero(engine, sizeof(t_engine));
+	engine->start_up_scene = realpath(start_up_scene, NULL);
+	if (engine->start_up_scene == NULL)
 		return (-1);
 	if (set_minirt_folder_as_current_working_directory(path_to_minirt_binary))
-		return (free(start_up_scene_realpath), -1);
-	ft_bzero(engine, sizeof(t_engine));
+		return (free(engine->start_up_scene), -1);
+	ft_printf("HERE\n");
 	engine->is_black_and_white_render = false;
 	engine->antialiasing = true;
 	engine->quality.max_reduction = DEFAULT_MAX_RESOLUTION_REDUCTION;
@@ -70,9 +69,8 @@ int	init_engine(t_engine *engine, const char *start_up_scene,
 	if (get_font(&engine->gui.font, "assets/fonts/Envy Code R PR7/Envy Code R.ttf") < 0)
 		return (-1); // TODO free everything
 	init_gui(engine);
-	if (parse_scene(engine, start_up_scene_realpath) < 0)
+	if (parse_scene(engine, engine->start_up_scene) < 0)
 		return (-1); // TODO free stuff
-	free(start_up_scene_realpath);
 	return (0);
 }
 
