@@ -13,7 +13,6 @@
 #ifndef ENGINE_H
 # define ENGINE_H
 
-# include "../deprecated/include/t_raytracing_data.h"
 # include "gui/gui.h"
 # include "image.h"
 # include "ray_tracer/camera.h"
