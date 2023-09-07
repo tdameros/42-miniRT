@@ -19,6 +19,7 @@ t_object	cylinder_create(const t_vector3f position, const t_vector3f axis,
 {
 	t_object	cylinder;
 
+	ft_bzero(&cylinder, sizeof(cylinder));
 	cylinder.type = CYLINDER;
 	cylinder.position = position;
 	cylinder.axis = axis;

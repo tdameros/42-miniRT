@@ -164,7 +164,8 @@ void		sphere_set_radius(t_object *sphere, const float radius);
 int			initialize_objects_array(t_objects *objects, size_t size);
 int			add_object_in_objects(t_objects *objects, t_object object);
 int			remove_object_in_objects(t_objects *objects, size_t index);
-int			free_objects(t_objects *objects);
+void		free_object(t_object *object);
+void		free_objects(t_objects *objects);
 
 //	calculate_cache.c
 void		object_calculate_cache(t_object *object);

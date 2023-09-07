@@ -19,6 +19,7 @@ t_object	sphere_create(const t_vector3f position, const float radius,
 {
 	t_object	sphere;
 
+	ft_bzero(&sphere, sizeof(sphere));
 	sphere.type = SPHERE;
 	sphere.position = position;
 	sphere.radius = radius;

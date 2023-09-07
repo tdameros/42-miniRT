@@ -28,7 +28,7 @@ int	mesh_object_initialize(t_object *mesh_object, const char *obj_file,
 {
 	int	return_code;
 
-
+	ft_bzero(mesh_object, sizeof(*mesh_object));
 	mesh_object->type = MESH;
 	mesh_object->material = material;
 	return_code = initialize_mesh_with_obj(&mesh_object->mesh, obj_file);

@@ -20,6 +20,7 @@ t_object	cone_create(const t_vector3f position, const t_vector3f axis,
 {
 	t_object	cone;
 
+	ft_bzero(&cone, sizeof(cone));
 	cone.type = CONE;
 	cone.position = position;
 	cone.axis = axis;
