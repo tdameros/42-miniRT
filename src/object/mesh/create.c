@@ -15,6 +15,8 @@
 #include "object.h"
 #include "vectors.h"
 
+static char	*get_obj_name(const char *obj_file);
+
 /*
  * Return code:
  * 1 mesh object has been successful initialize
@@ -34,13 +36,32 @@ int	mesh_object_initialize(t_object *mesh_object, const char *obj_file,
 		return (-1);
 	else if (return_code == 0)
 		return (0);
-	mesh_object->name = ft_strdup("Mesh");
+	mesh_object->name = get_obj_name(obj_file);
 	if (mesh_object->name == NULL)
 	{
 		mesh_free(&mesh_object->mesh);
 		return (-1);
 	}
 	return (1);
+}
+
+static char	*get_obj_name(const char *obj_file)
+{
+	char	*obj_file_without_full_path;
+	char	*obj_name;
+
+	obj_file_without_full_path = ft_strrchr(obj_file, '/');
+	if (obj_file_without_full_path != NULL)
+	{
+		obj_file_without_full_path++;
+		obj_name = ft_substr(obj_file_without_full_path, 0,
+				ft_strlen(obj_file_without_full_path) - 4);
+	}
+	else
+		obj_name = ft_substr(obj_file, 0, ft_strlen(obj_file) - 4);
+	if (obj_name != NULL)
+		obj_name[0] = ft_toupper(obj_name[0]);
+	return (obj_name);
 }
 
 void	mesh_free(t_mesh *mesh)
