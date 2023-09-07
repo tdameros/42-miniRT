@@ -19,6 +19,7 @@
 # include "math/vector.h"
 # include "colors.h"
 # include "material.h"
+# include "mesh.h"
 
 # define LIGHT (-1)
 
@@ -29,6 +30,7 @@ enum e_object_type
 	CYLINDER,
 	CYLINDER_INF,
 	CONE,
+	MESH,
 };
 
 typedef struct s_cone_cache
@@ -86,6 +88,7 @@ typedef struct s_object
 	t_material				material;
 	union u_object_cache	cache;
 	char					*name;
+	t_mesh					mesh;
 }	t_object;
 
 typedef struct s_objects
@@ -94,6 +97,7 @@ typedef struct s_objects
 	size_t				length;
 	size_t				size;
 }	t_objects;
+
 
 //	cone/create.c
 t_object	cone_create(const t_vector3f position, const t_vector3f axis,
@@ -128,6 +132,11 @@ void		cylinder_set_position(t_object *cylinder,
 void		cylinder_set_height(t_object *cylinder, const float height);
 void		cylinder_set_radius(t_object *cylinder, const float radius);
 
+//	mesh/create.c
+int			mesh_object_initialize(t_object *mesh_object, const char *obj_file,
+				t_material material);
+void		mesh_free(t_mesh *mesh);
+
 //	plane/create.c
 t_object	plane_create(const t_vector3f position, const t_vector3f normal,
 				const t_material material);
@@ -155,7 +164,8 @@ void		sphere_set_radius(t_object *sphere, const float radius);
 int			initialize_objects_array(t_objects *objects, size_t size);
 int			add_object_in_objects(t_objects *objects, t_object object);
 int			remove_object_in_objects(t_objects *objects, size_t index);
-int			free_objects(t_objects *objects);
+void		free_object(t_object *object);
+void		free_objects(t_objects *objects);
 
 //	calculate_cache.c
 void		object_calculate_cache(t_object *object);

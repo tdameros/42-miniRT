@@ -19,6 +19,7 @@ t_object	plane_create(const t_vector3f position, const t_vector3f normal,
 {
 	t_object	plane;
 
+	ft_bzero(&plane, sizeof(plane));
 	plane.type = PLANE;
 	plane.position = position;
 	plane.axis = normal;

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <stdio.h>
 
 #include "libft.h"
 
@@ -58,18 +57,25 @@ int	remove_object_in_objects(t_objects *objects, size_t index)
 {
 	if (objects->length <= index)
 		return (-1);
-	free(objects->data[index].name);
+	free_object(&objects->data[index]);
 	objects->data[index] = objects->data[objects->length - 1];
 	objects->length -= 1;
 	return (0);
 }
 
-int	free_objects(t_objects *objects)
+void	free_object(t_object *object)
+{
+	material_free(&object->material);
+	mesh_free(&object->mesh);
+	free(object->name);
+}
+
+void	free_objects(t_objects *objects)
 {
 	while (objects->length--)
 		free(objects->data[objects->length].name);
 	free(objects->data);
 	objects->size = 0;
 	objects->length = 0;
-	return (0);
 }
+

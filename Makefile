@@ -227,6 +227,8 @@ SRC				=\
 	object/cylinder/create.c			\
 	object/cylinder/transformations.c	\
 	\
+	object/mesh/create.c				\
+	\
 	object/plane/create.c				\
 	object/plane/transformations.c		\
 	\
@@ -265,6 +267,9 @@ SRC				=\
 	parsing/line_parsing/parse_plane.c					\
 	parsing/line_parsing/parse_sphere.c					\
 	\
+	parsing/obj_file/parse_obj_file.c	\
+	parsing/obj_file/parse_line.c		\
+	\
 	parsing/free_scene_content.c	\
 	parsing/get_scene_content.c		\
 	parsing/parse_ppm_file.c		\
@@ -285,6 +290,7 @@ SRC				=\
 	ray_tracer/rays/intersections/cylinder_caps.c		\
 	ray_tracer/rays/intersections/cylinder_infinite.c	\
 	ray_tracer/rays/intersections/intersection.c		\
+	ray_tracer/rays/intersections/mesh.c				\
 	ray_tracer/rays/intersections/plane.c				\
 	ray_tracer/rays/intersections/sphere.c				\
 	\
@@ -314,6 +320,10 @@ SRC				=\
 	render_frame/render_frame.c				\
 	render_frame/render_user_interface.c	\
 	\
+	\
+	vectors/mesh_faces.c	\
+	vectors/vectors3f.c		\
+	vectors/vectors3i.c		\
 	\
 	close_miniRT.c		\
 	color.c				\

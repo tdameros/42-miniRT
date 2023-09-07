@@ -98,6 +98,11 @@ t_hit		hit_sphere(const t_ray *ray, const t_object *sphere,
 				const t_hit hit_distance);
 t_hit		calculate_sphere_distance(const t_ray *ray, const t_object *sphere);
 
+//	intersections/mesh.c
+t_hit		calculate_mesh_distance(const t_ray *ray, const t_object *mesh);
+t_hit		hit_mesh(const t_ray *ray, const t_object *mesh,
+				const t_hit hit_distance);
+
 //	ray.c
 t_ray		ray_create(const t_vector3f origin, const t_vector3f direction);
 t_vector3f	ray_at(const t_ray *ray, const float t);
