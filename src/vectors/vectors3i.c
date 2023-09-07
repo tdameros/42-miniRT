@@ -38,7 +38,7 @@ int	vectors3i_add(t_vectors3i *vectors3i, t_vector3i vector3i)
 		if (temp == NULL)
 			return (-1);
 		ft_memcpy(temp, vectors3i->data,
-				  sizeof(*vectors3i->data) * vectors3i->size);
+			sizeof(*vectors3i->data) * vectors3i->length);
 		temp[vectors3i->length] = vector3i;
 		free(vectors3i->data);
 		vectors3i->data = temp;

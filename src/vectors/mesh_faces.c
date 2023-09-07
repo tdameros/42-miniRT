@@ -38,7 +38,7 @@ int	mesh_faces_add(t_mesh_faces *mesh_faces, t_mesh_face mesh_face)
 		if (temp == NULL)
 			return (-1);
 		ft_memcpy(temp, mesh_faces->data,
-			sizeof(*mesh_faces->data) * mesh_faces->size);
+			sizeof(*mesh_faces->data) * mesh_faces->length);
 		temp[mesh_faces->length] = mesh_face;
 		free(mesh_faces->data);
 		mesh_faces->data = temp;
