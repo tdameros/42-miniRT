@@ -34,8 +34,8 @@ int	mesh_object_initialize(t_object *mesh_object, const char *obj_file,
 	return_code = initialize_mesh_with_obj(&mesh_object->mesh, obj_file);
 	if (return_code < 0)
 		return (-1);
-	else if (return_code == 0)
-		return (0);
+	else if (return_code == NO_VALID_FACES_FOUND)
+		return (NO_VALID_FACES_FOUND);
 	mesh_object->name = get_obj_name(obj_file);
 	if (mesh_object->name == NULL)
 	{

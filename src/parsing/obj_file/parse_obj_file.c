@@ -39,7 +39,7 @@ int	initialize_mesh_with_obj(t_mesh *mesh, const char *file_name)
 	if (mesh->faces.length == 0)
 	{
 		mesh_free(mesh);
-		return (0);
+		return (NO_VALID_FACES_FOUND);
 	}
 	return (1);
 }
