@@ -59,6 +59,7 @@ SRC				=\
 	gui/float_input_box/draw_float_input_box.c		\
 	gui/float_input_box/update_float_input_box.c	\
 	\
+	gui/main_box/menu_box/init_export_box.c		\
 	gui/main_box/menu_box/init_menu_box.c		\
 	gui/main_box/menu_box/init_settings_icon.c	\
 	\

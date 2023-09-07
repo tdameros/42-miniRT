@@ -127,6 +127,17 @@ enum e_optional_box
 	NUMBER_OF_OPTIONAL_BOXES
 };
 
+typedef struct s_message
+{
+	uint64_t	animation_start_time_ms;
+	int			time_to_appear_ms;
+	int			time_to_display_ms;
+	int			time_to_disappear_ms;
+	t_image		image_to_display;
+	t_image		image_with_message;
+	int			y_position;
+}	t_message;
+
 typedef struct s_gui
 {
 	t_font					font;
@@ -149,6 +160,7 @@ typedef struct s_gui
 	t_vector				object_boxes;
 	t_vector				light_boxes;
 	t_float_input_boxes		float_input_boxes;
+	t_message				message;
 }	t_gui;
 
 #endif

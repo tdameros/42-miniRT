@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <math.h>
 
 #include "engine.h"
 #include "gui/box.h"
@@ -22,6 +23,7 @@
 #include "gui/optional_boxes.h"
 
 static void	init_boxes(t_engine *engine);
+static void	init_message(t_engine *engine);
 
 void	init_gui(t_engine *engine)
 {
@@ -43,6 +45,7 @@ void	init_gui(t_engine *engine)
 	engine->gui.color_and_material.material_to_assign_to_new_objects
 		= material_create((t_color){0.f, 0.f, 1.f}, 0.f, 0.f);
 	init_boxes(engine);
+	init_message(engine);
 }
 
 static void	init_boxes(t_engine *engine)
@@ -58,4 +61,17 @@ static void	init_boxes(t_engine *engine)
 	init_texture_box(engine,
 		engine->gui.optional_gui_boxes.data + TEXTURE_BOX,
 		engine->gui.gui_boxes.data, engine->gui.gui_boxes.data + 2);
+}
+
+static void	init_message(t_engine *engine)
+{
+	const int	width = engine->ray_traced_image.width;
+	const int	height = engine->ray_traced_image.height * 0.05f;
+
+	init_image(&engine->gui.message.image_to_display, &engine->window,
+		width, height);
+	init_image(&engine->gui.message.image_with_message, &engine->window,
+		width, height);
+	engine->gui.message.y_position = engine->ray_traced_image.height
+		- engine->ray_traced_image.height / 10;
 }

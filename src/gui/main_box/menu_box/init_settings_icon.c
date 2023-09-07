@@ -21,14 +21,16 @@
 #include "gui/UI.h"
 #include "events.h"
 
-#define CIRCLE_COLOR 0x00666666
-
 static void	write_setting_icon(t_image *image, unsigned int color);
 static void	settings_icon_on_click(t_gui_box *self, t_engine *engine,
 				t_click_data click_data);
 
-void	init_settings_icon(t_gui_box *gui_box)
+void	init_settings_icon(t_engine *engine, t_gui_box *gui_box)
 {
+	init_image(&gui_box->image, &engine->window, gui_box->size.x,
+		gui_box->size.y);
+	init_image(&gui_box->on_hover_image, &engine->window, gui_box->size.x,
+		gui_box->size.y);
 	gui_box->on_click = &settings_icon_on_click;
 	write_setting_icon(&gui_box->image, COLOR_TRANSPARENT);
 	write_setting_icon(&gui_box->on_hover_image, HOVER_GUI_COLOR);
@@ -47,14 +49,14 @@ static void	write_setting_icon(t_image *image, const unsigned int color)
 	image_draw_circle(image, (t_vector2f){\
 			.x = image->width / 2, \
 			.y = image->height / 2},
-		circle_radius, CIRCLE_COLOR);
+		circle_radius, MENU_BOX_ICONS_COLOR);
 	theta = M_PI / 2.f;
 	while (theta < M_PI * 2.f + M_PI / 2.f)
 	{
 		image_draw_circle(image, (t_vector2f){\
 				.x = image->width / 2.f + circle_radius * cosf(theta), \
 				.y = image->height / 2.f + circle_radius * sinf(theta)},
-			circle_radius * 0.42f, CIRCLE_COLOR);
+			circle_radius * 0.42f, MENU_BOX_ICONS_COLOR);
 		theta += M_PI * 2.f / 6.f;
 	}
 	image_draw_circle(image, (t_vector2f){\

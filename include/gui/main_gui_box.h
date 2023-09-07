@@ -13,14 +13,15 @@
 #ifndef MAIN_GUI_BOX_H
 # define MAIN_GUI_BOX_H
 
+# define MENU_BOX_ICONS_COLOR 0x00666666
+
 void	init_main_gui_box(t_engine *engine, t_gui_box *gui_box);
 void	init_object_creation_gui_box(t_engine *engine,
 			t_gui_box *gui_box, t_gui_box *parent);
 void	init_menu_gui_box(t_engine *engine, t_gui_box *gui_box,
 			t_gui_box *parent);
-void	icon_box_draw_method(t_gui_box *self, t_engine *engine,
-			int x_offset, int y_offset);
-void	init_settings_icon(t_gui_box *gui_box);
+void	init_export_box(t_engine *engine, t_gui_box *gui_box);
+void	init_settings_icon(t_engine *engine, t_gui_box *gui_box);
 
 void	sphere_create_on_click(t_gui_box *self, t_engine *engine,
 			t_click_data click_data);

@@ -23,7 +23,7 @@ inline uint8_t	get_transparency(const unsigned int color)
 
 inline float	get_transparency_ratio(const unsigned int color)
 {
-	return (((color & 0x00FF0000) >> 16) / 255.f);
+	return (get_transparency(color) / 255.f);
 }
 
 inline t_color	get_t_color_from_uint(const unsigned int color)
