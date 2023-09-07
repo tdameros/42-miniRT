@@ -7,12 +7,6 @@
 #include "gui/utils.h"
 
 static float		get_gui_hidden_ration(t_gui *gui, uint64_t start_time);
-static t_vector2i	get_top_box_decal(const t_gui_box *gui_box,
-						float hidden_ratio);
-static t_vector2i	get_right_box_decal(const t_engine *engine,
-						const t_gui_box *gui_box, float hidden_ratio);
-static t_vector2i	get_left_box_decal(const t_engine *engine,
-						const t_gui_box *gui_box, float hidden_ratio);
 static void			render_message(t_engine *engine);
 static int16_t		get_message_transparency(const t_message *message,
 						float time_elapsed);
@@ -21,26 +15,24 @@ static void			update_message_image_to_display(t_message *message,
 
 void	render_user_interface(t_engine *engine, const uint64_t start_time)
 {
-	const float	hidden_ratio = get_gui_hidden_ration(&engine->gui, start_time);
 	t_vector2i	mouse_position;
 
-	if (hidden_ratio >= 1.f)
+	engine->gui.hide_animation.current_hidden_ratio
+		= get_gui_hidden_ration(&engine->gui, start_time);
+	if (engine->gui.hide_animation.current_hidden_ratio >= 1.f)
 		return ;
 	mouse_position = get_mouse_position(engine);
 	engine->gui.gui_boxes.data[0].draw(engine->gui.gui_boxes.data + 0, engine,
 		(t_draw_data){\
-			get_top_box_decal(engine->gui.gui_boxes.data + 0, \
-				hidden_ratio), \
+			get_top_box_decal(engine, engine->gui.gui_boxes.data + 0), \
 			mouse_position});
 	engine->gui.gui_boxes.data[1].draw(engine->gui.gui_boxes.data + 1, engine,
 		(t_draw_data){\
-			get_right_box_decal(engine, engine->gui.gui_boxes.data + 1, \
-				hidden_ratio), \
+			get_right_box_decal(engine, engine->gui.gui_boxes.data + 1), \
 			mouse_position});
 	engine->gui.gui_boxes.data[2].draw(engine->gui.gui_boxes.data + 2, engine,
 		(t_draw_data){\
-			get_left_box_decal(engine, engine->gui.gui_boxes.data + 1, \
-				hidden_ratio), \
+			get_left_box_decal(engine, engine->gui.gui_boxes.data + 1), \
 			mouse_position});
 	if (engine->gui.current_optional_box >= 0
 		&& engine->gui.current_optional_box < NUMBER_OF_OPTIONAL_BOXES
@@ -49,8 +41,7 @@ void	render_user_interface(t_engine *engine, const uint64_t start_time)
 		engine->gui.optional_gui_boxes.data[engine->gui.current_optional_box].\
 		draw(engine->gui.optional_gui_boxes.data
 			+ engine->gui.current_optional_box, engine, (t_draw_data){\
-			get_left_box_decal(engine, engine->gui.gui_boxes.data + 1, \
-				hidden_ratio), \
+			get_left_box_decal(engine, engine->gui.gui_boxes.data + 1),
 			mouse_position});
 	render_message(engine);
 }
@@ -73,30 +64,6 @@ static float	get_gui_hidden_ration(t_gui *gui, const uint64_t start_time)
 		return (time_passed_squared / TIME_TO_HIDE_GUI);
 	}
 	return (1.f - (time_passed_squared) / TIME_TO_HIDE_GUI);
-}
-
-static t_vector2i	get_top_box_decal(const t_gui_box *gui_box,
-						const float hidden_ratio)
-{
-	return ((t_vector2i){
-		0,
-		-((gui_box->size.y + gui_box->position.y) * hidden_ratio)});
-}
-
-static t_vector2i	get_right_box_decal(const t_engine *engine,
-						const t_gui_box *gui_box, const float hidden_ratio)
-{
-	return ((t_vector2i){
-		(engine->window.size.x - gui_box->position.x) * hidden_ratio,
-		0});
-}
-
-static t_vector2i	get_left_box_decal(const t_engine *engine,
-						const t_gui_box *gui_box, const float hidden_ratio)
-{
-	return ((t_vector2i){
-		-((engine->window.size.x - gui_box->position.x) * hidden_ratio),
-		0});
 }
 
 static void	render_message(t_engine *engine)

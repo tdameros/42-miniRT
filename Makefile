@@ -117,6 +117,7 @@ SRC				=\
 	gui/create_horizontal_boxes.c	\
 	gui/create_n_horizontal_boxes.c	\
 	gui/create_vertical_boxes.c		\
+	gui/get_boxes_decal.c			\
 	gui/init_gui.c					\
 	\
 	\

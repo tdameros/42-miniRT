@@ -39,8 +39,7 @@ int	button_press_handler(int button, int x, int y, t_engine *engine)
 		placing_object(button, engine);
 		return (0);
 	}
-	clicked_gui_box = get_clicked_gui_box(engine, engine->gui.gui_boxes, &x,
-			&y);
+	clicked_gui_box = get_clicked_root_gui_box(engine, &x, &y);
 	if (clicked_gui_box == NULL)
 	{
 		select_new_object(button, engine, x, y);

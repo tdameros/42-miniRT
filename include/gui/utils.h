@@ -61,10 +61,17 @@ void				draw_icon(t_image *image, int type,
 void				draw_light_icon(t_image *image,
 						unsigned int background_color, t_color color);
 void				draw_top_rectangles(t_image *image, unsigned int color,
-							float scale, t_vector2f offset);
+						float scale, t_vector2f offset);
 void				draw_bottom_rectangles(t_image *image, unsigned int color,
 						float scale, t_vector2f offset);
 void				draw_side_rectangles(t_image *image, unsigned int color,
 						float scale, t_vector2f offset);
+
+t_vector2i			get_top_box_decal(const t_engine *engine,
+						const t_gui_box *gui_box);
+t_vector2i			get_right_box_decal(const t_engine *engine,
+						const t_gui_box *gui_box);
+t_vector2i			get_left_box_decal(const t_engine *engine,
+						const t_gui_box *gui_box);
 
 #endif

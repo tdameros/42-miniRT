@@ -67,7 +67,7 @@ void		default_gui_box_on_click(t_gui_box *self, t_engine *minirt,
 
 t_vector2i	get_box_offset(t_gui_box *box);
 
-t_gui_box	*get_clicked_gui_box(t_engine *engine, t_gui_boxes gui_boxes,
-				int *x, int *y);
+t_gui_box	*get_clicked_root_gui_box(t_engine *engine, int *x, int *y);
+t_gui_box	*get_clicked_gui_box(t_gui_boxes gui_boxes, int *x, int *y);
 
 #endif

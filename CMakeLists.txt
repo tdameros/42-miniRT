@@ -492,5 +492,5 @@ add_executable(minirt
         src/main.c
         src/export/scene/datetime.c src/gui/object_list_box/update_object_list_icons.c
         src/ray_tracer/post_processing.c src/hooks/pressed_keys.c
-        src/font/rendering/write_centered_number_to_image.c src/gui/optional_boxes/texture_box/delete_box.c src/gui/box/get_box_offset.c src/gui/main_box/menu_box/init_export_box.c)
+        src/font/rendering/write_centered_number_to_image.c src/gui/optional_boxes/texture_box/delete_box.c src/gui/box/get_box_offset.c src/gui/main_box/menu_box/init_export_box.c src/gui/get_boxes_decal.c)
 

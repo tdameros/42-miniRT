@@ -68,6 +68,7 @@ typedef struct s_gui_hide_animation
 	bool		is_hidden;
 	uint64_t	start_animation_time;
 	bool		hide_animation_finished;
+	float		current_hidden_ratio;
 }	t_gui_hide_animation;
 
 enum e_color_being_changed
