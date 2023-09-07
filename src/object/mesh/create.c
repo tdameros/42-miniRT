@@ -33,16 +33,14 @@ int	mesh_object_initialize(t_object *mesh_object, const char *obj_file,
 	mesh_object->material = material;
 	return_code = initialize_mesh_with_obj(&mesh_object->mesh, obj_file);
 	if (return_code < 0)
-		return (-1);
-	else if (return_code == NO_VALID_FACES_FOUND)
-		return (NO_VALID_FACES_FOUND);
+		return (return_code);
 	mesh_object->name = get_obj_name(obj_file);
 	if (mesh_object->name == NULL)
 	{
 		mesh_free(&mesh_object->mesh);
 		return (-1);
 	}
-	return (1);
+	return (0);
 }
 
 static char	*get_obj_name(const char *obj_file)

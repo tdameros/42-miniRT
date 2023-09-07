@@ -15,7 +15,7 @@
 
 # include "vectors.h"
 
-# define NO_VALID_FACES_FOUND 0
+# define NO_VALID_FACES_FOUND -2
 
 typedef struct s_mesh
 {

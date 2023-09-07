@@ -41,7 +41,7 @@ int	initialize_mesh_with_obj(t_mesh *mesh, const char *file_name)
 		mesh_free(mesh);
 		return (NO_VALID_FACES_FOUND);
 	}
-	return (1);
+	return (0);
 }
 
 static int	initialize_vectors_in_mesh(t_mesh *mesh)
