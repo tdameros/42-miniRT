@@ -98,11 +98,6 @@ typedef struct s_objects
 	size_t				size;
 }	t_objects;
 
-int	mesh_object_initialize(t_object *mesh_object, const char *obj_file,
-							  t_material material);
-void	mesh_free(t_mesh *mesh);
-t_object	triangle_create(const t_vector3f vertex_a, const t_vector3f vertex_b,
-							const t_vector3f vertex_c, const t_vector3f normal, const t_material material);
 
 //	cone/create.c
 t_object	cone_create(const t_vector3f position, const t_vector3f axis,
@@ -136,6 +131,11 @@ void		cylinder_set_position(t_object *cylinder,
 				const t_vector3f position);
 void		cylinder_set_height(t_object *cylinder, const float height);
 void		cylinder_set_radius(t_object *cylinder, const float radius);
+
+//	mesh/create.c
+int			mesh_object_initialize(t_object *mesh_object, const char *obj_file,
+				t_material material);
+void		mesh_free(t_mesh *mesh);
 
 //	plane/create.c
 t_object	plane_create(const t_vector3f position, const t_vector3f normal,
