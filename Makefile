@@ -296,6 +296,7 @@ SRC				=\
 	ray_tracer/rays/intersections/plane.c				\
 	ray_tracer/rays/intersections/sphere.c				\
 	\
+	ray_tracer/rays/context.c		\
 	ray_tracer/rays/rays.c			\
 	\
 	ray_tracer/shade/light.c	\

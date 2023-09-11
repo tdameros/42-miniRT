@@ -28,7 +28,7 @@ t_vector3f	calculate_normal_perturbation(t_hit hit, const t_object *object)
 	t_vector2f			uv;
 	t_surface			surface;
 
-	if (hit.context == CAP1 || hit.context == CAP2)
+	if (is_cap_context(hit.context))
 	{
 		surface = object->material.textures.cap;
 		uv = calculate_cap_map(hit.position, object);
@@ -50,7 +50,7 @@ static t_vector3f	get_tangente_space_normal(const t_vector3f world_normal,
 	t_matrix3	tbn;
 
 	tangent = vector3f_cross(world_normal, (t_vector3f){0.f, 1.f, 0.f});
-	if (!vector3f_length(tangent))
+	if (vector3f_length(tangent) == 0)
 		tangent = vector3f_cross(world_normal, (t_vector3f){0.f, 0.f, 1.f});
 	tangent = vector3f_unit(tangent);
 	bitangent = vector3f_unit(vector3f_cross(world_normal, tangent));

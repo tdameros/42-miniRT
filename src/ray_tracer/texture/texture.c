@@ -30,7 +30,7 @@ t_vector3f	get_texture_color(t_hit hit, const t_object *object)
 	t_vector2f			uv;
 	t_surface			surface;
 
-	if (hit.context == CAP1 || hit.context == CAP2)
+	if (is_cap_context(hit.context))
 	{
 		surface = object->material.textures.cap;
 		uv = calculate_cap_map(hit.position, object);
