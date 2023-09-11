@@ -17,8 +17,9 @@
 #include "hooks.h"
 #include "export.h"
 
-static bool	handle_command_hooks(int key_code, t_engine *engine);
-static bool	handle_normal_hooks(int key_code, t_engine *engine);
+static bool				handle_command_hooks(int key_code, t_engine *engine);
+static bool				handle_normal_hooks(int key_code, t_engine *engine);
+static enum e_effect	get_next_effect(enum e_effect effect);
 
 int	key_press_handler(int key_code, t_engine *engine)
 {
@@ -52,7 +53,7 @@ static bool	handle_normal_hooks(int key_code, t_engine *engine)
 {
 	if (key_code == KEY_B)
 	{
-		ft_reverse_bool(&engine->is_black_and_white_render);
+		engine->post_processing_effect = get_next_effect(engine->post_processing_effect);
 		engine->scene_changed = true;
 	}
 	else if (key_code == KEY_ESC)
@@ -70,4 +71,9 @@ static bool	handle_normal_hooks(int key_code, t_engine *engine)
 	else
 		return (false);
 	return (true);
+}
+
+static enum e_effect	get_next_effect(enum e_effect effect)
+{
+	return ((effect + 1) % (END_EFFECT));
 }

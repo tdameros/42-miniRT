@@ -42,6 +42,15 @@ typedef struct s_quality
 	int	max_reduction;
 }	t_quality;
 
+enum e_effect
+{
+	NO_EFFECT,
+	BLACK_AND_WHITE,
+	NEGATIVE_BLACK_AND_WHITE,
+	NEGATIVE,
+	END_EFFECT,
+};
+
 typedef struct s_engine
 {
 	t_window				window;
@@ -62,7 +71,7 @@ typedef struct s_engine
 	bool					should_render_at_full_resolution; // enum {NO_RENDER, RENDER, FULL_RENDER}
 	bool					antialiasing;
 	bool					scene_changed;
-	bool					is_black_and_white_render;
+	enum e_effect			post_processing_effect;
 	t_quality				quality;
 }	t_engine;
 
