@@ -14,7 +14,8 @@ void	draw_light_icon(t_image *image,
 	const float			image_min_size = fminf(image->width, image->height);
 	const float			scale = image_min_size / BASE_IMAGE_SIZE;
 	const t_vector2f	center = {image->width / 2.f, image->height / 2.f};
-	const unsigned int	color = vec_rgb_to_uint(vec_color);
+	const unsigned int	color = vec_rgb_to_uint(
+			vector3f_multiply(vec_color, 255));
 	const t_vector2f	offset = {.x = image->width / 2.f - image_min_size / 2.f, \
 								.y = image->height / 2.f - image_min_size / 2.f};
 

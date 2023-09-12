@@ -70,15 +70,12 @@ static bool	handle_scroll(t_gui_box *self, t_engine *engine, const int button)
 
 static void	select_light(t_engine *engine, size_t index)
 {
-	t_material	material;
-
 	if (index >= engine->scene.lights.length)
 		return ;
 	engine->gui.selected_object.light = engine->scene.lights.data + index;
 	engine->gui.selected_object.object = NULL;
 	update_color_picker_color(&engine->gui);
-	material = material_create(engine->gui.selected_object.light->color, 0, 0);
-	redraw_icons(engine, material);
+	redraw_icons(engine, NULL, engine->gui.selected_object.light);
 	update_object_attributes_modification_box(engine);
 }
 
@@ -89,6 +86,6 @@ static void	select_object(t_engine *engine, size_t index)
 	engine->gui.selected_object.object = engine->scene.objects.data + index;
 	engine->gui.selected_object.light = NULL;
 	update_color_picker_color(&engine->gui);
-	redraw_icons(engine, engine->gui.selected_object.object->material);
+	redraw_icons(engine, engine->gui.selected_object.object, NULL);
 	update_object_attributes_modification_box(engine);
 }

@@ -34,7 +34,7 @@ void	add_plus_minus_box(t_engine *engine, t_gui_box *gui_box, int *y,
 		true});
 	*y += gui_box->size.y + OBJECT_ATTRIBUTE_BOX_OFFSET;
 	change_image_color(&gui_box->image, SUB_GUI_COLOR);
-	round_image_corners(&gui_box->image, 10);
+	round_image_corners(&gui_box->image, BOX_ROUNDING_RADIUS);
 	init_plus_minus_box_children(engine, gui_box);
 }
 

@@ -64,3 +64,15 @@ int	mesh_faces_free(t_mesh_faces *mesh_faces)
 	mesh_faces->length = 0;
 	return (0);
 }
+
+int	mesh_faces_deep_copy(t_mesh_faces *dst, const t_mesh_faces *src)
+{
+	mesh_faces_free(dst);
+	dst->data = malloc(sizeof(*dst->data) * src->length);
+	if (dst->data == NULL)
+		return (-1);
+	dst->size = src->length;
+	dst->length = src->length;
+	ft_memcpy(dst->data, src->data, sizeof(*dst->data) * src->length);
+	return (0);
+}

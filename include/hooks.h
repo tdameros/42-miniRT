@@ -24,7 +24,8 @@ int			key_release_handler(int key_code, t_engine *engine);
 void		add_key_to_pressed_keys(t_engine *engine, int key_code);
 void		remove_key_from_pressed_keys(t_engine *engine, int key_code);
 void		clear_pressed_keys(t_engine *engine);
-void		redraw_icons(t_engine *engine, t_material material);
+void		redraw_icons(t_engine *engine, const t_object *object,
+				const t_light *light);
 void		toggle_gui(t_gui *gui);
 void		update_color_picker_color(t_gui *gui);
 
@@ -47,6 +48,8 @@ void		init_cone_attributes_modification_box(t_engine *engine,
 void		init_cylinder_attributes_modification_box(t_engine *engine,
 				t_gui_box *gui_box);
 void		init_light_attributes_modification_box(t_engine *engine,
+				t_gui_box *gui_box);
+void		init_mesh_attributes_modification_box(t_engine *engine,
 				t_gui_box *gui_box);
 void		init_plane_attributes_modification_box(t_engine *engine,
 				t_gui_box *gui_box);
@@ -86,6 +89,8 @@ void		add_height_box(t_engine *engine, t_gui_box *gui_box, int *i,
 void		add_normal_box(t_engine *engine, t_gui_box *gui_box, int *i,
 				t_gui_box *parent);
 void		add_position_box(t_engine *engine, t_gui_box *gui_box, int *i,
+				t_gui_box *parent);
+void		add_scale_box(t_engine *engine, t_gui_box *gui_box, int *i,
 				t_gui_box *parent);
 void		add_radius_box(t_engine *engine, t_gui_box *gui_box, int *i,
 				t_gui_box *parent);
@@ -162,5 +167,24 @@ void		position_input_box_z_on_click_minus(struct s_gui_box *self,
 				t_engine *engine, t_click_data click_data);
 void		position_input_box_z_on_click_text(t_gui_box *self,
 				t_engine *engine, t_click_data click_data);
+
+void		scale_input_box_x_on_click_plus(struct s_gui_box *self,
+				t_engine *engine, t_click_data click_data);
+void		scale_input_box_x_on_click_minus(struct s_gui_box *self,
+				t_engine *engine, t_click_data click_data);
+void		scale_input_box_x_on_click_text(t_gui_box *self, t_engine *engine,
+				t_click_data click_data);
+void		scale_input_box_y_on_click_plus(struct s_gui_box *self,
+				t_engine *engine, t_click_data click_data);
+void		scale_input_box_y_on_click_minus(struct s_gui_box *self,
+				t_engine *engine, t_click_data click_data);
+void		scale_input_box_y_on_click_text(t_gui_box *self, t_engine *engine,
+				t_click_data click_data);
+void		scale_input_box_z_on_click_plus(struct s_gui_box *self,
+				t_engine *engine, t_click_data click_data);
+void		scale_input_box_z_on_click_minus(struct s_gui_box *self,
+				t_engine *engine, t_click_data click_data);
+void		scale_input_box_z_on_click_text(t_gui_box *self, t_engine *engine,
+				t_click_data click_data);
 
 #endif //HOOKS_H

@@ -44,7 +44,7 @@ void	reload_textures_and_normal_maps(t_engine *engine)
 	textures_and_normal_maps
 		= &engine->gui.color_and_material.textures_and_normal_maps;
 	if (ft_get_time_elapsed_in_seconds(textures_and_normal_maps->last_update)
-		< 5.f)
+		< TIME_BEFORE_UPDATING_FILES_SECONDS)
 		return ;
 	load_textures_and_normal_maps(engine);
 }
@@ -106,12 +106,12 @@ static void	create_ppm_box(t_engine *engine, t_gui_box *box, char *file)
 	*dot_address = '\0';
 	change_image_color(&box->image, SUB_GUI_COLOR);
 	write_centered_string_to_image(&engine->gui.font, &box->image, file);
-	round_image_corners(&box->image, 10);
+	round_image_corners(&box->image, BOX_ROUNDING_RADIUS);
 	init_image(&box->on_hover_image, &engine->window, box->size.x, box->size.y);
 	change_image_color(&box->on_hover_image, HOVER_GUI_COLOR);
 	write_centered_string_to_image(&engine->gui.font, &box->on_hover_image,
 		file);
-	round_image_corners(&box->on_hover_image, 10);
+	round_image_corners(&box->on_hover_image, BOX_ROUNDING_RADIUS);
 	*dot_address = '.';
 	box->draw = NULL;
 	box->on_click = NULL;

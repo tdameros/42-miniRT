@@ -4,20 +4,19 @@
 
 void	update_object_list_icons(t_engine *engine)
 {
-	t_gui_box	*object_box;
-	t_image		*icon_image;
-	t_object	*object;
-	t_material	material;
-	size_t		i;
+	t_gui_box		*object_box;
+	t_image			*icon_image;
+	const t_object	*object;
+	const t_light	*light;
+	size_t			i;
 
 	i = engine->scene.lights.length;
 	while (i--)
 	{
 		object_box = &((t_gui_box *)engine->gui.light_boxes.data)[i];
 		icon_image = object_box_get_icon_image(object_box);
-		material = material_create(engine->scene.lights.data[i].color,
-				0, 0);
-		draw_icon(icon_image, LIGHT, COLOR_TRANSPARENT, material);
+		light = &engine->scene.lights.data[i];
+		draw_icon(icon_image, NULL, light, COLOR_TRANSPARENT);
 	}
 	i = engine->scene.objects.length;
 	while (i--)
@@ -25,7 +24,6 @@ void	update_object_list_icons(t_engine *engine)
 		object_box = &((t_gui_box *)engine->gui.object_boxes.data)[i];
 		icon_image = object_box_get_icon_image(object_box);
 		object = &engine->scene.objects.data[i];
-		material = object->material;
-		draw_icon(icon_image, object->type, COLOR_TRANSPARENT, material);
+		draw_icon(icon_image, object, NULL, COLOR_TRANSPARENT);
 	}
 }

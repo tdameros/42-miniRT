@@ -32,7 +32,7 @@ t_matrix4	matrix4_inverse(t_matrix4 matrix)
 
 	identity_matrix = matrix4_create_identity();
 	x = 0;
-	while (x < matrix.size)
+	while (x < 4)
 	{
 		pivot = matrix.matrix[x][x];
 		if (ft_is_equalsf(pivot, 0, FLT_EPSILON))
@@ -59,7 +59,7 @@ static void	swap_pivot(t_matrix4 *matrix, t_matrix4 *identity, int current_row)
 	while (matrix->matrix[row][current_row] == 0)
 		row++;
 	column = 0;
-	while (column < matrix->size)
+	while (column < 4)
 	{
 		temp = matrix->matrix[row][column];
 		matrix->matrix[row][column] = matrix->matrix[current_row][column];
@@ -67,7 +67,7 @@ static void	swap_pivot(t_matrix4 *matrix, t_matrix4 *identity, int current_row)
 		column++;
 	}
 	column = 0;
-	while (column < identity->size)
+	while (column < 4)
 	{
 		temp = identity->matrix[row][column];
 		identity->matrix[row][column] = identity->matrix[current_row][column];
@@ -81,7 +81,7 @@ static void	multiply_row(t_matrix4 *matrix, int row, float factor)
 	int	i;
 
 	i = 0;
-	while (i < matrix->size)
+	while (i < 4)
 	{
 		matrix->matrix[row][i] *= factor;
 		i++;
@@ -94,7 +94,7 @@ static void	set_column_to_zero(t_matrix4 *matrix, t_matrix4 *identity_matrix,
 	int	y;
 
 	y = 0;
-	while (y < matrix->size)
+	while (y < 4)
 	{
 		if (x != y)
 		{

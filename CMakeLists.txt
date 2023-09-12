@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.25)
-project(minirt C)
+project(minirt)
 
-set(CMAKE_C_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 
 include_directories(include)
 include_directories(lib/libft/include)
@@ -40,6 +40,7 @@ add_executable(minirt
         include/image.h
         include/light.h
         include/material.h
+        include/mesh.h
         include/object.h
         include/parsing.h
         include/path.h
@@ -47,6 +48,7 @@ add_executable(minirt
         include/ray_tracer_gui_api.h
         include/render_frame.h
         include/scene.h
+        include/vectors.h
         include/window.h
         lib/libft/include/ft_bitmask.h
         lib/libft/include/ft_bools.h
@@ -230,21 +232,32 @@ add_executable(minirt
         lib/libft/src/vector/vector_get_ptr_to_elem.c
         lib/libft/src/vector/vector_minimize_size.c
         lib/minilibx_opengl_20191021/font.c
+        lib/minilibx_opengl_20191021/font.xcf
+        lib/minilibx_opengl_20191021/libmlx.a
+        lib/minilibx_opengl_20191021/Makefile
         lib/minilibx_opengl_20191021/mlx.h
         lib/minilibx_opengl_20191021/mlx_init_loop.m
+        lib/minilibx_opengl_20191021/mlx_init_loop.o
         lib/minilibx_opengl_20191021/mlx_int.h
         lib/minilibx_opengl_20191021/mlx_int_str_to_wordtab.c
+        lib/minilibx_opengl_20191021/mlx_int_str_to_wordtab.o
         lib/minilibx_opengl_20191021/mlx_mouse.m
+        lib/minilibx_opengl_20191021/mlx_mouse.o
         lib/minilibx_opengl_20191021/mlx_new_image.m
+        lib/minilibx_opengl_20191021/mlx_new_image.o
         lib/minilibx_opengl_20191021/mlx_new_window.h
         lib/minilibx_opengl_20191021/mlx_new_window.m
+        lib/minilibx_opengl_20191021/mlx_new_window.o
         lib/minilibx_opengl_20191021/mlx_opengl.h
         lib/minilibx_opengl_20191021/mlx_opengl.m
         lib/minilibx_opengl_20191021/mlx_png.c
         lib/minilibx_opengl_20191021/mlx_png.h
+        lib/minilibx_opengl_20191021/mlx_png.o
         lib/minilibx_opengl_20191021/mlx_rgb.c
         lib/minilibx_opengl_20191021/mlx_shaders.c
+        lib/minilibx_opengl_20191021/mlx_shaders.o
         lib/minilibx_opengl_20191021/mlx_xpm.c
+        lib/minilibx_opengl_20191021/mlx_xpm.o
         src/export/scene/datetime.c
         src/export/scene/material.c
         src/export/scene/object.c
@@ -274,12 +287,14 @@ add_executable(minirt
         src/font/rendering/draw_glyph.c
         src/font/rendering/get_glyph_points.c
         src/font/rendering/get_quadratic_bezier_points.c
+        src/font/rendering/write_centered_number_to_image.c
         src/font/rendering/write_centered_string_to_image.c
         src/font/get_font.c
         src/gui/box/create_gui_box.c
         src/gui/box/default_gui_box_methods.c
         src/gui/box/destroy_t_gui_box.c
         src/gui/box/destroy_t_gui_boxes.c
+        src/gui/box/get_box_offset.c
         src/gui/box/get_clicked_gui_box.c
         src/gui/box/mouse_utils.c
         src/gui/draw_icon/draw_light_icon/draw_bottom_rectangles.c
@@ -290,6 +305,7 @@ add_executable(minirt
         src/gui/float_input_box/create_float_input_box.c
         src/gui/float_input_box/draw_float_input_box.c
         src/gui/float_input_box/update_float_input_box.c
+        src/gui/main_box/menu_box/init_export_box.c
         src/gui/main_box/menu_box/init_menu_box.c
         src/gui/main_box/menu_box/init_settings_icon.c
         src/gui/main_box/object_creation_box/init_object_creation_box.c
@@ -302,12 +318,18 @@ add_executable(minirt
         src/gui/object_list_box/object_box_getters.c
         src/gui/object_list_box/object_list_gui_box_draw.c
         src/gui/object_list_box/object_list_gui_box_on_click.c
+        src/gui/object_list_box/update_object_list_icons.c
         src/gui/object_modification_box/init_color_picker/add_hover_color_circle.c
         src/gui/object_modification_box/init_color_picker/color_getter_functions.c
         src/gui/object_modification_box/init_color_picker/init_base_color_box.c
         src/gui/object_modification_box/init_color_picker/init_color_picker_box.c
         src/gui/object_modification_box/init_color_picker/init_rgb_picker.c
         src/gui/object_modification_box/init_object_modification_box.c
+        src/gui/optional_boxes/add_mesh_object_box/click_mesh_box.c
+        src/gui/optional_boxes/add_mesh_object_box/init_add_mesh_object_box.c
+        src/gui/optional_boxes/add_mesh_object_box/load_mesh_objects.c
+        src/gui/optional_boxes/add_mesh_object_box/mesh_object_selection_draw.c
+        src/gui/optional_boxes/add_mesh_object_box/mesh_object_selection_on_click.c
         src/gui/optional_boxes/settings_box/init_antialiasing_toggle_box.c
         src/gui/optional_boxes/settings_box/init_cam_fov_box.c
         src/gui/optional_boxes/settings_box/init_max_resolution_reduction.c
@@ -325,6 +347,7 @@ add_executable(minirt
         src/gui/optional_boxes/texture_box/texture_normal_map_picker/draw.c
         src/gui/optional_boxes/texture_box/texture_normal_map_picker/init_texture_normal_map_picker.c
         src/gui/optional_boxes/texture_box/texture_normal_map_picker/on_click.c
+        src/gui/optional_boxes/texture_box/delete_box.c
         src/gui/optional_boxes/texture_box/init_texture_box.c
         src/gui/optional_boxes/add_button_box.c
         src/gui/optional_boxes/add_plus_minus_box.c
@@ -333,6 +356,7 @@ add_executable(minirt
         src/gui/create_horizontal_boxes.c
         src/gui/create_n_horizontal_boxes.c
         src/gui/create_vertical_boxes.c
+        src/gui/get_boxes_decal.c
         src/gui/init_gui.c
         src/hooks/update_object_attributes_modification_box/add_boxes/cap_checkerboard_size_on_clicks/x.c
         src/hooks/update_object_attributes_modification_box/add_boxes/cap_checkerboard_size_on_clicks/y.c
@@ -344,6 +368,9 @@ add_executable(minirt
         src/hooks/update_object_attributes_modification_box/add_boxes/position_input_box_on_clicks/x.c
         src/hooks/update_object_attributes_modification_box/add_boxes/position_input_box_on_clicks/y.c
         src/hooks/update_object_attributes_modification_box/add_boxes/position_input_box_on_clicks/z.c
+        src/hooks/update_object_attributes_modification_box/add_boxes/scale_input_box_on_clicks/x.c
+        src/hooks/update_object_attributes_modification_box/add_boxes/scale_input_box_on_clicks/y.c
+        src/hooks/update_object_attributes_modification_box/add_boxes/scale_input_box_on_clicks/z.c
         src/hooks/update_object_attributes_modification_box/add_boxes/utils/add_toggle_box.c
         src/hooks/update_object_attributes_modification_box/add_boxes/utils/add_x_y_box.c
         src/hooks/update_object_attributes_modification_box/add_boxes/utils/add_x_y_z_box.c
@@ -363,12 +390,14 @@ add_executable(minirt
         src/hooks/update_object_attributes_modification_box/add_boxes/add_position_box.c
         src/hooks/update_object_attributes_modification_box/add_boxes/add_radius_box.c
         src/hooks/update_object_attributes_modification_box/add_boxes/add_reflection_box.c
+        src/hooks/update_object_attributes_modification_box/add_boxes/add_scale_box.c
         src/hooks/update_object_attributes_modification_box/add_boxes/add_specular_reflection_box.c
         src/hooks/update_object_attributes_modification_box/add_boxes/add_texture_button.c
         src/hooks/update_object_attributes_modification_box/get_box_category_index.c
         src/hooks/update_object_attributes_modification_box/init_cone_attributes_modification_box.c
         src/hooks/update_object_attributes_modification_box/init_cylinder_attributes_modification_box.c
         src/hooks/update_object_attributes_modification_box/init_light_attributes_modification_box.c
+        src/hooks/update_object_attributes_modification_box/init_mesh_attributes_modification_box.c
         src/hooks/update_object_attributes_modification_box/init_plane_attributes_modification_box.c
         src/hooks/update_object_attributes_modification_box/init_sphere_attributes_modification_box.c
         src/hooks/update_object_attributes_modification_box/update_float_input_boxes.c
@@ -377,6 +406,7 @@ add_executable(minirt
         src/hooks/button_release.c
         src/hooks/key_press.c
         src/hooks/key_release.c
+        src/hooks/pressed_keys.c
         src/hooks/redraw_icons.c
         src/hooks/toggle_gui.c
         src/hooks/update_color_picker_color.c
@@ -398,6 +428,7 @@ add_executable(minirt
         src/math/matrix/matrix4.c
         src/math/matrix/matrix4_inverse.c
         src/math/matrix/matrix4_math.c
+        src/math/matrix/rotation_matrix.c
         src/math/quaternion/quaternion.c
         src/math/quaternion/quaternion_math.c
         src/math/quaternion/quaternion_operations.c
@@ -415,15 +446,21 @@ add_executable(minirt
         src/math/conversion.c
         src/math/equation.c
         src/math/modulo.c
+        src/math/triangle.c
         src/object/cone/create.c
         src/object/cone/transformations.c
         src/object/cylinder/create.c
         src/object/cylinder/transformations.c
+        src/object/mesh/cache.c
+        src/object/mesh/create.c
+        src/object/mesh/mesh_deep_copy.c
+        src/object/mesh/transformations.c
         src/object/plane/create.c
         src/object/plane/transformations.c
         src/object/sphere/create.c
         src/object/sphere/transformations.c
         src/object/calculate_cache.c
+        src/object/object_deep_copy.c
         src/object/objects.c
         src/object/transformations.c
         src/parsing/line_parsing/utils/material/get_checkerboard_parsing_data.c
@@ -450,6 +487,8 @@ add_executable(minirt
         src/parsing/line_parsing/parse_material.c
         src/parsing/line_parsing/parse_plane.c
         src/parsing/line_parsing/parse_sphere.c
+        src/parsing/obj_file/parse_line.c
+        src/parsing/obj_file/parse_obj_file.c
         src/parsing/free_scene_content.c
         src/parsing/get_scene_content.c
         src/parsing/parse_ppm_file.c
@@ -467,8 +506,10 @@ add_executable(minirt
         src/ray_tracer/rays/intersections/cylinder_caps.c
         src/ray_tracer/rays/intersections/cylinder_infinite.c
         src/ray_tracer/rays/intersections/intersection.c
+        src/ray_tracer/rays/intersections/mesh.c
         src/ray_tracer/rays/intersections/plane.c
         src/ray_tracer/rays/intersections/sphere.c
+        src/ray_tracer/rays/context.c
         src/ray_tracer/rays/rays.c
         src/ray_tracer/shade/light.c
         src/ray_tracer/shade/shade.c
@@ -477,6 +518,7 @@ add_executable(minirt
         src/ray_tracer/texture/normal.c
         src/ray_tracer/texture/texture.c
         src/ray_tracer/interpolate_ray_tracing.c
+        src/ray_tracer/post_processing.c
         src/ray_tracer/render.c
         src/ray_tracer/render_icon.c
         src/ray_tracer/render_ray.c
@@ -486,12 +528,11 @@ add_executable(minirt
         src/render_frame/print_fps_counter.c
         src/render_frame/render_frame.c
         src/render_frame/render_user_interface.c
+        src/vectors/mesh_faces.c
+        src/vectors/vectors3f.c
+        src/vectors/vectors3f_utils.c
+        src/vectors/vectors3i.c
         src/close_miniRT.c
         src/color.c
         src/init_minirt.c
-        src/main.c
-        src/export/scene/datetime.c src/gui/object_list_box/update_object_list_icons.c
-        src/ray_tracer/post_processing.c src/hooks/pressed_keys.c
-        src/font/rendering/write_centered_number_to_image.c src/gui/optional_boxes/texture_box/delete_box.c src/gui/box/get_box_offset.c src/gui/main_box/menu_box/init_export_box.c src/gui/get_boxes_decal.c
-        src/ray_tracer/rays/context.c)
-
+        src/main.c)

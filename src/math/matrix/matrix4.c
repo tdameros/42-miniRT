@@ -20,12 +20,11 @@ t_matrix4	matrix4_create(float value)
 	int			y;
 	int			x;
 
-	result.size = 4;
 	y = 0;
 	x = 0;
-	while (y < result.size)
+	while (y < 4)
 	{
-		while (x < result.size)
+		while (x < 4)
 		{
 			result.matrix[y][x] = value;
 			x++;
@@ -48,6 +47,40 @@ t_matrix4	matrix4_create_identity(void)
 	return (result);
 }
 
+/*						Translation matrix
+[	1					0					0					0	]
+[	0					1					0					0	]
+[	0					0					1					0	]
+[	x					y					z					1	]
+*/
+t_matrix4	create_translation_matrix(const t_vector3f translation)
+{
+	t_matrix4	result;
+
+	result = matrix4_create_identity();
+	result.matrix[3][0] = translation.x;
+	result.matrix[3][1] = translation.y;
+	result.matrix[3][2] = translation.z;
+	return (result);
+}
+
+/*						Scale matrix
+[	scale_factor		0					0					0	]
+[	0					scale_factor		0					0	]
+[	0					0					scale_factor		0	]
+[	0					0					0					1	]
+*/
+t_matrix4	create_scale_matrix(const t_vector3f scale)
+{
+	t_matrix4	result;
+
+	result = matrix4_create_identity();
+	result.matrix[0][0] = scale.x;
+	result.matrix[1][1] = scale.y;
+	result.matrix[2][2] = scale.z;
+	return (result);
+}
+
 void	matrix4_print(t_matrix4 matrix)
 {
 	int	y;
@@ -55,9 +88,9 @@ void	matrix4_print(t_matrix4 matrix)
 
 	y = 0;
 	x = 0;
-	while (y < matrix.size)
+	while (y < 4)
 	{
-		while (x < matrix.size)
+		while (x < 4)
 		{
 			printf("%f ", matrix.matrix[y][x]);
 			x++;

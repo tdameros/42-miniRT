@@ -14,8 +14,8 @@
 
 #include "ray_tracer/rays.h"
 
-static float	calculate_face_distance(const t_ray *ray, const t_mesh *mesh, \
-										const t_mesh_face *face);
+static float	calculate_face_distance(const t_ray *ray, const t_object *mesh,
+					const t_mesh_face *face);
 static float	calculate_moller_triangle_distance(const t_ray *ray, \
 												const t_vector3f vertex[3], \
 												const t_vector3f edge[2]);
@@ -60,12 +60,12 @@ t_hit	calculate_mesh_distance(const t_ray *ray, const t_object *mesh)
 	t = -1;
 	while (i < mesh->mesh.faces.length)
 	{
-		distance = calculate_face_distance(ray, &mesh->mesh,
+		distance = calculate_face_distance(ray, mesh,
 				&mesh->mesh.faces.data[i]);
 		if (distance > 0.f && (t == -1.f || distance < t))
 		{
 			t = distance;
-			hit.normal = mesh->mesh.normals.data[\
+			hit.normal = mesh->cache.mesh.normals.data[\
 						mesh->mesh.faces.data[i].vertex_a.y - 1];
 		}
 		i++;
@@ -75,12 +75,15 @@ t_hit	calculate_mesh_distance(const t_ray *ray, const t_object *mesh)
 	return (hit);
 }
 
-static float	calculate_face_distance(const t_ray *ray, const t_mesh *mesh,
+static float	calculate_face_distance(const t_ray *ray, const t_object *mesh,
 										const t_mesh_face *face)
 {
-	const t_vector3f	vertex_a = mesh->vertex.data[face->vertex_a.x - 1];
-	const t_vector3f	vertex_b = mesh->vertex.data[face->vertex_b.x - 1];
-	const t_vector3f	vertex_c = mesh->vertex.data[face->vertex_c.x - 1];
+	const t_vector3f	vertex_a
+		= mesh->cache.mesh.vertex.data[face->vertex_a.x - 1];
+	const t_vector3f	vertex_b
+		= mesh->cache.mesh.vertex.data[face->vertex_b.x - 1];
+	const t_vector3f	vertex_c
+		= mesh->cache.mesh.vertex.data[face->vertex_c.x - 1];
 	const t_vector3f	edge_1 = vector3f_subtract(vertex_b, vertex_a);
 	const t_vector3f	edge_2 = vector3f_subtract(vertex_c, vertex_a);
 

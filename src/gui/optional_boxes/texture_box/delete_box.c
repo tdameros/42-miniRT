@@ -60,7 +60,7 @@ static void	delete_box_on_click(t_gui_box *self, t_engine *engine,
 		delete_cap(object, is_normal_map);
 	else
 		delete_outline(object, is_normal_map);
-	redraw_icons(engine, object->material);
+	redraw_icons(engine, object, NULL);
 	engine->scene_changed = true;
 }
 

@@ -23,6 +23,8 @@ void	object_move(t_object *object, const t_vector3f movement_axis,
 		plane_move(object, movement_axis, distance);
 	else if (object->type == SPHERE)
 		sphere_move(object, movement_axis, distance);
+	else if (object->type == MESH)
+		mesh_object_move(object, movement_axis, distance);
 }
 
 void	object_rotate(t_object *object, const t_vector3f rotation_axis,
@@ -48,6 +50,8 @@ void	object_rotate(t_object *object, const t_vector3f rotation_axis,
 		cylinder_rotate(object, rotation_axis, distance);
 	else if (object->type == PLANE)
 		plane_rotate(object, rotation_axis, distance);
+	else if (object->type == MESH)
+		mesh_object_set_rotation(object, object->axis_degrees);
 }
 
 void	object_set_position(t_object *object, const t_vector3f position)
@@ -60,6 +64,8 @@ void	object_set_position(t_object *object, const t_vector3f position)
 		plane_set_position(object, position);
 	else if (object->type == SPHERE)
 		sphere_set_position(object, position);
+	else if (object->type == MESH)
+		mesh_object_set_position(object, position);
 }
 
 void	object_set_height(t_object *object, const float height)

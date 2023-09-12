@@ -69,8 +69,7 @@ static void	init_images(t_engine *engine, t_gui_box *gui_box)
 static void	draw_images(t_engine *engine, t_gui_box *parent,
 				const t_object *object)
 {
-	draw_icon(&parent->children.data[0].image, object->type, COLOR_TRANSPARENT,
-		object->material);
+	draw_icon(&parent->children.data[0].image, object, NULL, COLOR_TRANSPARENT);
 	change_image_color(&parent->children.data[2].children.data->image,
 		COLOR_TRANSPARENT);
 	if (object->name != NULL)

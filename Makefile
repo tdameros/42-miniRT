@@ -85,6 +85,12 @@ SRC				=\
 	\
 	gui/object_modification_box/init_object_modification_box.c				\
 	\
+	gui/optional_boxes/add_mesh_object_box/click_mesh_box.c					\
+	gui/optional_boxes/add_mesh_object_box/init_add_mesh_object_box.c		\
+	gui/optional_boxes/add_mesh_object_box/load_mesh_objects.c				\
+	gui/optional_boxes/add_mesh_object_box/mesh_object_selection_draw.c		\
+	gui/optional_boxes/add_mesh_object_box/mesh_object_selection_on_click.c	\
+	\
 	gui/optional_boxes/settings_box/init_antialiasing_toggle_box.c	\
 	gui/optional_boxes/settings_box/init_cam_fov_box.c				\
 	gui/optional_boxes/settings_box/init_max_resolution_reduction.c	\
@@ -135,6 +141,10 @@ SRC				=\
 	hooks/update_object_attributes_modification_box/add_boxes/position_input_box_on_clicks/y.c	\
 	hooks/update_object_attributes_modification_box/add_boxes/position_input_box_on_clicks/z.c	\
 	\
+	hooks/update_object_attributes_modification_box/add_boxes/scale_input_box_on_clicks/x.c	\
+	hooks/update_object_attributes_modification_box/add_boxes/scale_input_box_on_clicks/y.c	\
+	hooks/update_object_attributes_modification_box/add_boxes/scale_input_box_on_clicks/z.c	\
+	\
 	hooks/update_object_attributes_modification_box/add_boxes/utils/add_toggle_box.c		\
 	hooks/update_object_attributes_modification_box/add_boxes/utils/add_x_y_box.c			\
 	hooks/update_object_attributes_modification_box/add_boxes/utils/add_x_y_z_box.c			\
@@ -155,6 +165,7 @@ SRC				=\
 	hooks/update_object_attributes_modification_box/add_boxes/add_position_box.c								\
 	hooks/update_object_attributes_modification_box/add_boxes/add_radius_box.c									\
 	hooks/update_object_attributes_modification_box/add_boxes/add_reflection_box.c								\
+	hooks/update_object_attributes_modification_box/add_boxes/add_scale_box.c									\
 	hooks/update_object_attributes_modification_box/add_boxes/add_specular_reflection_box.c						\
 	hooks/update_object_attributes_modification_box/add_boxes/add_texture_button.c								\
 	\
@@ -162,6 +173,7 @@ SRC				=\
 	hooks/update_object_attributes_modification_box/init_cone_attributes_modification_box.c		\
 	hooks/update_object_attributes_modification_box/init_cylinder_attributes_modification_box.c	\
 	hooks/update_object_attributes_modification_box/init_light_attributes_modification_box.c	\
+	hooks/update_object_attributes_modification_box/init_mesh_attributes_modification_box.c		\
 	hooks/update_object_attributes_modification_box/init_plane_attributes_modification_box.c	\
 	hooks/update_object_attributes_modification_box/init_sphere_attributes_modification_box.c	\
 	hooks/update_object_attributes_modification_box/update_object_attributes_modification_box.c	\
@@ -201,6 +213,7 @@ SRC				=\
 	math/matrix/matrix4.c			\
 	math/matrix/matrix4_inverse.c	\
 	math/matrix/matrix4_math.c		\
+	math/matrix/rotation_matrix.c	\
 	\
 	math/quaternion/quaternion.c				\
 	math/quaternion/quaternion_math.c			\
@@ -229,7 +242,10 @@ SRC				=\
 	object/cylinder/create.c			\
 	object/cylinder/transformations.c	\
 	\
+	object/mesh/cache.c					\
 	object/mesh/create.c				\
+	object/mesh/mesh_deep_copy.c		\
+	object/mesh/transformations.c		\
 	\
 	object/plane/create.c				\
 	object/plane/transformations.c		\
@@ -237,6 +253,7 @@ SRC				=\
 	object/sphere/create.c				\
 	object/sphere/transformations.c		\
 	\
+	object/object_deep_copy.c		\
 	object/objects.c				\
 	object/transformations.c		\
 	object/calculate_cache.c		\
@@ -324,9 +341,10 @@ SRC				=\
 	render_frame/render_user_interface.c	\
 	\
 	\
-	vectors/mesh_faces.c	\
-	vectors/vectors3f.c		\
-	vectors/vectors3i.c		\
+	vectors/mesh_faces.c		\
+	vectors/vectors3f.c			\
+	vectors/vectors3f_utils.c	\
+	vectors/vectors3i.c			\
 	\
 	close_miniRT.c		\
 	color.c				\
@@ -358,6 +376,10 @@ MAKE_LIBFT		=	$(MAKE) -C $(LIBFT_PATH)
 
 
 ASSETS_PATH			=	assets
+
+OBJECTS_PATH		=	$(ASSETS_PATH)/objects
+OBJECTS_ARCHIVE		=	$(OBJECTS_PATH)/objects.tar.gz
+OBJECTS				=	$(OBJECTS_PATH)/*.obj
 
 TEXTURES_PATH		=	$(ASSETS_PATH)/textures
 TEXTURES_ARCHIVE	=	$(TEXTURES_PATH)/textures.tar.gz
@@ -462,6 +484,12 @@ $(DIR_BUILD)%.o : $(SRC_PATH)%.c $(LIBFT_A)
 
 .PHONY: compress
 compress:
+	@if [ "$$(find $(OBJECTS_PATH) -maxdepth 1 -name '*.obj' -print)" ]; then \
+		tar -czvf $(OBJECTS_ARCHIVE) $(OBJECTS); \
+		rm -rf $(OBJECTS); \
+    else \
+      echo "No objects (*.obj) to compress found"; \
+    fi
 	@if [ "$$(find $(TEXTURES_PATH) -maxdepth 1 -name '*.ppm' -print)" ]; then \
 		tar -czvf $(TEXTURES_ARCHIVE) $(TEXTURES); \
 		rm -rf $(TEXTURES); \
@@ -477,6 +505,12 @@ compress:
 
 .PHONY: decompress
 decompress:
+	@if [ -e $(OBJECTS_ARCHIVE) ]; then\
+        tar -xzvf $(OBJECTS_ARCHIVE); \
+        rm -rf $(OBJECTS_ARCHIVE); \
+    else \
+      echo "No objects archive to decompress was found"; \
+    fi
 	@if [ -e $(TEXTURES_ARCHIVE) ]; then\
         tar -xzvf $(TEXTURES_ARCHIVE); \
         rm -rf $(TEXTURES_ARCHIVE); \

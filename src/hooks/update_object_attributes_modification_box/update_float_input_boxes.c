@@ -50,6 +50,9 @@ static void	update_float_input_boxes_object(t_engine *engine)
 	update_xyz_float_input_boxes(engine,
 		engine->gui.selected_object.object->position,
 		&engine->gui.float_input_boxes.position);
+	update_xyz_float_input_boxes(engine,
+		engine->gui.selected_object.object->cache.mesh.scale_vector,
+		&engine->gui.float_input_boxes.scale);
 	update_float_input_box(engine,
 		engine->gui.selected_object.object->radius,
 		engine->gui.float_input_boxes.radius);

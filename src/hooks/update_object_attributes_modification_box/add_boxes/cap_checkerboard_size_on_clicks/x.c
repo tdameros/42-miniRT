@@ -38,7 +38,7 @@ void	cap_checkerboard_size_input_box_x_on_click_plus(t_gui_box *self,
 	update_xy_float_input_boxes(engine,
 		vector2f_divide(object->material.textures.cap.checkerboard.size, 2.f),
 		&engine->gui.float_input_boxes.cap_checkerboard_size);
-	redraw_icons(engine, engine->gui.selected_object.object->material);
+	redraw_icons(engine, engine->gui.selected_object.object, NULL);
 }
 
 void	cap_checkerboard_size_input_box_x_on_click_minus(t_gui_box *self,
@@ -73,7 +73,7 @@ void	cap_checkerboard_size_input_box_x_on_click_minus(t_gui_box *self,
 	update_xy_float_input_boxes(engine,
 		vector2f_divide(object->material.textures.cap.checkerboard.size, 2.f),
 		&engine->gui.float_input_boxes.cap_checkerboard_size);
-	redraw_icons(engine, engine->gui.selected_object.object->material);
+	redraw_icons(engine, engine->gui.selected_object.object, NULL);
 }
 
 void	cap_checkerboard_size_input_box_x_on_click_text(

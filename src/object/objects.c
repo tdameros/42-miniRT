@@ -67,7 +67,13 @@ void	free_object(t_object *object)
 {
 	material_free(&object->material);
 	mesh_free(&object->mesh);
+	if (object->type == MESH)
+	{
+		vectors3f_free(&object->cache.mesh.vertex);
+		vectors3f_free(&object->cache.mesh.normals);
+	}
 	free(object->name);
+	object->name = NULL;
 }
 
 void	free_objects(t_objects *objects)

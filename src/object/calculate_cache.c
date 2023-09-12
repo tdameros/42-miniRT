@@ -20,5 +20,8 @@ void	object_calculate_cache(t_object *object)
 		return (plane_calculate_cache(object));
 	if (object->type == CYLINDER)
 		return (cylinder_calculate_cache(object));
-	return (cone_calculate_cache(object));
+	if (object->type == CONE)
+		return (cone_calculate_cache(object));
+	if (object->type == MESH)
+		return (mesh_object_update_vertex(object));
 }

@@ -17,8 +17,6 @@
 #include "hooks.h"
 #include "ray_tracer_gui_api.h"
 
-#define DEFAULT_DISTANCE 10.f
-
 void	sphere_create_on_click(t_gui_box *self, t_engine *engine,
 			t_click_data click_data)
 {
@@ -37,7 +35,7 @@ void	sphere_create_on_click(t_gui_box *self, t_engine *engine,
 				"material allocation failed\n"));
 	object = sphere_create(vector3f_create(0, 0, 0), 0.5f, material);
 	add_object(engine, object);
-	engine->object_being_placed_distance = DEFAULT_DISTANCE;
+	engine->object_being_placed_distance = DEFAULT_DISTANCE_OF_NEW_OBJECTS;
 	engine->object_being_placed.object
 		= &engine->scene.objects.data[engine->scene.objects.length - 1];
 	update_object_attributes_modification_box(engine);
@@ -63,7 +61,7 @@ void	plane_create_on_click(t_gui_box *self, t_engine *engine,
 	object = plane_create(vector3f_create(0, 0, 0),
 			vector3f_multiply(engine->camera.direction, -1.f), material);
 	add_object(engine, object);
-	engine->object_being_placed_distance = DEFAULT_DISTANCE;
+	engine->object_being_placed_distance = DEFAULT_DISTANCE_OF_NEW_OBJECTS;
 	engine->object_being_placed.object
 		= &engine->scene.objects.data[engine->scene.objects.length - 1];
 	update_object_attributes_modification_box(engine);
@@ -90,7 +88,7 @@ void	cylinder_create_on_click(t_gui_box *self, t_engine *engine,
 	object = cylinder_create(vector3f_create(0, 0, 0),
 			vector3f_rotate_y(engine->camera.direction, 90), size, material);
 	add_object(engine, object);
-	engine->object_being_placed_distance = DEFAULT_DISTANCE;
+	engine->object_being_placed_distance = DEFAULT_DISTANCE_OF_NEW_OBJECTS;
 	engine->object_being_placed.object
 		= &engine->scene.objects.data[engine->scene.objects.length - 1];
 	update_object_attributes_modification_box(engine);
@@ -117,11 +115,23 @@ void	cone_create_on_click(t_gui_box *self, t_engine *engine,
 	object = cone_create(vector3f_create(0, 0, 0),
 			vector3f_rotate_x(engine->camera.direction, 90), size, material);
 	add_object(engine, object);
-	engine->object_being_placed_distance = DEFAULT_DISTANCE;
+	engine->object_being_placed_distance = DEFAULT_DISTANCE_OF_NEW_OBJECTS;
 	engine->object_being_placed.object
 		= &engine->scene.objects.data[engine->scene.objects.length - 1];
 	update_object_attributes_modification_box(engine);
 	(void)self;
+}
+
+void	mesh_create_on_click(t_gui_box *self, t_engine *engine,
+			t_click_data click_data)
+{
+	(void)self;
+	if (click_data.button != BUTTON_LEFT)
+		return ;
+	if (engine->gui.current_optional_box == MESH_OBJECT_CREATION_BOX)
+		engine->gui.current_optional_box = NO_OPTIONAL_BOX;
+	else
+		engine->gui.current_optional_box = MESH_OBJECT_CREATION_BOX;
 }
 
 void	light_create_on_click(t_gui_box *self, t_engine *engine,
@@ -137,7 +147,7 @@ void	light_create_on_click(t_gui_box *self, t_engine *engine,
 		return ;
 	light = light_create(vector3f_create(0, 0, 0), light_color, 0.5f);
 	add_light(engine, light);
-	engine->object_being_placed_distance = DEFAULT_DISTANCE;
+	engine->object_being_placed_distance = DEFAULT_DISTANCE_OF_NEW_OBJECTS;
 	engine->object_being_placed.light
 		= &engine->scene.lights.data[engine->scene.lights.length - 1];
 	update_object_attributes_modification_box(engine);

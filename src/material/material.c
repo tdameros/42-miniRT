@@ -16,8 +16,8 @@
 #include "object.h"
 #include "libft.h"
 
-static int	surface_deep_copy(t_surface *dst, t_surface *src);
-static int	ppm_p6_deep_copy(t_ppm_p6 *dst, t_ppm_p6 *src);
+static int	surface_deep_copy(t_surface *dst, const t_surface *src);
+static int	ppm_p6_deep_copy(t_ppm_p6 *dst, const t_ppm_p6 *src);
 
 t_material	material_create(const t_vector3f albedo,
 							const float reflect_intensity,
@@ -40,7 +40,7 @@ void	material_free(t_material *material)
 	free_cap_normals_map(material);
 }
 
-int	material_deep_copy(t_material *dst, t_material *src)
+int	material_deep_copy(t_material *dst, const t_material *src)
 {
 	if (dst == src)
 		return (0);
@@ -64,7 +64,7 @@ int	material_deep_copy(t_material *dst, t_material *src)
 }
 
 // Don't free if malloc fail
-static int	surface_deep_copy(t_surface *dst, t_surface *src)
+static int	surface_deep_copy(t_surface *dst, const t_surface *src)
 {
 	dst->texture_type = src->texture_type;
 	dst->checkerboard = src->checkerboard;
@@ -92,7 +92,7 @@ static int	surface_deep_copy(t_surface *dst, t_surface *src)
 	return (0);
 }
 
-static int	ppm_p6_deep_copy(t_ppm_p6 *dst, t_ppm_p6 *src)
+static int	ppm_p6_deep_copy(t_ppm_p6 *dst, const t_ppm_p6 *src)
 {
 	const size_t	size_in_bytes = sizeof(*src->pixels) * src->size;
 

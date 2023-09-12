@@ -4,7 +4,22 @@
 # include "engine.h"
 # include "box.h"
 
+# define TIME_BEFORE_UPDATING_FILES_SECONDS 4.f
+
+# define MESH_BOX_OFFSET 4
+
 # define TEXTURE_BOX_PPM_OFFSET 4
+
+void		init_add_mesh_object_box(t_engine *engine, t_gui_box *gui_box,
+				const t_gui_box *main_gui_box,
+				const t_gui_box *object_list_box);
+void		click_mesh_box(t_engine *engine, size_t index);
+void		load_mesh_objects(t_engine *engine);
+void		reload_mesh_objects(t_engine *engine);
+void		mesh_object_selection_draw(t_gui_box *self, t_engine *engine,
+				t_draw_data draw_data);
+void		mesh_object_selection_on_click(t_gui_box *self, t_engine *engine,
+				t_click_data click_data);
 
 void		init_settings_box(t_engine *engine, t_gui_box *gui_box,
 				const t_gui_box *main_gui_box,

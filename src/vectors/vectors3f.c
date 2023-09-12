@@ -64,3 +64,15 @@ int	vectors3f_free(t_vectors3f *vectors3f)
 	vectors3f->length = 0;
 	return (0);
 }
+
+int	vectors3f_deep_copy(t_vectors3f *dst, const t_vectors3f *src)
+{
+	vectors3f_free(dst);
+	dst->data = malloc(sizeof(*dst->data) * src->length);
+	if (dst->data == NULL)
+		return (-1);
+	dst->size = src->length;
+	dst->length = src->length;
+	ft_memcpy(dst->data, src->data, sizeof(*dst->data) * src->length);
+	return (0);
+}

@@ -30,9 +30,9 @@ void	add_button_box(t_engine *engine, t_gui_box *gui_box, int *y,
 		true});
 	*y += gui_box->size.y + OBJECT_ATTRIBUTE_BOX_OFFSET;
 	change_image_color(&gui_box->image, SUB_GUI_COLOR);
-	round_image_corners(&gui_box->image, 10);
+	round_image_corners(&gui_box->image, BOX_ROUNDING_RADIUS);
 	init_image(&gui_box->on_hover_image, &engine->window, gui_box->size.x,
 		gui_box->size.y);
 	change_image_color(&gui_box->on_hover_image, HOVER_GUI_COLOR);
-	round_image_corners(&gui_box->on_hover_image, 10);
+	round_image_corners(&gui_box->on_hover_image, BOX_ROUNDING_RADIUS);
 }

@@ -55,8 +55,8 @@ void				create_float_input_box(t_engine *engine, t_gui_box *gui_box,
 						t_float_input_box_on_click on_click);
 void				draw_center_box_image(t_image *image);
 
-void				draw_icon(t_image *image, int type,
-						unsigned int background_color, t_material material);
+void				draw_icon(t_image *image, const t_object *object,
+						const t_light *light, unsigned int background_color);
 
 void				draw_light_icon(t_image *image,
 						unsigned int background_color, t_color color);

@@ -33,7 +33,6 @@ libft_test_debug
 .build/
 *.o
 *.ko
-*.obj
 *.elf
 
 # Linker output

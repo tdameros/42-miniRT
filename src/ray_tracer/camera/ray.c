@@ -81,7 +81,7 @@ t_vector3f	get_ray_direction(const t_camera *camera, const float x,
 
 	coord = vector2f_create(x / camera->viewport.size.x, y / camera->viewport.size.y);
 	coord = vector2f_subtract(vector2f_multiply(coord, 2), vector2f_create(1, 1));
-	target = matrix4_multiply_vector4(camera->inverse_projection,
+	target = matrix4_multiply_vector4(&camera->inverse_projection,
 									  vector4f_create(coord.x, coord.y, 1, 1));
 	perspective = vector3f_unit(vector3f_divide(
 			vector3f_create(target.x, target.y, target.z), target.w));
@@ -89,7 +89,7 @@ t_vector3f	get_ray_direction(const t_camera *camera, const float x,
 									perspective.y,
 									perspective.z,
 									0);
-	ray_direction = matrix4_multiply_vector4(camera->inverse_view,
+	ray_direction = matrix4_multiply_vector4(&camera->inverse_view,
 			ray_direction);
 	return (vector3f_create(ray_direction.x, ray_direction.y, ray_direction.z));
 }

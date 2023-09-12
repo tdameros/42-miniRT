@@ -55,6 +55,8 @@ static void	init_object_attributes_modification_box_content(t_engine *engine,
 			init_cylinder_attributes_modification_box(engine, gui_box);
 		else if (selected_object.object->type == CONE)
 			init_cone_attributes_modification_box(engine, gui_box);
+		else if (selected_object.object->type == MESH)
+			init_mesh_attributes_modification_box(engine, gui_box);
 	}
 	else if (selected_object.light != NULL)
 		init_light_attributes_modification_box(engine, gui_box);

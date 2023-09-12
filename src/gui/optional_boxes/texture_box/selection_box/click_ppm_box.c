@@ -39,7 +39,7 @@ void	click_ppm_box(t_engine *engine, size_t index)
 	else
 		set_texture(engine, object, index, is_cap);
 	engine->scene_changed = true;
-	redraw_icons(engine, object->material);
+	redraw_icons(engine, object, NULL);
 }
 
 static void	set_normal_map(t_engine *engine, t_object *object, size_t index,

@@ -20,6 +20,6 @@
 # define SCENES_PATH "assets/scenes"
 # define SCREENSHOTS_PATH "assets/screenshots"
 # define TEXTURES_PATH "assets/textures"
-# define OBJS_PATH "assets/objs"
+# define OBJECTS_PATH "assets/objects"
 
 #endif

@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <float.h>
 #include "mesh.h"
 #include "parsing.h"
 #include "vectors.h"
@@ -46,17 +47,17 @@ int	initialize_mesh_with_obj(t_mesh *mesh, const char *file_name)
 
 static int	initialize_vectors_in_mesh(t_mesh *mesh)
 {
-	if (vectors3f_initialize(&mesh->vertex, 100) < 0)
+	if (vectors3f_initialize(&mesh->base_vertex, 100) < 0)
 		return (-1);
-	if (vectors3f_initialize(&mesh->normals, 100) < 0)
+	if (vectors3f_initialize(&mesh->base_normals, 100) < 0)
 	{
-		vectors3f_free(&mesh->vertex);
+		vectors3f_free(&mesh->base_vertex);
 		return (-1);
 	}
 	if (mesh_faces_initialize(&mesh->faces, 100) < 0)
 	{
-		vectors3f_free(&mesh->vertex);
-		vectors3f_free(&mesh->normals);
+		vectors3f_free(&mesh->base_vertex);
+		vectors3f_free(&mesh->base_normals);
 		return (-1);
 	}
 	return (0);
@@ -67,6 +68,8 @@ static int	parse_obj_file(t_mesh *mesh, t_string file_content)
 	size_t	i;
 	char	**lines;
 
+	mesh->vertex_max = (t_vector3f){FLT_MIN, FLT_MIN, FLT_MIN};
+	mesh->vertex_min = (t_vector3f){FLT_MAX, FLT_MAX, FLT_MAX};
 	i = 0;
 	lines = ft_split(file_content.data, '\n');
 	if (lines == NULL)

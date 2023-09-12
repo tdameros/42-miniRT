@@ -24,8 +24,6 @@ void	init_texture_box(t_engine *engine, t_gui_box *gui_box,
 			const t_gui_box *main_gui_box, const t_gui_box *object_list_box)
 {
 	*gui_box = create_optional_box(engine, main_gui_box, object_list_box);
-	change_image_color(&gui_box->image, BASE_GUI_COLOR);
-	round_image_corners(&gui_box->image, BOX_ROUNDING_RADIUS);
 	init_children_boxes(engine, gui_box);
 }
 

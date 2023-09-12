@@ -61,6 +61,9 @@ static void	init_boxes(t_engine *engine)
 	init_texture_box(engine,
 		engine->gui.optional_gui_boxes.data + TEXTURE_BOX,
 		engine->gui.gui_boxes.data, engine->gui.gui_boxes.data + 2);
+	init_add_mesh_object_box(engine,
+		engine->gui.optional_gui_boxes.data + MESH_OBJECT_CREATION_BOX,
+		engine->gui.gui_boxes.data, engine->gui.gui_boxes.data + 2);
 }
 
 static void	init_message(t_engine *engine)

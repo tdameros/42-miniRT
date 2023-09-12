@@ -85,7 +85,7 @@ static void	select_new_object(int button, t_engine *engine, int x, int y)
 		return ;
 	}
 	update_color_picker_color(&engine->gui);
-	redraw_icons(engine, engine->gui.selected_object.object->material);
+	redraw_icons(engine, engine->gui.selected_object.object, NULL);
 	update_object_attributes_modification_box(engine);
 }
 

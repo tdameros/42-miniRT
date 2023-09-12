@@ -31,6 +31,8 @@ void	cylinder_create_on_click(t_gui_box *self, t_engine *engine,
 			t_click_data click_data);
 void	cone_create_on_click(t_gui_box *self, t_engine *engine,
 			t_click_data click_data);
+void	mesh_create_on_click(t_gui_box *self, t_engine *engine,
+			t_click_data click_data);
 void	light_create_on_click(t_gui_box *self, t_engine *engine,
 			t_click_data click_data);
 

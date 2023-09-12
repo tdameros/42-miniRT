@@ -153,17 +153,21 @@ static void	color_picker_on_click(t_gui_box *self, t_engine *engine,
 			click_data.click_position.y, click_data.click_position.x);
 	const t_color		albedo = vector3f_divide(
 			get_t_color_from_uint(uint_color), 255.f);
+	t_light				tmp_light;
 
 	if (click_data.button != BUTTON_LEFT || uint_color == COLOR_TRANSPARENT)
 		return ;
 	if (engine->gui.selected_object.object == NULL
 		&& engine->gui.selected_object.light == NULL)
-		return (redraw_icons(engine, material_create(albedo, 0, 0)));
+	{
+		tmp_light.color = albedo;
+		return (redraw_icons(engine, NULL, &tmp_light));
+	}
 	engine->scene_changed = true;
 	if (engine->gui.selected_object.object == NULL)
 	{
 		light_set_color(engine->gui.selected_object.light, albedo);
-		return (redraw_icons(engine, material_create(albedo, 0, 0)));
+		return (redraw_icons(engine, NULL, engine->gui.selected_object.light));
 	}
 	if (engine->gui.color_and_material.color_being_changed == OUTLINE_CHECKERBOARD_COLOR)
 		engine->gui.selected_object.object->material.textures.\
@@ -173,5 +177,5 @@ static void	color_picker_on_click(t_gui_box *self, t_engine *engine,
 			cap.checkerboard.albedo = albedo;
 	else
 		engine->gui.selected_object.object->material.albedo = albedo;
-	redraw_icons(engine, engine->gui.selected_object.object->material);
+	redraw_icons(engine, engine->gui.selected_object.object, NULL);
 }
