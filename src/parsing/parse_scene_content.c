@@ -23,6 +23,7 @@ static int	parse_scene_content_line(t_engine *engine,
 				char **scene_content_line,
 				t_rt_file_requirements *rt_file_requirements);
 static int	get_function_index(char *scene_content_line);
+static bool	are_requirements_met(t_rt_file_requirements rt_file_requirements);
 
 int	parse_scene_content(t_engine *engine, char ***scene_content)
 {
@@ -44,6 +45,11 @@ int	parse_scene_content(t_engine *engine, char ***scene_content)
 			return (-1);
 		}
 		i++;
+	}
+	if (!are_requirements_met(rt_file_requirements))
+	{
+		ft_print_error("Error\nMissing requirements in .rt file\n");
+		return (-1);
 	}
 	return (0);
 }
@@ -100,4 +106,11 @@ static int	get_function_index(char *scene_content_line)
 		i++;
 	}
 	return (-1);
+}
+
+static bool	are_requirements_met(t_rt_file_requirements rt_file_requirements)
+{
+	return (rt_file_requirements.ambient_light
+		&& rt_file_requirements.camera);
+	// TODO add rt_file_requirements.light for mandatory part
 }
