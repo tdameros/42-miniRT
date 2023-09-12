@@ -22,4 +22,6 @@
 # define TEXTURES_PATH "assets/textures"
 # define OBJECTS_PATH "assets/objects"
 
+# define DEFAULT_STARTUP_SCENE_PATH "assets/scenes/.default.rt"
+
 #endif
