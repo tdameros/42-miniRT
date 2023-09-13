@@ -14,12 +14,28 @@
 
 #include "object.h"
 
-void	parse_outline_normal_map(t_object *object, char *file)
+#define ERROR_MESSAGE "Failed to set outline normal map during parsing "
+
+void	parse_outline_normal_map(t_object *object, char *quoted_file)
 {
+	const size_t	quoted_file_len = ft_strlen(quoted_file);
+	char			*file;
+
+	if (quoted_file_len < 2
+		|| quoted_file[0] != '\"' || quoted_file[quoted_file_len - 1] != '\"')
+	{
+		ft_print_error(ERROR_MESSAGE);
+		ft_print_error(file);
+		ft_print_error("\n");
+		return ;
+	}
+	quoted_file[quoted_file_len - 1] = '\0';
+	file = quoted_file + 1;
 	if (set_outline_normals_map(&object->material, file) < 0)
 	{
-		ft_print_error("Failed to set outline normal map during parsing ");
+		ft_print_error(ERROR_MESSAGE);
 		ft_print_error(file);
 		ft_print_error("\n");
 	}
+	quoted_file[quoted_file_len - 1] = '\"';
 }

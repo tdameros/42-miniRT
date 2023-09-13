@@ -535,4 +535,4 @@ add_executable(minirt
         src/close_miniRT.c
         src/color.c
         src/init_minirt.c
-        src/main.c)
+        src/main.c src/parsing/line_parsing/utils/material/quoted_file_utils.c lib/libft/src/string/skip_chars.c)

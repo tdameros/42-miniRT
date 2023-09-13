@@ -16,6 +16,8 @@
 # include <stddef.h>
 # include <stdbool.h>
 
+# define WHITE_SPACES "\t\n\v\f\r "
+
 typedef struct s_string
 {
 	char	*data;
@@ -26,8 +28,10 @@ char	**ft_split_set(char const *s, char *set);
 char	**ft_split(char const *s, char c);
 size_t	ft_split_len(char **strs);
 void	ft_free_split(void *strs);
-char	**ft_split_unless_in_quotes(char *arg);
-size_t	ft_count_args_after_split_unless_quotes(char *arg);
+char	**ft_split_unless_in_quotes(char *arg,
+			const char *characters_to_split_on);
+size_t	ft_count_args_after_split_unless_quotes(char *arg,
+			const char *characters_to_split_on);
 bool	ft_strs_are_equal(char **strs1, char **strs2);
 
 char	*ft_strjoin(char const *s1, char const *s2);
@@ -36,6 +40,7 @@ char	*ft_strjoin_three(char const *s1, char const *s2, char const *s3);
 
 bool	ft_is_number(char *s);
 char	*ft_skip_char(const char *str, char c);
+char	*ft_skip_chars(const char *str, const char *chars_to_skip);
 char	*ft_skip_set(const char *str, const char *set);
 bool	ft_str_ends_with(const char *str, const char *end);
 bool	ft_str_is_in_strs(char *str, char **strs);

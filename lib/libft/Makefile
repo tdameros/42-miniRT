@@ -162,6 +162,7 @@ SRC =\
 \
 	string/is_number.c			\
 	string/skip_char.c			\
+	string/skip_chars.c			\
 	string/skip_set.c			\
 	string/str_ends_with.c		\
 	string/str_is_in_strs.c		\

@@ -67,7 +67,7 @@ static int	write_outline_texture(t_material material, int fd)
 
 	return_code = 1;
 	if (material.textures.outline.texture_type == PPM_TEXTURE)
-		return_code = dprintf(fd, "\toutline_texture:%s",
+		return_code = dprintf(fd, "\toutline_texture:\"%s\"",
 				material.textures.outline.texture_file);
 	if (return_code < 0)
 		return (-1);
@@ -75,13 +75,13 @@ static int	write_outline_texture(t_material material, int fd)
 		return_code = dprintf(fd, "\toutline_checkerboard:%u,%u-%f,%f,%f",
 				(u_int32_t)material.textures.outline.checkerboard.size.x,
 				(u_int32_t)material.textures.outline.checkerboard.size.y,
-							  material.textures.outline.checkerboard.albedo.x * 255.f,
-							  material.textures.outline.checkerboard.albedo.y * 255.f,
-							  material.textures.outline.checkerboard.albedo.z * 255.f);
+				material.textures.outline.checkerboard.albedo.x * 255.f,
+				material.textures.outline.checkerboard.albedo.y * 255.f,
+				material.textures.outline.checkerboard.albedo.z * 255.f);
 	if (return_code < 0)
 		return (-1);
 	if (material.textures.outline.has_normals_map)
-		return_code = dprintf(fd, "\toutline_normal_map:%s",
+		return_code = dprintf(fd, "\toutline_normal_map:\"%s\"",
 				material.textures.outline.normals_map_file);
 	if (return_code < 0)
 		return (-1);
@@ -94,7 +94,7 @@ static int	write_cap_texture(t_material material, int fd)
 
 	return_code = 1;
 	if (material.textures.cap.texture_type == PPM_TEXTURE)
-		return_code = dprintf(fd, "\tcap_texture:%s",
+		return_code = dprintf(fd, "\tcap_texture:\"%s\"",
 				material.textures.cap.texture_file);
 	if (return_code < 0)
 		return (-1);
@@ -102,13 +102,13 @@ static int	write_cap_texture(t_material material, int fd)
 		return_code = dprintf(fd, "\tcap_checkerboard:%f,%f-%f,%f,%f",
 				material.textures.cap.checkerboard.size.x,
 				material.textures.cap.checkerboard.size.y,
-							  material.textures.cap.checkerboard.albedo.x * 255.f,
-							  material.textures.cap.checkerboard.albedo.y * 255.f,
-							  material.textures.cap.checkerboard.albedo.z * 255.f);
+				material.textures.cap.checkerboard.albedo.x * 255.f,
+				material.textures.cap.checkerboard.albedo.y * 255.f,
+				material.textures.cap.checkerboard.albedo.z * 255.f);
 	if (return_code < 0)
 		return (-1);
 	if (material.textures.cap.has_normals_map)
-		return_code = dprintf(fd, "\tcap_normal_map:%s",
+		return_code = dprintf(fd, "\tcap_normal_map:\"%s\"",
 				material.textures.cap.normals_map_file);
 	if (return_code < 0)
 		return (-1);
