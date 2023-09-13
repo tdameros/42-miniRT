@@ -156,7 +156,7 @@ static t_object	get_cylinder(const t_camera *camera, const t_material material)
 			- camera->viewport.size.y / 7.5f, camera->viewport.size.x / 2.f);
 	top = vector3f_multiply(top, 2.f / top.z);
 	bottom = vector3f_multiply(bottom, 2.f / bottom.z);
-	radius = vector3f_length(vector3f_subtract(top, bottom)) / 2.f;
+	radius = vector3f_length(vector3f_subtract(top, bottom)) / 2.5f;
 	left = get_ray_direction(camera, camera->viewport.size.x / 8.f, \
 		camera->viewport.size.y / 2.f);
 	right = get_ray_direction(camera, camera->viewport.size.x \
@@ -223,7 +223,7 @@ static t_object	get_mesh_object(const t_camera *camera, const t_object *object)
 	ft_bzero(&mesh_object, sizeof(mesh_object));
 	object_deep_copy(&mesh_object, object); // TODO secure me
 	mesh_object_set_position(&mesh_object, vector3f_create(0, 0, -2.f));
-	mesh_object_set_rotation(&mesh_object, vector3f_create(0, 0, 0));
+	mesh_object_set_rotation(&mesh_object, vector3f_create(0, 30, 0));
 	mesh_object_set_scale(&mesh_object, get_mesh_object_scale(&mesh_object,
 			vector3f_length(vector3f_subtract(left, right)),
 			vector3f_length(vector3f_subtract(bottom, top))));
