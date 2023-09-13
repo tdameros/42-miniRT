@@ -1,13 +1,18 @@
-cmake_minimum_required(VERSION 3.25)
-project(minirt)
+cmake_minimum_required(VERSION 3.26)
+project(42_miniRT C)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_C_STANDARD 11)
 
 include_directories(include)
+include_directories(include/font)
+include_directories(include/gui)
+include_directories(include/math)
+include_directories(include/ray_tracer)
 include_directories(lib/libft/include)
+include_directories(lib/libft/src/io/get_next_line)
 include_directories(lib/minilibx_opengl_20191021)
 
-add_executable(minirt
+add_executable(42_miniRT
         include/font/render.h
         include/font/rendering_structs.h
         include/font/ttf_parser.h
@@ -195,6 +200,7 @@ add_executable(minirt
         lib/libft/src/string/split/strs_are_equal.c
         lib/libft/src/string/is_number.c
         lib/libft/src/string/skip_char.c
+        lib/libft/src/string/skip_chars.c
         lib/libft/src/string/skip_set.c
         lib/libft/src/string/str_ends_with.c
         lib/libft/src/string/str_is_in_strs.c
@@ -232,32 +238,21 @@ add_executable(minirt
         lib/libft/src/vector/vector_get_ptr_to_elem.c
         lib/libft/src/vector/vector_minimize_size.c
         lib/minilibx_opengl_20191021/font.c
-        lib/minilibx_opengl_20191021/font.xcf
-        lib/minilibx_opengl_20191021/libmlx.a
-        lib/minilibx_opengl_20191021/Makefile
         lib/minilibx_opengl_20191021/mlx.h
         lib/minilibx_opengl_20191021/mlx_init_loop.m
-        lib/minilibx_opengl_20191021/mlx_init_loop.o
         lib/minilibx_opengl_20191021/mlx_int.h
         lib/minilibx_opengl_20191021/mlx_int_str_to_wordtab.c
-        lib/minilibx_opengl_20191021/mlx_int_str_to_wordtab.o
         lib/minilibx_opengl_20191021/mlx_mouse.m
-        lib/minilibx_opengl_20191021/mlx_mouse.o
         lib/minilibx_opengl_20191021/mlx_new_image.m
-        lib/minilibx_opengl_20191021/mlx_new_image.o
         lib/minilibx_opengl_20191021/mlx_new_window.h
         lib/minilibx_opengl_20191021/mlx_new_window.m
-        lib/minilibx_opengl_20191021/mlx_new_window.o
         lib/minilibx_opengl_20191021/mlx_opengl.h
         lib/minilibx_opengl_20191021/mlx_opengl.m
         lib/minilibx_opengl_20191021/mlx_png.c
         lib/minilibx_opengl_20191021/mlx_png.h
-        lib/minilibx_opengl_20191021/mlx_png.o
         lib/minilibx_opengl_20191021/mlx_rgb.c
         lib/minilibx_opengl_20191021/mlx_shaders.c
-        lib/minilibx_opengl_20191021/mlx_shaders.o
         lib/minilibx_opengl_20191021/mlx_xpm.c
-        lib/minilibx_opengl_20191021/mlx_xpm.o
         src/export/scene/datetime.c
         src/export/scene/material.c
         src/export/scene/object.c
@@ -535,5 +530,4 @@ add_executable(minirt
         src/close_miniRT.c
         src/color.c
         src/init_minirt.c
-        src/main.c
-        lib/libft/src/string/skip_chars.c)
+        src/main.c)
