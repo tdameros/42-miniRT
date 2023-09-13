@@ -1,18 +1,13 @@
-cmake_minimum_required(VERSION 3.26)
-project(42_miniRT C)
+cmake_minimum_required(VERSION 3.25)
+project(minirt)
 
-set(CMAKE_C_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 
 include_directories(include)
-include_directories(include/font)
-include_directories(include/gui)
-include_directories(include/math)
-include_directories(include/ray_tracer)
 include_directories(lib/libft/include)
-include_directories(lib/libft/src/io/get_next_line)
 include_directories(lib/minilibx_opengl_20191021)
 
-add_executable(42_miniRT
+add_executable(minirt
         include/font/render.h
         include/font/rendering_structs.h
         include/font/ttf_parser.h
@@ -53,6 +48,7 @@ add_executable(42_miniRT
         include/ray_tracer_gui_api.h
         include/render_frame.h
         include/scene.h
+        include/threads.h
         include/vectors.h
         include/window.h
         lib/libft/include/ft_bitmask.h
@@ -238,6 +234,8 @@ add_executable(42_miniRT
         lib/libft/src/vector/vector_get_ptr_to_elem.c
         lib/libft/src/vector/vector_minimize_size.c
         lib/minilibx_opengl_20191021/font.c
+        lib/minilibx_opengl_20191021/font.xcf
+        lib/minilibx_opengl_20191021/Makefile
         lib/minilibx_opengl_20191021/mlx.h
         lib/minilibx_opengl_20191021/mlx_init_loop.m
         lib/minilibx_opengl_20191021/mlx_int.h
@@ -441,7 +439,6 @@ add_executable(42_miniRT
         src/math/conversion.c
         src/math/equation.c
         src/math/modulo.c
-        src/math/triangle.c
         src/object/cone/create.c
         src/object/cone/transformations.c
         src/object/cylinder/create.c
@@ -530,4 +527,5 @@ add_executable(42_miniRT
         src/close_miniRT.c
         src/color.c
         src/init_minirt.c
-        src/main.c)
+        src/main.c
+        src/threads.c)

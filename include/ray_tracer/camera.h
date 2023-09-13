@@ -25,27 +25,27 @@ typedef struct s_viewport
 
 typedef struct s_camera
 {
-	t_vector3f	position;
-	t_vector3f	direction;
+	t_vector3f		position;
+	t_vector3f		direction;
 
-	t_vector3f	up_vector;
+	t_vector3f		up_vector;
 
-	t_matrix4	view;
-	t_matrix4	inverse_view;
-	t_matrix4	projection;
-	t_matrix4	inverse_projection;
+	t_matrix4		view;
+	t_matrix4		inverse_view;
+	t_matrix4		projection;
+	t_matrix4		inverse_projection;
 
-	t_viewport	viewport;
-	float		horizontal_fov;
-	float		near_clip;
-	float		far_clip;
+	t_viewport		viewport;
+	float			horizontal_fov;
+	float			near_clip;
+	float			far_clip;
 
-	float		pitch;
-	float		rotation_speed;
+	float			pitch;
+	float			rotation_speed;
 
-	bool		lock;
+	bool			lock;
 
-	t_ray		*rays;
+	struct s_ray	*rays;
 }	t_camera;
 
 //	create.c

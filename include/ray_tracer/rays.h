@@ -19,8 +19,15 @@
 # include "math/vector.h"
 # include "scene.h"
 # include "object.h"
+# include "camera.h"
 
 # define HIT_DISPLACEMENT 0.01f
+
+typedef struct s_recalculate_rays_args
+{
+	struct s_camera	*camera;
+	int				current_line;
+}	t_recalculate_rays_args;
 
 typedef struct s_ray
 {

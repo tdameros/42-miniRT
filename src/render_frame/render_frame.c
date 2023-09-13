@@ -120,10 +120,10 @@ static void	render_minirt(t_engine *engine, const uint64_t start_time)
 			if (engine->quality.min_reduction > 1)
 				interpolate_ray_tracing(&engine->raytraced_pixels,
 					engine->quality.min_reduction);
-			for (size_t i = 0; i < engine->ray_traced_image.size; i++)
-				engine->ray_traced_image.address[i]
-						= vec_rgb_to_uint(engine->raytraced_pixels.data[i]);
 		}
+		for (size_t i = 0; i < engine->ray_traced_image.size; i++)
+			engine->ray_traced_image.address[i]
+					= vec_rgb_to_uint(engine->raytraced_pixels.data[i]);
 		engine->scene_changed = false;
 	}
 	mlx_put_image_to_window(engine->window.mlx, engine->window.window,

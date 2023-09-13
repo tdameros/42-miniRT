@@ -10,65 +10,70 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <pthread.h>
-
 #include "engine.h"
+#include "threads.h"
 
-typedef struct s_recalculate_rays_args
-{
-	// TODO move this in a header
-	t_camera		*camera;
-	int				*current_line;
-	pthread_mutex_t	*current_line_mutex;
-}	t_recalculate_rays_args;
-
-static void			*recalculate_rays_routine(void *args_void);
+static void	*recalculate_rays_routine(void *arg_void);
+static void	recalculate_rays_on_failure(void *arg_void);
 
 void	camera_recalculate_rays(t_camera *camera)
 {
-	pthread_t				threads[NB_OF_THREADS];
-	t_recalculate_rays_args	thread_args[NB_OF_THREADS];
-	pthread_mutex_t			mutex;
-	int						current_line;
+	t_recalculate_rays_args	arg;
 
-	// TODO secure thread functions
-	pthread_mutex_init(&mutex, NULL);
-	current_line = 0;
-	for (size_t i = 0; i < NB_OF_THREADS - 1; i++)
-		thread_args[i] = (t_recalculate_rays_args){camera, &current_line, &mutex};
-	for (size_t i = 0; i < NB_OF_THREADS - 1; i++)
-		pthread_create(threads + i, NULL, &recalculate_rays_routine, thread_args + i);
-	for (size_t i = 0; i < NB_OF_THREADS; i++)
-		pthread_join(threads[i], NULL);
-	pthread_mutex_destroy(&mutex);
+	arg.camera = camera;
+	arg.current_line = 0;
+	start_threads(&arg, &recalculate_rays_routine, recalculate_rays_on_failure);
 }
 
-static void	*recalculate_rays_routine(void *args_void)
+static void	*recalculate_rays_routine(void *arg_void)
 {
-	const t_recalculate_rays_args	*args = args_void;
+	t_recalculate_rays_args			*data;
+	pthread_mutex_t					*mutex;
 	t_ray							*line;
 	int								y;
 	int								x;
 
-	pthread_mutex_lock(args->current_line_mutex);
-	while (*args->current_line < args->camera->viewport.size.y)
+	data = ((t_routine_arg *)arg_void)->arg;
+	mutex = &((t_routine_arg *)arg_void)->mutex;
+	pthread_mutex_lock(mutex);
+	while (data->current_line < data->camera->viewport.size.y)
 	{
-		y = *args->current_line;
-		(*args->current_line)++;
-		pthread_mutex_unlock(args->current_line_mutex);
-
-		line = args->camera->rays
-			+ (int)((args->camera->viewport.size.y - y - 1)
-				* args->camera->viewport.size.x);
-		x = args->camera->viewport.size.x;
+		y = data->current_line;
+		data->current_line++;
+		pthread_mutex_unlock(mutex);
+		line = data->camera->rays
+			+ (int)((data->camera->viewport.size.y - y - 1)
+				* data->camera->viewport.size.x);
+		x = data->camera->viewport.size.x;
 		while (x--)
-			line[x] = ray_create(args->camera->position,
-					get_ray_direction(args->camera, x, y));
-
-		pthread_mutex_lock(args->current_line_mutex);
+			line[x] = ray_create(data->camera->position,
+					get_ray_direction(data->camera, x, y));
+		pthread_mutex_lock(mutex);
 	}
-	pthread_mutex_unlock(args->current_line_mutex);
+	pthread_mutex_unlock(mutex);
 	return (NULL);
+}
+
+static void	recalculate_rays_on_failure(void *arg_void)
+{
+	t_recalculate_rays_args			*data;
+	t_ray							*line;
+	int								y;
+	int								x;
+
+	data = arg_void;
+	while (data->current_line < data->camera->viewport.size.y)
+	{
+		y = data->current_line;
+		data->current_line++;
+		line = data->camera->rays
+			+ (int)((data->camera->viewport.size.y - y - 1)
+				* data->camera->viewport.size.x);
+		x = data->camera->viewport.size.x;
+		while (x--)
+			line[x] = ray_create(data->camera->position,
+					get_ray_direction(data->camera, x, y));
+	}
 }
 
 t_vector3f	get_ray_direction(const t_camera *camera, const float x,
@@ -79,16 +84,16 @@ t_vector3f	get_ray_direction(const t_camera *camera, const float x,
 	t_vector3f	perspective;
 	t_vector4f	ray_direction;
 
-	coord = vector2f_create(x / camera->viewport.size.x, y / camera->viewport.size.y);
-	coord = vector2f_subtract(vector2f_multiply(coord, 2), vector2f_create(1, 1));
+	coord = vector2f_create(x / camera->viewport.size.x,
+			y / camera->viewport.size.y);
+	coord = vector2f_subtract(vector2f_multiply(coord, 2),
+			vector2f_create(1, 1));
 	target = matrix4_multiply_vector4(&camera->inverse_projection,
-									  vector4f_create(coord.x, coord.y, 1, 1));
+			vector4f_create(coord.x, coord.y, 1, 1));
 	perspective = vector3f_unit(vector3f_divide(
-			vector3f_create(target.x, target.y, target.z), target.w));
+				vector3f_create(target.x, target.y, target.z), target.w));
 	ray_direction = vector4f_create(perspective.x,
-									perspective.y,
-									perspective.z,
-									0);
+			perspective.y, perspective.z, 0);
 	ray_direction = matrix4_multiply_vector4(&camera->inverse_view,
 			ray_direction);
 	return (vector3f_create(ray_direction.x, ray_direction.y, ray_direction.z));

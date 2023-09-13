@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <errno.h>
-
 #include "mlx.h"
 
 #include "engine.h"
@@ -21,23 +19,6 @@
 #include "gui/utils.h"
 #include "hooks.h"
 #include "events.h"
-
-typedef struct s_color_getter
-{
-	int	red;
-	int	(*get_red)(float color, float x, float decal, float ratio);
-	int	green;
-	int	(*get_green)(float color, float x, float decal, float ratio);
-	int	blue;
-	int	(*get_blue)(float color, float x, float decal, float ratio);
-}	t_color_getter;
-
-typedef struct s_color_separator
-{
-	int	color_segment_width;
-	int	max;
-	int	previous_max;
-}	t_color_separator;
 
 static void	base_color_box_draw(t_gui_box *self, t_engine *engine,
 				t_draw_data draw_data);
@@ -52,7 +33,6 @@ static void	base_color_picker_on_click(t_gui_box *self, t_engine *engine,
 void	init_base_color_box(t_engine *engine, t_gui_box *gui_box,
 			t_gui_box *parent)
 {
-	// TODO the struct above should be in a header !! NORM ERROR
 	int	y;
 
 	*gui_box = create_t_gui_box(engine, (t_gui_box_create){parent, \

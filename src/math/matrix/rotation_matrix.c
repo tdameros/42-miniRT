@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rotation_matrix.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/13 23:09:40 by tdameros          #+#    #+#             */
+/*   Updated: 2023/09/13 23:09:42 by tdameros         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <math.h>
 
 #include "libft.h"
@@ -20,7 +32,6 @@ t_matrix4	create_rotation_matrix(const t_vector3f degrees)
 
 	return (matrix4_multiply(&x_times_y, &z_rotation));
 }
-
 
 /*						Rotation X matrix visualisation
 [	1					0					0					0	]

@@ -37,6 +37,23 @@
 # define OBJECT_ATTRIBUTE_BOX_TEXTURE_NB_OF_XY_BOXES 2.f
 # define OBJECT_ATTRIBUTE_BOX_TEXTURE_NB_OF_NORMAL_BOXES 3.f
 
+typedef struct s_color_getter
+{
+	int	red;
+	int	(*get_red)(float color, float x, float decal, float ratio);
+	int	green;
+	int	(*get_green)(float color, float x, float decal, float ratio);
+	int	blue;
+	int	(*get_blue)(float color, float x, float decal, float ratio);
+}	t_color_getter;
+
+typedef struct s_color_separator
+{
+	int	color_segment_width;
+	int	max;
+	int	previous_max;
+}	t_color_separator;
+
 void	init_object_modification_gui_box(t_engine *minirt,
 			t_gui_box *gui_box, const t_gui_box *main_gui_box);
 

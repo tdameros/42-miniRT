@@ -18,67 +18,73 @@
 #include "object.h"
 #include "ray_tracer/shade.h"
 #include "engine.h"
+#include "threads.h"
 
-typedef struct s_raytracing_routine_args
-{
-	// TODO move this in a header
-	t_engine		*engine;
-	int				*current_line;
-	pthread_mutex_t	*current_line_mutex;
-	int				incrementer;
-}	t_raytracing_routine_args;
-
-static void		*render_raytracing_routine(void *args_void);
+static void		*render_raytracing_routine(void *arg_void);
+static void		render_raytracing_on_failure(void *arg_void);
 static t_color	render_pixel(t_engine *engine, size_t ray_index);
 
 ///
-/// \param minirt
+/// \param engine
 /// \param incrementer > 0
-void	render_raytracing(t_engine *minirt, const int incrementer)
+void	render_raytracing(t_engine *engine, const int incrementer)
 {
-	pthread_t					threads[NB_OF_THREADS];
-	t_raytracing_routine_args	thread_args[NB_OF_THREADS];
-	pthread_mutex_t				mutex;
-	int							current_screen_zone;
+	t_raytracing_routine_args	arg;
 
-	// TODO secure thread functions
-	pthread_mutex_init(&mutex, NULL);
-	current_screen_zone = 0;
-	for (size_t i = 0; i < NB_OF_THREADS - 1; i++)
-		thread_args[i] = (t_raytracing_routine_args){minirt, &current_screen_zone, &mutex, incrementer};
-	for (size_t i = 0; i < NB_OF_THREADS - 1; i++)
-		pthread_create(threads + i, NULL, &render_raytracing_routine, thread_args + i);
-	for (size_t i = 0; i < NB_OF_THREADS; i++)
-		pthread_join(threads[i], NULL);
-	pthread_mutex_destroy(&mutex);
+	arg.engine = engine;
+	arg.current_line = 0;
+	arg.incrementer = incrementer;
+	start_threads(&arg, &render_raytracing_routine,
+		render_raytracing_on_failure);
 }
 
-static void	*render_raytracing_routine(void *args_void)
+static void	*render_raytracing_routine(void *arg_void)
 {
-	t_raytracing_routine_args	*args;
+	t_raytracing_routine_args	*data;
+	pthread_mutex_t				*mutex;
 	size_t						i;
 	size_t						limit;
 
-	args = args_void;
-	pthread_mutex_lock(args->current_line_mutex);
-	while (*args->current_line < args->engine->ray_traced_image.height)
+	data = ((t_routine_arg *)arg_void)->arg;
+	mutex = &((t_routine_arg *)arg_void)->mutex;
+	pthread_mutex_lock(mutex);
+	while (data->current_line < data->engine->ray_traced_image.height)
 	{
-		i = *args->current_line * args->engine->ray_traced_image.width;
-		*args->current_line += args->incrementer;
-		pthread_mutex_unlock(args->current_line_mutex);
-
-		limit = i + args->engine->ray_traced_image.width;
+		i = data->current_line * data->engine->ray_traced_image.width;
+		data->current_line += data->incrementer;
+		pthread_mutex_unlock(mutex);
+		limit = i + data->engine->ray_traced_image.width;
 		while (i < limit)
 		{
-			args->engine->raytraced_pixels.data[i] = render_pixel(args->engine,
+			data->engine->raytraced_pixels.data[i] = render_pixel(data->engine,
 					i);
-			i += args->incrementer;
+			i += data->incrementer;
 		}
-
-		pthread_mutex_lock(args->current_line_mutex);
+		pthread_mutex_lock(mutex);
 	}
-	pthread_mutex_unlock(args->current_line_mutex);
+	pthread_mutex_unlock(mutex);
 	return (NULL);
+}
+
+static void	render_raytracing_on_failure(void *arg_void)
+{
+	t_raytracing_routine_args	*data;
+	size_t						i;
+	size_t						limit;
+
+	data = arg_void;
+	while (data->current_line < data->engine->ray_traced_image.height)
+	{
+		i = data->current_line * data->engine->ray_traced_image.width;
+		data->current_line += data->incrementer;
+		limit = i + data->engine->ray_traced_image.width;
+		while (i < limit)
+		{
+			data->engine->raytraced_pixels.data[i] = render_pixel(data->engine,
+					i);
+			i += data->incrementer;
+		}
+	}
 }
 
 static t_color	render_pixel(t_engine *engine, size_t ray_index)

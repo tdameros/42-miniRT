@@ -97,7 +97,7 @@ static char	***get_scene_content_from_lines(t_list *lines)
 	{
 		scene_content[lines_count] = ft_split_unless_in_quotes(lines->content,
 				WHITE_SPACES);
-//		scene_content[lines_count] = ft_split(, '\t'); // TODO replace '\t' with ' ' for mandatory part
+//		scene_content[lines_count] = ft_split(lines->content, ' '); // TODO for mandatory part
 		if (scene_content[lines_count] == NULL)
 		{
 			free_scene_content(scene_content);

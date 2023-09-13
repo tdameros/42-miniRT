@@ -19,7 +19,6 @@
 # include "scene.h"
 # include "window.h"
 
-# define NB_OF_THREADS 16
 # define NB_OF_MOVEMENT_KEYS 8
 # define DEFAULT_DISTANCE_OF_NEW_OBJECTS 10.f
 
