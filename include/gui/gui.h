@@ -61,8 +61,12 @@ typedef struct s_float_input_boxes
 	struct s_gui_box		*specular_reflection;
 	t_xy_float_input_boxes	outline_checkerboard_size;
 	t_xy_float_input_boxes	cap_checkerboard_size;
-	struct s_gui_box		*camera_fov;
 }	t_float_input_boxes;
+
+typedef struct s_global_float_input_boxes
+{
+	struct s_gui_box	*camera_fov;
+}	t_global_float_input_boxes;
 
 typedef struct s_gui_hide_animation
 {
@@ -152,28 +156,29 @@ typedef struct s_mesh_objects
 
 typedef struct s_gui
 {
-	t_font					font;
-	t_screen_shot			screen_shot;
-	t_gui_hide_animation	hide_animation;
-	bool					should_show_gui_on_camera_lock;
-	t_gui_boxes				gui_boxes;
-	t_gui_boxes				optional_gui_boxes;
-	enum e_optional_box		current_optional_box;
-	t_color_and_material	color_and_material;
-	t_mesh_objects			mesh_objects;
-	void					(*draw_gui_image)(t_image *destination, \
-								const t_image *source, t_vector2i position);
-	t_fps					fps;
-	t_selected_object		selected_object;
-	float					object_modification_amount;
-	float					object_rotation_degrees;
-	struct s_gui_box		*object_attributes_modification_box;
-	struct s_gui_boxes		*object_creation_boxes;
-	struct s_gui_box		*object_list_box;
-	t_vector				object_boxes;
-	t_vector				light_boxes;
-	t_float_input_boxes		float_input_boxes;
-	t_message				message;
+	t_font						font;
+	t_screen_shot				screen_shot;
+	t_gui_hide_animation		hide_animation;
+	bool						should_show_gui_on_camera_lock;
+	t_gui_boxes					gui_boxes;
+	t_gui_boxes					optional_gui_boxes;
+	enum e_optional_box			current_optional_box;
+	t_color_and_material		color_and_material;
+	t_mesh_objects				mesh_objects;
+	void						(*draw_gui_image)(t_image *destination, \
+									const t_image *source, t_vector2i position);
+	t_fps						fps;
+	t_selected_object			selected_object;
+	float						object_modification_amount;
+	float						object_rotation_degrees;
+	struct s_gui_box			*object_attributes_modification_box;
+	struct s_gui_boxes			*object_creation_boxes;
+	struct s_gui_box			*object_list_box;
+	t_vector					object_boxes;
+	t_vector					light_boxes;
+	t_float_input_boxes			float_input_boxes;
+	t_global_float_input_boxes	global_float_input_boxes;
+	t_message					message;
 }	t_gui;
 
 #endif

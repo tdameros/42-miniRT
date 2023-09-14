@@ -38,7 +38,7 @@ int	parse_camera(t_engine *engine, char **scene_content_line,
 	camera_create(&engine->camera, vector2f_create(engine->window.size.x,
 			engine->window.size.y));
 	update_float_input_box(engine, engine->camera.horizontal_fov,
-		engine->gui.float_input_boxes.camera_fov);
+		engine->gui.global_float_input_boxes.camera_fov);
 	rt_file_requirements->camera = true;
 	return (0);
 }
