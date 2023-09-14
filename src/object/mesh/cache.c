@@ -1,3 +1,5 @@
+#include "libft.h"
+
 #include "object.h"
 
 void	mesh_object_update_vertex(t_object *mesh_object)
@@ -28,4 +30,12 @@ void	mesh_object_update_normals(t_object *mesh_object)
 		mesh_object->cache.mesh.normals.data[i] = matrix4_multiply_vector3(
 				&mesh_object->cache.mesh.rotation,
 				mesh_object->mesh.base_normals.data[i]);
+}
+
+void	mesh_cache_free(t_mesh_object_cache *cache)
+{
+	vectors3f_free(&cache->vertex);
+	vectors3f_free(&cache->normals);
+	free(cache->obj_file_path);
+	ft_bzero(cache, sizeof(*cache));
 }

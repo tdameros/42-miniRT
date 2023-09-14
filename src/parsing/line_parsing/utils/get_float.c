@@ -14,7 +14,7 @@
 
 #include "libft.h"
 
-int	get_float(char *float_string, float *float_destination)
+int	get_float(const char *float_string, float *float_destination)
 {
 	const float	float_value = ft_atof(float_string);
 

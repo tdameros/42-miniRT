@@ -72,6 +72,7 @@ typedef struct s_mesh_object_cache
 	t_vector3f	scale_vector;
 	t_vectors3f	vertex;
 	t_vectors3f	normals;
+	char		*obj_file_path;
 }	t_mesh_object_cache;
 
 union u_object_cache
@@ -147,6 +148,7 @@ void		cylinder_set_radius(t_object *cylinder, const float radius);
 //	mesh/cache.c
 void		mesh_object_update_vertex(t_object *mesh_object);
 void		mesh_object_update_normals(t_object *mesh_object);
+void		mesh_cache_free(t_mesh_object_cache *cache);
 
 //	mesh/create.c
 int			mesh_object_initialize(t_object *mesh_object, const char *obj_file,

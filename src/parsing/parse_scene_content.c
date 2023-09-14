@@ -57,7 +57,7 @@ static int	parse_scene_content_line(t_engine *engine,
 				char **scene_content_line,
 				t_rt_file_requirements *rt_file_requirements)
 {
-	int			(*parse_line[8])(t_engine *, char **, t_rt_file_requirements *);
+	int			(*parse_line[9])(t_engine *, char **, t_rt_file_requirements *);
 	const int	function_index = get_function_index(scene_content_line[0]);
 
 	if (function_index < 0)
@@ -73,7 +73,8 @@ static int	parse_scene_content_line(t_engine *engine,
 	parse_line[4] = &parse_plane;
 	parse_line[5] = &parse_cylinder;
 	parse_line[6] = &parse_cone;
-	parse_line[7] = &parse_material;
+	parse_line[7] = &parse_mesh_object;
+	parse_line[8] = &parse_material;
 	if (parse_line[function_index](engine, scene_content_line,
 		rt_file_requirements) < 0)
 	{
@@ -93,6 +94,7 @@ static int	get_function_index(char *scene_content_line)
 		"pl",
 		"cy",
 		"co",
+		"mesh",
 		"ma",
 	};
 	int			i;

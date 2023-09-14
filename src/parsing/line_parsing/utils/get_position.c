@@ -10,29 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <errno.h>
-
-#include "libft.h"
-
 #include "engine.h"
+#include "parsing.h"
 
-int	get_position(char *position_string, t_vector3f *position_destination)
+int	get_position(const char *position_string, t_vector3f *position_destination)
 {
-	char	**position_split;
-
-	position_split = ft_split(position_string, ',');
-	if (position_split == NULL)
-		return (-1);
-	if (ft_split_len(position_split) != 3)
-	{
-		ft_free_split(position_split);
-		return (-1);
-	}
-	position_destination->x = ft_atof(position_split[0]);
-	position_destination->y = ft_atof(position_split[1]);
-	position_destination->z = ft_atof(position_split[2]);
-	ft_free_split(position_split);
-	if (errno == ERANGE || errno == EINVAL)
-		return (-1);
-	return (0);
+	return (get_vector3f(position_string, position_destination));
 }

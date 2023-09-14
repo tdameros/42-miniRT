@@ -33,5 +33,7 @@ int	parse_plane(t_engine *engine, char **scene_content_line,
 		return (error("Error\nFailed to get plane albedo\n"));
 	plane.material.albedo = vector3f_divide(plane.material.albedo, 255.f);
 	plane = plane_create(plane.position, plane.axis, plane.material);
-	return (add_object(engine, plane));
+	if (add_object(engine, plane) < 0)
+		return (free_object(&plane), -1);
+	return (0);
 }

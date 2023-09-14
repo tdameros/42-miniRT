@@ -16,7 +16,7 @@
 #include "vectors.h"
 
 static char	*get_obj_name(const char *obj_file);
-static int	init_cache(t_object *mesh_object);
+static int	init_cache(t_object *mesh_object, const char *obj_file);
 
 /*
  * Return code:
@@ -41,7 +41,7 @@ int	mesh_object_initialize(t_object *mesh_object, const char *obj_file,
 		mesh_free(&mesh_object->mesh);
 		return (-1);
 	}
-	if (init_cache(mesh_object) < 0)
+	if (init_cache(mesh_object, obj_file) < 0)
 	{
 		mesh_free(&mesh_object->mesh);
 		return (-1);
@@ -76,16 +76,19 @@ void	mesh_free(t_mesh *mesh)
 	ft_bzero(mesh, sizeof(*mesh));
 }
 
-static int	init_cache(t_object *mesh_object)
+static int	init_cache(t_object *mesh_object, const char *obj_file)
 {
 	t_mesh_object_cache	*cache;
 
 	cache = &mesh_object->cache.mesh;
-	if (vectors3f_deep_copy(&cache->vertex, &mesh_object->mesh.base_vertex) < 0)
+	cache->obj_file_path = ft_strdup(obj_file);
+	if (cache->obj_file_path == NULL)
 		return (-1);
+	if (vectors3f_deep_copy(&cache->vertex, &mesh_object->mesh.base_vertex) < 0)
+		return (mesh_cache_free(cache), -1);
 	if (vectors3f_deep_copy(&cache->normals,
 			&mesh_object->mesh.base_normals) < 0)
-		return (-1);
+		return (mesh_cache_free(cache), -1);
 	cache->translation = create_translation_matrix(mesh_object->position);
 	cache->scale_vector = (t_vector3f){1, 1, 1};
 	cache->scale = create_scale_matrix(cache->scale_vector);

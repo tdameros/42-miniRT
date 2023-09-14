@@ -46,16 +46,19 @@ void						parse_reflection(t_object *object,
 void						parse_specular(t_object *object, char *specular);
 
 int							error(const char *error_message);
-int							get_color(char *color_string,
+int							get_color(const char *color_string,
 								t_color *color_destination);
-int							get_float(char *float_string,
+int							get_float(const char *float_string,
 								float *float_destination);
-int							get_lighting_ratio(char *lighting_ratio_string,
+int							get_lighting_ratio(
+								const char *lighting_ratio_string,
 								float *lighting_ratio_destination);
-int							get_normalized_vector(char *vector_string,
+int							get_normalized_vector(const char *vector_string,
 								t_vector3f *vector_destination);
-int							get_position(char *position_string,
+int							get_position(const char *position_string,
 								t_vector3f *position_destination);
+int							get_vector3f(const char *vector3f_string,
+								t_vector3f *vector3f_destination);
 
 void						invalid_scene_content_line(
 								char **scene_content_line);
@@ -78,6 +81,9 @@ int							parse_sphere(t_engine *engine,
 								char **scene_content_line,
 								t_rt_file_requirements *rt_file_requirements);
 int							parse_plane(t_engine *engine,
+								char **scene_content_line,
+								t_rt_file_requirements *rt_file_requirements);
+int							parse_mesh_object(t_engine *engine,
 								char **scene_content_line,
 								t_rt_file_requirements *rt_file_requirements);
 int							parse_cylinder(t_engine *engine,

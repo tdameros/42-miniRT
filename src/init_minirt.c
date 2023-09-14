@@ -13,8 +13,15 @@
 #include "engine.h"
 #include "font/render.h"
 
-#define DEFAULT_MAX_RESOLUTION_REDUCTION 21
-#define DEFAULT_MIN_RESOLUTION_REDUCTION 1
+#ifndef DEFAULT_MAX_RESOLUTION_REDUCTION
+# define DEFAULT_MAX_RESOLUTION_REDUCTION 21
+#endif
+#ifndef DEFAULT_MIN_RESOLUTION_REDUCTION
+# define DEFAULT_MIN_RESOLUTION_REDUCTION 1
+#endif
+#ifndef DEFAULT_ANTIALIASING_VALUE
+# define DEFAULT_ANTIALIASING_VALUE true
+#endif
 
 static void	init_hooks(t_engine *engine);
 static int	set_minirt_folder_as_current_working_directory(
@@ -31,7 +38,7 @@ int	init_engine(t_engine *engine, const char *start_up_scene,
 	if (set_minirt_folder_as_current_working_directory(path_to_minirt_binary))
 		return (free(engine->start_up_scene), -1);
 	engine->post_processing_effect = NO_EFFECT;
-	engine->antialiasing = true;
+	engine->antialiasing = DEFAULT_ANTIALIASING_VALUE;
 	engine->quality.max_reduction = DEFAULT_MAX_RESOLUTION_REDUCTION;
 	engine->quality.min_reduction = DEFAULT_MIN_RESOLUTION_REDUCTION;
 	get_screen_size(&engine->window.size.x, &engine->window.size.y); // TODO check that screen size is not too small

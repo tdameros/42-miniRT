@@ -39,5 +39,7 @@ int	parse_cylinder(t_engine *engine, char **scene_content_line,
 	cylinder.material.albedo = vector3f_divide(cylinder.material.albedo, 255.f);
 	cylinder = cylinder_create(cylinder.position, cylinder.axis, \
 		(t_object_size){cylinder.radius, cylinder.height}, cylinder.material);
-	return (add_object(engine, cylinder));
+	if (add_object(engine, cylinder) < 0)
+		return (free_object(&cylinder), -1);
+	return (0);
 }

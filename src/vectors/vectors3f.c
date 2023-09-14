@@ -60,6 +60,7 @@ int	vectors3f_remove(t_vectors3f *vectors3f, const size_t index)
 int	vectors3f_free(t_vectors3f *vectors3f)
 {
 	free(vectors3f->data);
+	vectors3f->data = NULL;
 	vectors3f->size = 0;
 	vectors3f->length = 0;
 	return (0);

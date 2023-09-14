@@ -34,5 +34,7 @@ int	parse_sphere(t_engine *engine, char **scene_content_line,
 		return (error("Error\nFailed to get sphere albedo\n"));
 	sphere.material.albedo = vector3f_divide(sphere.material.albedo, 255.f);
 	sphere = sphere_create(sphere.position, sphere.radius, sphere.material);
-	return (add_object(engine, sphere));
+	if (add_object(engine, sphere) < 0)
+		return (free_object(&sphere), -1);
+	return (0);
 }

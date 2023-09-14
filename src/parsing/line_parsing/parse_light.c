@@ -22,6 +22,7 @@ int	parse_light(t_engine *engine, char **scene_content_line,
 	t_vector3f	position;
 	float		brightness;
 	t_color		color;
+	t_light		light;
 
 	(void)rt_file_requirements; // TODO remove this in mandatory part
 //	if (rt_file_requirements->light == true)
@@ -36,5 +37,8 @@ int	parse_light(t_engine *engine, char **scene_content_line,
 		return (error("Error\nFailed to get light albedo\n"));
 	color = vector3f_divide(color, 255.f);
 //	rt_file_requirements->light = true; // TODO add this for mandatory part
-	return (add_light(engine, light_create(position, color, brightness)));
+	light = light_create(position, color, brightness);
+	if (add_light(engine, light) < 0)
+		return (free_light(&light), -1);
+	return (0);
 }

@@ -14,7 +14,7 @@
 
 #include "libft.h"
 
-int	get_lighting_ratio(char *lighting_ratio_string,
+int	get_lighting_ratio(const char *lighting_ratio_string,
 		float *lighting_ratio_destination)
 {
 	const float	lighting_ratio = ft_atof(lighting_ratio_string);

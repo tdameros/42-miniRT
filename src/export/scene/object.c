@@ -18,6 +18,7 @@ static int	write_sphere(const t_object sphere, int fd);
 static int	write_plane(const t_object plane, int fd);
 static int	write_cylinder(const t_object cylinder, int fd);
 static int	write_cone(const t_object cone, int fd);
+static int	write_mesh_object(const t_object mesh, int fd);
 
 int	write_object(const t_object object, int fd)
 {
@@ -29,6 +30,8 @@ int	write_object(const t_object object, int fd)
 		return (write_cylinder(object, fd));
 	else if (object.type == CONE)
 		return (write_cone(object, fd));
+	else if (object.type == MESH)
+		return (write_mesh_object(object, fd));
 	return (-1);
 }
 
@@ -102,6 +105,29 @@ static int	write_cone(const t_object cone, int fd)
 			cone.material.albedo.x * 255.f,
 			cone.material.albedo.y * 255.f,
 			cone.material.albedo.z * 255.f);
+
+	if (return_code < 0)
+		return (-1);
+	return (0);
+}
+
+static int	write_mesh_object(const t_object mesh, int fd)
+{
+	const ssize_t	return_code = dprintf(fd, \
+			"mesh\t%f,%f,%f\t%f,%f,%f\t%f,%f,%f\t%f,%f,%f\t\"%s\"\n",
+			mesh.position.x,
+			mesh.position.y,
+			mesh.position.z,
+			mesh.axis.x,
+			mesh.axis.y,
+			mesh.axis.z,
+			mesh.cache.mesh.scale_vector.x,
+			mesh.cache.mesh.scale_vector.y,
+			mesh.cache.mesh.scale_vector.z,
+			mesh.material.albedo.x * 255.f,
+			mesh.material.albedo.y * 255.f,
+			mesh.material.albedo.z * 255.f,
+			mesh.cache.mesh.obj_file_path);
 
 	if (return_code < 0)
 		return (-1);

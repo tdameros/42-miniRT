@@ -62,10 +62,16 @@ int	remove_light_in_lights(t_lights *lights, size_t index)
 	return (0);
 }
 
+void	free_light(t_light *light)
+{
+	free(light->name);
+	ft_bzero(light, sizeof(*light));
+}
+
 int	free_lights(t_lights *lights)
 {
 	while (lights->length--)
-		free(lights->data[lights->length].name);
+		free_light(&lights->data[lights->length]);
 	free(lights->data);
 	lights->size = 0;
 	lights->length = 0;

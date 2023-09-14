@@ -36,5 +36,7 @@ int	parse_cone(t_engine *engine, char **scene_content_line,
 	cone.material.albedo = vector3f_divide(cone.material.albedo, 255.f);
 	cone = cone_create(cone.position, cone.axis, \
 		(t_object_size){cone.radius, cone.height}, cone.material);
-	return (add_object(engine, cone));
+	if (add_object(engine, cone) < 0)
+		return (free_object(&cone), -1);
+	return (0);
 }

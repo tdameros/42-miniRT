@@ -10,32 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <errno.h>
-
 #include "libft.h"
 
 #include "engine.h"
+#include "parsing.h"
 
 static bool	is_not_valid_color(float color);
 
-int	get_color(char *color_string, t_color *color_destination)
+int	get_color(const char *color_string, t_color *color_destination)
 {
-	char		**color_split;
-
-	color_split = ft_split(color_string, ',');
-	if (color_split == NULL)
+	if (get_vector3f(color_string, color_destination) < 0)
 		return (-1);
-	if (ft_split_len(color_split) != 3)
-	{
-		ft_free_split(color_split);
-		return (-1);
-	}
-	color_destination->x = ft_atof(color_split[0]);
-	color_destination->y = ft_atof(color_split[1]);
-	color_destination->z = ft_atof(color_split[2]);
-	ft_free_split(color_split);
-	if (errno == ERANGE || errno == EINVAL
-		|| is_not_valid_color(color_destination->x)
+	if (is_not_valid_color(color_destination->x)
 		|| is_not_valid_color(color_destination->y)
 		|| is_not_valid_color(color_destination->z))
 		return (-1);

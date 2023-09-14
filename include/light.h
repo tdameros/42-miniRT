@@ -46,6 +46,7 @@ void	light_set_brightness(t_light *light, const float brightness);
 int		initialize_lights_array(t_lights *lights, size_t size);
 int		add_light_in_lights(t_lights *lights, t_light light);
 int		remove_light_in_lights(t_lights *lights, size_t index);
+void	free_light(t_light *light);
 int		free_lights(t_lights *lights);
 
 #endif

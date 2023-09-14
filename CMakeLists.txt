@@ -528,4 +528,4 @@ add_executable(minirt
         src/color.c
         src/init_minirt.c
         src/main.c
-        src/threads.c)
+        src/threads.c src/parsing/line_parsing/parse_mesh_object.c src/parsing/line_parsing/utils/get_vector3f.c)
