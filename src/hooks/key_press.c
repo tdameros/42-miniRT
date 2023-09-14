@@ -24,6 +24,8 @@ static void				deselect_object(t_engine *engine);
 
 int	key_press_handler(int key_code, t_engine *engine)
 {
+	if (key_code == KEY_ESC)
+		close_engine(engine);
 	if (handle_command_hooks(key_code, engine))
 		return (0);
 	if (handle_normal_hooks(key_code, engine))
@@ -54,11 +56,10 @@ static bool	handle_normal_hooks(int key_code, t_engine *engine)
 {
 	if (key_code == KEY_B)
 	{
-		engine->post_processing_effect = get_next_effect(engine->post_processing_effect);
+		engine->post_processing_effect
+			= get_next_effect(engine->post_processing_effect);
 		engine->scene_changed = true;
 	}
-	else if (key_code == KEY_ESC)
-		close_engine(engine);
 	else if (key_code == KEY_H)
 		toggle_gui(&engine->gui);
 	else if (key_code == KEY_T)
