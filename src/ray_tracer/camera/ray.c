@@ -14,7 +14,6 @@
 #include "threads.h"
 
 static void	*recalculate_rays_routine(void *arg_void);
-static void	recalculate_rays_on_failure(void *arg_void);
 
 void	camera_recalculate_rays(t_camera *camera)
 {
@@ -22,25 +21,23 @@ void	camera_recalculate_rays(t_camera *camera)
 
 	arg.camera = camera;
 	arg.current_line = 0;
-	start_threads(&arg, &recalculate_rays_routine, recalculate_rays_on_failure);
+	start_threads(&arg, &recalculate_rays_routine);
 }
 
 static void	*recalculate_rays_routine(void *arg_void)
 {
 	t_recalculate_rays_args			*data;
-	pthread_mutex_t					*mutex;
 	t_ray							*line;
 	int								y;
 	int								x;
 
-	data = ((t_routine_arg *)arg_void)->arg;
-	mutex = &((t_routine_arg *)arg_void)->mutex;
-	pthread_mutex_lock(mutex);
+	data = get_routine_data(arg_void);
+	mutex_lock(arg_void);
 	while (data->current_line < data->camera->viewport.size.y)
 	{
 		y = data->current_line;
 		data->current_line++;
-		pthread_mutex_unlock(mutex);
+		mutex_unlock(arg_void);
 		line = data->camera->rays
 			+ (int)((data->camera->viewport.size.y - y - 1)
 				* data->camera->viewport.size.x);
@@ -48,32 +45,10 @@ static void	*recalculate_rays_routine(void *arg_void)
 		while (x--)
 			line[x] = ray_create(data->camera->position,
 					get_ray_direction(data->camera, x, y));
-		pthread_mutex_lock(mutex);
+		mutex_lock(arg_void);
 	}
-	pthread_mutex_unlock(mutex);
+	mutex_unlock(arg_void);
 	return (NULL);
-}
-
-static void	recalculate_rays_on_failure(void *arg_void)
-{
-	t_recalculate_rays_args			*data;
-	t_ray							*line;
-	int								y;
-	int								x;
-
-	data = arg_void;
-	while (data->current_line < data->camera->viewport.size.y)
-	{
-		y = data->current_line;
-		data->current_line++;
-		line = data->camera->rays
-			+ (int)((data->camera->viewport.size.y - y - 1)
-				* data->camera->viewport.size.x);
-		x = data->camera->viewport.size.x;
-		while (x--)
-			line[x] = ray_create(data->camera->position,
-					get_ray_direction(data->camera, x, y));
-	}
 }
 
 t_vector3f	get_ray_direction(const t_camera *camera, const float x,

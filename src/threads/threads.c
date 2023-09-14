@@ -1,30 +1,33 @@
-#include <pthread.h>
-
-#include "threads.h"
 #include "libft.h"
+
+#include "threads_private_header.h"
 
 static size_t	create_threads(pthread_t *threads, size_t nb_of_threads,
 					t_routine_arg *routine_arg, void *(*routine)(void *));
 static void		join_threads(pthread_t *threads, size_t nb_of_threads);
 
-void	start_threads(void *arg, void *(*routine)(void *),
-						void (*on_failure)(void *))
+void	start_threads(void *arg, void *(*routine)(void *))
 {
 	pthread_t			threads[NB_OF_THREADS];
 	t_routine_arg		routine_arg;
 	size_t				nb_of_created_threads;
 
+	routine_arg.data = arg;
 	if (pthread_mutex_init(&routine_arg.mutex, NULL) != 0)
 	{
-		on_failure(arg);
+		routine_arg.use_mutex = false;
+		routine(&routine_arg);
 		return ;
 	}
-	routine_arg.arg = arg;
+	routine_arg.use_mutex = true;
 	nb_of_created_threads = create_threads(threads, NB_OF_THREADS,
 			&routine_arg, routine);
 	if (nb_of_created_threads == 0)
 	{
-		on_failure(arg);
+		if (pthread_mutex_destroy(&routine_arg.mutex) != 0)
+			ft_print_error("WARNING: Mutex destroy failed.");
+		routine_arg.use_mutex = false;
+		routine(&routine_arg);
 		return ;
 	}
 	join_threads(threads, nb_of_created_threads);

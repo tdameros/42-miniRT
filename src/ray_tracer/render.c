@@ -21,7 +21,6 @@
 #include "threads.h"
 
 static void		*render_raytracing_routine(void *arg_void);
-static void		render_raytracing_on_failure(void *arg_void);
 static t_color	render_pixel(t_engine *engine, size_t ray_index);
 
 ///
@@ -34,25 +33,22 @@ void	render_raytracing(t_engine *engine, const int incrementer)
 	arg.engine = engine;
 	arg.current_line = 0;
 	arg.incrementer = incrementer;
-	start_threads(&arg, &render_raytracing_routine,
-		render_raytracing_on_failure);
+	start_threads(&arg, &render_raytracing_routine);
 }
 
 static void	*render_raytracing_routine(void *arg_void)
 {
 	t_raytracing_routine_args	*data;
-	pthread_mutex_t				*mutex;
 	size_t						i;
 	size_t						limit;
 
-	data = ((t_routine_arg *)arg_void)->arg;
-	mutex = &((t_routine_arg *)arg_void)->mutex;
-	pthread_mutex_lock(mutex);
+	data = get_routine_data(arg_void);
+	mutex_lock(arg_void);
 	while (data->current_line < data->engine->ray_traced_image.height)
 	{
 		i = data->current_line * data->engine->ray_traced_image.width;
 		data->current_line += data->incrementer;
-		pthread_mutex_unlock(mutex);
+		mutex_unlock(arg_void);
 		limit = i + data->engine->ray_traced_image.width;
 		while (i < limit)
 		{
@@ -60,31 +56,10 @@ static void	*render_raytracing_routine(void *arg_void)
 					i);
 			i += data->incrementer;
 		}
-		pthread_mutex_lock(mutex);
+		mutex_lock(arg_void);
 	}
-	pthread_mutex_unlock(mutex);
+	mutex_unlock(arg_void);
 	return (NULL);
-}
-
-static void	render_raytracing_on_failure(void *arg_void)
-{
-	t_raytracing_routine_args	*data;
-	size_t						i;
-	size_t						limit;
-
-	data = arg_void;
-	while (data->current_line < data->engine->ray_traced_image.height)
-	{
-		i = data->current_line * data->engine->ray_traced_image.width;
-		data->current_line += data->incrementer;
-		limit = i + data->engine->ray_traced_image.width;
-		while (i < limit)
-		{
-			data->engine->raytraced_pixels.data[i] = render_pixel(data->engine,
-					i);
-			i += data->incrementer;
-		}
-	}
 }
 
 static t_color	render_pixel(t_engine *engine, size_t ray_index)

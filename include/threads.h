@@ -2,18 +2,14 @@
 #ifndef THREADS_H
 # define THREADS_H
 
-# include <pthread.h>
+// get_routine_data.c
+void	*get_routine_data(void *routine_arg_void);
 
-# define NB_OF_THREADS 16
-
-typedef struct s_routine_arg
-{
-	pthread_mutex_t	mutex;
-	void			*arg;
-}	t_routine_arg;
+// mutex.c
+void	mutex_lock(void *routine_arg_void);
+void	mutex_unlock(void *routine_arg_void);
 
 //	threads.c
-void	start_threads(void *arg, void *(*routine)(void *),
-			void (*on_failure)(void *));
+void	start_threads(void *arg, void *(*routine)(void *));
 
 #endif

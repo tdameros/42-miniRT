@@ -17,7 +17,6 @@
 #define PIXEL_DIVISION 2.f
 
 static void			*render_raytracing_routine(void *arg_void);
-static void			render_raytracing_on_failure(void *arg_void);
 static t_vector3f	get_antialiased_pixel(const t_engine *engine, int x, int y);
 static t_ray		get_ray(const t_engine *engine, float x, float y);
 
@@ -27,56 +26,33 @@ void	render_anti_aliased_raytracing(t_engine *engine)
 
 	arg.engine = engine;
 	arg.current_line = 0;
-	start_threads(&arg, &render_raytracing_routine,
-		render_raytracing_on_failure);
+	start_threads(&arg, &render_raytracing_routine);
 }
 
 static void	*render_raytracing_routine(void *arg_void)
 {
-	pthread_mutex_t							*mutex;
 	t_raytracing_anti_aliasing_routine_args	*data;
 	int										x;
 	int										y;
 	t_vector3f								*line;
 
-	data = ((t_routine_arg *)arg_void)->arg;
-	mutex = &((t_routine_arg *)arg_void)->mutex;
-	pthread_mutex_lock(mutex);
+	data = get_routine_data(arg_void);
+	mutex_lock(arg_void);
 	while (data->current_line < data->engine->ray_traced_image.height)
 	{
 		y = data->current_line;
 		data->current_line++;
-		pthread_mutex_unlock(mutex);
+		mutex_unlock(arg_void);
 
 		line = data->engine->raytraced_pixels.data
 			+ y * data->engine->raytraced_pixels.width;
 		x = data->engine->raytraced_pixels.width;
 		while (x--)
 			line[x] = get_antialiased_pixel(data->engine, x, y);
-		pthread_mutex_lock(mutex);
+		mutex_lock(arg_void);
 	}
-	pthread_mutex_unlock(mutex);
+	mutex_unlock(arg_void);
 	return (NULL);
-}
-
-static void	render_raytracing_on_failure(void *arg_void)
-{
-	t_raytracing_anti_aliasing_routine_args	*data;
-	int										x;
-	int										y;
-	t_vector3f								*line;
-
-	data = arg_void;
-	while (data->current_line < data->engine->ray_traced_image.height)
-	{
-		y = data->current_line;
-		data->current_line++;
-		line = data->engine->raytraced_pixels.data
-			+ y * data->engine->raytraced_pixels.width;
-		x = data->engine->raytraced_pixels.width;
-		while (x--)
-			line[x] = get_antialiased_pixel(data->engine, x, y);
-	}
 }
 
 static t_vector3f	get_antialiased_pixel(const t_engine *engine, const int x,

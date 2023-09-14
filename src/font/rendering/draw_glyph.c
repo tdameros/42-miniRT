@@ -18,7 +18,6 @@
 #define PIXEL_DIVISION 3.f
 
 static void						*draw_glyph_routine(void *arg_void);
-static void						draw_glyph_on_failure(void *arg_void);
 static t_glyph_generated_points	get_adjusted_points(
 									const t_glyph_generated_points *raw_points,
 									float scale, float x_offset,
@@ -52,25 +51,23 @@ void	draw_glyph(const t_glyph_generated_points *raw_points,
 	arg.current_line = arg.points.bounds.yMin * data.scale;
 	arg.color = get_t_color_from_uint(data.color);
 	arg.image = data.image;
-	start_threads(&arg, &draw_glyph_routine, &draw_glyph_on_failure);
+	start_threads(&arg, &draw_glyph_routine);
 	free(arg.points.points);
 }
 
 static void	*draw_glyph_routine(void *arg_void)
 {
 	t_draw_glyph_routine_arg		*data;
-	pthread_mutex_t					*mutex;
 	int								x;
 	int								y;
 	unsigned int					*dst;
 
-	data = ((t_routine_arg *)arg_void)->arg;
-	mutex = &((t_routine_arg *)arg_void)->mutex;
-	pthread_mutex_lock(mutex);
+	data = get_routine_data(arg_void);
+	mutex_lock(arg_void);
 	while (data->current_line <= data->points.bounds.yMax)
 	{
 		y = data->current_line++;
-		pthread_mutex_unlock(mutex);
+		mutex_unlock(arg_void);
 		x = data->points.bounds.xMin - 1;
 		while (++x <= data->points.bounds.xMax)
 		{
@@ -81,34 +78,10 @@ static void	*draw_glyph_routine(void *arg_void)
 				return (NULL);
 			draw_pixel(dst, (t_vector2f){x, y}, data->color, &data->points);
 		}
-		pthread_mutex_lock(mutex);
+		mutex_lock(arg_void);
 	}
-	pthread_mutex_unlock(mutex);
+	mutex_unlock(arg_void);
 	return (NULL);
-}
-
-static void	draw_glyph_on_failure(void *arg_void)
-{
-	t_draw_glyph_routine_arg		*data;
-	int								x;
-	int								y;
-	unsigned int					*dst;
-
-	data = arg_void;
-	while (data->current_line <= data->points.bounds.yMax)
-	{
-		y = data->current_line++;
-		x = data->points.bounds.xMin - 1;
-		while (++x <= data->points.bounds.xMax)
-		{
-			dst = data->image->address + y * data->image->width + x;
-			if (dst < data->image->address)
-				continue ;
-			if (dst >= data->image->limit)
-				return ;
-			draw_pixel(dst, (t_vector2f){x, y}, data->color, &data->points);
-		}
-	}
 }
 
 static t_glyph_generated_points	get_adjusted_points(
