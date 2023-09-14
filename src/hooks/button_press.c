@@ -35,10 +35,7 @@ int	button_press_handler(int button, int x, int y, t_engine *engine)
 		return (0);
 	if (engine->object_being_placed.object != NULL
 		|| engine->object_being_placed.light != NULL)
-	{
-		placing_object(button, engine);
-		return (0);
-	}
+		return (placing_object(button, engine), 0);
 	clicked_gui_box = get_clicked_root_gui_box(engine, &x, &y);
 	if (clicked_gui_box == NULL)
 	{

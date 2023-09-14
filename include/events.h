@@ -142,6 +142,7 @@ enum e_key_codes
 	KEY_S_QUOTE = 39,
 	KEY_SEMI_COLON = 41,
 	KEY_COMMAND = 259,
+	KEY_BACKSPACE = 51,
 };
 # elif defined __linux__
 
