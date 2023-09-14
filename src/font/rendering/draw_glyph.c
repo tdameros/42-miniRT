@@ -12,10 +12,13 @@
 
 #include <stdlib.h>
 #include "font/render.h"
+#include "threads.h"
 
 // PIXEL_DIVISION should be >= 1 (1 means no anti aliasing)
 #define PIXEL_DIVISION 3.f
 
+static void						*draw_glyph_routine(void *arg_void);
+static void						draw_glyph_on_failure(void *arg_void);
 static t_glyph_generated_points	get_adjusted_points(
 									const t_glyph_generated_points *raw_points,
 									float scale, float x_offset,
@@ -29,34 +32,83 @@ static bool						is_point_inside_glyph(t_vector2f point,
 static int						add_intersection(t_segment segment_1,
 									t_segment segment_2);
 
+typedef struct s_draw_glyph_routine_arg
+{
+	t_glyph_generated_points	points;
+	int							current_line;
+	t_color						color;
+	t_image						*image;
+}	t_draw_glyph_routine_arg;
+
 void	draw_glyph(const t_glyph_generated_points *raw_points,
 			t_draw_glyph_data data)
 {
-	const t_glyph_generated_points	points = get_adjusted_points(raw_points,
-			data.scale, data.x_offset, data.y_offset);
+	t_draw_glyph_routine_arg	arg;
+
+	arg.points = get_adjusted_points(raw_points, data.scale, data.x_offset,
+			data.y_offset);
+	if (arg.points.points == NULL)
+		return ;
+	arg.current_line = arg.points.bounds.yMin * data.scale;
+	arg.color = get_t_color_from_uint(data.color);
+	arg.image = data.image;
+	start_threads(&arg, &draw_glyph_routine, &draw_glyph_on_failure);
+	free(arg.points.points);
+}
+
+static void	*draw_glyph_routine(void *arg_void)
+{
+	t_draw_glyph_routine_arg		*data;
+	pthread_mutex_t					*mutex;
 	int								x;
 	int								y;
-	const t_color					color_vec = get_t_color_from_uint(
-			data.color);
 	unsigned int					*dst;
 
-	if (points.points == NULL)
-		return ;
-	y = points.bounds.yMin * data.scale - 1;
-	while (++y <= points.bounds.yMax)
+	data = ((t_routine_arg *)arg_void)->arg;
+	mutex = &((t_routine_arg *)arg_void)->mutex;
+	pthread_mutex_lock(mutex);
+	while (data->current_line <= data->points.bounds.yMax)
 	{
-		x = points.bounds.xMin - 1;
-		while (++x <= points.bounds.xMax)
+		y = data->current_line++;
+		pthread_mutex_unlock(mutex);
+		x = data->points.bounds.xMin - 1;
+		while (++x <= data->points.bounds.xMax)
 		{
-			dst = data.image->address + y * data.image->width + x;
-			if (dst < data.image->address)
+			dst = data->image->address + y * data->image->width + x;
+			if (dst < data->image->address)
 				continue ;
-			if (dst >= data.image->limit)
-				return (free(points.points));
-			draw_pixel(dst, (t_vector2f){x, y}, color_vec, &points);
+			if (dst >= data->image->limit)
+				return (NULL);
+			draw_pixel(dst, (t_vector2f){x, y}, data->color, &data->points);
+		}
+		pthread_mutex_lock(mutex);
+	}
+	pthread_mutex_unlock(mutex);
+	return (NULL);
+}
+
+static void	draw_glyph_on_failure(void *arg_void)
+{
+	t_draw_glyph_routine_arg		*data;
+	int								x;
+	int								y;
+	unsigned int					*dst;
+
+	data = arg_void;
+	while (data->current_line <= data->points.bounds.yMax)
+	{
+		y = data->current_line++;
+		x = data->points.bounds.xMin - 1;
+		while (++x <= data->points.bounds.xMax)
+		{
+			dst = data->image->address + y * data->image->width + x;
+			if (dst < data->image->address)
+				continue ;
+			if (dst >= data->image->limit)
+				return ;
+			draw_pixel(dst, (t_vector2f){x, y}, data->color, &data->points);
 		}
 	}
-	free(points.points);
 }
 
 static t_glyph_generated_points	get_adjusted_points(
@@ -97,27 +149,27 @@ static void	draw_pixel(unsigned int *dst, const t_vector2f pixel,
 {
 	int		sub_y;
 	int		sub_x;
-	int		nb_of_points_in_triangle;
+	int		nb_of_points_in_glyph;
 	t_color	new_color;
 
-	nb_of_points_in_triangle = 0;
+	nb_of_points_in_glyph = 0;
 	sub_y = -1;
 	while (++sub_y < PIXEL_DIVISION)
 	{
 		sub_x = -1;
 		while (++sub_x < PIXEL_DIVISION)
-			nb_of_points_in_triangle += is_point_inside_glyph(\
+			nb_of_points_in_glyph += is_point_inside_glyph(\
 				(t_vector2f){pixel.x + sub_x / PIXEL_DIVISION + 1.f \
 				/ PIXEL_DIVISION / 2, pixel.y + sub_y / PIXEL_DIVISION + 1.f \
 				/ PIXEL_DIVISION / 2}, points);
 	}
-	if (nb_of_points_in_triangle <= 0)
+	if (nb_of_points_in_glyph <= 0)
 		return ;
 	new_color = vector3f_multiply(background_color,
-			nb_of_points_in_triangle);
+			nb_of_points_in_glyph);
 	new_color = vector3f_add(new_color, vector3f_multiply(
 				get_t_color_from_uint(*dst), PIXEL_DIVISION * PIXEL_DIVISION
-				- nb_of_points_in_triangle));
+				- nb_of_points_in_glyph));
 	new_color = vector3f_divide(new_color, PIXEL_DIVISION * PIXEL_DIVISION);
 	*dst = vec_rgb_to_uint(new_color);
 }
