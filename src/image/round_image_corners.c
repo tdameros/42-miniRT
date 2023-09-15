@@ -12,11 +12,17 @@
 
 #include <math.h>
 
+#include "libft.h"
+
 #include "image.h"
 #include "threads.h"
 #include "colors.h"
 
+#define PIXEL_DIVISION 3.f
+
 static void	*round_image_corners_routine(void *routine_arg);
+static void	write_pixel(t_round_image_corners_routine_arg *data, int x, int y,
+				unsigned int *line);
 
 void	round_image_corners(t_image *image, int radius)
 {
@@ -46,15 +52,36 @@ static void	*round_image_corners_routine(void *routine_arg)
 		line = data->image->address + y * data->image->width;
 		x = data->image->width;
 		while (x--)
-		{
-			if (is_in_top_left_corner(x, y, data->radius)
-				|| is_in_top_right_corner(x, y, data->radius, data->image)
-				|| is_in_bottom_left_corner(x, y, data->radius, data->image)
-				|| is_in_bottom_right_corner(x, y, data->radius, data->image))
-				line[x] = COLOR_TRANSPARENT;
-		}
+			write_pixel(data, x, y, line + x);
 		mutex_lock(routine_arg);
 	}
 	mutex_unlock(routine_arg);
 	return (NULL);
+}
+
+static void	write_pixel(t_round_image_corners_routine_arg *data, int x, int y,
+				unsigned int *dst)
+{
+	int		sub_y;
+	int		sub_x;
+	int		nb_of_points_in_corner;
+	int16_t	transparency;
+
+	nb_of_points_in_corner = 0;
+	sub_y = -1;
+	while (++sub_y < PIXEL_DIVISION)
+	{
+		sub_x = -1;
+		while (++sub_x < PIXEL_DIVISION)
+			nb_of_points_in_corner += is_point_in_corner(
+					x + sub_x / PIXEL_DIVISION + 1.f / PIXEL_DIVISION / 2,
+					y + sub_y / PIXEL_DIVISION + 1.f / PIXEL_DIVISION / 2,
+					data->radius, data->image);
+	}
+	if (nb_of_points_in_corner <= 0)
+		return ;
+	transparency = get_transparency(*dst)
+		+ nb_of_points_in_corner / (PIXEL_DIVISION * PIXEL_DIVISION) * 255.f;
+	transparency = ft_clamp(transparency, 0, 255);
+	*dst = (*dst & 0x00FFFFFF) | (transparency << 24);
 }

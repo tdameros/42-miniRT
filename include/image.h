@@ -46,9 +46,9 @@ typedef struct s_draw_circle_routine_arg
 
 typedef struct s_round_image_corners_routine_arg
 {
-	int		current_line;
-	int		radius;
-	t_image	*image;
+	int				current_line;
+	int				radius;
+	t_image			*image;
 }	t_round_image_corners_routine_arg;
 
 typedef struct s_put_image_to_image_data
@@ -99,12 +99,8 @@ void			image_draw_right_outline(t_image *image, int width,
 					unsigned int color);
 
 void			round_image_corners(t_image *image, int radius);
-bool			is_in_top_left_corner(int x, int y, int radius);
-bool			is_in_top_right_corner(int x, int y, int radius,
+bool			is_point_in_corner(float x, float y, float radius,
 					t_image *image);
-bool			is_in_bottom_left_corner(int x, int y, int radius,
-					t_image *image);
-bool			is_in_bottom_right_corner(int x, int y, int radius,
-					t_image *image);
+
 
 #endif //IMAGE_H
