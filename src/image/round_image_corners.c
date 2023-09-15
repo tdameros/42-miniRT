@@ -11,61 +11,50 @@
 /* ************************************************************************** */
 
 #include <math.h>
-#include <stdbool.h>
 
 #include "image.h"
+#include "threads.h"
 #include "colors.h"
 
-static bool	is_in_top_left_corner(int x, int y, int radius);
-static bool	is_in_top_right_corner(int x, int y, int radius, t_image *image);
-static bool	is_in_bottom_left_corner(int x, int y, int radius, t_image *image);
-static bool	is_in_bottom_right_corner(int x, int y, int radius, t_image *image);
+static void	*round_image_corners_routine(void *routine_arg);
 
 void	round_image_corners(t_image *image, int radius)
 {
-	const int	max_radius = fmin(image->height, image->width) / 2;
-	int			y;
-	int			x;
+	const int							max_radius = fmin(
+			image->height, image->width) / 2;
+	t_round_image_corners_routine_arg	arg;
 
-	radius = fmax(0, fmin(radius, max_radius));
-	y = image->height;
-	while (y--)
+	arg.current_line = 0;
+	arg.radius = fmax(0, fmin(radius, max_radius));
+	arg.image = image;
+	start_threads(&arg, &round_image_corners_routine);
+}
+
+static void	*round_image_corners_routine(void *routine_arg)
+{
+	t_round_image_corners_routine_arg	*data;
+	int									y;
+	int									x;
+	unsigned int						*line;
+
+	data = get_routine_data(routine_arg);
+	mutex_lock(routine_arg);
+	while (data->current_line < data->image->height)
 	{
-		x = image->width;
+		y = data->current_line++;
+		mutex_unlock(routine_arg);
+		line = data->image->address + y * data->image->width;
+		x = data->image->width;
 		while (x--)
 		{
-			if (is_in_top_left_corner(x, y, radius)
-				|| is_in_top_right_corner(x, y, radius, image)
-				|| is_in_bottom_left_corner(x, y, radius, image)
-				|| is_in_bottom_right_corner(x, y, radius, image))
-				put_pixel_on_image(image, y, x, COLOR_TRANSPARENT);
+			if (is_in_top_left_corner(x, y, data->radius)
+				|| is_in_top_right_corner(x, y, data->radius, data->image)
+				|| is_in_bottom_left_corner(x, y, data->radius, data->image)
+				|| is_in_bottom_right_corner(x, y, data->radius, data->image))
+				line[x] = COLOR_TRANSPARENT;
 		}
+		mutex_lock(routine_arg);
 	}
-}
-
-static bool	is_in_top_left_corner(int x, int y, int radius)
-{
-	return (y < radius && x < radius
-		&& powf(y - radius, 2) + powf(x - radius, 2) > powf(radius, 2));
-}
-
-static bool	is_in_top_right_corner(int x, int y, int radius, t_image *image)
-{
-	return (y < radius && x >= image->width - radius
-		&& powf(y - radius, 2) + powf(x - image->width + radius, 2)
-		> powf(radius, 2));
-}
-
-static bool	is_in_bottom_left_corner(int x, int y, int radius, t_image *image)
-{
-	return (y >= image->height - radius && x < radius
-		&& powf(y - image->height + radius, 2)
-		+ powf(x - radius, 2) > powf(radius, 2));
-}
-
-static bool	is_in_bottom_right_corner(int x, int y, int radius, t_image *image)
-{
-	return (y >= image->height - radius && x >= image->width - radius
-		&& powf(y - image->height + radius, 2)
-		+ powf(x - image->width + radius, 2) > powf(radius, 2));
+	mutex_unlock(routine_arg);
+	return (NULL);
 }

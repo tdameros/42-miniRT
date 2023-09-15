@@ -56,14 +56,3 @@ inline unsigned int	get_image_pixel_color(const t_image *image, const int y,
 {
 	return (image->address[y * image->line_length + x]);
 }
-
-void	change_image_color(t_image *image, unsigned int color)
-{
-	const unsigned int	*image_end = image->address
-		+ image->height * image->line_length;
-	unsigned int		*cursor;
-
-	cursor = image->address;
-	while (cursor < image_end)
-		*cursor++ = color;
-}

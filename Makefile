@@ -189,13 +189,19 @@ SRC				=\
 	hooks/update_color_picker_color.c	\
 	\
 	\
-	image/destroy_t_image.c		\
-	image/draw.c				\
-	image/draw_check_mark.c		\
-	image/draw_outline.c		\
-	image/image.c				\
-	image/put_image_to_image.c	\
-	image/round_image_corners.c	\
+	image/change_image_color.c			\
+	image/destroy_t_image.c				\
+	image/draw_check_mark.c				\
+	image/draw_circle.c					\
+	image/draw_outline.c				\
+	image/draw_plus_minus.c				\
+	image/image.c						\
+	image/mix_colors.c					\
+	image/put_background.c				\
+	image/put_image_to_image.c			\
+	image/put_image_to_image_unsafe.c	\
+	image/round_image_corners.c			\
+	image/round_image_corners_utils.c	\
 	\
 	\
 	light/light.c	\
