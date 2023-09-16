@@ -69,6 +69,7 @@ void			put_pixel_on_image(t_image *image, int y, int x,
 unsigned int	get_image_pixel_color(const t_image *image, int y, int x);
 
 void			change_image_color(t_image *image, unsigned int color);
+void			add_color_to_image(t_image *image, unsigned int color);
 void			put_image_to_image(t_image *destination, const t_image *source,
 					t_vector2i position);
 void			put_image_to_image_unsafe(register t_image *destination,

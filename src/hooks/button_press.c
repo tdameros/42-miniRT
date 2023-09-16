@@ -38,11 +38,8 @@ int	button_press_handler(int button, int x, int y, t_engine *engine)
 		return (placing_object(button, engine), 0);
 	clicked_gui_box = get_clicked_root_gui_box(engine, &x, &y);
 	if (clicked_gui_box == NULL)
-	{
 		select_new_object(button, engine, x, y);
-		return (0);
-	}
-	if (clicked_gui_box->on_click != NULL)
+	else if (clicked_gui_box->on_click != NULL)
 		clicked_gui_box->on_click(clicked_gui_box, engine,
 			(t_click_data){(t_vector2i){x, y}, button});
 	return (0);

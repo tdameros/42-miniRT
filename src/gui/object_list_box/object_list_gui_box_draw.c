@@ -28,9 +28,14 @@ void		draw_object_and_light_gui_box_children(t_gui_box *gui_box,
 void	object_list_gui_box_draw(t_gui_box *self, t_engine *engine,
 			t_draw_data draw_data)
 {
-	int		y;
+	const t_vector2i	box_offset = get_left_box_decal(engine,
+			&engine->gui.gui_boxes.data[1]);
+	int					y;
 
-	change_image_color(&self->image, BASE_GUI_COLOR);
+	put_image_to_image(&self->image, &engine->ray_traced_image,
+		(t_vector2i){-self->position.x - box_offset.x, \
+					-self->position.y - box_offset.y});
+	add_color_to_image(&self->image, BASE_GUI_COLOR);
 	round_image_corners(&self->image, BOX_ROUNDING_RADIUS);
 	y = self->scroll;
 	draw_light_boxes(engine, &y, (t_draw_data){\
