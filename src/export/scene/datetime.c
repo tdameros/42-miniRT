@@ -6,10 +6,11 @@
 /*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 22:29:00 by tdameros          #+#    #+#             */
-/*   Updated: 2023/09/02 22:29:00 by tdameros         ###   ########lyon.fr   */
+/*   Updated: 2023/09/18 03:30:39 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <time.h>
 #include "engine.h"
 #include "export.h"
 #include "path.h"

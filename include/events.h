@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniRT_X11.h                                       :+:      :+:    :+:   */
+/*   events.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 10:45:39 by vfries            #+#    #+#             */
-/*   Updated: 2023/04/15 10:46:29 by vfries           ###   ########lyon.fr   */
+/*   Updated: 2023/09/18 04:41:36 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ enum e_mouse_buttons
 {
 	BUTTON_LEFT = 1,
 	BUTTON_RIGHT = 3,
+	SCROLL_DOWN = 5,
+	SCROLL_UP = 4,
 };
 # else
 #  error "Unsuported OS"
@@ -187,6 +189,8 @@ enum e_key_codes
 	KEY_DOT = 46,
 	KEY_S_QUOTE = 39,
 	KEY_SEMI_COLON = 59,
+	KEY_COMMAND = 65507,
+	KEY_BACKSPACE = 65288,
 };
 # else
 #  error "Unsuported OS"

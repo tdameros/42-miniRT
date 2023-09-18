@@ -1,7 +1,6 @@
 #include <math.h>
 
-#include "mlx.h"
-
+#include "mlx_wrapper.h"
 #include "engine.h"
 #include "gui/box.h"
 #include "gui/utils.h"
@@ -57,6 +56,8 @@ static float	get_gui_hidden_ration(t_gui *gui, const uint64_t start_time)
 	if (time_passed_squared > TIME_TO_HIDE_GUI)
 	{
 		gui->hide_animation.hide_animation_finished = true;
+		if (gui->hide_animation.is_hidden == false)
+			gui->draw_gui_image = &put_image_to_image_unsafe;
 		return (gui->hide_animation.is_hidden);
 	}
 	if (gui->hide_animation.is_hidden)
@@ -79,8 +80,7 @@ static void	render_message(t_engine *engine)
 		return ;
 	transparency = get_message_transparency(message, time_elapsed);
 	update_message_image_to_display(message, transparency);
-	mlx_put_image_to_window(engine->window.mlx, engine->window.window,
-		message->image_to_display.data, 0, message->y_position);
+	put_image(engine, &message->image_to_display, (t_vector2i){0, message->y_position});
 }
 
 static int16_t	get_message_transparency(const t_message *message,

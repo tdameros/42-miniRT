@@ -1,7 +1,7 @@
 import Cocoa
 
-@_cdecl("get_screen_size")
-public func get_screen_size(_ x: UnsafeMutablePointer<Int>, _ y: UnsafeMutablePointer<Int>)
+@_cdecl("get_screen_size_macos")
+public func get_screen_size_macos(_ x: UnsafeMutablePointer<Int>, _ y: UnsafeMutablePointer<Int>)
 {
 	let screenRect = NSScreen.main?.visibleFrame ?? NSRect.zero
 

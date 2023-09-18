@@ -6,11 +6,12 @@
 /*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 06:18:00 by tdameros          #+#    #+#             */
-/*   Updated: 2023/07/31 06:18:00 by tdameros         ###   ########lyon.fr   */
+/*   Updated: 2023/09/18 03:31:27 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
+#include <stdint.h>
 
 #include "material.h"
 
@@ -73,8 +74,8 @@ static int	write_outline_texture(t_material material, int fd)
 		return (-1);
 	if (material.textures.outline.texture_type == CHECKERBOARD)
 		return_code = dprintf(fd, "\toutline_checkerboard:%u,%u-%f,%f,%f",
-				(u_int32_t)material.textures.outline.checkerboard.size.x,
-				(u_int32_t)material.textures.outline.checkerboard.size.y,
+				(uint32_t)material.textures.outline.checkerboard.size.x,
+				(uint32_t)material.textures.outline.checkerboard.size.y,
 				material.textures.outline.checkerboard.albedo.x * 255.f,
 				material.textures.outline.checkerboard.albedo.y * 255.f,
 				material.textures.outline.checkerboard.albedo.z * 255.f);

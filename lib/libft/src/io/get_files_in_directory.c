@@ -5,6 +5,7 @@
 #include "ft_string.h"
 
 static int	get_all_files_in_directory(t_vector *files, const char *path);
+static void	remove_hidden_files(t_vector *files);
 static char	**get_files_with_correct_extension(t_vector *files_vector,
 				const char *extension);
 
@@ -13,7 +14,7 @@ static char	**get_files_with_correct_extension(t_vector *files_vector,
 /// \param extension extension of the files you want to get (NULL if you want to
 /// get all files)
 /// \return
-char	**ft_get_files_in_directory(const char *path, const char *extension)
+char	**ft_get_files_in_directory(const char *path, const char *extension, bool ignore_hidden_files)
 {
 	t_vector	files;
 
@@ -21,6 +22,8 @@ char	**ft_get_files_in_directory(const char *path, const char *extension)
 		return (NULL);
 	if (get_all_files_in_directory(&files, path) < 0)
 		return (NULL);
+	if (ignore_hidden_files)
+		remove_hidden_files(&files);
 	if (extension == NULL)
 		return (ft_str_vector_to_strs(&files, false, true));
 	return (get_files_with_correct_extension(&files, extension));
@@ -51,6 +54,25 @@ static int	get_all_files_in_directory(t_vector *files, const char *path)
 	}
 	closedir(directory);
 	return (0);
+}
+
+static void	remove_hidden_files(t_vector *files)
+{
+	char		*file;
+	const char	*last_slash;
+	size_t		i;
+
+	i = 0;
+	while (i < files->length)
+	{
+		file = ft_str_vector_get_elem(files, i);
+		last_slash = ft_strrchr(file, '/');
+		if ((last_slash != NULL && last_slash[1] == '.')
+			|| (last_slash == NULL && file[0] == '.'))
+			ft_str_vector_delete_elem(files, i, false);
+		else
+			i++;
+	}
 }
 
 static char	**get_files_with_correct_extension(t_vector *files_vector,

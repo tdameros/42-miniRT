@@ -50,7 +50,7 @@ static void	update_object_boxes(t_engine *engine, char ***files,
 {
 	char	**new_files;
 
-	new_files = ft_get_files_in_directory(path, ".obj");
+	new_files = ft_get_files_in_directory(path, ".obj", true);
 	if (new_files == NULL)
 	{
 		ft_print_error("Warning: Failed to get files in directory: ");

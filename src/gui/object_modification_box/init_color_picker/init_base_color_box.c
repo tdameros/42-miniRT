@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx.h"
-
+#include "mlx_wrapper.h"
 #include "engine.h"
 #include "gui/box.h"
 #include "colors.h"
@@ -56,43 +55,19 @@ void	init_base_color_box(t_engine *engine, t_gui_box *gui_box,
 	round_image_corners(&gui_box->image, 10);
 }
 
-#ifdef __linux__
-
-static void	base_color_box_draw(t_gui_box *self, t_engine *engine,
-				int x_offset, int y_offset)
-{
-	engine->gui.draw_gui_image(&engine->main_image, &self->image,
-		(t_vector2i){\
-			.x = self->position.x + x_offset, \
-			.y = self->position.y + y_offset}
-	);
-	if (mouse_is_hovering_box(&self->image, get_mouse_position(self, engine,
-				x_offset, y_offset)) == false)
-		return ;
-	add_hover_color_circle(self, engine, x_offset, y_offset);
-	engine->gui.draw_gui_image(&engine->main_image, &self->on_hover_image,
-		(t_vector2i){\
-			.x = self->position.x + x_offset, \
-			.y = self->position.y + y_offset});
-}
-#endif
-#ifdef __APPLE__
-
 static void	base_color_box_draw(t_gui_box *self, t_engine *engine,
 				t_draw_data draw_data)
 {
-	mlx_put_image_to_window(engine->window.mlx, engine->window.window,
-		self->image.data, self->position.x + draw_data.offset.x,
-		self->position.y + draw_data.offset.y);
+	const t_vector2i	position = {self->position.x + draw_data.offset.x,
+		self->position.y + draw_data.offset.y};
+
+	put_image(engine, &self->image, position);
 	if (is_mouse_hovering_box(self, draw_data.offset, &self->image,
 			draw_data.mouse_position) == false)
 		return ;
 	add_hover_color_circle(self, draw_data.offset, draw_data.mouse_position);
-	mlx_put_image_to_window(engine->window.mlx, engine->window.window,
-		self->on_hover_image.data, self->position.x + draw_data.offset.x,
-		self->position.y + draw_data.offset.y);
+	put_image(engine, &self->on_hover_image, position);
 }
-#endif
 
 static void	write_color_row(t_image *image, int y)
 {

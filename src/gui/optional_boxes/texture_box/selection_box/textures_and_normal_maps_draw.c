@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx.h"
-
+#include "mlx_wrapper.h"
 #include "engine.h"
 #include "gui/box.h"
 #include "gui/optional_boxes.h"
@@ -30,10 +29,8 @@ void	textures_and_normal_maps_draw(t_gui_box *self, t_engine *engine,
 		(t_vector2i){draw_data.offset.x + self->position.x, \
 					draw_data.offset.y + self->position.y},
 		draw_data.mouse_position});
-	mlx_put_image_to_window(engine->window.mlx, engine->window.window,
-		self->image.data, self->position.x + draw_data.offset.x,
-		self->position.y + draw_data.offset.y);
-	// TODO make a linux version of the function
+	put_image(engine, &self->image, (t_vector2i){self->position.x + draw_data.offset.x,
+		self->position.y + draw_data.offset.y});
 }
 
 static void	draw_ppm_boxes(t_engine *engine, int y, const t_draw_data draw_data)

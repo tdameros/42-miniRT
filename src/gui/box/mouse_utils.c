@@ -13,6 +13,7 @@
 #include "mlx.h"
 
 #include "gui/box.h"
+#include "mlx_wrapper.h"
 #include "gui/utils.h"
 #include "colors.h"
 
@@ -38,26 +39,3 @@ t_vector2i	get_mouse_position_in_box(const t_gui_box *self,
 	mouse_position.y -= box_offset.y + self->position.y;
 	return (mouse_position);
 }
-
-#ifdef __APPLE__
-
-t_vector2i	get_mouse_position(t_engine *engine)
-{
-	t_vector2i	mouse_position;
-
-	mlx_mouse_get_pos(engine->window.window,
-		&mouse_position.x, &mouse_position.y);
-	return (mouse_position);
-}
-#endif
-#ifdef __linux__
-
-t_vector2i	get_mouse_position(t_engine *engine)
-{
-	t_vector2i	mouse_position;
-
-	mlx_mouse_get_pos(engine->window.mlx, engine->window.window,
-		&mouse_position.x, &mouse_position.y);
-	return (mouse_position);
-}
-#endif

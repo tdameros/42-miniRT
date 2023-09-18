@@ -54,7 +54,7 @@ static void	update_ppm_boxes(t_engine *engine, char ***files,
 {
 	char	**new_files;
 
-	new_files = ft_get_files_in_directory(path, ".ppm");
+	new_files = ft_get_files_in_directory(path, ".ppm", true);
 	if (new_files == NULL)
 	{
 		ft_print_error("Warning: Failed to get files in directory: ");

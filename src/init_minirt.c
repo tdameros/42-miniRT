@@ -4,6 +4,7 @@
 #include "libft.h"
 #include "mlx.h"
 
+#include "mlx_wrapper.h"
 #include "gui/init.h"
 #include "events.h"
 #include "parsing.h"
@@ -41,13 +42,10 @@ int	init_engine(t_engine *engine, const char *start_up_scene,
 	engine->antialiasing = DEFAULT_ANTIALIASING_VALUE;
 	engine->quality.max_reduction = DEFAULT_MAX_RESOLUTION_REDUCTION;
 	engine->quality.min_reduction = DEFAULT_MIN_RESOLUTION_REDUCTION;
-	get_screen_size(&engine->window.size.x, &engine->window.size.y); // TODO check that screen size is not too small
-//	printf("%i, %i\n", engine->window.size.x, engine->window.size.y);
-//	exit(0);
-
 	engine->window.mlx = mlx_init();
 	if (engine->window.mlx == NULL)
 		return (-1);
+	get_screen_size(engine);
 	engine->window.window = mlx_new_window(engine->window.mlx,
 			engine->window.size.x, engine->window.size.y, "miniRT");
 	if (engine->window.window == NULL)

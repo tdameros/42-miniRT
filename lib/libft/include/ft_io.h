@@ -20,8 +20,7 @@
 char		*get_next_line_multi_fd(int fd);
 char		*get_next_line(int fd);
 
-char		**ft_get_files_in_directory(const char *path,
-				const char *extension);
+char		**ft_get_files_in_directory(const char *path, const char *extension, bool ignore_hidden_files);
 
 ssize_t		ft_print_error(const char *str);
 void		ft_print_position_in_code(const char *file, const char *function,

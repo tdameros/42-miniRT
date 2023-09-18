@@ -12,6 +12,8 @@ better_norminette.log
 # IDE
 .idea/
 .VSCode/
+.cache/
+.fleet/
 cmake-build-debug/
 
 # Executables

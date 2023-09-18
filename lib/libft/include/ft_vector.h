@@ -30,6 +30,8 @@ typedef struct s_vector
 }	t_vector;
 
 // str_vector
+void	ft_str_vector_delete_elem(t_vector *str_vector, const size_t index,
+			const bool keep_same_order);
 void	ft_str_vector_destroy(t_vector *str_vector);
 char	*ft_str_vector_get_elem(const t_vector *str_vector, size_t index);
 char	**ft_str_vector_to_strs(t_vector *vector, bool copy,

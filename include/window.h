@@ -38,7 +38,7 @@ typedef struct s_window
 
 # ifdef __APPLE__
 
-extern void	get_screen_size(int *x, int *y);
+extern void	get_screen_size_macos(int *x, int *y);
 # endif
 
 #endif

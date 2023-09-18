@@ -14,6 +14,7 @@
 
 #include "mlx.h"
 
+#include "mlx_wrapper.h"
 #include "engine.h"
 #include "gui/box.h"
 #include "gui/utils.h"
@@ -90,7 +91,7 @@ static void	toggle_camera_lock(t_engine *engine)
 		.y = engine->ray_traced_image.height / 2
 	};
 
-	mlx_mouse_move(engine->window.window, screen_center.x, screen_center.y);
+	mouse_move(engine, screen_center);
 	if (engine->camera.lock == true)
 	{
 		if (engine->gui.hide_animation.is_hidden == false)
@@ -102,12 +103,14 @@ static void	toggle_camera_lock(t_engine *engine)
 			engine->gui.should_show_gui_on_camera_lock = false;
 		engine->previous_mouse_position = screen_center;
 		engine->camera.lock = false;
-		mlx_mouse_hide();
+		mouse_hide(engine);
+		if (engine->object_being_placed.light || engine->object_being_placed.object)
+			engine->scene_changed = true;
 		return ;
 	}
 	if (engine->gui.should_show_gui_on_camera_lock
 		&& engine->gui.hide_animation.is_hidden)
 		toggle_gui(&engine->gui);
 	engine->camera.lock = true;
-	mlx_mouse_show();
+	mouse_show(engine);
 }

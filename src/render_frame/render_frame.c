@@ -23,10 +23,17 @@
 #include "font/render.h"
 #include "events.h"
 #include "hooks.h"
+#include "mlx_wrapper.h"
 
 #define FPS_GOAL 45.f
 #define FRAME_BEFORE_ADAPTION 20
 #define DEFAULT_INCREMENTER_VALUE 2
+
+#ifdef __linux__
+# define IS_LINUX true
+#else
+# define IS_LINUX false
+#endif
 
 static void			render_screen_shot_animation(t_engine *engine);
 static void			render_minirt(t_engine *engine, uint64_t start_time);
@@ -44,9 +51,11 @@ int	render_frame(t_engine *engine)
 	const struct timeval	start_time = ft_get_current_time();
 
 	render_minirt(engine, ft_timeval_to_ms(start_time));
+	render_screen_shot_animation(engine);
+	if (IS_LINUX)
+		mlx_put_image_to_window(engine->window.mlx, engine->window.window, engine->main_image.data, 0, 0);
 	if (engine->should_render_ray_tracing)
 		print_fps_counter(engine, start_time);
-	render_screen_shot_animation(engine);
 	return (0);
 }
 
@@ -70,27 +79,8 @@ static void	render_screen_shot_animation(t_engine *engine)
 	transparency = ft_clamp(transparency, 0, 255);
 	change_image_color(&engine->gui.screen_shot.image,
 		COLOR_WHITE | (transparency << 24));
-	mlx_put_image_to_window(engine->window.mlx, engine->window.window,
-		engine->gui.screen_shot.image.data, 0, 0); // TODO make linux version of this
+	put_image(engine, &engine->gui.screen_shot.image, (t_vector2i){0, 0});
 }
-
-#if defined __linux__
-
-static void	render_minirt(t_engine *minirt)
-{
-	render_raytracing(minirt);
-	if (minirt->gui.is_hidden && minirt->gui.hidden_ratio == 1.0)
-		mlx_put_image_to_window(minirt->window.mlx, minirt->window.window,
-								minirt->ray_traced_image.data, 0, 0);
-	else
-	{
-		put_background(&minirt->main_image, &minirt->ray_traced_image);
-		render_user_interface(minirt);
-		mlx_put_image_to_window(minirt->window.mlx, minirt->window.window,
-			minirt->main_image.data, 0, 0);
-	}
-}
-#elif defined __APPLE__
 
 static void	render_minirt(t_engine *engine, const uint64_t start_time)
 {
@@ -126,13 +116,9 @@ static void	render_minirt(t_engine *engine, const uint64_t start_time)
 					= vec_rgb_to_uint(engine->raytraced_pixels.data[i]);
 		engine->scene_changed = false;
 	}
-	mlx_put_image_to_window(engine->window.mlx, engine->window.window,
-		engine->ray_traced_image.data, 0, 0);
+	put_image(engine, &engine->ray_traced_image, (t_vector2i){0, 0});
 	render_user_interface(engine, start_time);
 }
-#else
-# error "Unsuported OS"
-#endif
 
 static int	get_incrementer(t_engine *engine)
 {
@@ -231,9 +217,8 @@ static int	deal_mouse(t_engine *engine)
 		}
 		else
 			return (0);
-		mlx_mouse_move(engine->window.window,
-			engine->ray_traced_image.width / 2,
-			engine->ray_traced_image.height / 2);
+		mouse_move(engine, (t_vector2i){engine->ray_traced_image.width / 2,
+			engine->ray_traced_image.height / 2});
 		engine->previous_mouse_position = (t_vector2i){
 			engine->window.size.x / 2, engine->window.size.y / 2};
 		return (1);
@@ -327,5 +312,5 @@ static void	update_mouse_position(t_engine *engine, t_vector2i *mouse_position)
 		mouse_position->y %= engine->ray_traced_image.height;
 	while (mouse_position->y < 0)
 		mouse_position->y += engine->ray_traced_image.height;
-	mlx_mouse_move(engine->window.window, mouse_position->x, mouse_position->y);
+	mouse_move(engine, *mouse_position);
 }

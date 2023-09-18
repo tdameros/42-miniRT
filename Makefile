@@ -242,6 +242,14 @@ SRC				=\
 	math/modulo.c		\
 	\
 	\
+	mlx_wrapper/get_mouse_position.c	\
+	mlx_wrapper/get_screen_size.c		\
+	mlx_wrapper/mouse_hide.c			\
+	mlx_wrapper/mouse_move.c			\
+	mlx_wrapper/mouse_show.c			\
+	mlx_wrapper/put_image.c				\
+	\
+	\
 	object/cone/create.c				\
 	object/cone/transformations.c		\
 	\
@@ -374,7 +382,7 @@ DEBUG_CLFAGS	=	-g3 -fsanitize=address -D DEFAULT_MAX_RESOLUTION_REDUCTION=100 -D
 OPTI_CFLAGS		=	-Ofast -march=native -flto -fno-signed-zeros -funroll-loops #-ffast-math
 #CFLAGS			=	$(BASE_CFLAGS) -g3
 CFLAGS			=	$(BASE_CFLAGS) $(OPTI_CFLAGS)
-#CFLAGS			=	$(BASE_CFLAGS) $(DEBUG_CLFAGS)
+# CFLAGS			=	$(BASE_CFLAGS) $(DEBUG_CLFAGS)
 #CFLAGS			=	$(BASE_CFLAGS) $(OPTI_CFLAGS) $(DEBUG_CLFAGS)
 RM				=	rm -rf
 AR				=	ar rcs

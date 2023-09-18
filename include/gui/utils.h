@@ -38,7 +38,6 @@ bool				is_mouse_hovering_box(const t_gui_box *gui_box,
 						t_vector2i mouse_position);
 t_vector2i			get_mouse_position_in_box(const t_gui_box *self,
 						t_vector2i box_offset, t_vector2i mouse_position);
-t_vector2i			get_mouse_position(t_engine *engine);
 
 t_boxes_to_create	get_boxes_size(const char *boxes_setup);
 void				create_horizontal_boxes(t_engine *engine,

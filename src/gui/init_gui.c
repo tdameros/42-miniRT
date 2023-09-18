@@ -44,6 +44,7 @@ void	init_gui(t_engine *engine)
 	engine->gui.fps.last_update = ft_get_current_time();
 	engine->gui.color_and_material.material_to_assign_to_new_objects
 		= material_create((t_color){0.f, 0.f, 1.f}, 0.f, 0.f);
+	engine->gui.hide_animation.hide_animation_finished = true;
 	init_boxes(engine);
 	init_message(engine);
 }
