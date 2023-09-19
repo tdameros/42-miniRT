@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 09:18:38 by tdameros          #+#    #+#             */
-/*   Updated: 2023/07/31 09:18:52 by tdameros         ###   ########lyon.fr   */
+/*   Updated: 2023/09/19 19:50:04 by vfries           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_engine
 	bool					scene_changed;
 	enum e_effect			post_processing_effect;
 	t_quality				quality;
+	uint64_t				last_frame_start_time;
 }	t_engine;
 
 int		init_engine(t_engine *engine, const char *start_up_scene,
