@@ -204,6 +204,11 @@ SRC				=\
 	image/round_image_corners_utils.c	\
 	\
 	\
+	interpolater/interpolate_main_lines.c	\
+	interpolater/interpolate_ray_tracing.c	\
+	interpolater/interpolate_sub_lines.c	\
+	\
+	\
 	light/light.c	\
 	light/lights.c	\
 	\
@@ -340,7 +345,6 @@ SRC				=\
 	ray_tracer/texture/normal.c			\
 	ray_tracer/texture/texture.c		\
 	\
-	ray_tracer/interpolate_ray_tracing.c	\
 	ray_tracer/post_processing.c			\
 	ray_tracer/render.c						\
 	ray_tracer/render_icon.c				\
@@ -372,20 +376,22 @@ SRC				=\
 	init_minirt.c		\
 	main.c
 
-DIR_BUILD		=	.build/
-OBJS			=	$(patsubst %.c, $(DIR_BUILD)%.o, $(SRC))
-DEPS			=	$(patsubst %.c, $(DIR_BUILD)%.d, $(SRC))
-DEPS_FLAGS		=	-MMD -MP
-BASE_CFLAGS		=	-Wall -Wextra -Werror
-DEBUG_CLFAGS	=	-g3 -fsanitize=address -D DEFAULT_MAX_RESOLUTION_REDUCTION=100 -D DEFAULT_MIN_RESOLUTION_REDUCTION=100 -D DEFAULT_ANTIALIASING_VALUE=0
+DIR_BUILD			=	.build/
+OBJS				=	$(patsubst %.c, $(DIR_BUILD)%.o, $(SRC))
+DEPS				=	$(patsubst %.c, $(DIR_BUILD)%.d, $(SRC))
+DEPS_FLAGS			=	-MMD -MP
+BASE_CFLAGS			=	-Wall -Wextra -Werror
+BASE_DEBUG_CFLAGS	=	-g3 -fsanitize=address -D DEFAULT_MAX_RESOLUTION_REDUCTION=50 -D DEFAULT_MIN_RESOLUTION_REDUCTION=50 -D DEFAULT_ANTIALIASING_VALUE=0
+DEBUG_CLFAGS		=	$(BASE_DEBUG_CFLAGS) -fsanitize=address
+# DEBUG_CLFAGS		=	$(BASE_DEBUG_CFLAGS) -fsanitize=memory -fsanitize-memory-track-origins
 #-ffast-math reduces calculation precision, need to check behaviour before using
-OPTI_CFLAGS		=	-Ofast -march=native -flto -fno-signed-zeros -funroll-loops #-ffast-math
-#CFLAGS			=	$(BASE_CFLAGS) -g3
-CFLAGS			=	$(BASE_CFLAGS) $(OPTI_CFLAGS)
+OPTI_CFLAGS			=	-Ofast -march=native -flto -fno-signed-zeros -funroll-loops #-ffast-math
+#CFLAGS				=	$(BASE_CFLAGS) -g3
+CFLAGS				=	$(BASE_CFLAGS) $(OPTI_CFLAGS)
 # CFLAGS			=	$(BASE_CFLAGS) $(DEBUG_CLFAGS)
-#CFLAGS			=	$(BASE_CFLAGS) $(OPTI_CFLAGS) $(DEBUG_CLFAGS)
-RM				=	rm -rf
-AR				=	ar rcs
+#CFLAGS				=	$(BASE_CFLAGS) $(OPTI_CFLAGS) $(DEBUG_CLFAGS)
+RM					=	rm -rf
+AR					=	ar rcs
 
 LIBFT_PATH		=	lib/libft/
 LIBFT_INCLUDES	=	$(LIBFT_PATH)include/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vfries <vfries@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 18:37:28 by vfries            #+#    #+#             */
-/*   Updated: 2023/05/07 18:37:46 by vfries           ###   ########.fr       */
+/*   Updated: 2023/09/20 18:14:53 by vfries           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ void	render_raytracing(t_engine *minirt, int incrementer);
 void	render_anti_aliased_raytracing(t_engine *minirt);
 void	render_icon(t_engine *minirt, unsigned int background_color);
 
-void	interpolate_ray_tracing(t_raytraced_pixels *pixels,
-								int incrementer);
 
 //	render_ray.c
 t_color	render_ray(t_ray ray, const t_scene *scene);
