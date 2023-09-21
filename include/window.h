@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 00:58:00 by tdameros          #+#    #+#             */
-/*   Updated: 2023/05/11 00:58:00 by tdameros         ###   ########lyon.fr   */
+/*   Updated: 2023/09/20 20:02:05 by vfries           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_window
 	void		*mlx;
 	void		*window;
 	t_vector2i	size;
+	bool		is_focused;
 }	t_window;
 
 # ifdef __APPLE__

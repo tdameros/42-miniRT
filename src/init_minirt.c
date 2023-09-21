@@ -50,6 +50,7 @@ int	init_engine(t_engine *engine, const char *start_up_scene,
 			engine->window.size.x, engine->window.size.y, "miniRT");
 	if (engine->window.window == NULL)
 		return (-1); // TODO: free mlx
+	engine->window.is_focused = true;
 	init_image(&engine->ray_traced_image, &engine->window,
 		engine->window.size.x, engine->window.size.y);
 	init_image(&engine->bvh_image, &engine->window,
@@ -95,6 +96,10 @@ static void	init_hooks(t_engine *engine)
 		&button_release_handler, engine);
 	mlx_hook(engine->window.window, DESTROY_NOTIFY, STRUCTURE_NOTIFY_MASK,
 		&close_engine, engine);
+	mlx_hook(engine->window.window, FOCUS_IN, FOCUS_CHANGE_MASK,
+		&focus_in_handler, engine);
+	mlx_hook(engine->window.window, FOCUS_OUT, FOCUS_CHANGE_MASK,
+		&focus_out_handler, engine);
 	mlx_loop_hook(engine->window.mlx, &render_frame, engine);
 }
 

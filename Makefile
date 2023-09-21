@@ -189,6 +189,7 @@ SRC				=\
 	\
 	hooks/button_press.c				\
 	hooks/button_release.c				\
+	hooks/focus_handler.c				\
 	hooks/key_press.c					\
 	hooks/key_release.c					\
 	hooks/pressed_keys.c				\
@@ -416,7 +417,7 @@ DEBUG_CLFAGS		=	$(BASE_DEBUG_CFLAGS) -fsanitize=address
 # DEBUG_CLFAGS		=	$(BASE_DEBUG_CFLAGS) -fsanitize=memory -fsanitize-memory-track-origins
 #-ffast-math reduces calculation precision, need to check behaviour before using
 OPTI_CFLAGS			=	-Ofast -march=native -flto -fno-signed-zeros -funroll-loops #-ffast-math
-#CFLAGS				=	$(BASE_CFLAGS) -g3
+# CFLAGS				=	$(BASE_CFLAGS) -g3
 CFLAGS				=	$(BASE_CFLAGS) $(OPTI_CFLAGS)
 # CFLAGS			=	$(BASE_CFLAGS) $(DEBUG_CLFAGS)
 #CFLAGS				=	$(BASE_CFLAGS) $(OPTI_CFLAGS) $(DEBUG_CLFAGS)

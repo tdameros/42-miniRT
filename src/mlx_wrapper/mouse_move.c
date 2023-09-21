@@ -6,6 +6,8 @@
 
 int	mouse_move(t_engine *engine, t_vector2i position)
 {
+	if (engine->window.is_focused == false)
+		return (0);
 	return (mlx_mouse_move(engine->window.window, position.x, position.y));
 	(void)engine;
 }
@@ -14,6 +16,9 @@ int	mouse_move(t_engine *engine, t_vector2i position)
 
 int	mouse_move(t_engine *engine, t_vector2i position)
 {
-	return (mlx_mouse_move(engine->window.mlx, engine->window.window, position.x, position.y));
+	if (engine->window.is_focused == false)
+		return (0);
+	return (mlx_mouse_move(engine->window.mlx, engine->window.window,
+			position.x, position.y));
 }
 #endif

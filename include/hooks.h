@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 10:45:44 by vfries            #+#    #+#             */
-/*   Updated: 2023/04/15 10:46:06 by vfries           ###   ########lyon.fr   */
+/*   Updated: 2023/09/20 20:02:43 by vfries           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int			button_release_handler(int button, int x, int y, t_engine *engine);
 int			button_press_handler(int button, int x, int y, t_engine *engine);
 int			key_press_handler(int key_code, t_engine *engine);
 int			key_release_handler(int key_code, t_engine *engine);
+int			focus_in_handler(t_engine *engine);
+int			focus_out_handler(t_engine *engine);
 
 void		add_key_to_pressed_keys(t_engine *engine, int key_code);
 void		remove_key_from_pressed_keys(t_engine *engine, int key_code);

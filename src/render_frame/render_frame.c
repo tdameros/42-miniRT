@@ -209,10 +209,9 @@ static int	deal_mouse(t_engine *engine)
 	float		yaw_delta;
 	float		pitch_delta;
 
-	if (engine->camera.lock == false)
+	if (engine->camera.lock == false && engine->window.is_focused)
 	{
 		mouse_position = get_mouse_position(engine);
-
 		yaw_delta = (engine->previous_mouse_position.x - mouse_position.x)
 			* engine->camera.rotation_speed;
 		pitch_delta = (engine->previous_mouse_position.y - mouse_position.y)
@@ -276,8 +275,9 @@ static void	update_placed_object_position(t_engine *engine)
 	float		yaw_delta;
 	float		pitch_delta;
 
-	if (engine->object_being_placed.object == NULL
-		&& engine->object_being_placed.light == NULL)
+	if ((engine->object_being_placed.object == NULL
+			&& engine->object_being_placed.light == NULL)
+		|| engine->window.is_focused == false)
 		return ;
 	mouse_position = get_mouse_position(engine);
 	yaw_delta = (engine->previous_mouse_position.x - mouse_position.x)
