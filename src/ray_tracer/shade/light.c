@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 23:27:00 by tdameros          #+#    #+#             */
-/*   Updated: 2023/07/02 23:27:00 by tdameros         ###   ########lyon.fr   */
+/*   Updated: 2023/09/21 17:06:07 by vfries           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_vector3f	calculate_light_contribution(const t_scene *scene,
 	reverse_light_direction = vector3f_subtract(light.position, \
 												object_hit.position);
 	reverse_light_direction = vector3f_unit(reverse_light_direction);
-	if (!scene->disable_shadow
+	if (scene->render_shadows
 		&& is_shadow_pixel(scene, light, object_hit, reverse_light_direction))
 		return (vector3f_create(0, 0, 0));
 	light_direction = vector3f_subtract(object_hit.position, light.position);

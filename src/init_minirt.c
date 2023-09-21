@@ -62,6 +62,7 @@ int	init_engine(t_engine *engine, const char *start_up_scene,
 
 	engine->should_render_ray_tracing = true;
 	engine->should_render_at_full_resolution = true;
+	engine->scene.render_shadows = true;
 
 	init_image(&engine->main_image, &engine->window, engine->window.size.x,
 		engine->window.size.y);

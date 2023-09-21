@@ -28,6 +28,8 @@ void		init_antialiasing_toggle_box(t_engine *engine, t_gui_box *gui_box,
 				int *y, t_gui_box *parent);
 void		init_cam_fov_box(t_engine *engine, t_gui_box *gui_box, int *y,
 				t_gui_box *parent);
+void		init_disable_shadows_box(t_engine *engine, t_gui_box *gui_box,
+				int *y, t_gui_box *parent);
 void		init_max_resolution_reduction_box(t_engine *engine,
 				t_gui_box *gui_box, int *y, t_gui_box *parent);
 void		init_min_resolution_reduction_box(t_engine *engine,

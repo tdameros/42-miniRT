@@ -12,6 +12,8 @@ static void	add_camera_settings_boxes(t_engine *engine, t_gui_box *gui_box,
 				int *y, int *i);
 static void	add_performance_settings_boxes(t_engine *engine,
 				t_gui_box *gui_box, int *y, int *i);
+static void	add_raytracing_settings_boxes(t_engine *engine, t_gui_box *gui_box,
+				int *y, int *i);
 
 void	init_settings_box(t_engine *engine, t_gui_box *gui_box,
 			const t_gui_box *main_gui_box, const t_gui_box *object_list_box)
@@ -28,7 +30,7 @@ static void	init_children_boxes(t_engine *engine, t_gui_box *gui_box)
 	create_n_horizontal_boxes(engine, gui_box, 1, (t_vector2i){
 		roundf(gui_box->size.y / 100.f), roundf(gui_box->size.y / 100.f)});
 	gui_box = gui_box->children.data;
-	gui_box->children.size = 5;
+	gui_box->children.size = 6;
 	gui_box->children.data = ft_calloc(gui_box->children.size,
 			sizeof(*gui_box->children.data));
 	if (gui_box->children.data == NULL)
@@ -37,6 +39,7 @@ static void	init_children_boxes(t_engine *engine, t_gui_box *gui_box)
 	i = 0;
 	add_camera_settings_boxes(engine, gui_box, &y, &i);
 	add_performance_settings_boxes(engine, gui_box, &y, &i);
+	add_raytracing_settings_boxes(engine, gui_box, &y, &i);
 }
 
 static void	add_camera_settings_boxes(t_engine *engine, t_gui_box *gui_box,
@@ -58,4 +61,11 @@ static void	add_performance_settings_boxes(t_engine *engine, t_gui_box *gui_box,
 		y, gui_box);
 	init_min_resolution_reduction_box(engine, gui_box->children.data + (*i)++,
 		y, gui_box);
+}
+
+static void	add_raytracing_settings_boxes(t_engine *engine, t_gui_box *gui_box,
+				int *y, int *i)
+{
+	init_disable_shadows_box(engine, gui_box->children.data + (*i)++, y,
+		gui_box);
 }
