@@ -27,6 +27,7 @@ typedef struct s_scene
 	t_objects					objects;
 	t_vectors_int				plane_indexes;
 	struct s_objects_bvh_node	*bvh_tree;
+	bool						disable_shadow;
 }	t_scene;
 
 #endif

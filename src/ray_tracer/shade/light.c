@@ -36,7 +36,8 @@ t_vector3f	calculate_light_contribution(const t_scene *scene,
 	reverse_light_direction = vector3f_subtract(light.position, \
 												object_hit.position);
 	reverse_light_direction = vector3f_unit(reverse_light_direction);
-	if (is_shadow_pixel(scene, light, object_hit, reverse_light_direction))
+	if (!scene->disable_shadow
+		&& is_shadow_pixel(scene, light, object_hit, reverse_light_direction))
 		return (vector3f_create(0, 0, 0));
 	light_direction = vector3f_subtract(object_hit.position, light.position);
 	light_direction = vector3f_unit(light_direction);
