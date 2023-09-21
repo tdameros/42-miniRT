@@ -36,8 +36,9 @@ t_hit	calculate_shadow_ray_intersection(const t_ray *ray,
 	{
 		hit = calculate_plane_distance(ray, scene->objects.data
 				+ scene->plane_indexes.data[index]);
+		hit.index_obj = scene->plane_indexes.data[index];
 		if (hit.distance > 0.f && hit.distance < light_distance)
-			return (hit_object(ray, scene->objects.data + index, hit));
+			return (hit);
 		index++;
 	}
 	bvh_hit = objects_bvh_calculate_light_intersection(ray,
