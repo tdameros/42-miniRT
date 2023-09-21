@@ -566,4 +566,5 @@ add_executable(42_miniRT
         src/ray_tracer/bvh/mesh/subdivide.c
         src/ray_tracer/bvh/mesh/tree.c
         src/ray_tracer/rays/intersections/mesh_bvh.c
-        src/ray_tracer/bvh/recalculate_bvh.c)
+        src/ray_tracer/bvh/recalculate_bvh.c
+        src/draw/bounding_box.c)

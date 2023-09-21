@@ -4,6 +4,7 @@ NAME			=	miniRT
 SRC_PATH		=	src/
 
 SRC				=\
+	draw/bounding_box.c		\
 	draw/draw.c				\
 	draw/draw_line.c		\
 	draw/mesh_bvh_node.c	\
