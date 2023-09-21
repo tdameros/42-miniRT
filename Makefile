@@ -412,14 +412,16 @@ OBJS				=	$(patsubst %.c, $(DIR_BUILD)%.o, $(SRC))
 DEPS				=	$(patsubst %.c, $(DIR_BUILD)%.d, $(SRC))
 DEPS_FLAGS			=	-MMD -MP
 BASE_CFLAGS			=	-Wall -Wextra -Werror
-BASE_DEBUG_CFLAGS	=	-g3 -fsanitize=address -D DEFAULT_MAX_RESOLUTION_REDUCTION=50 -D DEFAULT_MIN_RESOLUTION_REDUCTION=50 -D DEFAULT_ANTIALIASING_VALUE=0
+LOW_RESOLUTION_FLAGS = -D DEFAULT_MAX_RESOLUTION_REDUCTION=50 -D DEFAULT_MIN_RESOLUTION_REDUCTION=50 -D DEFAULT_ANTIALIASING_VALUE=0 -D X_SCREEN_SIZE=500 -D Y_SCREEN_SIZE=500
+BASE_DEBUG_CFLAGS	=	-g3 $(LOW_RESOLUTION_FLAGS)
 DEBUG_CLFAGS		=	$(BASE_DEBUG_CFLAGS) -fsanitize=address
 # DEBUG_CLFAGS		=	$(BASE_DEBUG_CFLAGS) -fsanitize=memory -fsanitize-memory-track-origins
 #-ffast-math reduces calculation precision, need to check behaviour before using
 OPTI_CFLAGS			=	-Ofast -march=native -flto -fno-signed-zeros -funroll-loops #-ffast-math
 # CFLAGS				=	$(BASE_CFLAGS) -g3
-CFLAGS				=	$(BASE_CFLAGS) $(OPTI_CFLAGS)
-# CFLAGS			=	$(BASE_CFLAGS) $(DEBUG_CLFAGS)
+# CFLAGS				=	$(BASE_CFLAGS) $(BASE_DEBUG_CFLAGS)
+# CFLAGS				=	$(BASE_CFLAGS) $(OPTI_CFLAGS)
+CFLAGS			=	$(BASE_CFLAGS) $(DEBUG_CLFAGS)
 #CFLAGS				=	$(BASE_CFLAGS) $(OPTI_CFLAGS) $(DEBUG_CLFAGS)
 RM					=	rm -rf
 AR					=	ar rcs
