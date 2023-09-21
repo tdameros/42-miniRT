@@ -20,7 +20,7 @@
 # include "colors.h"
 # include "material.h"
 # include "mesh.h"
-#include "math/matrix.h"
+# include "math/matrix.h"
 
 # define LIGHT (-1)
 
@@ -90,6 +90,14 @@ typedef struct s_object_size
 	float	height;
 }	t_object_size;
 
+typedef struct s_bounding_box
+{
+	t_vector3f	top_face[4];
+	t_vector3f	bottom_face[4];
+	t_vector3f	aabb_min;
+	t_vector3f	aabb_max;
+}	t_bounding_box;
+
 typedef struct s_object
 {
 	enum e_object_type		type;
@@ -102,6 +110,7 @@ typedef struct s_object
 	union u_object_cache	cache;
 	char					*name;
 	t_mesh					mesh;
+	t_bounding_box			bounding_box;
 }	t_object;
 
 typedef struct s_objects
@@ -116,6 +125,7 @@ typedef struct s_objects
 t_object	cone_create(const t_vector3f position, const t_vector3f axis,
 				const t_object_size size, const t_material material);
 void		cone_calculate_cache(t_object *cone);
+void		cone_calculate_bounding_box(t_object *cone);
 
 //	cone/transformations.c
 void		cone_move(t_object *cone, const t_vector3f movement_axis,
@@ -134,6 +144,7 @@ t_object	cylinder_infinite_create(const t_vector3f position,
 				const t_vector3f axis,
 				const float radius,
 				const t_material material);
+void		cylinder_calculate_bounding_box(t_object *cylinder);
 
 //	cylinder/transformations.c
 void		cylinder_move(t_object *cylinder, const t_vector3f movement_axis,
@@ -154,6 +165,7 @@ void		mesh_cache_free(t_mesh_object_cache *cache);
 int			mesh_object_initialize(t_object *mesh_object, const char *obj_file,
 				t_material material);
 void		mesh_free(t_mesh *mesh);
+void		mesh_calculate_bounding_box(t_object *mesh_object);
 
 // mesh/mesh_deep_copy.c
 int			mesh_deep_copy(t_mesh *dst, const t_mesh *src);
@@ -167,6 +179,10 @@ void		mesh_object_set_rotation(t_object *mesh_object,
 				const t_vector3f rotation_axis);
 void		mesh_object_set_scale(t_object *mesh_object,
 				const t_vector3f scale);
+//	mesh/utils.c
+t_vector3f	mesh_get_vertex_from_face(const t_object *mesh_object,
+										size_t face_index, int vertex_index);
+
 
 //	plane/create.c
 t_object	plane_create(const t_vector3f position, const t_vector3f normal,
@@ -184,6 +200,7 @@ void		plane_set_position(t_object *plane, const t_vector3f position);
 t_object	sphere_create(const t_vector3f position, const float radius,
 				const t_material material);
 void		sphere_calculate_cache(t_object *sphere);
+void		sphere_calculate_bounding_box(t_object *sphere);
 
 //	sphere/transformations.c
 void		sphere_move(t_object *sphere, const t_vector3f movement_axis,
@@ -200,6 +217,10 @@ int			add_object_in_objects(t_objects *objects, t_object object);
 int			remove_object_in_objects(t_objects *objects, size_t index);
 void		free_object(t_object *object);
 void		free_objects(t_objects *objects);
+
+//	bounding_box.c
+void		object_calculate_aabb_min_max(t_object *object);
+void		object_calculate_bounding_box(t_object *object);
 
 //	calculate_cache.c
 void		object_calculate_cache(t_object *object);

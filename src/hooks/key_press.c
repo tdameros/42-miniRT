@@ -54,6 +54,8 @@ static bool	handle_command_hooks(int key_code, t_engine *engine)
 
 static bool	handle_normal_hooks(int key_code, t_engine *engine)
 {
+	if (key_code == KEY_R)
+		ft_reverse_bool(&engine->display_bounding_box);
 	if (key_code == KEY_B)
 	{
 		engine->post_processing_effect

@@ -1,13 +1,18 @@
-cmake_minimum_required(VERSION 3.25)
-project(minirt)
+cmake_minimum_required(VERSION 3.26)
+project(42_miniRT C)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_C_STANDARD 11)
 
 include_directories(include)
+include_directories(include/font)
+include_directories(include/gui)
+include_directories(include/math)
+include_directories(include/ray_tracer)
 include_directories(lib/libft/include)
+include_directories(lib/libft/src/io/get_next_line)
 include_directories(lib/minilibx_opengl_20191021)
 
-add_executable(minirt
+add_executable(42_miniRT
         include/font/render.h
         include/font/rendering_structs.h
         include/font/ttf_parser.h
@@ -27,6 +32,7 @@ add_executable(minirt
         include/math/modulo.h
         include/math/quaternion.h
         include/math/vector.h
+        include/ray_tracer/bvh.h
         include/ray_tracer/camera.h
         include/ray_tracer/rays.h
         include/ray_tracer/render.h
@@ -234,8 +240,6 @@ add_executable(minirt
         lib/libft/src/vector/vector_get_ptr_to_elem.c
         lib/libft/src/vector/vector_minimize_size.c
         lib/minilibx_opengl_20191021/font.c
-        lib/minilibx_opengl_20191021/font.xcf
-        lib/minilibx_opengl_20191021/Makefile
         lib/minilibx_opengl_20191021/mlx.h
         lib/minilibx_opengl_20191021/mlx_init_loop.m
         lib/minilibx_opengl_20191021/mlx_int.h
@@ -403,13 +407,19 @@ add_executable(minirt
         src/hooks/redraw_icons.c
         src/hooks/toggle_gui.c
         src/hooks/update_color_picker_color.c
+        src/image/change_image_color.c
         src/image/destroy_t_image.c
-        src/image/draw_plus_minus.c
         src/image/draw_check_mark.c
+        src/image/draw_circle.c
         src/image/draw_outline.c
+        src/image/draw_plus_minus.c
         src/image/image.c
+        src/image/mix_colors.c
+        src/image/put_background.c
         src/image/put_image_to_image.c
+        src/image/put_image_to_image_unsafe.c
         src/image/round_image_corners.c
+        src/image/round_image_corners_utils.c
         src/light/light.c
         src/light/lights.c
         src/material/checkerboard.c
@@ -430,6 +440,7 @@ add_executable(minirt
         src/math/vector/vector2_math.c
         src/math/vector/vector2_operations.c
         src/math/vector/vector3.c
+        src/math/vector/vector3_limit.c
         src/math/vector/vector3_math.c
         src/math/vector/vector3_operations.c
         src/math/vector/vector3_rotation.c
@@ -470,6 +481,7 @@ add_executable(minirt
         src/parsing/line_parsing/utils/get_lighting_ratio.c
         src/parsing/line_parsing/utils/get_normalized_vector.c
         src/parsing/line_parsing/utils/get_position.c
+        src/parsing/line_parsing/utils/get_vector3f.c
         src/parsing/line_parsing/invalid_scene_content_line.c
         src/parsing/line_parsing/parse_ambient_light.c
         src/parsing/line_parsing/parse_camera.c
@@ -477,6 +489,7 @@ add_executable(minirt
         src/parsing/line_parsing/parse_cylinder.c
         src/parsing/line_parsing/parse_light.c
         src/parsing/line_parsing/parse_material.c
+        src/parsing/line_parsing/parse_mesh_object.c
         src/parsing/line_parsing/parse_plane.c
         src/parsing/line_parsing/parse_sphere.c
         src/parsing/obj_file/parse_line.c
@@ -486,6 +499,10 @@ add_executable(minirt
         src/parsing/parse_ppm_file.c
         src/parsing/parse_scene_content.c
         src/parsing/parsing.c
+        src/ray_tracer/bvh/objects/bounding_box.c
+        src/ray_tracer/bvh/objects/node.c
+        src/ray_tracer/bvh/objects/subdivide.c
+        src/ray_tracer/bvh/objects/tree.c
         src/ray_tracer/camera/create.c
         src/ray_tracer/camera/movement.c
         src/ray_tracer/camera/projection.c
@@ -499,6 +516,7 @@ add_executable(minirt
         src/ray_tracer/rays/intersections/cylinder_infinite.c
         src/ray_tracer/rays/intersections/intersection.c
         src/ray_tracer/rays/intersections/mesh.c
+        src/ray_tracer/rays/intersections/objects_bvh.c
         src/ray_tracer/rays/intersections/plane.c
         src/ray_tracer/rays/intersections/sphere.c
         src/ray_tracer/rays/context.c
@@ -520,12 +538,32 @@ add_executable(minirt
         src/render_frame/print_fps_counter.c
         src/render_frame/render_frame.c
         src/render_frame/render_user_interface.c
+        src/threads/get_routine_data.c
+        src/threads/mutex.c
+        src/threads/threads.c
+        src/threads/threads_private_header.h
         src/vectors/mesh_faces.c
         src/vectors/vectors3f.c
         src/vectors/vectors3f_utils.c
         src/vectors/vectors3i.c
+        src/vectors/vectors_int.c
         src/close_miniRT.c
         src/color.c
         src/init_minirt.c
         src/main.c
-        src/threads/threads.c src/parsing/line_parsing/parse_mesh_object.c src/parsing/line_parsing/utils/get_vector3f.c src/threads/mutex.c src/threads/threads_private_header.h src/threads/get_routine_data.c src/image/draw_circle.c src/image/change_image_color.c src/image/round_image_corners_utils.c src/image/put_background.c src/image/mix_colors.c src/image/put_image_to_image_unsafe.c)
+        src/draw/draw.c
+        src/draw/draw_line.c
+        src/draw/objects_bvh_node.c
+        src/ray_tracer/rays/intersections/aabb.c
+        src/ray_tracer/rays/intersections/aabb.c
+        src/ray_tracer/rays/intersections/light.c
+        src/object/bounding_box.c
+        src/ray_tracer/rays/hit.c
+        src/object/mesh/utils.c
+        src/ray_tracer/bvh/mesh/node.c
+        src/draw/mesh_bvh_node.c
+        src/ray_tracer/bvh/mesh/bounding_box.c
+        src/ray_tracer/bvh/mesh/subdivide.c
+        src/ray_tracer/bvh/mesh/tree.c
+        src/ray_tracer/rays/intersections/mesh_bvh.c
+        src/ray_tracer/bvh/recalculate_bvh.c)

@@ -31,6 +31,8 @@ void	scale_input_box_y_on_click_plus(t_gui_box *self, t_engine *engine,
 	engine->scene_changed = true;
 	update_xyz_float_input_boxes(engine, object->cache.mesh.scale_vector,
 		&engine->gui.float_input_boxes.scale);
+	if (recalculate_bvh_scene(&engine->scene, object) < 0)
+		ft_fatal_error("scale_input_box_y_on_click_plus: recalculate_bvh_scene failed");
 }
 
 void	scale_input_box_y_on_click_minus(t_gui_box *self, t_engine *engine,
@@ -49,6 +51,8 @@ void	scale_input_box_y_on_click_minus(t_gui_box *self, t_engine *engine,
 	engine->scene_changed = true;
 	update_xyz_float_input_boxes(engine, object->cache.mesh.scale_vector,
 		&engine->gui.float_input_boxes.scale);
+	if (recalculate_bvh_scene(&engine->scene, object) < 0)
+		ft_fatal_error("scale_input_box_y_on_click_minus: recalculate_bvh_scene failed");
 }
 
 void	scale_input_box_y_on_click_text(t_gui_box *self, t_engine *engine,

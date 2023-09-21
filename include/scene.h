@@ -17,13 +17,16 @@
 
 # include "object.h"
 # include "light.h"
+# include "vectors.h"
 
 typedef struct s_scene
 {
-	t_objects	objects;
-	t_lights	lights;
-	t_light		ambient_light;
-	t_vector3f	sky_color;
+	t_lights					lights;
+	t_light						ambient_light;
+	t_vector3f					sky_color;
+	t_objects					objects;
+	t_vectors_int				plane_indexes;
+	struct s_objects_bvh_node	*bvh_tree;
 }	t_scene;
 
 #endif

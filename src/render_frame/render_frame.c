@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_frame.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: vfries <vfries@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 18:12:50 by vfries            #+#    #+#             */
-/*   Updated: 2023/09/20 19:23:23 by vfries           ###   ########lyon.fr   */
+/*   Updated: 2023/05/07 18:38:22 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 #include "events.h"
 #include "hooks.h"
 #include "mlx_wrapper.h"
+#include "object.h"
 #include "interpolater.h"
 
 #define FPS_GOAL 45.f
@@ -97,6 +98,7 @@ static void	render_minirt(t_engine *engine, const uint64_t start_time)
 		render_raytracing(engine, incrementer);
 		if (incrementer > 1)
 			interpolate_ray_tracing(&engine->raytraced_pixels, incrementer);
+
 		for (size_t i = 0; i < engine->ray_traced_image.size; i++)
 			engine->ray_traced_image.address[i]
 				= vec_rgb_to_uint(engine->raytraced_pixels.data[i]);
@@ -120,6 +122,8 @@ static void	render_minirt(t_engine *engine, const uint64_t start_time)
 		engine->scene_changed = false;
 	}
 	put_image(engine, &engine->ray_traced_image, (t_vector2i){0, 0});
+	render_bounding_box(engine);
+	put_image(engine, &engine->bvh_image, (t_vector2i){0, 0});
 	render_user_interface(engine, start_time);
 }
 
@@ -235,9 +239,9 @@ static int	deal_mouse(t_engine *engine)
 static void	deal_keys(t_engine *engine, const uint64_t start_time)
 {
 	const float	time_since_last_frame = start_time
-		- engine->last_frame_start_time;
+										   - engine->last_frame_start_time;
 	const float	movement_ratio = time_since_last_frame
-		/ TIME_FOR_FULL_DEFAULT_MOVEMENT_MS;
+									/ TIME_FOR_FULL_DEFAULT_MOVEMENT_MS;
 	const float	movement = DEFAULT_MOUVEMENT * movement_ratio;
 	int			i;
 
@@ -262,6 +266,7 @@ static void	deal_keys(t_engine *engine, const uint64_t start_time)
 			camera_peek(&engine->camera, movement * 10.f);
 	}
 }
+
 
 static void	update_placed_object_position(t_engine *engine)
 {
@@ -296,6 +301,8 @@ static void	update_placed_object_position(t_engine *engine)
 		update_xyz_float_input_boxes(engine,
 			engine->object_being_placed.object->position,
 			&engine->gui.float_input_boxes.position);
+		if (recalculate_bvh_scene(&engine->scene, engine->object_being_placed.object) < 0)
+			ft_fatal_error("update_placed_object_position: recalculate_bvh_scene failed");
 	}
 	else
 	{

@@ -20,6 +20,7 @@
 # include "scene.h"
 # include "object.h"
 # include "camera.h"
+# include "ray_tracer/bvh.h"
 
 # define HIT_DISPLACEMENT 0.01f
 
@@ -52,8 +53,17 @@ typedef struct s_hit
 	t_vector3f			shade_normal;
 	t_ray				ray;
 	t_vector3f			albedo;
+	ssize_t				index_obj;
 	enum e_hit_context	context;
 }	t_hit;
+
+t_hit	calculate_shadow_ray_intersection(const t_ray *ray,
+										   const float light_distance,
+										   const t_scene *scene);
+
+//	intersections/aabb.c
+bool		ray_intersect_aabb(const t_ray *ray, const t_vector3f aabb_min,
+				const t_vector3f aabb_max, float near_distance);
 
 //	intersections/cone.c
 t_hit		hit_cone(const t_ray *ray, const t_object *cone,
@@ -95,6 +105,19 @@ t_hit		miss_hit(void);
 t_hit		hit_object(const t_ray *ray, const t_object *object,
 				t_hit hit_distance);
 
+//	intersections/mesh.c
+t_hit		calculate_mesh_distance(const t_ray *ray, const t_object *mesh);
+t_hit		hit_mesh(const t_ray *ray, const t_object *mesh,
+					  const t_hit hit_distance);
+
+//	intersections/objects_bvh.c
+t_hit		mesh_bvh_calculate_ray_intersection(const t_ray *ray, const t_mesh_bvh_node *tree);
+
+
+//	intersections/objects_bvh.c
+t_hit		objects_bvh_calculate_ray_intersection(const t_ray *ray,
+													const t_objects_bvh_node *tree);
+
 //	intersections/plane.c
 t_hit		hit_plane(const t_ray *ray, const t_object *plane,
 				const t_hit hit_distance);
@@ -105,15 +128,13 @@ t_hit		hit_sphere(const t_ray *ray, const t_object *sphere,
 				const t_hit hit_distance);
 t_hit		calculate_sphere_distance(const t_ray *ray, const t_object *sphere);
 
-//	intersections/mesh.c
-t_hit		calculate_mesh_distance(const t_ray *ray, const t_object *mesh);
-t_hit		hit_mesh(const t_ray *ray, const t_object *mesh,
-				const t_hit hit_distance);
-
 //	context.c
 bool		is_cap_context(enum e_hit_context context);
 bool		context_has_normal_map(enum e_hit_context context,
 				const t_material *material);
+
+//	hit.c
+t_hit		min_hit(t_hit hit, t_hit near_hit);
 
 //	ray.c
 t_ray		ray_create(const t_vector3f origin, const t_vector3f direction);

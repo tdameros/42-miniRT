@@ -45,5 +45,6 @@ int	parse_scene(t_engine *engine, const char *start_up_scene)
 	}
 	update_object_list_icons(engine);
 	free_scene_content(scene_content);
+	engine->scene.bvh_tree = objects_bvh_create_tree(&engine->scene.objects);
 	return (0);
 }

@@ -13,6 +13,7 @@
 #include <math.h>
 #include "engine.h"
 #include "ray_tracer/render.h"
+#include "ray_tracer_gui_api.h"
 #include "gui/utils.h"
 
 static void			tmp_camera_create(t_camera *camera, t_vector2f viewport);
@@ -43,10 +44,15 @@ void	draw_icon(t_image *image, const t_object *object, const t_light *light,
 	tmp_camera_create(&tmp_engine.camera,
 		(t_vector2f){image->width, image->height});
 	init_tmp_scene(&tmp_engine, object, sky_color);
+	// TODO: secure it
+	(void) (sky_color);
+	(void) init_tmp_scene;
+	recalculate_bvh_scene(&tmp_engine.scene, tmp_engine.scene.objects.data);
 	render_icon(&tmp_engine, background_color);
+	objects_bvh_free_tree(tmp_engine.scene.bvh_tree);
 //	free(tmp_engine.camera.rays);
 //	free_objects(&tmp_engine.scene.objects); // TODO causes use after free! (need to make deep copy of object)
-	free_lights(&tmp_engine.scene.lights);
+//	free_lights(&tmp_engine.scene.lights);
 }
 
 static void	tmp_camera_create(t_camera *camera, t_vector2f viewport)
@@ -95,7 +101,14 @@ static void	init_tmp_scene(t_engine *tmp_engine, const t_object *base_object,
 		object = get_cone(&tmp_engine->camera, base_object->material);
 	else
 		object = get_mesh_object(&tmp_engine->camera, base_object);
+
 	add_object_in_objects(&tmp_engine->scene.objects, object);
+	if (object.type == PLANE)
+	{
+		vectors_int_initialize(&tmp_engine->scene.plane_indexes, 1);
+		vectors_int_add(&tmp_engine->scene.plane_indexes,
+						tmp_engine->scene.objects.length - 1);
+	}
 	// TODO exit on error
 
 	light = light_create(vector3f_create(5, 5, 5), vector3f_create(1, 1, 1),

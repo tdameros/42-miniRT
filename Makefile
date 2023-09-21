@@ -4,6 +4,12 @@ NAME			=	miniRT
 SRC_PATH		=	src/
 
 SRC				=\
+	draw/draw.c				\
+	draw/draw_line.c		\
+	draw/mesh_bvh_node.c	\
+	draw/objects_bvh_node.c	\
+	\
+	\
 	export/scene/datetime.c	\
 	export/scene/material.c	\
 	export/scene/object.c	\
@@ -235,6 +241,7 @@ SRC				=\
 	math/vector/vector2_math.c			\
 	math/vector/vector2_operations.c	\
 	math/vector/vector3.c				\
+	math/vector/vector3_limit.c			\
 	math/vector/vector3_math.c			\
 	math/vector/vector3_operations.c	\
 	math/vector/vector3_rotation.c		\
@@ -265,6 +272,7 @@ SRC				=\
 	object/mesh/create.c				\
 	object/mesh/mesh_deep_copy.c		\
 	object/mesh/transformations.c		\
+	object/mesh/utils.c					\
 	\
 	object/plane/create.c				\
 	object/plane/transformations.c		\
@@ -272,6 +280,7 @@ SRC				=\
 	object/sphere/create.c				\
 	object/sphere/transformations.c		\
 	\
+	object/bounding_box.c			\
 	object/object_deep_copy.c		\
 	object/objects.c				\
 	object/transformations.c		\
@@ -317,6 +326,19 @@ SRC				=\
 	parsing/parsing.c				\
 	\
 	\
+	ray_tracer/bvh/mesh/bounding_box.c		\
+	ray_tracer/bvh/mesh/node.c				\
+	ray_tracer/bvh/mesh/subdivide.c			\
+	ray_tracer/bvh/mesh/tree.c				\
+	\
+	ray_tracer/bvh/objects/bounding_box.c	\
+	ray_tracer/bvh/objects/node.c			\
+	ray_tracer/bvh/objects/subdivide.c		\
+	ray_tracer/bvh/objects/tree.c			\
+	\
+	ray_tracer/bvh/recalculate_bvh.c		\
+	\
+	\
 	ray_tracer/camera/create.c		\
 	ray_tracer/camera/movement.c	\
 	ray_tracer/camera/projection.c	\
@@ -324,17 +346,22 @@ SRC				=\
 	ray_tracer/camera/rotation.c	\
 	ray_tracer/camera/view.c		\
 	\
+	ray_tracer/rays/intersections/aabb.c				\
 	ray_tracer/rays/intersections/cone.c				\
 	ray_tracer/rays/intersections/cone_utils.c			\
 	ray_tracer/rays/intersections/cylinder.c			\
 	ray_tracer/rays/intersections/cylinder_caps.c		\
 	ray_tracer/rays/intersections/cylinder_infinite.c	\
 	ray_tracer/rays/intersections/intersection.c		\
+	ray_tracer/rays/intersections/light.c				\
 	ray_tracer/rays/intersections/mesh.c				\
 	ray_tracer/rays/intersections/plane.c				\
 	ray_tracer/rays/intersections/sphere.c				\
+	ray_tracer/rays/intersections/objects_bvh.c			\
+	ray_tracer/rays/intersections/mesh_bvh.c			\
 	\
 	ray_tracer/rays/context.c		\
+	ray_tracer/rays/hit.c			\
 	ray_tracer/rays/rays.c			\
 	\
 	ray_tracer/shade/light.c	\
@@ -370,6 +397,7 @@ SRC				=\
 	vectors/vectors3f.c			\
 	vectors/vectors3f_utils.c	\
 	vectors/vectors3i.c			\
+	vectors/vectors_int.c		\
 	\
 	close_miniRT.c		\
 	color.c				\

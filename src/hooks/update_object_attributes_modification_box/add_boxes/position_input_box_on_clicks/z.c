@@ -40,6 +40,8 @@ void	position_input_box_z_on_click_plus(t_gui_box *self, t_engine *engine,
 			engine->gui.object_modification_amount);
 		update_xyz_float_input_boxes(engine, object->position,
 			&engine->gui.float_input_boxes.position);
+		if (recalculate_bvh_scene(&engine->scene, object) < 0)
+			ft_fatal_error("position_input_box_z_on_click_plus: recalculate_bvh_scene failed");
 	}
 }
 
@@ -69,6 +71,8 @@ void	position_input_box_z_on_click_minus(t_gui_box *self, t_engine *engine,
 			-engine->gui.object_modification_amount);
 		update_xyz_float_input_boxes(engine, object->position,
 			&engine->gui.float_input_boxes.position);
+		if (recalculate_bvh_scene(&engine->scene, object) < 0)
+			ft_fatal_error("position_input_box_z_on_click_minus: recalculate_bvh_scene failed");
 	}
 }
 

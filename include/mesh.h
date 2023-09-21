@@ -17,6 +17,8 @@
 
 # define NO_VALID_FACES_FOUND -2
 
+# define MESH_MINIMUM_SCALE 0.001f
+
 typedef struct s_mesh
 {
 	t_vectors3f		base_vertex;
@@ -24,6 +26,7 @@ typedef struct s_mesh
 	t_vector3f		vertex_max;
 	t_vectors3f		base_normals;
 	t_mesh_faces	faces;
+	struct s_mesh_bvh_node	*tree;
 }	t_mesh;
 
 int	initialize_mesh_with_obj(t_mesh *mesh, const char *file_name);

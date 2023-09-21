@@ -57,6 +57,7 @@ typedef struct s_engine
 	t_gui					gui;
 	t_image					main_image;
 	t_image					ray_traced_image;
+	t_image					bvh_image;
 	t_raytraced_pixels		raytraced_pixels;
 	t_camera				camera;
 	t_scene					scene;
@@ -71,6 +72,7 @@ typedef struct s_engine
 	bool					should_render_at_full_resolution; // enum {NO_RENDER, RENDER, FULL_RENDER}
 	bool					antialiasing;
 	bool					scene_changed;
+	bool					display_bounding_box;
 	enum e_effect			post_processing_effect;
 	t_quality				quality;
 	uint64_t				last_frame_start_time;

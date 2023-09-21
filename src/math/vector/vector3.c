@@ -29,19 +29,11 @@ void	vector3f_print(t_vector3f vector)
 	printf("Vector3 => x:%f y:%f, z:%f\n", vector.x, vector.y, vector.z);
 }
 
-t_vector3f	vector3f_clamp(t_vector3f vector, float min, float max)
+float	vector3f_get(t_vector3f vector, t_axis axis)
 {
-	if (vector.x < min)
-		vector.x = min;
-	if (vector.y < min)
-		vector.y = min;
-	if (vector.z < min)
-		vector.z = min;
-	if (vector.x > max)
-		vector.x = max;
-	if (vector.y > max)
-		vector.y = max;
-	if (vector.z > max)
-		vector.z = max;
-	return (vector);
+	if (axis == X_AXIS)
+		return (vector.x);
+	else if (axis == Y_AXIS)
+		return (vector.y);
+	return (vector.z);
 }

@@ -14,7 +14,7 @@
 #include "ray_tracer/render.h"
 #include "threads.h"
 
-#define PIXEL_DIVISION 2.f
+#define PIXEL_DIVISION 3.f
 
 static void			*render_raytracing_routine(void *arg_void);
 static t_vector3f	get_antialiased_pixel(const t_engine *engine, int x, int y);
