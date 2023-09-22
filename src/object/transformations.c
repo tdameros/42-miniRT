@@ -28,28 +28,16 @@ void	object_move(t_object *object, const t_vector3f movement_axis,
 }
 
 void	object_rotate(t_object *object, const t_vector3f rotation_axis,
-						const float distance)
+			const float degrees)
 {
 	object->axis_degrees = vector3f_add(object->axis_degrees,
-			vector3f_multiply(rotation_axis, distance));
-	if (object->axis_degrees.x >= 360.f)
-		object->axis_degrees.x = (int)object->axis_degrees.x % 360;
-	if (object->axis_degrees.y >= 360.f)
-		object->axis_degrees.y = (int)object->axis_degrees.y % 360;
-	if (object->axis_degrees.z >= 360.f)
-		object->axis_degrees.z = (int)object->axis_degrees.z % 360;
-	while (object->axis_degrees.x < 0.f)
-		object->axis_degrees.x += 360.f;
-	while (object->axis_degrees.y < 0.f)
-		object->axis_degrees.y += 360.f;
-	while (object->axis_degrees.z < 0.f)
-		object->axis_degrees.z += 360.f;
+			vector3f_multiply(rotation_axis, degrees));
 	if (object->type == CONE)
-		cone_rotate(object, rotation_axis, distance);
+		cone_rotate(object, object->axis_degrees);
 	else if (object->type == CYLINDER || object->type == CYLINDER_INF)
-		cylinder_rotate(object, rotation_axis, distance);
+		cylinder_rotate(object, object->axis_degrees);
 	else if (object->type == PLANE)
-		plane_rotate(object, rotation_axis, distance);
+		plane_rotate(object, object->axis_degrees);
 	else if (object->type == MESH)
 		mesh_object_set_rotation(object, object->axis_degrees);
 }

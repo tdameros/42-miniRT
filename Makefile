@@ -285,6 +285,7 @@ SRC				=\
 	\
 	object/bounding_box.c			\
 	object/object_deep_copy.c		\
+	object/clamp_rotation_degrees.c	\
 	object/objects.c				\
 	object/transformations.c		\
 	object/calculate_cache.c		\
@@ -306,6 +307,7 @@ SRC				=\
 	parsing/line_parsing/utils/get_lighting_ratio.c			\
 	parsing/line_parsing/utils/get_normalized_vector.c		\
 	parsing/line_parsing/utils/get_position.c				\
+	parsing/line_parsing/utils/get_rotation.c				\
 	parsing/line_parsing/utils/get_vector3f.c				\
 	\
 	parsing/line_parsing/invalid_scene_content_line.c	\
@@ -419,10 +421,11 @@ DEBUG_CLFAGS		=	$(BASE_DEBUG_CFLAGS) -fsanitize=address
 #-ffast-math reduces calculation precision, need to check behaviour before using
 OPTI_CFLAGS			=	-Ofast -march=native -flto -fno-signed-zeros -funroll-loops #-ffast-math
 # CFLAGS				=	$(BASE_CFLAGS) -g3
+# CFLAGS				=	$(BASE_CFLAGS) $(OPTI_CFLAGS) -g3
 # CFLAGS				=	$(BASE_CFLAGS) $(BASE_DEBUG_CFLAGS)
-# CFLAGS				=	$(BASE_CFLAGS) $(OPTI_CFLAGS)
-CFLAGS			=	$(BASE_CFLAGS) $(DEBUG_CLFAGS)
-#CFLAGS				=	$(BASE_CFLAGS) $(OPTI_CFLAGS) $(DEBUG_CLFAGS)
+CFLAGS				=	$(BASE_CFLAGS) $(OPTI_CFLAGS)
+# CFLAGS			=	$(BASE_CFLAGS) $(DEBUG_CLFAGS)
+# CFLAGS				=	$(BASE_CFLAGS) $(OPTI_CFLAGS) $(DEBUG_CLFAGS)
 RM					=	rm -rf
 AR					=	ar rcs
 

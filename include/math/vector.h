@@ -84,6 +84,7 @@ float		vector2f_dot(t_vector2f v1, t_vector2f v2);
 t_vector3f	vector3f_create(float x, float y, float z);
 void		vector3f_print(t_vector3f vector);
 float		vector3f_get(t_vector3f vector, t_axis axis);
+t_vector3f	get_normal_from_rotation(const t_vector3f rotation_degrees);
 
 //	vector3_limit.c
 t_vector3f	vector3f_clamp(t_vector3f vector, float min, float max);

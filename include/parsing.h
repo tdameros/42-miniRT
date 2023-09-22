@@ -57,6 +57,8 @@ int							get_normalized_vector(const char *vector_string,
 								t_vector3f *vector_destination);
 int							get_position(const char *position_string,
 								t_vector3f *position_destination);
+int							get_rotation(const char *rotation_string,
+								t_vector3f *rotation_destination);
 int							get_vector3f(const char *vector3f_string,
 								t_vector3f *vector3f_destination);
 

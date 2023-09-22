@@ -79,6 +79,8 @@ static t_vector3f	get_normal_in_map(const t_vector2f uv,
 	reverse_uv.y = 1 - uv.y;
 	x = (int) roundf(uv.x * (float)(surface.normals_map.width - 1));
 	y = (int) roundf(uv.y * (float)(surface.normals_map.height - 1));
+	x = ft_clamp(x, 0, surface.normals_map.width - 1);
+	y = ft_clamp(y, 0, surface.normals_map.height - 1);
 	normal = surface.normals_map.pixels[y * surface.normals_map.width + x];
 	normal = vector3f_subtract(vector3f_multiply(normal, 2),
 			vector3f_create(1, 1, 1));

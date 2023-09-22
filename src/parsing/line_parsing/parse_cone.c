@@ -24,7 +24,7 @@ int	parse_cone(t_engine *engine, char **scene_content_line,
 		return (error("Error\nFailed to get cone line\n"));
 	if (get_position(scene_content_line[1], &cone.position) < 0)
 		return (error("Error\nFailed to get cone position\n"));
-	if (get_normalized_vector(scene_content_line[2], &cone.axis) < 0)
+	if (get_rotation(scene_content_line[2], &cone.axis_degrees) < 0)
 		return (error("Error\nFailed to get cone orientation\n"));
 	if (get_float(scene_content_line[3], &cone.radius) < 0)
 		return (error("Error\nFailed to get cone radius\n"));
@@ -34,7 +34,7 @@ int	parse_cone(t_engine *engine, char **scene_content_line,
 	if (get_color(scene_content_line[5], &cone.material.albedo) < 0)
 		return (error("Error\nFailed to get cone albedo\n"));
 	cone.material.albedo = vector3f_divide(cone.material.albedo, 255.f);
-	cone = cone_create(cone.position, cone.axis, \
+	cone = cone_create(cone.position, cone.axis_degrees, \
 		(t_object_size){cone.radius, cone.height}, cone.material);
 	if (add_object(engine, cone) < 0)
 		return (free_object(&cone), -1);

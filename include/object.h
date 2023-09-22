@@ -122,7 +122,8 @@ typedef struct s_objects
 
 
 //	cone/create.c
-t_object	cone_create(const t_vector3f position, const t_vector3f axis,
+t_object	cone_create(const t_vector3f position,
+				const t_vector3f rotation_degrees,
 				const t_object_size size, const t_material material);
 void		cone_calculate_cache(t_object *cone);
 void		cone_calculate_bounding_box(t_object *cone);
@@ -130,14 +131,14 @@ void		cone_calculate_bounding_box(t_object *cone);
 //	cone/transformations.c
 void		cone_move(t_object *cone, const t_vector3f movement_axis,
 				const float distance);
-void		cone_rotate(t_object *cone, const t_vector3f rotation_axis,
-				const float degrees);
+void		cone_rotate(t_object *cone, const t_vector3f rotation_degrees);
 void		cone_set_position(t_object *cone, const t_vector3f position);
 void		cone_set_height(t_object *cone, const float height);
 void		cone_set_radius(t_object *cone, const float radius);
 
 //	cylinder/create.c
-t_object	cylinder_create(const t_vector3f position, const t_vector3f axis,
+t_object	cylinder_create(const t_vector3f position,
+				const t_vector3f rotation_degrees,
 				const t_object_size size, const t_material material);
 void		cylinder_calculate_cache(t_object *cylinder);
 t_object	cylinder_infinite_create(const t_vector3f position,
@@ -149,8 +150,8 @@ void		cylinder_calculate_bounding_box(t_object *cylinder);
 //	cylinder/transformations.c
 void		cylinder_move(t_object *cylinder, const t_vector3f movement_axis,
 				const float distance);
-void		cylinder_rotate(t_object *cylinder, const t_vector3f rotation_axis,
-				const float degrees);
+void		cylinder_rotate(t_object *cylinder,
+				const t_vector3f rotation_degrees);
 void		cylinder_set_position(t_object *cylinder,
 				const t_vector3f position);
 void		cylinder_set_height(t_object *cylinder, const float height);
@@ -176,7 +177,7 @@ void		mesh_object_move(t_object *mesh_object,
 void		mesh_object_set_position(t_object *mesh_object,
 				const t_vector3f position);
 void		mesh_object_set_rotation(t_object *mesh_object,
-				const t_vector3f rotation_axis);
+				const t_vector3f rotation_degrees);
 void		mesh_object_set_scale(t_object *mesh_object,
 				const t_vector3f scale);
 //	mesh/utils.c
@@ -185,15 +186,14 @@ t_vector3f	mesh_get_vertex_from_face(const t_object *mesh_object,
 
 
 //	plane/create.c
-t_object	plane_create(const t_vector3f position, const t_vector3f normal,
-				const t_material material);
+t_object	plane_create(const t_vector3f position,
+				const t_vector3f rotation_degrees, const t_material material);
 void		plane_calculate_cache(t_object *plane);
 
 //	plane/transformations.c
 void		plane_move(t_object *plane, const t_vector3f movement_axis,
 				const float distance);
-void		plane_rotate(t_object *plane, const t_vector3f rotation_axis,
-				const float degrees);
+void		plane_rotate(t_object *plane, const t_vector3f rotation_degrees);
 void		plane_set_position(t_object *plane, const t_vector3f position);
 
 //	sphere/create.c
@@ -210,6 +210,9 @@ void		sphere_set_radius(t_object *sphere, const float radius);
 
 // object_deep_copy.c
 int			object_deep_copy(t_object *dst, const t_object *src);
+
+// clamp_rotation_degrees.c
+t_vector3f	clamp_rotation_degrees(t_vector3f rotation_degrees);
 
 //	objects.c
 int			initialize_objects_array(t_objects *objects, size_t size);
@@ -229,7 +232,7 @@ void		object_calculate_cache(t_object *object);
 void		object_move(t_object *object, const t_vector3f movement_axis,
 				const float distance);
 void		object_rotate(t_object *object, const t_vector3f rotation_axis,
-				const float distance);
+				const float degrees);
 void		object_set_position(t_object *object, const t_vector3f position);
 void		object_set_height(t_object *object, const float height);
 void		object_set_radius(t_object *object, const float radius);

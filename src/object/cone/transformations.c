@@ -21,11 +21,10 @@ void	cone_move(t_object *cone, const t_vector3f movement_axis,
 	cone_calculate_cache(cone);
 }
 
-void	cone_rotate(t_object *cone, const t_vector3f rotation_axis,
-					const float degrees)
+void	cone_rotate(t_object *cone, const t_vector3f rotation_degrees)
 {
-	cone->axis = vector3f_unit(quaternionf_rotate_vector3f(degrees,
-				rotation_axis, cone->axis));
+	cone->axis_degrees = clamp_rotation_degrees(rotation_degrees);
+	cone->axis = get_normal_from_rotation(cone->axis_degrees);
 	cone_calculate_cache(cone);
 }
 

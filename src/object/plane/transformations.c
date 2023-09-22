@@ -21,11 +21,10 @@ void	plane_move(t_object *plane, const t_vector3f movement_axis,
 	plane_calculate_cache(plane);
 }
 
-void	plane_rotate(t_object *plane, const t_vector3f rotation_axis,
-						const float degrees)
+void	plane_rotate(t_object *plane, const t_vector3f rotation_degrees)
 {
-	plane->axis = vector3f_unit(quaternionf_rotate_vector3f(degrees,
-				rotation_axis, plane->axis));
+	plane->axis_degrees = clamp_rotation_degrees(rotation_degrees);
+	plane->axis = get_normal_from_rotation(plane->axis_degrees);
 	plane_calculate_cache(plane);
 }
 

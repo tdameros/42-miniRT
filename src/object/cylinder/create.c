@@ -18,7 +18,8 @@ static void	calculate_bounding_box_face(t_vector3f *face, t_vector3f center,
 										   t_vector3f circle_vector1,
 										   t_vector3f circle_vector2);
 
-t_object	cylinder_create(const t_vector3f position, const t_vector3f axis,
+t_object	cylinder_create(const t_vector3f position,
+							const t_vector3f rotation_degrees,
 							const t_object_size size, const t_material material)
 {
 	t_object	cylinder;
@@ -26,7 +27,8 @@ t_object	cylinder_create(const t_vector3f position, const t_vector3f axis,
 	ft_bzero(&cylinder, sizeof(cylinder));
 	cylinder.type = CYLINDER;
 	cylinder.position = position;
-	cylinder.axis = axis;
+	cylinder.axis_degrees = clamp_rotation_degrees(rotation_degrees);
+	cylinder.axis = get_normal_from_rotation(cylinder.axis_degrees);
 	cylinder.radius = size.radius;
 	cylinder.height = size.height;
 	cylinder.material = material;

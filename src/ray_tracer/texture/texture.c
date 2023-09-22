@@ -75,5 +75,7 @@ static t_vector3f	get_texture_at(const t_object *object,
 	reverse_uv.y = 1 - uv.y;
 	x = roundf(uv.x * (float)(surface.texture.width - 1));
 	y = roundf(uv.y * (float)(surface.texture.height - 1));
+	x = ft_clamp(x, 0, surface.texture.width - 1);
+	y = ft_clamp(y, 0, surface.texture.height - 1);
 	return (surface.texture.pixels[y * surface.texture.width + x]);
 }

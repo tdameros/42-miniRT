@@ -12,7 +12,7 @@
 
 #include <stdio.h>
 
-#include "math/vector.h"
+#include "math/quaternion.h"
 
 t_vector3f	vector3f_create(float x, float y, float z)
 {
@@ -36,4 +36,17 @@ float	vector3f_get(t_vector3f vector, t_axis axis)
 	else if (axis == Y_AXIS)
 		return (vector.y);
 	return (vector.z);
+}
+
+t_vector3f	get_normal_from_rotation(const t_vector3f rotation_degrees)
+{
+	t_vector3f	result;
+
+	result = quaternionf_rotate_vector3f(rotation_degrees.x,
+			(t_vector3f){1, 0, 0}, (t_vector3f){0, 1, 0});
+	result = quaternionf_rotate_vector3f(rotation_degrees.y,
+			(t_vector3f){0, 1, 0}, vector3f_unit(result));
+	result = quaternionf_rotate_vector3f(rotation_degrees.z,
+			(t_vector3f){0, 0, 1}, vector3f_unit(result));
+	return (vector3f_unit(result));
 }

@@ -18,7 +18,8 @@ static void	calculate_bounding_box_face(t_vector3f *face, t_vector3f center,
 										   t_vector3f circle_vector1,
 										   t_vector3f circle_vector2);
 
-t_object	cone_create(const t_vector3f position, const t_vector3f axis,
+t_object	cone_create(const t_vector3f position,
+						const t_vector3f rotation_degrees,
 						const t_object_size size,
 						const t_material material)
 {
@@ -27,7 +28,8 @@ t_object	cone_create(const t_vector3f position, const t_vector3f axis,
 	ft_bzero(&cone, sizeof(cone));
 	cone.type = CONE;
 	cone.position = position;
-	cone.axis = axis;
+	cone.axis_degrees = clamp_rotation_degrees(rotation_degrees);
+	cone.axis = get_normal_from_rotation(cone.axis_degrees);
 	cone.radius = size.radius;
 	cone.height = size.height;
 	cone.material = material;

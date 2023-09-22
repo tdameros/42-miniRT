@@ -14,15 +14,17 @@
 
 #include "object.h"
 
-t_object	plane_create(const t_vector3f position, const t_vector3f normal,
-						const t_material material)
+t_object	plane_create(const t_vector3f position,
+				const t_vector3f rotation_degrees,
+				const t_material material)
 {
 	t_object	plane;
 
 	ft_bzero(&plane, sizeof(plane));
 	plane.type = PLANE;
 	plane.position = position;
-	plane.axis = normal;
+	plane.axis_degrees = clamp_rotation_degrees(rotation_degrees);
+	plane.axis = get_normal_from_rotation(plane.axis_degrees);
 	plane.material = material;
 	plane.name = ft_strdup("Plane");
 	plane_calculate_cache(&plane);

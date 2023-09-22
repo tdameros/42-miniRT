@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <math.h>
+#include "float.h"
 
 #include "math/vector.h"
 #include "math/conversion.h"
@@ -63,7 +64,7 @@ static t_vector2f	calculate_cylindrical_map(const t_vector3f hit_position,
 
 	position = vector3f_subtract(hit_position,
 			cylinder->position);
-	if (cylinder->axis.y != 1.f)
+	if (!ft_is_equalsf(cylinder->axis.y, 1.f, FLT_EPSILON))
 	{
 		rotation_phi = convert_radians_to_degrees(acosf(cylinder->axis.y));
 		position = quaternionf_rotate_vector3f(-rotation_phi,
@@ -88,7 +89,7 @@ static t_vector2f	calculate_planar_map(const t_vector3f hit_position,
 
 	position = vector3f_subtract(hit_position,
 			plane->position);
-	if (plane->axis.y != 1.f)
+	if (!ft_is_equalsf(plane->axis.y, 1.f, FLT_EPSILON))
 	{
 		rotation_phi = convert_radians_to_degrees(acosf(plane->axis.y));
 		position = quaternionf_rotate_vector3f(-rotation_phi,
@@ -109,7 +110,7 @@ t_vector2f	calculate_cap_map(const t_vector3f hit_position,
 	float		v;
 
 	position = vector3f_subtract(hit_position, object->position);
-	if (object->axis.y != 1.f)
+	if (!ft_is_equalsf(object->axis.y, 1.f, FLT_EPSILON))
 	{
 		rotation_phi = convert_radians_to_degrees(acosf(object->axis.y));
 		position = quaternionf_rotate_vector3f(-rotation_phi,

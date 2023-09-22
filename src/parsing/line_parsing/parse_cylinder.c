@@ -27,7 +27,7 @@ int	parse_cylinder(t_engine *engine, char **scene_content_line,
 		return (error("Error\nFailed to get cylinder line\n"));
 	if (get_position(scene_content_line[1], &cylinder.position) < 0)
 		return (error("Error\nFailed to get cylinder position\n"));
-	if (get_normalized_vector(scene_content_line[2], &cylinder.axis) < 0)
+	if (get_rotation(scene_content_line[2], &cylinder.axis_degrees) < 0)
 		return (error("Error\nFailed to get cylinder orientation\n"));
 	if (get_float(scene_content_line[3], &cylinder.radius) < 0)
 		return (error("Error\nFailed to get cylinder radius\n"));
@@ -37,7 +37,7 @@ int	parse_cylinder(t_engine *engine, char **scene_content_line,
 	if (get_color(scene_content_line[5], &cylinder.material.albedo) < 0)
 		return (error("Error\nFailed to get cylinder albedo\n"));
 	cylinder.material.albedo = vector3f_divide(cylinder.material.albedo, 255.f);
-	cylinder = cylinder_create(cylinder.position, cylinder.axis, \
+	cylinder = cylinder_create(cylinder.position, cylinder.axis_degrees, \
 		(t_object_size){cylinder.radius, cylinder.height}, cylinder.material);
 	if (add_object(engine, cylinder) < 0)
 		return (free_object(&cylinder), -1);

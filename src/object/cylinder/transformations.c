@@ -22,11 +22,10 @@ void	cylinder_move(t_object *cylinder, const t_vector3f movement_axis,
 		cylinder_calculate_cache(cylinder);
 }
 
-void	cylinder_rotate(t_object *cylinder, const t_vector3f rotation_axis,
-						const float degrees)
+void	cylinder_rotate(t_object *cylinder, const t_vector3f rotation_degrees)
 {
-	cylinder->axis = vector3f_unit(quaternionf_rotate_vector3f(degrees,
-				rotation_axis, cylinder->axis));
+	cylinder->axis_degrees = clamp_rotation_degrees(rotation_degrees);
+	cylinder->axis = get_normal_from_rotation(cylinder->axis_degrees);
 	if (cylinder->type == CYLINDER)
 		cylinder_calculate_cache(cylinder);
 }

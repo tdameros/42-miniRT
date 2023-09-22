@@ -16,7 +16,7 @@ int	parse_mesh_object(t_engine *engine, char **scene_content_line,
 	if (get_position(scene_content_line[1], &tmp) < 0)
 		return (error("Error\nFailed to get mesh position\n"));
 	mesh_object_set_position(&mesh, tmp);
-	if (get_vector3f(scene_content_line[2], &tmp) < 0)
+	if (get_rotation(scene_content_line[2], &tmp) < 0)
 		return (error("Error\nFailed to get mesh rotation\n"));
 	mesh_object_set_rotation(&mesh, tmp);
 	if (get_vector3f(scene_content_line[3], &tmp) < 0)

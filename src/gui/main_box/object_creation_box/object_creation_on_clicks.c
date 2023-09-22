@@ -58,8 +58,8 @@ void	plane_create_on_click(t_gui_box *self, t_engine *engine,
 		< 0)
 		return ((void)ft_print_error("Warning: Failed to create new plane, "
 				"material allocation failed\n"));
-	object = plane_create(vector3f_create(0, 0, 0),
-			vector3f_multiply(engine->camera.direction, -1.f), material);
+	object = plane_create(vector3f_create(0, 0, 0), (t_vector3f){0, 1, 0},
+			material);
 	add_object(engine, object);
 	engine->object_being_placed_distance = DEFAULT_DISTANCE_OF_NEW_OBJECTS;
 	engine->object_being_placed.object
@@ -85,8 +85,8 @@ void	cylinder_create_on_click(t_gui_box *self, t_engine *engine,
 		< 0)
 		return ((void)ft_print_error("Warning: Failed to create new cylinder, "
 				"material allocation failed\n"));
-	object = cylinder_create(vector3f_create(0, 0, 0),
-			vector3f_rotate_y(engine->camera.direction, 90), size, material);
+	object = cylinder_create(vector3f_create(0, 0, 0), (t_vector3f){0, 1, 0},
+			size, material);
 	add_object(engine, object);
 	engine->object_being_placed_distance = DEFAULT_DISTANCE_OF_NEW_OBJECTS;
 	engine->object_being_placed.object
@@ -112,8 +112,8 @@ void	cone_create_on_click(t_gui_box *self, t_engine *engine,
 		< 0)
 		return ((void)ft_print_error("Warning: Failed to create new cone, "
 				"material allocation failed\n"));
-	object = cone_create(vector3f_create(0, 0, 0),
-			vector3f_rotate_x(engine->camera.direction, 90), size, material);
+	object = cone_create(vector3f_create(0, 0, 0), (t_vector3f){0, 1, 0}, size,
+			material);
 	add_object(engine, object);
 	engine->object_being_placed_distance = DEFAULT_DISTANCE_OF_NEW_OBJECTS;
 	engine->object_being_placed.object
