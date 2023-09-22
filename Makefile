@@ -321,8 +321,9 @@ SRC				=\
 	parsing/line_parsing/parse_mesh_object.c			\
 	parsing/line_parsing/parse_sphere.c					\
 	\
-	parsing/obj_file/parse_obj_file.c	\
-	parsing/obj_file/parse_line.c		\
+	parsing/obj_file/get_relevent_obj_lines.c	\
+	parsing/obj_file/parse_obj_file.c			\
+	parsing/obj_file/parse_line.c				\
 	\
 	parsing/free_scene_content.c	\
 	parsing/get_scene_content.c		\

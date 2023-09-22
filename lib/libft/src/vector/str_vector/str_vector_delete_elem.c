@@ -2,7 +2,7 @@
 
 #include "ft_vector.h"
 
-void	ft_str_vector_delete_elem(t_vector *str_vector, const size_t index,
+void	ft_str_vector_delete_elem(t_str_vector *str_vector, const size_t index,
 			const bool keep_same_order)
 {
 	free(ft_str_vector_get_elem(str_vector, index));

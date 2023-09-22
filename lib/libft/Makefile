@@ -196,6 +196,8 @@ SRC =\
 	time/get_time_elapsed_in_seconds.c	\
 \
 \
+	vector/str_vector/str_vector_add_elem.c		\
+	vector/str_vector/str_vector_create.c		\
 	vector/str_vector/str_vector_delete_elem.c	\
 	vector/str_vector/str_vector_destroy.c		\
 	vector/str_vector/str_vector_get_elem.c		\

@@ -5,7 +5,7 @@
 
 static int	fill_result(char **result, t_vector *vector, bool copy);
 
-char	**ft_str_vector_to_strs(t_vector *vector, bool copy,
+char	**ft_str_vector_to_strs(t_str_vector *vector, bool copy,
 			bool destroy_vector)
 {
 	char	**result;
@@ -34,7 +34,7 @@ char	**ft_str_vector_to_strs(t_vector *vector, bool copy,
 	return (result);
 }
 
-static int	fill_result(char **result, t_vector *vector, bool copy)
+static int	fill_result(char **result, t_str_vector *vector, bool copy)
 {
 	size_t	i;
 

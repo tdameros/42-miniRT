@@ -1,6 +1,6 @@
 #include "ft_vector.h"
 
-char	*ft_str_vector_get_elem(const t_vector *str_vector, size_t index)
+char	*ft_str_vector_get_elem(const t_str_vector *str_vector, size_t index)
 {
 	char	**elem;
 

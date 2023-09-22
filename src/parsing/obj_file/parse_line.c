@@ -31,7 +31,7 @@ int	parse_line_in_obj_file(t_mesh *mesh, const char *line)
 	int		return_code;
 
 	return_code = 1;
-	split_line = ft_split(line, ' ');
+	split_line = ft_split_set(line, " \n");
 	if (split_line == NULL)
 		return (-1);
 	len = ft_split_len(split_line);

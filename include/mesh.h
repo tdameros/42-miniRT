@@ -14,6 +14,7 @@
 # define MESH_H
 
 # include "vectors.h"
+# include "libft.h"
 
 # define NO_VALID_FACES_FOUND -2
 
@@ -29,7 +30,17 @@ typedef struct s_mesh
 	struct s_mesh_bvh_node	*tree;
 }	t_mesh;
 
-int	initialize_mesh_with_obj(t_mesh *mesh, const char *file_name);
-int	parse_line_in_obj_file(t_mesh *mesh, const char *line);
+typedef struct s_size_to_allocate_in_mesh
+{
+	size_t	*number_of_vertex;
+	size_t	*number_of_normals;
+	size_t	*number_of_faces;
+}	t_size_to_allocate_in_mesh;
+
+t_str_vector	get_relevent_obj_lines(const char *file_name,
+					size_t *number_of_vertex, size_t *number_of_normals,
+					size_t *number_of_faces);
+int				initialize_mesh_with_obj(t_mesh *mesh, const char *file_name);
+int				parse_line_in_obj_file(t_mesh *mesh, const char *line);
 
 #endif
