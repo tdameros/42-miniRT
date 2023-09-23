@@ -20,7 +20,7 @@ void	render_user_interface(t_engine *engine, const uint64_t start_time)
 		= get_gui_hidden_ration(&engine->gui, start_time);
 	if (engine->gui.hide_animation.current_hidden_ratio >= 1.f)
 		return ;
-	mouse_position = get_mouse_position(engine);
+	mouse_position = engine->mouse_position;
 	engine->gui.gui_boxes.data[0].draw(engine->gui.gui_boxes.data + 0, engine,
 		(t_draw_data){\
 			get_top_box_decal(engine, engine->gui.gui_boxes.data + 0), \

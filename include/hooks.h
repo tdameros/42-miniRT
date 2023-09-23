@@ -20,6 +20,7 @@ int			button_release_handler(int button, int x, int y, t_engine *engine);
 int			button_press_handler(int button, int x, int y, t_engine *engine);
 int			key_press_handler(int key_code, t_engine *engine);
 int			key_release_handler(int key_code, t_engine *engine);
+int			motion_handler(int x, int y, t_engine *engine);
 int			focus_in_handler(t_engine *engine);
 int			focus_out_handler(t_engine *engine);
 

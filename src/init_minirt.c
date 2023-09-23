@@ -100,6 +100,8 @@ static void	init_hooks(t_engine *engine)
 		&focus_in_handler, engine);
 	mlx_hook(engine->window.window, FOCUS_OUT, FOCUS_CHANGE_MASK,
 		&focus_out_handler, engine);
+	mlx_hook(engine->window.window, MOTION_NOTIFY, POINTER_MOTION_MASK,
+		&motion_handler, engine);
 	mlx_loop_hook(engine->window.mlx, &render_frame, engine);
 }
 

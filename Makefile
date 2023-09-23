@@ -192,6 +192,7 @@ SRC				=\
 	hooks/focus_handler.c				\
 	hooks/key_press.c					\
 	hooks/key_release.c					\
+	hooks/motion_handler.c				\
 	hooks/pressed_keys.c				\
 	hooks/redraw_icons.c				\
 	hooks/toggle_gui.c					\
@@ -257,7 +258,6 @@ SRC				=\
 	math/modulo.c		\
 	\
 	\
-	mlx_wrapper/get_mouse_position.c	\
 	mlx_wrapper/get_screen_size.c		\
 	mlx_wrapper/mouse_hide.c			\
 	mlx_wrapper/mouse_move.c			\

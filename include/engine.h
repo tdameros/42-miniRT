@@ -54,6 +54,7 @@ enum e_effect
 typedef struct s_engine
 {
 	t_window				window;
+	t_vector2i				mouse_position;
 	t_gui					gui;
 	t_image					main_image;
 	t_image					ray_traced_image;
