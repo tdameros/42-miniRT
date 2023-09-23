@@ -26,6 +26,8 @@ void		init_settings_box(t_engine *engine, t_gui_box *gui_box,
 				const t_gui_box *object_list_box);
 void		init_antialiasing_toggle_box(t_engine *engine, t_gui_box *gui_box,
 				int *y, t_gui_box *parent);
+void		init_bounces_per_pixel_box(t_engine *engine, t_gui_box *gui_box,
+				int *y, t_gui_box *parent);
 void		init_cam_fov_box(t_engine *engine, t_gui_box *gui_box, int *y,
 				t_gui_box *parent);
 void		init_disable_shadows_box(t_engine *engine, t_gui_box *gui_box,

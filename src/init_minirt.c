@@ -23,6 +23,9 @@
 #ifndef DEFAULT_ANTIALIASING_VALUE
 # define DEFAULT_ANTIALIASING_VALUE true
 #endif
+#ifndef DEFAULT_BOUNCES_PER_PIXEL
+# define DEFAULT_BOUNCES_PER_PIXEL 8
+#endif
 
 static void	init_hooks(t_engine *engine);
 static int	set_minirt_folder_as_current_working_directory(
@@ -64,6 +67,7 @@ int	init_engine(t_engine *engine, const char *start_up_scene,
 	engine->should_render_ray_tracing = true;
 	engine->should_render_at_full_resolution = true;
 	engine->scene.render_shadows = true;
+	engine->scene.bounces_per_pixel = DEFAULT_BOUNCES_PER_PIXEL;
 
 	init_image(&engine->main_image, &engine->window, engine->window.size.x,
 		engine->window.size.y);

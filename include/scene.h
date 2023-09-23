@@ -28,6 +28,7 @@ typedef struct s_scene
 	t_vectors_int				plane_indexes;
 	struct s_objects_bvh_node	*bvh_tree;
 	bool						render_shadows;
+	unsigned int				bounces_per_pixel;
 }	t_scene;
 
 void	free_scene(t_scene *scene);

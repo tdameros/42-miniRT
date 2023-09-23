@@ -18,8 +18,6 @@
 # include "ray_tracer/rays.h"
 # include "engine.h"
 
-# define BOUNCES_PER_PIXEL 5
-
 typedef struct s_raytracing_routine_args
 {
 	t_engine		*engine;

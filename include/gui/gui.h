@@ -66,6 +66,7 @@ typedef struct s_float_input_boxes
 typedef struct s_global_float_input_boxes
 {
 	struct s_gui_box	*camera_fov;
+	struct s_gui_box	*bounces_per_pixel;
 }	t_global_float_input_boxes;
 
 typedef struct s_gui_hide_animation

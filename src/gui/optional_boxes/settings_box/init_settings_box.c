@@ -30,7 +30,7 @@ static void	init_children_boxes(t_engine *engine, t_gui_box *gui_box)
 	create_n_horizontal_boxes(engine, gui_box, 1, (t_vector2i){
 		roundf(gui_box->size.y / 100.f), roundf(gui_box->size.y / 100.f)});
 	gui_box = gui_box->children.data;
-	gui_box->children.size = 6;
+	gui_box->children.size = 7;
 	gui_box->children.data = ft_calloc(gui_box->children.size,
 			sizeof(*gui_box->children.data));
 	if (gui_box->children.data == NULL)
@@ -67,5 +67,7 @@ static void	add_raytracing_settings_boxes(t_engine *engine, t_gui_box *gui_box,
 				int *y, int *i)
 {
 	init_disable_shadows_box(engine, gui_box->children.data + (*i)++, y,
+		gui_box);
+	init_bounces_per_pixel_box(engine, gui_box->children.data + (*i)++, y,
 		gui_box);
 }

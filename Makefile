@@ -99,6 +99,7 @@ SRC				=\
 	gui/optional_boxes/add_mesh_object_box/mesh_object_selection_on_click.c	\
 	\
 	gui/optional_boxes/settings_box/init_antialiasing_toggle_box.c	\
+	gui/optional_boxes/settings_box/init_bounces_per_pixel_box.c	\
 	gui/optional_boxes/settings_box/init_cam_fov_box.c				\
 	gui/optional_boxes/settings_box/init_disable_shadows_box.c		\
 	gui/optional_boxes/settings_box/init_max_resolution_reduction.c	\
