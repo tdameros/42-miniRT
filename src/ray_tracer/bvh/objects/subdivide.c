@@ -90,25 +90,17 @@ static int	add_obj_index_in_child_node(t_objects_bvh_node *node,
 
 static bool	is_duplicated_node(t_objects_bvh_node *node)
 {
-	return (node->previous_node != NULL \
-	&& (node->left_node->index_objects.length \
-		== node->previous_node->nb_split_objects \
+	return (node->left_node->index_objects.length \
+		== node->nb_split_objects \
 		|| node->right_node->index_objects.length \
-		== node->previous_node->nb_split_objects));
+		== node->nb_split_objects);
 }
 
 static void	remove_duplicated_node(t_objects_bvh_node *node)
 {
-	t_objects_bvh_node	*previous;
-
-	previous = node->previous_node;
 	objects_bvh_free_node(node->left_node);
-	objects_bvh_free_node(node->right_node);
-	node->previous_node->is_leaf = true;
-	node->previous_node->index_objects = node->index_objects;
-	node->index_objects.data = NULL;
-	objects_bvh_free_node(previous->left_node);
-	objects_bvh_free_node(previous->right_node);
-	node->previous_node->left_node = NULL;
-	node->previous_node->right_node = NULL;
+	objects_bvh_free_tree(node->right_node);
+	node->left_node = NULL;
+	node->right_node = NULL;
+	node->is_leaf = true;
 }

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ray_tracer/rays.h"
+#include "ray_tracer/texture.h"
 #include "math/equation.h"
 
 static t_vector3f	calculate_cone_normal(const t_ray *ray,
@@ -36,9 +37,11 @@ t_hit	hit_cone(const t_ray *ray, const t_object *cone,
 		hit.normal = vector3f_multiply(hit.normal, -1);
 	hit.object = cone;
 	hit.ray = *ray;
-	// TODO : get cone textures
-	hit.albedo = cone->material.albedo;
-	hit.shade_normal = hit.normal;
+	hit.albedo = get_texture_color(hit, cone);
+	if (context_has_normal_map(hit.context, &cone->material))
+		hit.shade_normal = calculate_normal_perturbation(hit, cone);
+	else
+		hit.shade_normal = hit.normal;
 	return (hit);
 }
 

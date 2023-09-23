@@ -88,25 +88,17 @@ static int	add_obj_index_in_child_node(t_mesh_bvh_node *node,
 
 static bool	is_duplicated_node(t_mesh_bvh_node *node)
 {
-	return (node->previous_node != NULL \
-	&& (node->left_node->index_faces.length \
-		== node->previous_node->nb_split_triangles \
+	return (node->left_node->index_faces.length \
+		== node->nb_split_triangles \
 		|| node->right_node->index_faces.length \
-		== node->previous_node->nb_split_triangles));
+		== node->nb_split_triangles);
 }
 
 static void	remove_duplicated_node(t_mesh_bvh_node *node)
 {
-	t_mesh_bvh_node	*previous;
-
-	previous = node->previous_node;
 	mesh_bvh_free_node(node->left_node);
 	mesh_bvh_free_node(node->right_node);
-	node->previous_node->is_leaf = true;
-	node->previous_node->index_faces = node->index_faces;
-	node->index_faces.data = NULL;
-	mesh_bvh_free_node(previous->left_node);
-	mesh_bvh_free_node(previous->right_node);
-	previous->left_node = NULL;
-	previous->right_node = NULL;
+	node->left_node = NULL;
+	node->right_node = NULL;
+	node->is_leaf = true;
 }

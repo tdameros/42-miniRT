@@ -34,7 +34,8 @@ t_vector2f	calculate_object_map(const t_vector3f hit_position,
 {
 	if (object->type == SPHERE)
 		return (calculate_spherical_map(hit_position, object));
-	else if (object->type == CYLINDER || object->type == CYLINDER_INF)
+	else if (object->type == CYLINDER || object->type == CYLINDER_INF
+		|| object->type == CONE)
 		return (calculate_cylindrical_map(hit_position, object));
 	else if (object->type == PLANE)
 		return (calculate_planar_map(hit_position, object));
