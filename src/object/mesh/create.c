@@ -50,7 +50,7 @@ int	mesh_object_initialize(t_object *mesh_object, const char *obj_file,
 		return (-1);
 	}
 	mesh_calculate_bounding_box(mesh_object);
-	mesh_object->mesh.tree = mesh_bvh_create_tree(mesh_object);
+	//mesh_object->mesh.tree = mesh_bvh_create_tree(mesh_object);
 	return (0);
 }
 
@@ -75,6 +75,7 @@ static char	*get_obj_name(const char *obj_file)
 
 void	mesh_free(t_mesh *mesh)
 {
+	mesh_bvh_free_tree(mesh->tree);
 	vectors3f_free(&mesh->base_vertex);
 	vectors3f_free(&mesh->base_normals);
 	mesh_faces_free(&mesh->faces);

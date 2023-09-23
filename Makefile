@@ -408,14 +408,15 @@ SRC				=\
 	close_miniRT.c		\
 	color.c				\
 	init_minirt.c		\
-	main.c
+	main.c				\
+	scene.c
 
 DIR_BUILD			=	.build/
 OBJS				=	$(patsubst %.c, $(DIR_BUILD)%.o, $(SRC))
 DEPS				=	$(patsubst %.c, $(DIR_BUILD)%.d, $(SRC))
 DEPS_FLAGS			=	-MMD -MP
 BASE_CFLAGS			=	-Wall -Wextra -Werror
-LOW_RESOLUTION_FLAGS = -D DEFAULT_MAX_RESOLUTION_REDUCTION=50 -D DEFAULT_MIN_RESOLUTION_REDUCTION=50 -D DEFAULT_ANTIALIASING_VALUE=0 -D X_SCREEN_SIZE=500 -D Y_SCREEN_SIZE=500
+LOW_RESOLUTION_FLAGS = -D DEFAULT_MAX_RESOLUTION_REDUCTION=50 -D DEFAULT_MIN_RESOLUTION_REDUCTION=50 -D DEFAULT_ANTIALIASING_VALUE=0 #-D X_SCREEN_SIZE=500 -D Y_SCREEN_SIZE=500
 BASE_DEBUG_CFLAGS	=	-g3 $(LOW_RESOLUTION_FLAGS)
 DEBUG_CLFAGS		=	$(BASE_DEBUG_CFLAGS) -fsanitize=address
 # DEBUG_CLFAGS		=	$(BASE_DEBUG_CFLAGS) -fsanitize=memory -fsanitize-memory-track-origins
@@ -444,14 +445,17 @@ ASSETS_PATH			=	assets
 OBJECTS_PATH		=	$(ASSETS_PATH)/objects
 OBJECTS_ARCHIVE		=	$(OBJECTS_PATH)/objects.tar.gz
 OBJECTS				=	$(OBJECTS_PATH)/*.obj
+HIDE_OBJECTS		=	$(OBJECTS_PATH)/.*.obj
 
 TEXTURES_PATH		=	$(ASSETS_PATH)/textures
 TEXTURES_ARCHIVE	=	$(TEXTURES_PATH)/textures.tar.gz
 TEXTURES			=	$(TEXTURES_PATH)/*.ppm
+HIDE_TEXTURES		=	$(TEXTURES_PATH)/.*.ppm
 
 NORMAL_MAPS_PATH	=	$(ASSETS_PATH)/normal_maps
 NORMAL_MAPS_ARCHIVE	=	$(NORMAL_MAPS_PATH)/normal_maps.tar.gz
 NORMAL_MAPS			=	$(NORMAL_MAPS_PATH)/*.ppm
+HIDE_NORMAL_MAPS	=	$(NORMAL_MAPS_PATH)/.*.ppm
 
 
 OS	= $(shell uname -s)
@@ -550,19 +554,19 @@ $(DIR_BUILD)%.o : $(SRC_PATH)%.c $(LIBFT_A)
 compress:
 	@if [ "$$(find $(OBJECTS_PATH) -maxdepth 1 -name '*.obj' -print)" ]; then \
 		tar -czvf $(OBJECTS_ARCHIVE) $(OBJECTS); \
-		rm -rf $(OBJECTS); \
+		rm -rf $(OBJECTS) $(HIDE_OBJECTS); \
     else \
       echo "No objects (*.obj) to compress found"; \
     fi
 	@if [ "$$(find $(TEXTURES_PATH) -maxdepth 1 -name '*.ppm' -print)" ]; then \
 		tar -czvf $(TEXTURES_ARCHIVE) $(TEXTURES); \
-		rm -rf $(TEXTURES); \
+		rm -rf $(TEXTURES) $(HIDE_TEXTURES); \
     else \
       echo "No textures (*.ppm) to compress found"; \
     fi
 	@if [ "$$(find $(NORMAL_MAPS_PATH) -maxdepth 1 -name '*.ppm' -print)" ]; then \
 		tar -czvf $(NORMAL_MAPS_ARCHIVE) $(NORMAL_MAPS); \
-		rm -rf $(NORMAL_MAPS); \
+		rm -rf $(NORMAL_MAPS) $(HIDE_NORMAL_MAPS); \
     else \
       echo "No normal maps (*.ppm) to compress found"; \
     fi

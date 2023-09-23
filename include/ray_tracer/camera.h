@@ -50,6 +50,7 @@ typedef struct s_camera
 
 //	create.c
 int			camera_create(t_camera *camera, t_vector2f viewport);
+void		camera_free(t_camera *camera);
 
 //	movement.c
 void		camera_move_forward(t_camera *camera, float distance);

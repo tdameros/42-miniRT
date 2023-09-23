@@ -99,12 +99,16 @@ static bool	is_duplicated_node(t_objects_bvh_node *node)
 
 static void	remove_duplicated_node(t_objects_bvh_node *node)
 {
+	t_objects_bvh_node	*previous;
+
+	previous = node->previous_node;
 	objects_bvh_free_node(node->left_node);
 	objects_bvh_free_node(node->right_node);
-	node->previous_node->left_node = NULL;
-	node->previous_node->right_node = NULL;
 	node->previous_node->is_leaf = true;
 	node->previous_node->index_objects = node->index_objects;
 	node->index_objects.data = NULL;
-	objects_bvh_free_node(node);
+	objects_bvh_free_node(previous->left_node);
+	objects_bvh_free_node(previous->right_node);
+	node->previous_node->left_node = NULL;
+	node->previous_node->right_node = NULL;
 }

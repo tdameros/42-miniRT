@@ -41,3 +41,8 @@ int	camera_create(t_camera *camera, t_vector2f viewport)
 	camera_recalculate_rays(camera);
 	return (0);
 }
+
+void	camera_free(t_camera *camera)
+{
+	free(camera->rays);
+}

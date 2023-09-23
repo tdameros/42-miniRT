@@ -30,4 +30,6 @@ typedef struct s_scene
 	bool						render_shadows;
 }	t_scene;
 
+void	free_scene(t_scene *scene);
+
 #endif

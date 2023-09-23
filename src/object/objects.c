@@ -66,17 +66,25 @@ int	remove_object_in_objects(t_objects *objects, size_t index)
 void	free_object(t_object *object)
 {
 	material_free(&object->material);
-	mesh_free(&object->mesh);
 	if (object->type == MESH)
+	{
+		mesh_free(&object->mesh);
 		mesh_cache_free(&object->cache.mesh);
+	}
 	free(object->name);
 	object->name = NULL;
 }
 
 void	free_objects(t_objects *objects)
 {
-	while (objects->length--)
-		free(objects->data[objects->length].name);
+	size_t	i;
+
+	i = 0;
+	while (i < objects->length)
+	{
+		free_object(&objects->data[i]);
+		i++;
+	}
 	free(objects->data);
 	objects->size = 0;
 	objects->length = 0;

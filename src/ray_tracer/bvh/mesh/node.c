@@ -90,7 +90,5 @@ void	mesh_bvh_update_node_bounding_box(t_mesh_bvh_node *node)
 		i++;
 	}
 	node->aabb_min = min;
-//	node->aabb_min = vector3f_subtract(node->aabb_min, (t_vector3f){0.05f, 0.05f, 0.05f});
 	node->aabb_max = max;
-//	node->aabb_max = vector3f_add(node->aabb_max, (t_vector3f){0.05f, 0.05f, 0.05f});
 }

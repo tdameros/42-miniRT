@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.26)
+cmake_minimum_required(VERSION 3.24)
 project(42_miniRT C)
 
 set(CMAKE_C_STANDARD 11)
@@ -11,6 +11,7 @@ include_directories(include/ray_tracer)
 include_directories(lib/libft/include)
 include_directories(lib/libft/src/io/get_next_line)
 include_directories(lib/minilibx_opengl_20191021)
+include_directories(src/threads)
 
 add_executable(42_miniRT
         include/font/render.h
@@ -39,14 +40,17 @@ add_executable(42_miniRT
         include/ray_tracer/shade.h
         include/ray_tracer/texture.h
         include/colors.h
+        include/draw.h
         include/engine.h
         include/events.h
         include/export.h
         include/hooks.h
         include/image.h
+        include/interpolater.h
         include/light.h
         include/material.h
         include/mesh.h
+        include/mlx_wrapper.h
         include/object.h
         include/parsing.h
         include/path.h
@@ -227,6 +231,7 @@ add_executable(42_miniRT
         lib/libft/src/time/get_current_time_in_ms.c
         lib/libft/src/time/get_number_of_fps.c
         lib/libft/src/time/get_time_elapsed_in_seconds.c
+        lib/libft/src/vector/str_vector/str_vector_delete_elem.c
         lib/libft/src/vector/str_vector/str_vector_destroy.c
         lib/libft/src/vector/str_vector/str_vector_get_elem.c
         lib/libft/src/vector/str_vector/str_vector_to_strs.c
@@ -255,6 +260,11 @@ add_executable(42_miniRT
         lib/minilibx_opengl_20191021/mlx_rgb.c
         lib/minilibx_opengl_20191021/mlx_shaders.c
         lib/minilibx_opengl_20191021/mlx_xpm.c
+        src/draw/bounding_box.c
+        src/draw/draw.c
+        src/draw/draw_line.c
+        src/draw/mesh_bvh_node.c
+        src/draw/objects_bvh_node.c
         src/export/scene/datetime.c
         src/export/scene/material.c
         src/export/scene/object.c
@@ -329,6 +339,7 @@ add_executable(42_miniRT
         src/gui/optional_boxes/add_mesh_object_box/mesh_object_selection_on_click.c
         src/gui/optional_boxes/settings_box/init_antialiasing_toggle_box.c
         src/gui/optional_boxes/settings_box/init_cam_fov_box.c
+        src/gui/optional_boxes/settings_box/init_disable_shadows_box.c
         src/gui/optional_boxes/settings_box/init_max_resolution_reduction.c
         src/gui/optional_boxes/settings_box/init_min_resolution_reduction.c
         src/gui/optional_boxes/settings_box/init_reset_camera_peaking_box.c
@@ -401,6 +412,7 @@ add_executable(42_miniRT
         src/hooks/update_object_attributes_modification_box/update_object_attributes_modification_box.c
         src/hooks/button_press.c
         src/hooks/button_release.c
+        src/hooks/focus_handler.c
         src/hooks/key_press.c
         src/hooks/key_release.c
         src/hooks/pressed_keys.c
@@ -420,6 +432,9 @@ add_executable(42_miniRT
         src/image/put_image_to_image_unsafe.c
         src/image/round_image_corners.c
         src/image/round_image_corners_utils.c
+        src/interpolater/interpolate_main_lines.c
+        src/interpolater/interpolate_ray_tracing.c
+        src/interpolater/interpolate_sub_lines.c
         src/light/light.c
         src/light/lights.c
         src/material/checkerboard.c
@@ -450,6 +465,12 @@ add_executable(42_miniRT
         src/math/conversion.c
         src/math/equation.c
         src/math/modulo.c
+        src/mlx_wrapper/get_mouse_position.c
+        src/mlx_wrapper/get_screen_size.c
+        src/mlx_wrapper/mouse_hide.c
+        src/mlx_wrapper/mouse_move.c
+        src/mlx_wrapper/mouse_show.c
+        src/mlx_wrapper/put_image.c
         src/object/cone/create.c
         src/object/cone/transformations.c
         src/object/cylinder/create.c
@@ -458,10 +479,12 @@ add_executable(42_miniRT
         src/object/mesh/create.c
         src/object/mesh/mesh_deep_copy.c
         src/object/mesh/transformations.c
+        src/object/mesh/utils.c
         src/object/plane/create.c
         src/object/plane/transformations.c
         src/object/sphere/create.c
         src/object/sphere/transformations.c
+        src/object/bounding_box.c
         src/object/calculate_cache.c
         src/object/object_deep_copy.c
         src/object/objects.c
@@ -499,27 +522,36 @@ add_executable(42_miniRT
         src/parsing/parse_ppm_file.c
         src/parsing/parse_scene_content.c
         src/parsing/parsing.c
+        src/ray_tracer/bvh/mesh/bounding_box.c
+        src/ray_tracer/bvh/mesh/node.c
+        src/ray_tracer/bvh/mesh/subdivide.c
+        src/ray_tracer/bvh/mesh/tree.c
         src/ray_tracer/bvh/objects/bounding_box.c
         src/ray_tracer/bvh/objects/node.c
         src/ray_tracer/bvh/objects/subdivide.c
         src/ray_tracer/bvh/objects/tree.c
+        src/ray_tracer/bvh/recalculate_bvh.c
         src/ray_tracer/camera/create.c
         src/ray_tracer/camera/movement.c
         src/ray_tracer/camera/projection.c
         src/ray_tracer/camera/ray.c
         src/ray_tracer/camera/rotation.c
         src/ray_tracer/camera/view.c
+        src/ray_tracer/rays/intersections/aabb.c
         src/ray_tracer/rays/intersections/cone.c
         src/ray_tracer/rays/intersections/cone_utils.c
         src/ray_tracer/rays/intersections/cylinder.c
         src/ray_tracer/rays/intersections/cylinder_caps.c
         src/ray_tracer/rays/intersections/cylinder_infinite.c
         src/ray_tracer/rays/intersections/intersection.c
+        src/ray_tracer/rays/intersections/light.c
         src/ray_tracer/rays/intersections/mesh.c
+        src/ray_tracer/rays/intersections/mesh_bvh.c
         src/ray_tracer/rays/intersections/objects_bvh.c
         src/ray_tracer/rays/intersections/plane.c
         src/ray_tracer/rays/intersections/sphere.c
         src/ray_tracer/rays/context.c
+        src/ray_tracer/rays/hit.c
         src/ray_tracer/rays/rays.c
         src/ray_tracer/shade/light.c
         src/ray_tracer/shade/shade.c
@@ -527,7 +559,6 @@ add_executable(42_miniRT
         src/ray_tracer/texture/mapping.c
         src/ray_tracer/texture/normal.c
         src/ray_tracer/texture/texture.c
-        src/ray_tracer/interpolate_ray_tracing.c
         src/ray_tracer/post_processing.c
         src/ray_tracer/render.c
         src/ray_tracer/render_icon.c
@@ -550,21 +581,4 @@ add_executable(42_miniRT
         src/close_miniRT.c
         src/color.c
         src/init_minirt.c
-        src/main.c
-        src/draw/draw.c
-        src/draw/draw_line.c
-        src/draw/objects_bvh_node.c
-        src/ray_tracer/rays/intersections/aabb.c
-        src/ray_tracer/rays/intersections/aabb.c
-        src/ray_tracer/rays/intersections/light.c
-        src/object/bounding_box.c
-        src/ray_tracer/rays/hit.c
-        src/object/mesh/utils.c
-        src/ray_tracer/bvh/mesh/node.c
-        src/draw/mesh_bvh_node.c
-        src/ray_tracer/bvh/mesh/bounding_box.c
-        src/ray_tracer/bvh/mesh/subdivide.c
-        src/ray_tracer/bvh/mesh/tree.c
-        src/ray_tracer/rays/intersections/mesh_bvh.c
-        src/ray_tracer/bvh/recalculate_bvh.c
-        src/draw/bounding_box.c)
+        src/main.c src/scene.c)

@@ -27,12 +27,19 @@ int	initialize_ppm_p6_file(t_ppm_p6 *ppm, const char *filename)
 	if (file_content.data == NULL)
 		return (-1);
 	if (parse_header(ppm, &file_content) < 0)
+	{
+		free(file_content.data);
 		return (-1);
+	}
 	ppm->pixels = malloc(sizeof(*ppm->pixels) * ppm->size);
 	if (ppm->pixels == NULL)
+	{
+		free(file_content.data);
 		return (-1);
+	}
 	convert_binary_pixels_to_vector(ppm,
 		(unsigned char *) get_line(&file_content, 4));
+	free(file_content.data);
 	return (0);
 }
 

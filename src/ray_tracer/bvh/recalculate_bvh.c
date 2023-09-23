@@ -12,20 +12,14 @@
 
 #include "ray_tracer/bvh.h"
 
+static int recalculate_object_bvh(t_object *object);
+
 int	recalculate_bvh_scene(t_scene *scene, t_object *update_object)
 {
 	size_t	i;
 
-	if (update_object != NULL)
-	{
-		object_calculate_bounding_box(update_object);
-		if (update_object->type == MESH)
-		{
-			// TODO: secure it
-			mesh_bvh_free_tree(update_object->mesh.tree);
-			update_object->mesh.tree = mesh_bvh_create_tree(update_object);
-		}
-	}
+	if (recalculate_object_bvh(update_object) < 0)
+		return (-1);
 	i = 0;
 	while (i < scene->objects.length)
 	{
@@ -36,5 +30,23 @@ int	recalculate_bvh_scene(t_scene *scene, t_object *update_object)
 	}
 	objects_bvh_free_tree(scene->bvh_tree);
 	scene->bvh_tree = objects_bvh_create_tree(&scene->objects);
+	if (scene->bvh_tree == NULL)
+		return (-1);
+	return (0);
+}
+
+static int recalculate_object_bvh(t_object *object)
+{
+	if (object != NULL)
+	{
+		object_calculate_bounding_box(object);
+		if (object->type == MESH)
+		{
+			mesh_bvh_free_tree(object->mesh.tree);
+			object->mesh.tree = mesh_bvh_create_tree(object);
+			if (object->mesh.tree == NULL)
+				return (-1);
+		}
+	}
 	return (0);
 }

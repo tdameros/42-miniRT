@@ -35,6 +35,7 @@ t_checkerboard_parsing_data	get_checkerboard_parsing_data(
 	}
 	get_checkerboard_size(checkerboard_data_split[0], &result.size);
 	result.color = get_checkerboard_color(checkerboard_data_split[1]);
+	ft_free_split(checkerboard_data_split);
 	return (result);
 }
 
