@@ -43,6 +43,13 @@ int	parse_scene(t_engine *engine, const char *start_up_scene)
 		free_scene_content(scene_content);
 		return (-1);
 	}
+	if (engine->scene.objects.length == 0)
+	{
+		engine->scene.bvh_tree = objects_bvh_create_tree(
+			&engine->scene.objects);
+		if (engine->scene.bvh_tree == NULL)
+			return (-1); // TODO maybe free stuff?
+	}
 	update_object_list_icons(engine);
 	free_scene_content(scene_content);
 	return (0);
