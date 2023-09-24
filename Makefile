@@ -595,5 +595,5 @@ decompress:
 
 
 .PHONY: render
-render:
+render: all
 	find assets/scenes -name "*.rt" -exec ./miniRT {} \;
