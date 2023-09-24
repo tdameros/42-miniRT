@@ -24,7 +24,7 @@
 # define DEFAULT_ANTIALIASING_VALUE true
 #endif
 #ifndef DEFAULT_BOUNCES_PER_PIXEL
-# define DEFAULT_BOUNCES_PER_PIXEL 8
+# define DEFAULT_BOUNCES_PER_PIXEL 10
 #endif
 
 static void	init_hooks(t_engine *engine);
