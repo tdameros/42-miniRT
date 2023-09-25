@@ -2,6 +2,9 @@
 
 #include "engine.h"
 
+#define MIN_X_SCREEN_SIZE 600
+#define MIN_Y_SCREEN_SIZE 600
+
 #ifndef X_SCREEN_SIZE
 # define X_SCREEN_SIZE -1
 #endif
@@ -20,6 +23,10 @@ void	get_screen_size(t_engine *engine)
 		engine->window.size.x = X_SCREEN_SIZE;
 	if (Y_SCREEN_SIZE > 0)
 		engine->window.size.y = Y_SCREEN_SIZE;
+	if (engine->window.size.x > MIN_X_SCREEN_SIZE)
+		engine->window.size.x = MIN_X_SCREEN_SIZE;
+	if (engine->window.size.y > MIN_Y_SCREEN_SIZE)
+		engine->window.size.y = MIN_Y_SCREEN_SIZE;
 }
 #endif
 #ifdef __linux__
@@ -37,5 +44,9 @@ void	get_screen_size(t_engine *engine)
 		engine->window.size.x = X_SCREEN_SIZE;
 	if (Y_SCREEN_SIZE > 0)
 		engine->window.size.y = Y_SCREEN_SIZE;
+	if (engine->window.size.x < MIN_X_SCREEN_SIZE)
+		engine->window.size.x = MIN_X_SCREEN_SIZE;
+	if (engine->window.size.y < MIN_Y_SCREEN_SIZE)
+		engine->window.size.y = MIN_Y_SCREEN_SIZE;
 }
 #endif
