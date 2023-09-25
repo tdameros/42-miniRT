@@ -42,7 +42,7 @@ void	write_centered_number_to_image(const t_font *font, t_image *image,
 		- glyphs_max_size.x * scale / 2.f;
 	i = 0;
 	while (number[i]
-		&& offsets.x + font->long_hor_metric[(int8_t)number[i]].advanceWidth
+		&& offsets.x + font->long_hor_metric[(int8_t)number[i]].advance_width
 		* scale < image->width)
 	{
 		write_character(number[i], font, image,
@@ -60,9 +60,9 @@ static t_vector2f	get_glyphs_size(const t_font *font, const char *number)
 	i = -1;
 	while (number[++i] != '\0')
 	{
-		result.x += font->long_hor_metric[(int8_t)number[i]].advanceWidth;
-		result.y = fmaxf(result.y, font->glyphs[(int8_t)number[i]].bounds.yMax
-				- font->glyphs[(int8_t)number[i]].bounds.yMin);
+		result.x += font->long_hor_metric[(int8_t)number[i]].advance_width;
+		result.y = fmaxf(result.y, font->glyphs[(int8_t)number[i]].bounds.y_max
+				- font->glyphs[(int8_t)number[i]].bounds.y_min);
 	}
 	return (result);
 }
@@ -75,7 +75,7 @@ static float	get_glyphs_y_min(const t_font *font, const char *number)
 	result = FLT_MAX;
 	i = -1;
 	while (number[++i] != '\0')
-		result = fminf(result, font->glyphs[(int8_t)number[i]].bounds.yMin);
+		result = fminf(result, font->glyphs[(int8_t)number[i]].bounds.y_min);
 	return (result);
 }
 
@@ -93,12 +93,12 @@ static void	write_character(const char c, const t_font *font, t_image *image,
 	if (*is_decimal)
 		draw_glyph(font->glyphs + c, (t_draw_glyph_data){scale, image,
 			COLOR_LIGHT_GREY, offsets->x
-			+ font->long_hor_metric[(int8_t)c].leftSideBearing * scale,
+			+ font->long_hor_metric[(int8_t)c].left_side_bearing * scale,
 			offsets->y});
 	else
 		draw_glyph(font->glyphs + c, (t_draw_glyph_data){scale, image,
 			COLOR_WHITE, offsets->x
-			+ font->long_hor_metric[(int8_t)c].leftSideBearing * scale,
+			+ font->long_hor_metric[(int8_t)c].left_side_bearing * scale,
 			offsets->y});
-	offsets->x += font->long_hor_metric[(int8_t)c].advanceWidth * scale;
+	offsets->x += font->long_hor_metric[(int8_t)c].advance_width * scale;
 }

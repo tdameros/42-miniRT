@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_files_in_directory.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/23 22:57:14 by tdameros          #+#    #+#             */
+/*   Updated: 2023/09/23 22:57:15 by tdameros         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <dirent.h>
 #include <stdlib.h>
 
@@ -14,7 +26,8 @@ static char	**get_files_with_correct_extension(t_vector *files_vector,
 /// \param extension extension of the files you want to get (NULL if you want to
 /// get all files)
 /// \return
-char	**ft_get_files_in_directory(const char *path, const char *extension, bool ignore_hidden_files)
+char	**ft_get_files_in_directory(const char *path, const char *extension,
+									bool ignore_hidden_files)
 {
 	t_vector	files;
 

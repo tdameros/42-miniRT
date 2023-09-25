@@ -29,8 +29,6 @@ int	objects_bvh_subdivide(t_objects_bvh_node *node)
 	}
 	if (fill_children_nodes(node) < 0)
 		return (-1);
-	node->left_node->previous_node = node;
-	node->right_node->previous_node = node;
 	node->nb_split_objects = node->index_objects.length;
 	if (is_duplicated_node(node))
 	{

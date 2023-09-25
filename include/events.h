@@ -14,32 +14,32 @@
 # define EVENTS_H
 
 // X11 masks
-# define NO_EVENT_MASK				0L
-# define KEY_PRESS_MASK				(1L << 0)
-# define KEY_RELEASE_MASK			(1L << 1)
-# define BUTTON_PRESS_MASK			(1L << 2)
-# define BUTTON_RELEASE_MASK		(1L << 3)
-# define ENTER_WINDOW_MASK			(1L << 4)
-# define LEAVE_WINDOW_MASK			(1L << 5)
-# define POINTER_MOTION_MASK		(1L << 6)
-# define POINTER_MOTION_HINT_MASK	(1L << 7)
-# define BUTTON_1_MOTION_MASK		(1L << 8)
-# define BUTTON_2_MOTION_MASK		(1L << 9)
-# define BUTTON_3_MOTION_MASK		(1L << 10)
-# define BUTTON_4_MOTION_MASK		(1L << 11)
-# define BUTTON_5_MOTION_MASK		(1L << 12)
-# define BUTTON_MOTION_MASK			(1L << 13)
-# define KEY_MAP_STATE_MASK			(1L << 14)
-# define EXPOSURE_MASK				(1L << 15)
-# define VISIBILITY_CHANGE_MASK		(1L << 16)
-# define STRUCTURE_NOTIFY_MASK		(1L << 17)
-# define RESIZE_REDIRECT_MASK		(1L << 18)
-# define SUBSTRUCTURE_NOTIFY_MASK	(1L << 19)
-# define SUBSTRUCTURE_REDIRECT_MASK	(1L << 20)
-# define FOCUS_CHANGE_MASK			(1L << 21)
-# define PROPERTY_CHANGE_MASK		(1L << 22)
-# define COLOR_MAP_CHANGE_MASK		(1L << 23)
-# define OWNER_GRAB_BUTTON_MASK		(1L << 24)
+# define NO_EVENT_MASK				0
+# define KEY_PRESS_MASK				1
+# define KEY_RELEASE_MASK			2
+# define BUTTON_PRESS_MASK			4
+# define BUTTON_RELEASE_MASK		8
+# define ENTER_WINDOW_MASK			16
+# define LEAVE_WINDOW_MASK			32
+# define POINTER_MOTION_MASK		64
+# define POINTER_MOTION_HINT_MASK	128
+# define BUTTON_1_MOTION_MASK		256
+# define BUTTON_2_MOTION_MASK		512
+# define BUTTON_3_MOTION_MASK		1024
+# define BUTTON_4_MOTION_MASK		2048
+# define BUTTON_5_MOTION_MASK		4096
+# define BUTTON_MOTION_MASK			8192
+# define KEY_MAP_STATE_MASK			16384
+# define EXPOSURE_MASK				32768
+# define VISIBILITY_CHANGE_MASK		65536
+# define STRUCTURE_NOTIFY_MASK		131072
+# define RESIZE_REDIRECT_MASK		262144
+# define SUBSTRUCTURE_NOTIFY_MASK	524288
+# define SUBSTRUCTURE_REDIRECT_MASK	1048576
+# define FOCUS_CHANGE_MASK			2097152
+# define PROPERTY_CHANGE_MASK		4194304
+# define COLOR_MAP_CHANGE_MASK		8388608
+# define OWNER_GRAB_BUTTON_MASK		16777216
 
 // X11 events
 # define KEY_PRESS			2
@@ -78,7 +78,7 @@
 # define GENERIC_EVENT		35
 # define LAST_EVENT			36
 
-# if defined __APPLE__
+# if defined(__APPLE__)
 
 enum e_mouse_buttons
 {
@@ -87,7 +87,7 @@ enum e_mouse_buttons
 	SCROLL_DOWN = 4,
 	SCROLL_UP = 5,
 };
-# elif defined __linux__
+# elif defined(__linux__)
 
 enum e_mouse_buttons
 {
@@ -100,7 +100,7 @@ enum e_mouse_buttons
 #  error "Unsuported OS"
 # endif
 
-# if defined __APPLE__
+# if defined(__APPLE__)
 
 enum e_key_codes
 {
@@ -146,7 +146,7 @@ enum e_key_codes
 	KEY_COMMAND = 259,
 	KEY_BACKSPACE = 51,
 };
-# elif defined __linux__
+# elif defined(__linux__)
 
 enum e_key_codes
 {
@@ -196,4 +196,4 @@ enum e_key_codes
 #  error "Unsuported OS"
 # endif
 
-#endif //EVENTS_H
+#endif

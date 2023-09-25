@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_screen_size.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/24 03:07:18 by tdameros          #+#    #+#             */
+/*   Updated: 2023/09/24 03:43:46 by vfries           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "mlx.h"
 
 #include "engine.h"
@@ -37,7 +49,8 @@ void	get_screen_size(t_engine *engine)
 	 // TODO check that screen size is not too small
 	if (X_SCREEN_SIZE <= 0 || Y_SCREEN_SIZE <= 0)
 	{
-		mlx_get_screen_size(engine->window.mlx, &engine->window.size.x, &engine->window.size.y);
+		mlx_get_screen_size(engine->window.mlx, &engine->window.size.x,
+			&engine->window.size.y);
 		engine->window.size.y -= 70;
 	}
 	if (X_SCREEN_SIZE > 0)

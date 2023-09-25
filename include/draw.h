@@ -16,9 +16,9 @@
 # include "engine.h"
 
 //	bounding_box.c
-void		draw_bounding_box(t_engine *engine, t_bounding_box *bounding_box,
-				t_vector3f color);
-t_vector2i	convert_world_point_to_screen_space(t_camera *camera,
+void		draw_bounding_box(t_engine *engine,
+				const t_bounding_box *bounding_box, t_vector3f color);
+t_vector2i	convert_world_point_to_screen_space(const t_camera *camera,
 				t_vector3f world_point);
 
 //	draw.c
@@ -28,12 +28,12 @@ void		render_bounding_box(t_engine *engine);
 void		draw_line(t_image *image, t_vector2i point1, t_vector2i point2,
 				t_vector3f color);
 
-//	objects_bvh_node.c
-void		draw_objects_bvh_node(t_engine *engine, t_objects_bvh_node *node,
+//	mesh_bvh_node.c
+void		draw_mesh_bvh_node(t_engine *engine, const t_mesh_bvh_node *node,
 				t_vector3f color);
 
-//	mesh_bvh_node.c
-void		draw_mesh_bvh_node(t_engine *engine, t_mesh_bvh_node *node,
-				t_vector3f color);
+//	objects_bvh_node.c
+void		draw_objects_bvh_node(t_engine *engine,
+				const t_objects_bvh_node *node, t_vector3f color);
 
 #endif

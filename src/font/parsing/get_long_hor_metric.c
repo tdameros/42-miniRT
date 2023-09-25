@@ -17,10 +17,12 @@ t_long_hor_metric	get_long_hor_metric(const uint16_t code_point,
 {
 	const uint32_t	glyph_index = get_glyph_index(code_point, ttf);
 
-	if (glyph_index < ttf->hhea.numOfLongHorMetrics)
+	if (glyph_index < ttf->hhea.num_of_long_hor_metrics)
 		return (ttf->hmtx.h_metrics[glyph_index]);
 	return ((t_long_hor_metric){
-		ttf->hmtx.h_metrics[ttf->hhea.numOfLongHorMetrics - 1].advanceWidth,
-		ttf->hmtx.left_side_bearing[glyph_index - ttf->hhea.numOfLongHorMetrics]
+		ttf->hmtx.h_metrics[ttf->hhea.num_of_long_hor_metrics
+			- 1].advance_width,
+		ttf->hmtx.left_side_bearing[glyph_index
+			- ttf->hhea.num_of_long_hor_metrics]
 	});
 }

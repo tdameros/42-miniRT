@@ -29,7 +29,7 @@ int	add_object(t_engine *engine, const t_object object)
 			return (ft_print_error("Failed to add new object\n"), -1);
 	}
 	if (recalculate_bvh_scene(&engine->scene,
-		&engine->scene.objects.data[engine->scene.objects.length - 1]) < 0)
+			&engine->scene.objects.data[engine->scene.objects.length - 1]) < 0)
 		ft_fatal_error("add_object: recalculate_bvh_scene failed");
 	create_object_gui_box(engine, &gui_box, &object);
 	if (ft_vector_add_elem(&engine->gui.object_boxes, &gui_box) < 0)

@@ -52,7 +52,6 @@ typedef struct s_vectors_int
 	size_t	size;
 }	t_vectors_int;
 
-
 //	vectors3f.c
 int			vectors3f_initialize(t_vectors3f *vectors3f, size_t size);
 int			vectors3f_add(t_vectors3f *vectors3f, t_vector3f vector3f);
@@ -82,6 +81,5 @@ int			vectors_int_initialize(t_vectors_int *vectors_int, size_t size);
 int			vectors_int_add(t_vectors_int *vectors_int, int n);
 int			vectors_int_remove(t_vectors_int *vectors_int, const size_t index);
 int			vectors_int_free(t_vectors_int *vectors_int);
-
 
 #endif

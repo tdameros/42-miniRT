@@ -15,6 +15,7 @@
 
 # include <stdbool.h>
 
+//	reverse_bool.c
 void	ft_reverse_bool(bool *boolean);
 
 #endif

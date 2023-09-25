@@ -48,11 +48,11 @@ void	destroy_t_ttf(t_ttf *ttf)
 	free(ttf->hmtx.left_side_bearing);
 	while (ttf->glyphs_count--)
 	{
-		free(ttf->glyphs[ttf->glyphs_count].endPtsOfContours);
+		free(ttf->glyphs[ttf->glyphs_count].end_pts_of_contours);
 		free(ttf->glyphs[ttf->glyphs_count].instructions);
 		free(ttf->glyphs[ttf->glyphs_count].flags);
-		free(ttf->glyphs[ttf->glyphs_count].xCoordinates);
-		free(ttf->glyphs[ttf->glyphs_count].yCoordinates);
+		free(ttf->glyphs[ttf->glyphs_count].x_coordinates);
+		free(ttf->glyphs[ttf->glyphs_count].y_coordinates);
 	}
 	free(ttf->glyphs);
 }
@@ -73,7 +73,7 @@ static int	parse_ttf_file(t_ttf *ttf, t_string *file)
 	ttf->glyphs = get_glyph_outlines(file, ttf);
 	if (ttf->glyphs == NULL)
 		return (error_in_ttf_parser(file, ttf));
-	ttf->glyphs_count = ttf->maxp.numGlyphs;
+	ttf->glyphs_count = ttf->maxp.num_glyphs;
 	return (0);
 }
 

@@ -15,8 +15,7 @@
 #include "object.h"
 
 static void	calculate_bounding_box_face(t_vector3f *face, t_vector3f center,
-										   t_vector3f circle_vector1,
-										   t_vector3f circle_vector2);
+				t_vector3f circle_vector1, t_vector3f circle_vector2);
 
 t_object	cylinder_create(const t_vector3f position,
 							const t_vector3f rotation_degrees,
@@ -53,69 +52,6 @@ void	cylinder_calculate_cache(t_object *cylinder)
 	cylinder->cache.cylinder.cap2_normal, cylinder->cache.cylinder.endpoint2);
 }
 
-t_object	cylinder_infinite_create(const t_vector3f position,
-									const t_vector3f axis,
-									const float radius,
-									const t_material material)
-{
-	t_object	cylinder;
-
-	cylinder.type = CYLINDER_INF;
-	cylinder.position = position;
-	cylinder.axis = axis;
-	cylinder.radius = radius;
-	cylinder.material = material;
-	return (cylinder);
-}
-
-//void	cylinder_calculate_bounding_box(t_object *cylinder)
-//{
-//	t_vector3f	center_bottom = vector3f_add(cylinder->position, vector3f_multiply(cylinder->axis, cylinder->height / 2));
-//	t_vector3f	center_top = vector3f_subtract(cylinder->position, vector3f_multiply(cylinder->axis, cylinder->height / 2));
-//	t_vector3f	circle_vector1;
-//	t_vector3f	circle_vector2;
-//
-//	circle_vector1 = vector3f_cross(cylinder->axis, (t_vector3f){0.f, 1.f, 0.f});
-//	if (vector3f_length(circle_vector1) == 0)
-//		circle_vector1 = vector3f_cross(cylinder->axis, (t_vector3f){1.f, 0.f, 0.f});
-//	circle_vector1 = vector3f_unit(circle_vector1);
-//	circle_vector2 = vector3f_unit(vector3f_cross(circle_vector1, cylinder->axis));
-//	circle_vector1 = vector3f_multiply(circle_vector1, cylinder->radius);
-//	circle_vector2 = vector3f_multiply(circle_vector2, cylinder->radius);
-//
-//	cylinder->bounding_box.top_face[0] = vector3f_add(center_bottom, vector3f_add(circle_vector1, circle_vector2));
-//	cylinder->bounding_box.top_face[1] = vector3f_add(center_bottom, vector3f_subtract(circle_vector2, circle_vector1));
-//	cylinder->bounding_box.top_face[2] = vector3f_subtract(center_bottom, vector3f_add(circle_vector1, circle_vector2));
-//	cylinder->bounding_box.top_face[3] = vector3f_add(center_bottom, vector3f_subtract(circle_vector1, circle_vector2));
-//
-//	cylinder->bounding_box.bottom_face[0] = vector3f_add(center_top, vector3f_add(circle_vector1, circle_vector2));
-//	cylinder->bounding_box.bottom_face[1] = vector3f_add(center_top, vector3f_subtract(circle_vector2, circle_vector1));
-//	cylinder->bounding_box.bottom_face[2] = vector3f_subtract(center_top, vector3f_add(circle_vector1, circle_vector2));
-//	cylinder->bounding_box.bottom_face[3] = vector3f_add(center_top, vector3f_subtract(circle_vector1, circle_vector2));
-//
-//	t_vector3f min = cylinder->bounding_box.top_face[0];
-//	min = vector3f_min(min, cylinder->bounding_box.top_face[1]);
-//	min = vector3f_min(min, cylinder->bounding_box.top_face[2]);
-//	min = vector3f_min(min, cylinder->bounding_box.top_face[3]);
-//	min = vector3f_min(min, cylinder->bounding_box.bottom_face[0]);
-//	min = vector3f_min(min, cylinder->bounding_box.bottom_face[1]);
-//	min = vector3f_min(min, cylinder->bounding_box.bottom_face[2]);
-//	min = vector3f_min(min, cylinder->bounding_box.bottom_face[3]);
-//
-//	t_vector3f max = cylinder->bounding_box.top_face[0];
-//	max = vector3f_max(max, cylinder->bounding_box.top_face[1]);
-//	max = vector3f_max(max, cylinder->bounding_box.top_face[2]);
-//	max = vector3f_max(max, cylinder->bounding_box.top_face[3]);
-//	max = vector3f_max(max, cylinder->bounding_box.bottom_face[0]);
-//	max = vector3f_max(max, cylinder->bounding_box.bottom_face[1]);
-//	max = vector3f_max(max, cylinder->bounding_box.bottom_face[2]);
-//	max = vector3f_max(max, cylinder->bounding_box.bottom_face[3]);
-//
-//	cylinder->bounding_box.aabb_min = min;
-//	cylinder->bounding_box.aabb_max = max;
-//
-//}
-
 void	cylinder_calculate_bounding_box(t_object *cylinder)
 {
 	t_vector3f	center_bottom;
@@ -124,17 +60,17 @@ void	cylinder_calculate_bounding_box(t_object *cylinder)
 	t_vector3f	circle_vector2;
 
 	center_bottom = vector3f_add(cylinder->position,
-								 vector3f_multiply(cylinder->axis, cylinder->height / 2));
+			vector3f_multiply(cylinder->axis, cylinder->height / 2));
 	center_top = vector3f_subtract(cylinder->position,
-								   vector3f_multiply(cylinder->axis, cylinder->height / 2));
+			vector3f_multiply(cylinder->axis, cylinder->height / 2));
 	circle_vector1 = vector3f_cross(cylinder->axis,
-									(t_vector3f){0.f, 1.f, 0.f});
+			(t_vector3f){0.f, 1.f, 0.f});
 	if (vector3f_length(circle_vector1) == 0)
 		circle_vector1 = vector3f_cross(cylinder->axis,
-										(t_vector3f){1.f, 0.f, 0.f});
+				(t_vector3f){1.f, 0.f, 0.f});
 	circle_vector1 = vector3f_unit(circle_vector1);
 	circle_vector2 = vector3f_unit(vector3f_cross(circle_vector1,
-												  cylinder->axis));
+				cylinder->axis));
 	circle_vector1 = vector3f_multiply(circle_vector1, cylinder->radius);
 	circle_vector2 = vector3f_multiply(circle_vector2, cylinder->radius);
 	calculate_bounding_box_face(cylinder->bounding_box.top_face, center_top, \
@@ -146,15 +82,15 @@ void	cylinder_calculate_bounding_box(t_object *cylinder)
 }
 
 static void	calculate_bounding_box_face(t_vector3f *face, t_vector3f center,
-										   t_vector3f circle_vector1,
-										   t_vector3f circle_vector2)
+										t_vector3f circle_vector1,
+										t_vector3f circle_vector2)
 {
 	face[0] = vector3f_add(center,
-						   vector3f_add(circle_vector1, circle_vector2));
+			vector3f_add(circle_vector1, circle_vector2));
 	face[1] = vector3f_add(center,
-						   vector3f_subtract(circle_vector2, circle_vector1));
+			vector3f_subtract(circle_vector2, circle_vector1));
 	face[2] = vector3f_subtract(center,
-								vector3f_add(circle_vector1, circle_vector2));
+			vector3f_add(circle_vector1, circle_vector2));
 	face[3] = vector3f_add(center,
-						   vector3f_subtract(circle_vector1, circle_vector2));
+			vector3f_subtract(circle_vector1, circle_vector2));
 }

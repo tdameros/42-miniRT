@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 22:19:00 by vfries            #+#    #+#             */
-/*   Updated: 2023/05/14 22:19:00 by vfries           ###   ########lyon.fr   */
+/*   Updated: 2023/09/25 15:00:52 by vfries           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,21 +60,21 @@ static int	init_struct_variables(const t_string *file, t_format4 *format4,
 	i += sizeof(uint16_t);
 	format4->length = length;
 	i += sizeof(uint16_t);
-	if (read_uint16_move(file, &i, &format4->language) < 0)
+	if (read_uint16_move(file, &i, &format4->language) < 0
+		|| read_uint16_move(file, &i, &format4->seg_count_x2) < 0
+		|| format4->seg_count_x2 % 2 != 0
+		|| length - sizeof(uint16_t) * 8 <= format4->seg_count_x2 * 4)
 		return (-1);
-	if (read_uint16_move(file, &i, &format4->segCountX2) < 0
-		|| format4->segCountX2 % 2 != 0
-		|| length - sizeof(uint16_t) * 8 <= format4->segCountX2 * 4)
+	if (read_uint16_move(file, &i, &format4->search_range) < 0
+		|| read_uint16_move(file, &i, &format4->entry_selector) < 0
+		|| read_uint16_move(file, &i, &format4->range_shift) < 0)
 		return (-1);
-	if (read_uint16_move(file, &i, &format4->searchRange) < 0
-		|| read_uint16_move(file, &i, &format4->entrySelector) < 0
-		|| read_uint16_move(file, &i, &format4->rangeShift) < 0)
-		return (-1);
-	format4->endCode = (uint16_t *)((uint8_t *)format4 + sizeof(t_format4));
-	format4->startCode = format4->endCode + format4->segCountX2 / 2;
-	format4->idDelta = format4->startCode + format4->segCountX2 / 2;
-	format4->idRangeOffset = format4->idDelta + format4->segCountX2 / 2;
-	format4->glyphIdArray = format4->idRangeOffset + format4->segCountX2 / 2;
+	format4->end_code = (uint16_t *)((uint8_t *)format4 + sizeof(t_format4));
+	format4->start_code = format4->end_code + format4->seg_count_x2 / 2;
+	format4->id_delta = format4->start_code + format4->seg_count_x2 / 2;
+	format4->id_range_offset = format4->id_delta + format4->seg_count_x2 / 2;
+	format4->glyph_id_array = format4->id_range_offset
+		+ format4->seg_count_x2 / 2;
 	if (read_arrays_and_reserved_pad_content(file, format4, i,
 			i_starting_value) < 0)
 		return (-1);
@@ -86,38 +86,37 @@ static int	read_arrays_and_reserved_pad_content(const t_string *file,
 {
 	if (read_first_4_arrays(file, format4, i) < 0)
 		return (-1);
-	if (read_uint16(file, i + format4->segCountX2, &format4->reservedPad) < 0
-		|| format4->reservedPad != 0)
+	if (read_uint16(file, i + format4->seg_count_x2, &format4->reserved_pad) < 0
+		|| format4->reserved_pad != 0)
 		return (-1);
-	i += format4->segCountX2 * 4 + sizeof(int16_t);
+	i += format4->seg_count_x2 * 4 + sizeof(int16_t);
 	return (read_glyph_id_array(file, format4, i, i_starting_value));
 }
 
 static int	read_first_4_arrays(const t_string *file, t_format4 *format4,
 				size_t i)
 {
-	const size_t	start_code_start = i + format4->segCountX2
+	const size_t	start_code_start = i + format4->seg_count_x2
 		+ sizeof(uint16_t);
-	const size_t	id_delta_start = i + format4->segCountX2 * 2
+	const size_t	id_delta_start = i + format4->seg_count_x2 * 2
 		+ sizeof(uint16_t);
-	const size_t	id_range_start = i + format4->segCountX2 * 3
+	const size_t	id_range_start = i + format4->seg_count_x2 * 3
 		+ sizeof(uint16_t);
 	uint			j;
 
 	j = -1;
-	while (++j < format4->segCountX2 / 2)
+	while (++j < format4->seg_count_x2 / 2)
 	{
-		if (read_uint16(file, i + j * 2,
-				format4->endCode + j) < 0)
+		if (read_uint16(file, i + j * 2, format4->end_code + j) < 0)
 			return (-1);
 		if (read_uint16(file, start_code_start + j * 2,
-				format4->startCode + j) < 0)
+				format4->start_code + j) < 0)
 			return (-1);
 		if (read_uint16(file, id_delta_start + j * 2,
-				format4->idDelta + j) < 0)
+				format4->id_delta + j) < 0)
 			return (-1);
 		if (read_uint16(file, id_range_start + j * 2,
-				format4->idRangeOffset + j) < 0)
+				format4->id_range_offset + j) < 0)
 			return (-1);
 	}
 	return (0);
@@ -133,7 +132,7 @@ static int	read_glyph_id_array(const t_string *file, t_format4 *format4,
 		/ 2;
 	j = -1;
 	while (++j < remaining_bytes_divided_by_2)
-		if (read_uint16_move(file, &i, format4->glyphIdArray + j) < 0)
+		if (read_uint16_move(file, &i, format4->glyph_id_array + j) < 0)
 			return (-1);
 	return (0);
 }

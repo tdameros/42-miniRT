@@ -38,13 +38,13 @@ int	get_glyph_points(t_vector *dest, const t_glyph_outline *glyph,
 	t_vector		current_points;
 
 	*end_of_generated_contours = malloc(sizeof(**end_of_generated_contours)
-			* glyph->numberOfContours);
+			* glyph->number_of_contours);
 	if (*end_of_generated_contours == NULL)
 		return (-1);
 	ft_vector_create(dest, sizeof(t_vector2f), 0);
 	ft_vector_create(&current_points, sizeof(t_vector2f), 0);
 	contour_index = -1;
-	while (++contour_index < glyph->numberOfContours)
+	while (++contour_index < glyph->number_of_contours)
 	{
 		if (get_contour_points(contour_index, glyph, &current_points, dest) < 0)
 		{
@@ -70,14 +70,15 @@ static int	get_contour_points(const int16_t contour_index,
 		contour_info.contour_start_index = 0;
 	else
 		contour_info.contour_start_index
-			= glyph->endPtsOfContours[contour_index - 1] + 1;
+			= glyph->end_pts_of_contours[contour_index - 1] + 1;
 	if (contour_index == 0)
-		contour_info.contour_len = glyph->endPtsOfContours[contour_index] + 1;
+		contour_info.contour_len = \
+		glyph->end_pts_of_contours[contour_index] + 1;
 	else
-		contour_info.contour_len = glyph->endPtsOfContours[contour_index]
-			- glyph->endPtsOfContours[contour_index - 1];
+		contour_info.contour_len = glyph->end_pts_of_contours[contour_index]
+			- glyph->end_pts_of_contours[contour_index - 1];
 	i = contour_info.contour_start_index;
-	while (i <= glyph->endPtsOfContours[contour_index])
+	while (i <= glyph->end_pts_of_contours[contour_index])
 	{
 		if (get_points(&i, glyph, contour_info, current_points) < 0)
 			return (-1);
@@ -101,8 +102,8 @@ static int	handle_on_curve(t_vector *current_points,
 {
 	t_vector2f	tmp[4];
 
-	tmp[0] = (t_vector2f){glyph->xCoordinates[*i],
-		glyph->yCoordinates[*i]};
+	tmp[0] = (t_vector2f){glyph->x_coordinates[*i],
+		glyph->y_coordinates[*i]};
 	if (ft_vector_add_elem(current_points, tmp) != VECTOR_SUCCESS)
 		return (-1);
 	(*i)++;
@@ -121,9 +122,9 @@ static int	handle_off_curve(t_vector *current_points,
 	if (current_points->length <= 0)
 		return (-1);
 	tmp[0] = ((t_vector2f *)current_points->data)[current_points->length - 1];
-	tmp[1] = (t_vector2f){glyph->xCoordinates[*i], glyph->yCoordinates[*i]};
-	tmp[2] = (t_vector2f){glyph->xCoordinates[next_index],
-		glyph->yCoordinates[next_index]};
+	tmp[1] = (t_vector2f){glyph->x_coordinates[*i], glyph->y_coordinates[*i]};
+	tmp[2] = (t_vector2f){glyph->x_coordinates[next_index],
+		glyph->y_coordinates[next_index]};
 	if (glyph->flags[next_index].on_curve == true)
 		(*i)++;
 	else

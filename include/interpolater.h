@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   interpolater.h                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/25 03:35:43 by tdameros          #+#    #+#             */
+/*   Updated: 2023/09/25 03:35:44 by tdameros         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef INTERPOLATER_H
 # define INTERPOLATER_H
 
-#include "engine.h"
+# include "engine.h"
 
 typedef struct s_interpolater_routines_arg
 {

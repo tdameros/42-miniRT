@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 03:18:55 by vfries            #+#    #+#             */
-/*   Updated: 2023/04/21 03:22:28 by vfries           ###   ########lyon.fr   */
+/*   Updated: 2023/09/24 03:47:34 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	parse_scene_content(t_engine *engine, char ***scene_content)
 			ft_putstr_fd("Failed to parse scene_content line\n", STDERR_FILENO);
 			if (errno != 0)
 				perror("errno value");
-			// TODO free engine->scene?
 			return (-1);
 		}
 		i++;

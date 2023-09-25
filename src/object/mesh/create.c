@@ -50,7 +50,6 @@ int	mesh_object_initialize(t_object *mesh_object, const char *obj_file,
 		return (-1);
 	}
 	mesh_calculate_bounding_box(mesh_object);
-	//mesh_object->mesh.tree = mesh_bvh_create_tree(mesh_object);
 	return (0);
 }
 
@@ -82,7 +81,6 @@ void	mesh_free(t_mesh *mesh)
 	ft_bzero(mesh, sizeof(*mesh));
 }
 
-#include <stdio.h>
 static int	init_cache(t_object *mesh_object, const char *obj_file)
 {
 	t_mesh_object_cache	*cache;
@@ -105,34 +103,4 @@ static int	init_cache(t_object *mesh_object, const char *obj_file)
 	mesh_object_update_normals(mesh_object);
 	mesh_object_update_vertex(mesh_object);
 	return (0);
-}
-
-void	mesh_calculate_bounding_box(t_object *mesh_object)
-{
-	t_vector3f	min;
-	t_vector3f	max;
-
-	min = (t_vector3f){FLT_MAX, FLT_MAX, FLT_MAX};
-	max = (t_vector3f){-FLT_MAX, -FLT_MAX, -FLT_MAX};
-	for (size_t i = 0; i < mesh_object->mesh.faces.length; i++)
-	{
-		min = vector3f_min(min, mesh_get_vertex_from_face(mesh_object, i, 0));
-		min = vector3f_min(min, mesh_get_vertex_from_face(mesh_object, i, 1));
-		min = vector3f_min(min, mesh_get_vertex_from_face(mesh_object, i, 2));
-		max = vector3f_max(max, mesh_get_vertex_from_face(mesh_object, i, 0));
-		max = vector3f_max(max, mesh_get_vertex_from_face(mesh_object, i, 1));
-		max = vector3f_max(max, mesh_get_vertex_from_face(mesh_object, i, 2));
-	}
-//	min = vector3f_subtract(min, (t_vector3f){0.05f, 0.05f, 0.05f});
-//	max = vector3f_add(max, (t_vector3f){0.05f, 0.05f, 0.05f});
-	mesh_object->bounding_box.aabb_min = min;
-	mesh_object->bounding_box.aabb_max = max;
-	mesh_object->bounding_box.top_face[0] = (t_vector3f){max.x, max.y, min.z};
-	mesh_object->bounding_box.top_face[1] = max;
-	mesh_object->bounding_box.top_face[2] = (t_vector3f){min.x, max.y, max.z};
-	mesh_object->bounding_box.top_face[3] = (t_vector3f){min.x, max.y, min.z};
-	mesh_object->bounding_box.bottom_face[0] = (t_vector3f){max.x, min.y, min.z};
-	mesh_object->bounding_box.bottom_face[1] = (t_vector3f){max.x, min.y, max.z};
-	mesh_object->bounding_box.bottom_face[2] = (t_vector3f){min.x, min.y, max.z};
-	mesh_object->bounding_box.bottom_face[3] = min;
 }

@@ -29,7 +29,6 @@ void	position_input_box_x_on_click_plus(t_gui_box *self, t_engine *engine,
 	{
 		engine->scene_changed = true;
 		light->position.x += engine->gui.object_modification_amount;
-		light_calculate_cache(light);
 		update_xyz_float_input_boxes(engine, light->position,
 			&engine->gui.float_input_boxes.position);
 	}
@@ -41,7 +40,7 @@ void	position_input_box_x_on_click_plus(t_gui_box *self, t_engine *engine,
 		update_xyz_float_input_boxes(engine, object->position,
 			&engine->gui.float_input_boxes.position);
 		if (recalculate_bvh_scene(&engine->scene, object) < 0)
-			ft_fatal_error("position_input_box_x_on_click_plus: recalculate_bvh_scene failed");
+			ft_fatal_error("recalculate_bvh_scene failed");
 	}
 }
 
@@ -60,7 +59,6 @@ void	position_input_box_x_on_click_minus(t_gui_box *self, t_engine *engine,
 	{
 		engine->scene_changed = true;
 		light->position.x -= engine->gui.object_modification_amount;
-		light_calculate_cache(light);
 		update_xyz_float_input_boxes(engine, light->position,
 			&engine->gui.float_input_boxes.position);
 	}
@@ -72,7 +70,7 @@ void	position_input_box_x_on_click_minus(t_gui_box *self, t_engine *engine,
 		update_xyz_float_input_boxes(engine, object->position,
 			&engine->gui.float_input_boxes.position);
 		if (recalculate_bvh_scene(&engine->scene, object) < 0)
-			ft_fatal_error("position_input_box_x_on_click_minus: recalculate_bvh_scene failed");
+			ft_fatal_error("recalculate_bvh_scene failed");
 	}
 }
 

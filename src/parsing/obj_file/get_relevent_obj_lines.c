@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_relevent_obj_lines.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/24 00:28:50 by tdameros          #+#    #+#             */
+/*   Updated: 2023/09/24 00:28:52 by tdameros         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <errno.h>
@@ -56,7 +68,7 @@ int	fill_lines(t_str_vector *lines, const int fd,
 		{
 			free(line);
 			line = get_next_line(fd);
-			continue;
+			continue ;
 		}
 		if (ft_str_vector_add_elem(lines, line) != VECTOR_SUCCESS)
 			return (free(line), -1);

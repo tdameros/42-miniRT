@@ -13,7 +13,6 @@
 #include <stdlib.h>
 
 #include "material.h"
-#include "object.h"
 #include "libft.h"
 
 static int	surface_deep_copy(t_surface *dst, const t_surface *src);

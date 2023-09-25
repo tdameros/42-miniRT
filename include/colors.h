@@ -36,6 +36,7 @@ enum
 
 typedef t_vector3f	t_color;
 
+//	color.c
 unsigned int	rgb_to_uint(t_color color);
 unsigned int	vec_rgb_to_uint(t_color color);
 uint8_t			get_transparency(unsigned int color);

@@ -41,7 +41,8 @@ void	add_cap_checkerboard_color_toggle_box(t_engine *engine,
 	engine->gui.color_and_material.cap_checkered_pattern_color_toggle_box
 		= gui_box->children.data;
 	draw_toggle_box(gui_box->children.data,
-					engine->gui.color_and_material.color_being_changed == CAP_CHECKERBOARD_COLOR);
+		engine->gui.color_and_material.color_being_changed \
+		== CAP_CHECKERBOARD_COLOR);
 	change_image_color(&gui_box->children.data[1].image, COLOR_TRANSPARENT);
 	write_centered_string_to_image(&engine->gui.font,
 		&gui_box->children.data[1].image, "Change cap checkerboard color");
@@ -50,20 +51,20 @@ void	add_cap_checkerboard_color_toggle_box(t_engine *engine,
 static void	cap_checkerboard_color_toggle_box_on_click(t_gui_box *self,
 				t_engine *engine, t_click_data click_data)
 {
-	t_object	*object;
+	const t_object				*object = engine->gui.selected_object.object;
+	enum e_color_being_changed	*color_being_changed;
 
-	object = engine->gui.selected_object.object;
+	color_being_changed = &engine->gui.color_and_material.color_being_changed;
 	if (click_data.button != BUTTON_LEFT || object == NULL)
 		return ;
-	if (engine->gui.color_and_material.color_being_changed == CAP_CHECKERBOARD_COLOR
+	if (*color_being_changed == CAP_CHECKERBOARD_COLOR
 		|| object->material.textures.cap.texture_type != CHECKERBOARD)
-		engine->gui.color_and_material.color_being_changed = BASE_COLOR;
+		*color_being_changed = BASE_COLOR;
 	else
-		engine->gui.color_and_material.color_being_changed = CAP_CHECKERBOARD_COLOR;
+		*color_being_changed = CAP_CHECKERBOARD_COLOR;
 	draw_toggle_box(engine->gui.color_and_material.\
 		outline_checkered_pattern_color_toggle_box,
-					engine->gui.color_and_material.color_being_changed == OUTLINE_CHECKERBOARD_COLOR);
-	draw_toggle_box(self,
-					engine->gui.color_and_material.color_being_changed == CAP_CHECKERBOARD_COLOR);
+		*color_being_changed == OUTLINE_CHECKERBOARD_COLOR);
+	draw_toggle_box(self, *color_being_changed == CAP_CHECKERBOARD_COLOR);
 	engine->scene_changed = true;
 }

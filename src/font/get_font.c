@@ -62,10 +62,10 @@ static int	get_font_data(t_font *font, t_ttf *ttf)
 		}
 		font->long_hor_metric[i] = get_long_hor_metric(i, ttf);
 	}
-	font->bounds.yMax = ttf->head.yMax;
-	font->bounds.xMax = ttf->head.xMax;
-	font->bounds.yMin = ttf->head.yMin;
-	font->bounds.xMin = ttf->head.xMin;
+	font->bounds.y_max = ttf->head.y_max;
+	font->bounds.x_max = ttf->head.x_max;
+	font->bounds.y_min = ttf->head.y_min;
+	font->bounds.x_min = ttf->head.x_min;
 	return (0);
 }
 
@@ -76,7 +76,7 @@ static int	get_points(t_glyph_generated_points *points,
 	t_vector				vector_points;
 	size_t					j;
 
-	if (glyph->numberOfContours <= 0)
+	if (glyph->number_of_contours <= 0)
 	{
 		ft_bzero(points, sizeof(*points));
 		return (0);
@@ -89,11 +89,11 @@ static int	get_points(t_glyph_generated_points *points,
 	ft_vector_minimize_size(&vector_points);
 	points->points = vector_points.data;
 	points->nb_of_points = vector_points.length;
-	points->nb_of_contours = glyph->numberOfContours;
+	points->nb_of_contours = glyph->number_of_contours;
 	j = points->nb_of_points;
 	while (j--)
-		points->points[j].y = (1.f - points->points[j].y / ttf->head.yMax)
-			* ttf->head.yMax;
+		points->points[j].y = (1.f - points->points[j].y / ttf->head.y_max)
+			* ttf->head.y_max;
 	get_glyph_bounds(points);
 	return (0);
 }
@@ -115,10 +115,10 @@ static void	get_glyph_bounds(t_glyph_generated_points *points)
 		max.y = fmaxf(max.y, points->points[i].y);
 	}
 	points->bounds = (t_glyph_outline_bounds){
-		.xMin = min.x,
-		.xMax = max.x + (max.x - (int)max.x != 0.f),
-		.yMin = min.y,
-		.yMax = max.y + (max.y - (int)max.y != 0.f)};
+		.x_min = min.x,
+		.x_max = max.x + (max.x - (int)max.x != 0.f),
+		.y_min = min.y,
+		.y_max = max.y + (max.y - (int)max.y != 0.f)};
 }
 
 static void	free_font_glyphs(t_glyph_generated_points *glyphs, uint8_t i)

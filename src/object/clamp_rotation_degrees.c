@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   clamp_rotation_degrees.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/23 22:29:06 by tdameros          #+#    #+#             */
+/*   Updated: 2023/09/23 22:29:06 by tdameros         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "math/vector.h"
 
 t_vector3f	clamp_rotation_degrees(t_vector3f rotation_degrees)

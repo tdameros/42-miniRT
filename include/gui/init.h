@@ -15,6 +15,7 @@
 
 # include "engine.h"
 
+//	init_gui.c
 void	init_gui(t_engine *engine);
 
 #endif

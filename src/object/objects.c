@@ -89,4 +89,3 @@ void	free_objects(t_objects *objects)
 	objects->size = 0;
 	objects->length = 0;
 }
-

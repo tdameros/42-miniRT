@@ -9,8 +9,9 @@
 /*   Updated: 2023/06/12 20:03:00 by vfries           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef MINIRT_UI_H
-# define MINIRT_UI_H
+
+#ifndef UI_H
+# define UI_H
 
 # define BASE_GUI_COLOR 0x40000000
 # define SUB_GUI_COLOR 0x40141414

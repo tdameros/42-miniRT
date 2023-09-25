@@ -87,7 +87,6 @@ void			image_draw_minus(t_image *image, int thickness,
 void			image_draw_check_mark(t_image *image, unsigned int color,
 					float border);
 
-
 void			image_draw_outline(t_image *image, int width,
 					unsigned int color);
 void			image_draw_top_outline(t_image *image, int width,
@@ -103,5 +102,4 @@ void			round_image_corners(t_image *image, int radius);
 bool			is_point_in_corner(float x, float y, float radius,
 					t_image *image);
 
-
-#endif //IMAGE_H
+#endif

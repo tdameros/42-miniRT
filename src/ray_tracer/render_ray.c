@@ -61,7 +61,6 @@ t_vector3f	render_ray_icon(t_ray ray, const t_scene *scene, int *missed_object)
 {
 	t_hit			ray_hit;
 	t_vector3f		ray_color;
-	t_vector3f		color;
 	float			multiplier;
 	unsigned int	i;
 
@@ -79,8 +78,8 @@ t_vector3f	render_ray_icon(t_ray ray, const t_scene *scene, int *missed_object)
 			return (vector3f_add(ray_color, \
 					vector3f_multiply(scene->sky_color, multiplier)));
 		}
-		color = calculate_shade(scene, ray_hit, multiplier);
-		ray_color = vector3f_add(ray_color, color);
+		ray_color = vector3f_add(ray_color,
+				calculate_shade(scene, ray_hit, multiplier));
 		multiplier *= ray_hit.object->material.reflection;
 		ray = calculate_bounce_ray(ray, ray_hit);
 	}

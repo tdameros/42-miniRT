@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   atof.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 09:13:11 by tdameros          #+#    #+#             */
-/*   Updated: 2023/07/31 09:13:13 by tdameros         ###   ########lyon.fr   */
+/*   Updated: 2023/09/25 17:59:56 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ float	ft_atof(const char *string)
 	bool	is_negative;
 
 	is_negative = *string == '-';
-	string += is_negative || *string == '+';
+	string += (is_negative || *string == '+');
 	if (*string == '\0')
 	{
 		errno = EINVAL;

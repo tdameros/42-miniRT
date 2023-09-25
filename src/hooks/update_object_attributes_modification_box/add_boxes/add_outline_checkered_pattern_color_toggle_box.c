@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   add_checkered_pattern_color_toggle_box.c           :+:      :+:    :+:   */
+/*   add_outline_checkered_pattern_color_toggle_        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 16:46:00 by vfries            #+#    #+#             */
-/*   Updated: 2023/07/23 16:46:00 by vfries           ###   ########lyon.fr   */
+/*   Updated: 2023/09/24 09:25:52 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <float.h>
+#include "float.h"
+
 #include "engine.h"
 #include "gui/box.h"
 #include "gui/UI.h"
@@ -42,7 +43,8 @@ void	add_outline_checkerboard_color_toggle_box(t_engine *engine,
 	engine->gui.color_and_material.outline_checkered_pattern_color_toggle_box
 		= gui_box->children.data;
 	draw_toggle_box(gui_box->children.data,
-					engine->gui.color_and_material.color_being_changed == OUTLINE_CHECKERBOARD_COLOR);
+		engine->gui.color_and_material.color_being_changed
+		== OUTLINE_CHECKERBOARD_COLOR);
 	change_image_color(&gui_box->children.data[1].image, COLOR_TRANSPARENT);
 	write_centered_string_to_image(&engine->gui.font,
 		&gui_box->children.data[1].image, "Change outline checkerboard color");
@@ -56,15 +58,19 @@ static void	outline_checkerboard_color_toggle_box_on_click(t_gui_box *self,
 	object = engine->gui.selected_object.object;
 	if (click_data.button != BUTTON_LEFT || object == NULL)
 		return ;
-	if (engine->gui.color_and_material.color_being_changed == OUTLINE_CHECKERBOARD_COLOR
+	if (engine->gui.color_and_material.color_being_changed
+		== OUTLINE_CHECKERBOARD_COLOR
 		|| object->material.textures.outline.texture_type != CHECKERBOARD)
 		engine->gui.color_and_material.color_being_changed = BASE_COLOR;
 	else
-		engine->gui.color_and_material.color_being_changed = OUTLINE_CHECKERBOARD_COLOR;
+		engine->gui.color_and_material.color_being_changed
+			= OUTLINE_CHECKERBOARD_COLOR;
 	draw_toggle_box(self,
-					engine->gui.color_and_material.color_being_changed == OUTLINE_CHECKERBOARD_COLOR);
+		engine->gui.color_and_material.color_being_changed
+		== OUTLINE_CHECKERBOARD_COLOR);
 	draw_toggle_box(
 		engine->gui.color_and_material.cap_checkered_pattern_color_toggle_box,
-		engine->gui.color_and_material.color_being_changed == CAP_CHECKERBOARD_COLOR);
+		engine->gui.color_and_material.color_being_changed
+		== CAP_CHECKERBOARD_COLOR);
 	engine->scene_changed = true;
 }

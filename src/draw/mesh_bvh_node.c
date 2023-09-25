@@ -12,10 +12,10 @@
 
 #include "draw.h"
 
-static void	draw_mesh_bvh_faces_node(t_engine *engine, t_mesh_bvh_node *node,
-				t_vector3f color);
+static void	draw_mesh_bvh_faces_node(t_engine *engine,
+				const t_mesh_bvh_node *node, t_vector3f color);
 
-void	draw_mesh_bvh_node(t_engine *engine, t_mesh_bvh_node *node,
+void	draw_mesh_bvh_node(t_engine *engine, const t_mesh_bvh_node *node,
 				t_vector3f color)
 {
 	const t_vector3f	max = node->aabb_max;
@@ -36,7 +36,8 @@ void	draw_mesh_bvh_node(t_engine *engine, t_mesh_bvh_node *node,
 			(t_vector3f){255.f, 255.f, 255.f});
 }
 
-static void	draw_mesh_bvh_faces_node(t_engine *engine, t_mesh_bvh_node *node,
+static void	draw_mesh_bvh_faces_node(t_engine *engine,
+									const t_mesh_bvh_node *node,
 									t_vector3f color)
 {
 	t_vector3f	vertices[3];
@@ -47,11 +48,11 @@ static void	draw_mesh_bvh_faces_node(t_engine *engine, t_mesh_bvh_node *node,
 	while (i < node->index_faces.length)
 	{
 		vertices[0] = mesh_get_vertex_from_face(node->mesh_object,
-				node->index_faces.data[i], 0);
+				node->index_faces.data[i], VERTEX_A);
 		vertices[1] = mesh_get_vertex_from_face(node->mesh_object,
-				node->index_faces.data[i], 1);
+				node->index_faces.data[i], VERTEX_B);
 		vertices[2] = mesh_get_vertex_from_face(node->mesh_object,
-				node->index_faces.data[i], 2);
+				node->index_faces.data[i], VERTEX_C);
 		points[0] = convert_world_point_to_screen_space(&engine->camera,
 				vertices[0]);
 		points[1] = convert_world_point_to_screen_space(&engine->camera,

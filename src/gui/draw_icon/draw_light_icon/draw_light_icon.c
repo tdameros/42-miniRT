@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_light_icon.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/23 22:36:09 by vfries            #+#    #+#             */
+/*   Updated: 2023/09/23 22:36:19 by vfries           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <math.h>
 
 #include "image.h"
@@ -16,8 +28,9 @@ void	draw_light_icon(t_image *image,
 	const t_vector2f	center = {image->width / 2.f, image->height / 2.f};
 	const unsigned int	color = vec_rgb_to_uint(
 			vector3f_multiply(vec_color, 255));
-	const t_vector2f	offset = {.x = image->width / 2.f - image_min_size / 2.f, \
-								.y = image->height / 2.f - image_min_size / 2.f};
+	const t_vector2f	offset = {
+		.x = image->width / 2.f - image_min_size / 2.f, \
+		.y = image->height / 2.f - image_min_size / 2.f};
 
 	change_image_color(image, background_color);
 	draw_top_rectangles(image, color, scale, offset);

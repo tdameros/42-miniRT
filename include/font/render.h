@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 01:51:00 by vfries            #+#    #+#             */
-/*   Updated: 2023/06/13 01:51:00 by vfries           ###   ########lyon.fr   */
+/*   Updated: 2023/09/24 01:44:58 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,23 +43,35 @@ typedef struct s_write_character_data
 	bool		*is_decimal;
 }	t_write_character_data;
 
-int			get_font(t_font *font, char *font_file);
+//	do_segments_intersect.c
+bool		do_segments_intersect(t_vector2f a, t_vector2f b, t_vector2f c,
+				t_vector2f d);
 
-void		write_centered_string_to_image(const t_font *font, t_image *image,
-				const char *string);
-void		write_centered_number_to_image(const t_font *font, t_image *image,
-				const char *number);
-
+//	draw_glyph.c
 void		draw_glyph(const t_glyph_generated_points *raw_points,
 				t_draw_glyph_data data);
 
+//	get_glyph_points.c
 int			get_glyph_points(t_vector *dest, const t_glyph_outline *glyph,
 				size_t **end_of_generated_contours);
 
+//	get_quadratic_bezier_points.c
 int			get_quadratic_bezier_points(t_vector *dest,
 				const t_vector2f *points, size_t number_of_points);
 
-bool		do_segments_intersect(t_vector2f a, t_vector2f b, t_vector2f c,
-				t_vector2f d);
+//	is_point_inside_glyph.c
+bool		is_point_inside_glyph(t_vector2f point,
+				const t_glyph_generated_points *points);
+
+//	write_centered_number_to_image.c
+void		write_centered_number_to_image(const t_font *font, t_image *image,
+				const char *number);
+
+//	write_centered_string_to_image.c
+void		write_centered_string_to_image(const t_font *font, t_image *image,
+				const char *string);
+
+//	get_font.c
+int			get_font(t_font *font, char *font_file);
 
 #endif

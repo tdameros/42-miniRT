@@ -12,7 +12,7 @@
 
 #include "ray_tracer/bvh.h"
 
-static int recalculate_object_bvh(t_object *object);
+static int	recalculate_object_bvh(t_object *object);
 
 int	recalculate_bvh_scene(t_scene *scene, t_object *update_object)
 {
@@ -35,7 +35,7 @@ int	recalculate_bvh_scene(t_scene *scene, t_object *update_object)
 	return (0);
 }
 
-static int recalculate_object_bvh(t_object *object)
+static int	recalculate_object_bvh(t_object *object)
 {
 	if (object != NULL)
 	{

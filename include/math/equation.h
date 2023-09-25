@@ -25,6 +25,7 @@ typedef struct s_quadf_equation
 	float	s2;
 }	t_quadf_equation;
 
+//	equation.c
 bool	solve_quadratic_equation(t_quadf_equation *equation);
 
 #endif

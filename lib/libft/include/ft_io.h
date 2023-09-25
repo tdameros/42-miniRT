@@ -17,22 +17,42 @@
 
 # include "ft_string.h"
 
-char		*get_next_line_multi_fd(int fd);
+//	get_next_line/get_next_line.c
 char		*get_next_line(int fd);
 
-char		**ft_get_files_in_directory(const char *path, const char *extension, bool ignore_hidden_files);
+//	get_next_line/get_next_line_multi_fd.c
+char		*get_next_line_multi_fd(int fd);
 
+//	printf/printf.c
+int			ft_printf(const char *format, ...);
+
+//	get_files_in_directory.c
+char		**ft_get_files_in_directory(const char *path, const char *extension,
+				bool ignore_hidden_files);
+
+//	print_error.c
 ssize_t		ft_print_error(const char *str);
+
+//	print_position_in_code.c
 void		ft_print_position_in_code(const char *file, const char *function,
 				const int line);
+
+//	putchar_fd.c
 ssize_t		ft_putchar_fd(const char c, int fd);
+
+//	putendl_fd.c
 ssize_t		ft_putendl_fd(const char *s, int fd);
+
+//	putnbr_fd.c
 ssize_t		ft_putnbr_fd(int n, int fd);
+
+//	putstr.c
+ssize_t		ft_putstr(const char *s);
+
+//	putstr_fd.c
 ssize_t		ft_putstr_fd(const char *s, int fd);
 
-// Bonus
-ssize_t		ft_putstr(const char *s);
-int			ft_printf(const char *format, ...);
+// readfile.c
 t_string	ft_read_file(const char *file_name);
 
 #endif

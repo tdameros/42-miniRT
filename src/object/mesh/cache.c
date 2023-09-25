@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cache.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/23 22:20:58 by tdameros          #+#    #+#             */
+/*   Updated: 2023/09/23 22:20:59 by tdameros         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 #include "object.h"
 #include "ray_tracer/bvh.h"
 
-#include <stdio.h>
 void	mesh_object_update_vertex(t_object *mesh_object)
 {
 	size_t		i;
@@ -19,8 +30,6 @@ void	mesh_object_update_vertex(t_object *mesh_object)
 	while (i--)
 		mesh_object->cache.mesh.vertex.data[i] = matrix4_multiply_vector3(
 				&global_matrix, mesh_object->mesh.base_vertex.data[i]);
-//	mesh_calculate_bounding_box(mesh_object);
-//	mesh_object->mesh.tree = mesh_bvh_create_tree(mesh_object);
 }
 
 void	mesh_object_update_normals(t_object *mesh_object)

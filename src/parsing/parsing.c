@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 03:18:51 by vfries            #+#    #+#             */
-/*   Updated: 2023/04/21 03:18:52 by vfries           ###   ########lyon.fr   */
+/*   Updated: 2023/09/24 03:46:56 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,16 @@ int	parse_scene(t_engine *engine, const char *start_up_scene)
 	scene_content = get_scene_content(fd);
 	close(fd);
 	if (scene_content == NULL)
-	{
-		perror("Error\nFailed to init scene_content from .rt file");
-		return (-1);
-	}
+		return (perror("Error\nFailed to init scene_content from .rt file"), \
+				-1);
 	if (parse_scene_content(engine, scene_content))
-	{
-		ft_putstr_fd("Failed to parse scene_content\n", STDERR_FILENO);
-		free_scene_content(scene_content);
-		return (-1);
-	}
-	if (engine->scene.objects.length == 0)
-	{
-		engine->scene.bvh_tree = objects_bvh_create_tree(
-			&engine->scene.objects);
-		if (engine->scene.bvh_tree == NULL)
-			return (-1); // TODO maybe free stuff?
-	}
+		return (ft_putstr_fd("Failed to parse scene_content\n", STDERR_FILENO), \
+				free_scene_content(scene_content), \
+				-1);
+	engine->scene.bvh_tree = objects_bvh_create_tree(&engine->scene.objects);
+	if (engine->scene.bvh_tree == NULL)
+		return (free_scene_content(scene_content), \
+				-1);
 	update_object_list_icons(engine);
 	free_scene_content(scene_content);
 	return (0);

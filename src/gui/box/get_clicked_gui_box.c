@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 18:22:32 by vfries            #+#    #+#             */
-/*   Updated: 2023/07/30 18:22:43 by vfries           ###   ########.fr       */
+/*   Updated: 2023/09/23 22:37:50 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ static bool	is_point_in_root_gui_box(const t_gui_box *gui_box, int *x, int *y,
 	}
 	return (false);
 }
-
 
 static bool	is_point_in_gui_box(const t_gui_box *gui_box, int *x, int *y)
 {

@@ -76,17 +76,17 @@ void	mesh_bvh_update_node_bounding_box(t_mesh_bvh_node *node)
 	while (i < node->index_faces.length)
 	{
 		min = vector3f_min(min, mesh_get_vertex_from_face(node->mesh_object,
-					node->index_faces.data[i], 0));
+					node->index_faces.data[i], VERTEX_A));
 		min = vector3f_min(min, mesh_get_vertex_from_face(node->mesh_object,
-					node->index_faces.data[i], 1));
+					node->index_faces.data[i], VERTEX_B));
 		min = vector3f_min(min, mesh_get_vertex_from_face(node->mesh_object,
-					node->index_faces.data[i], 2));
+					node->index_faces.data[i], VERTEX_C));
 		max = vector3f_max(max, mesh_get_vertex_from_face(node->mesh_object,
-					node->index_faces.data[i], 0));
+					node->index_faces.data[i], VERTEX_A));
 		max = vector3f_max(max, mesh_get_vertex_from_face(node->mesh_object,
-					node->index_faces.data[i], 1));
+					node->index_faces.data[i], VERTEX_B));
 		max = vector3f_max(max, mesh_get_vertex_from_face(node->mesh_object,
-					node->index_faces.data[i], 2));
+					node->index_faces.data[i], VERTEX_C));
 		i++;
 	}
 	node->aabb_min = min;

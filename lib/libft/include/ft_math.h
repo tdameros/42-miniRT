@@ -15,9 +15,13 @@
 
 # include <stdint.h>
 
+//	sum/sum_int_arr.c
 int64_t		ft_sum_int_arr(const int *arr, size_t size);
+
+//	sum/sum_uint8_arr.c
 uint64_t	ft_sum_uint8_arr(const uint8_t *arr, size_t size);
 
+//	angle_to_theta.c
 float		ft_angle_to_theta(float angle);
 
 #endif

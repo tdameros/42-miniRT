@@ -22,6 +22,7 @@ typedef struct s_gui_boxes
 	size_t				size;
 }	t_gui_boxes;
 
+//	destroy_t_gui_boxes.c
 void	destroy_t_gui_boxes(t_window *window, t_gui_boxes *gui_boxes);
 
 #endif

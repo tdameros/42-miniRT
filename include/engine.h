@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 09:18:38 by tdameros          #+#    #+#             */
-/*   Updated: 2023/09/19 19:50:04 by vfries           ###   ########lyon.fr   */
+/*   Updated: 2023/09/25 17:01:21 by vfries           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ typedef struct s_engine
 	int						pressed_keys[NB_OF_MOVEMENT_KEYS];
 	int						pressed_keys_index;
 	bool					command_key_is_pressed;
-	bool					should_render_ray_tracing; // TODO refactor this with an enum
-	bool					should_render_at_full_resolution; // enum {NO_RENDER, RENDER, FULL_RENDER}
+	bool					should_render_ray_tracing;
+	bool					should_render_at_full_resolution;
 	bool					antialiasing;
 	bool					scene_changed;
 	bool					display_bounding_box;
@@ -79,8 +79,21 @@ typedef struct s_engine
 	uint64_t				last_frame_start_time;
 }	t_engine;
 
-int		init_engine(t_engine *engine, const char *start_up_scene,
-			const char *path_to_minirt_binary);
-int		close_engine(t_engine *engine);
+// init/init_images.c
+int	init_engine_images(t_engine *engine);
 
-#endif //ENGINE_H
+//	init/init_engine.c
+int	init_engine(t_engine *engine, const char *start_up_scene,
+		const char *path_to_minirt_binary);
+
+// init/init_mlx.c
+int	init_mlx(t_engine *engine);
+
+// init/set_minirt_folder_as_current_working_directory.c
+int	set_minirt_folder_as_current_working_directory(
+		const char *path_to_minirt_binary);
+
+//	close_engine.c
+int	close_engine(t_engine *engine);
+
+#endif

@@ -36,7 +36,7 @@ int	parse_camera(t_engine *engine, char **scene_content_line,
 			&engine->camera.horizontal_fov) < 0)
 		return (error("Error\nFailed to get camera fov\n"));
 	camera_create(&engine->camera, vector2f_create(engine->window.size.x,
-			engine->window.size.y));
+			engine->window.size.y), false);
 	update_float_input_box(engine, engine->camera.horizontal_fov,
 		engine->gui.global_float_input_boxes.camera_fov);
 	rt_file_requirements->camera = true;

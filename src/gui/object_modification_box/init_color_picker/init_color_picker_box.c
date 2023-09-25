@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 18:23:59 by vfries            #+#    #+#             */
-/*   Updated: 2023/07/30 18:24:04 by vfries           ###   ########.fr       */
+/*   Updated: 2023/09/23 23:01:48 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ static unsigned int	get_darker_color(float x, float limit,
 						t_color base_color);
 static unsigned int	get_lighter_color(float x, float limit, float start,
 						t_color base_color);
-static void			color_picker_on_click(t_gui_box *self, t_engine *engine,
-						t_click_data click_data);
 
 void	init_color_picker_box(t_engine *engine, t_gui_box *gui_box,
 			t_gui_box *parent)
@@ -115,38 +113,4 @@ static unsigned int	get_lighter_color(float x, float limit, float start,
 	};
 
 	return (rgb_to_uint(color));
-}
-
-static void	color_picker_on_click(t_gui_box *self, t_engine *engine,
-				t_click_data click_data)
-{
-	const unsigned int	uint_color = get_image_pixel_color(&self->image,
-			click_data.click_position.y, click_data.click_position.x);
-	const t_color		albedo = vector3f_divide(
-			get_t_color_from_uint(uint_color), 255.f);
-	t_light				tmp_light;
-
-	if (click_data.button != BUTTON_LEFT || uint_color == COLOR_TRANSPARENT)
-		return ;
-	if (engine->gui.selected_object.object == NULL
-		&& engine->gui.selected_object.light == NULL)
-	{
-		tmp_light.color = albedo;
-		return (redraw_icons(engine, NULL, &tmp_light));
-	}
-	engine->scene_changed = true;
-	if (engine->gui.selected_object.object == NULL)
-	{
-		light_set_color(engine->gui.selected_object.light, albedo);
-		return (redraw_icons(engine, NULL, engine->gui.selected_object.light));
-	}
-	if (engine->gui.color_and_material.color_being_changed == OUTLINE_CHECKERBOARD_COLOR)
-		engine->gui.selected_object.object->material.textures.\
-			outline.checkerboard.albedo = albedo;
-	else if (engine->gui.color_and_material.color_being_changed == CAP_CHECKERBOARD_COLOR)
-		engine->gui.selected_object.object->material.textures.\
-			cap.checkerboard.albedo = albedo;
-	else
-		engine->gui.selected_object.object->material.albedo = albedo;
-	redraw_icons(engine, engine->gui.selected_object.object, NULL);
 }

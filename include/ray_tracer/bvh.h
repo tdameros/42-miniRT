@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BVH_HPP
-# define BVH_HPP
+#ifndef BVH_H
+# define BVH_H
 
 # include "math/vector.h"
 # include "vectors.h"
@@ -27,7 +27,6 @@ typedef struct s_objects_bvh_node
 	bool						is_leaf;
 	t_vectors_int				index_objects;
 	const t_objects				*objects;
-	struct s_objects_bvh_node	*previous_node;
 	size_t						nb_split_objects;
 }	t_objects_bvh_node;
 
@@ -40,7 +39,6 @@ typedef struct s_mesh_bvh_node
 	bool						is_leaf;
 	t_vectors_int				index_faces;
 	const t_object				*mesh_object;
-	struct s_mesh_bvh_node		*previous_node;
 	size_t						nb_split_triangles;
 }	t_mesh_bvh_node;
 
@@ -59,7 +57,8 @@ typedef enum e_bvh_side
 
 //	mesh/bounding_box.c
 t_aabb_split		split_bounding_box_mesh_node(t_mesh_bvh_node *node);
-t_side				get_face_side(t_mesh_bvh_node *node, int face_index, t_aabb_split split);
+t_side				get_face_side(t_mesh_bvh_node *node, int face_index,
+						t_aabb_split split);
 
 //	mesh/node.c
 t_mesh_bvh_node		*mesh_bvh_create_node(const t_object *mesh_object);
@@ -95,7 +94,7 @@ t_objects_bvh_node	*objects_bvh_create_tree(const t_objects *objects);
 void				objects_bvh_free_tree(t_objects_bvh_node *root_node);
 
 //	recalculate_bvh.c
-int					recalculate_bvh_scene(t_scene *scene, t_object *update_object);
-
+int					recalculate_bvh_scene(t_scene *scene,
+						t_object *update_object);
 
 #endif

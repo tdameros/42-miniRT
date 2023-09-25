@@ -49,7 +49,9 @@ typedef struct s_camera
 }	t_camera;
 
 //	create.c
-int			camera_create(t_camera *camera, t_vector2f viewport);
+int			camera_create(t_camera *camera, t_vector2f viewport,
+				bool default_settings);
+void		camera_update(t_camera *camera);
 void		camera_free(t_camera *camera);
 
 //	movement.c

@@ -65,4 +65,3 @@ int	vectors_int_free(t_vectors_int *vectors_int)
 	vectors_int->length = 0;
 	return (0);
 }
-

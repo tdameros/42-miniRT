@@ -45,10 +45,7 @@ int	initialize_mesh_with_obj(t_mesh *mesh, const char *file_name)
 	}
 	ft_str_vector_destroy(&lines);
 	if (mesh->faces.length == 0)
-	{
-		mesh_free(mesh);
-		return (NO_VALID_FACES_FOUND);
-	}
+		return (mesh_free(mesh), NO_VALID_FACES_FOUND);
 	return (0);
 }
 
@@ -73,9 +70,11 @@ static int	initialize_vectors_in_mesh(t_mesh *mesh, size_t number_of_vertex,
 
 static int	parse_obj_file(t_mesh *mesh, t_str_vector lines)
 {
-	char	**limit = (char **)lines.data + lines.length;
-	char	**cursor = lines.data;
+	char	**limit;
+	char	**cursor;
 
+	limit = (char **)lines.data + lines.length;
+	cursor = lines.data;
 	mesh->vertex_max = (t_vector3f){-INFINITY, -INFINITY, -INFINITY};
 	mesh->vertex_min = (t_vector3f){INFINITY, INFINITY, INFINITY};
 	while (cursor < limit)

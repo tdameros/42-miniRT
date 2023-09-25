@@ -34,8 +34,8 @@ typedef int64_t		t_long_date_time;
 
 typedef struct s_long_hor_metric
 {
-	uint16_t	advanceWidth;
-	int16_t		leftSideBearing;
+	uint16_t	advance_width;
+	int16_t		left_side_bearing;
 }	t_long_hor_metric;
 
 typedef struct s_hmtx
@@ -49,16 +49,16 @@ typedef struct s_hhea
 	t_fixed		version;
 	t_fword		ascent;
 	t_fword		descent;
-	t_fword		lineGap;
-	t_ufword	advanceWidthMax;
-	t_fword		minLeftSideBearing;
-	t_fword		minRightSideBearing;
-	t_fword		xMaxExtent;
-	int16_t		caretSlopeRise;
-	int16_t		caretSlopeRun;
-	t_fword		caretOffset;
-	int16_t		metricDataFormat;
-	uint16_t	numOfLongHorMetrics;
+	t_fword		line_gap;
+	t_ufword	advance_width_max;
+	t_fword		min_left_side_bearing;
+	t_fword		min_right_side_bearing;
+	t_fword		x_max_extent;
+	int16_t		caret_slope_rise;
+	int16_t		caret_slope_run;
+	t_fword		caret_offset;
+	int16_t		metric_data_format;
+	uint16_t	num_of_long_hor_metrics;
 }	t_hhea;
 
 typedef union u_glyph_outline_flag
@@ -79,22 +79,22 @@ typedef union u_glyph_outline_flag
 
 typedef struct s_glyph_outline_bounds
 {
-	t_fword					xMin;
-	t_fword					yMin;
-	t_fword					xMax;
-	t_fword					yMax;
+	t_fword					x_min;
+	t_fword					y_min;
+	t_fword					x_max;
+	t_fword					y_max;
 }	t_glyph_outline_bounds;
 
 typedef struct s_glyph_outline
 {
-	int16_t					numberOfContours;
+	int16_t					number_of_contours;
 	t_glyph_outline_bounds	bounds;
-	uint16_t				*endPtsOfContours;
-	uint16_t				instructionLength;
+	uint16_t				*end_pts_of_contours;
+	uint16_t				instruction_length;
 	uint8_t					*instructions;
 	t_glyph_outline_flag	*flags;
-	int16_t					*xCoordinates;
-	int16_t					*yCoordinates;
+	int16_t					*x_coordinates;
+	int16_t					*y_coordinates;
 }	t_glyph_outline;
 
 typedef struct s_loca
@@ -106,41 +106,41 @@ typedef struct s_loca
 typedef struct s_maxp
 {
 	t_fixed		version;
-	uint16_t	numGlyphs;
-	uint16_t	maxPoints;
-	uint16_t	maxContours;
-	uint16_t	maxComponentPoints;
-	uint16_t	maxComponentContours;
-	uint16_t	maxZones;
-	uint16_t	maxTwilightPoints;
-	uint16_t	maxStorage;
-	uint16_t	maxFunctionDefs;
-	uint16_t	maxInstructionDefs;
-	uint16_t	maxStackElements;
-	uint16_t	maxSizeOfInstructions;
-	uint16_t	maxComponentElements;
-	uint16_t	maxComponentDepth;
+	uint16_t	num_glyphs;
+	uint16_t	max_points;
+	uint16_t	max_contours;
+	uint16_t	max_component_points;
+	uint16_t	max_component_contours;
+	uint16_t	max_zones;
+	uint16_t	max_twilight_points;
+	uint16_t	max_storage;
+	uint16_t	max_function_defs;
+	uint16_t	max_instruction_defs;
+	uint16_t	max_stack_elements;
+	uint16_t	max_size_of_instructions;
+	uint16_t	max_component_elements;
+	uint16_t	max_component_depth;
 }	t_maxp;
 
 typedef struct s_head
 {
 	t_fixed				version;
-	t_fixed				fontRevision;
-	uint32_t			checkSumAdjustment;
-	uint32_t			magicNumber;
+	t_fixed				font_revision;
+	uint32_t			check_sum_adjustment;
+	uint32_t			magic_number;
 	uint16_t			flags;
-	uint16_t			unitsPerEm;
+	uint16_t			units_per_em;
 	t_long_date_time	created;
 	t_long_date_time	modified;
-	t_fword				xMin;
-	t_fword				yMin;
-	t_fword				xMax;
-	t_fword				yMax;
-	uint16_t			macStyle;
-	uint16_t			lowestRecPPEM;
-	int16_t				fontDirectionHint;
-	int16_t				indexToLocFormat;
-	int16_t				glyphDataFormat;
+	t_fword				x_min;
+	t_fword				y_min;
+	t_fword				x_max;
+	t_fword				y_max;
+	uint16_t			mac_style;
+	uint16_t			lowest_eec_ppem;
+	int16_t				font_direction_hint;
+	int16_t				index_to_loc_format;
+	int16_t				glyph_data_format;
 }	t_head;
 
 typedef struct s_format4
@@ -148,16 +148,16 @@ typedef struct s_format4
 	uint16_t	format;
 	uint16_t	length;
 	uint16_t	language;
-	uint16_t	segCountX2;
-	uint16_t	searchRange;
-	uint16_t	entrySelector;
-	uint16_t	rangeShift;
-	uint16_t	*endCode;
-	uint16_t	reservedPad;
-	uint16_t	*startCode;
-	uint16_t	*idDelta;
-	uint16_t	*idRangeOffset;
-	uint16_t	*glyphIdArray;
+	uint16_t	seg_count_x2;
+	uint16_t	search_range;
+	uint16_t	entry_selector;
+	uint16_t	range_shift;
+	uint16_t	*end_code;
+	uint16_t	reserved_pad;
+	uint16_t	*start_code;
+	uint16_t	*id_delta;
+	uint16_t	*id_range_offset;
+	uint16_t	*glyph_id_array;
 }	t_format4;
 
 /// @struct s_offset_subtable
@@ -230,7 +230,6 @@ typedef struct s_ttf_font_directory
 	t_table_directory	*table_directory;
 }	t_font_directory;
 
-
 typedef struct s_ttf
 {
 	t_font_directory	font_directory;
@@ -247,34 +246,17 @@ typedef struct s_ttf
 	t_glyph_outline		*glyphs;
 }	t_ttf;
 
-int					ttf_parser(t_ttf *font, char *file_name);
-void				destroy_t_ttf(t_ttf *ttf);
-
-int					read_font_directory(const t_string *file,
-						t_font_directory *font_directory);
-int					read_cmap(const t_string *file, t_ttf *ttf);
-int					read_format4(const t_string *file, t_ttf *ttf);
-int					read_head(const t_string *file, t_ttf *ttf);
-int					read_maxp(const t_string *file, t_ttf *ttf);
-int					read_hhea(const t_string *file, t_ttf *ttf);
-int					read_hmtx(const t_string *file, t_ttf *ttf);
-int					read_loca(const t_string *file, t_ttf *ttf);
-int					read_x_coordinates(const t_string *file,
-						size_t *file_cursor, t_glyph_outline *outline,
-						uint16_t last_index);
-int					read_y_coordinates(const t_string *file,
-						size_t *file_cursor, t_glyph_outline *outline,
-						uint16_t last_index);
-int					read_glyph_outline(const t_string *file, size_t offset,
-						t_glyph_outline *outline);
-
-int64_t				ttf_get_table_offset(const t_ttf *ttf,
-						const char *table_name);
+//	get_glyph_offset.c
 uint32_t			get_glyph_offset(uint32_t glyph_index, const t_ttf *ttf);
 uint32_t			get_glyph_index(uint16_t code_point, const t_ttf *ttf);
+
+//	get_glyph_outlines.c
 t_glyph_outline		*get_glyph_outlines(const t_string *file, t_ttf *ttf);
+
+//	get_long_hor_metric.c
 t_long_hor_metric	get_long_hor_metric(uint16_t glyph_index, const t_ttf *ttf);
 
+//	read_8_bits.c
 int					read_uint8(const t_string *file, size_t i, uint8_t *dest);
 int					read_uint8_move(const t_string *file, size_t *i,
 						uint8_t *dest);
@@ -282,6 +264,7 @@ int					read_int8(const t_string *file, size_t i, int8_t *dest);
 int					read_int8_move(const t_string *file, size_t *i,
 						int8_t *dest);
 
+//	read_16_bits.c
 int					read_uint16(const t_string *file, size_t i, uint16_t *dest);
 int					read_uint16_move(const t_string *file, size_t *i,
 						uint16_t *dest);
@@ -290,6 +273,7 @@ int					read_int16(const t_string *file, size_t i, int16_t *dest);
 int					read_int16_move(const t_string *file, size_t *i,
 						int16_t *dest);
 
+//	read_32_bits.c
 int					read_uint32(const t_string *file, size_t i, uint32_t *dest);
 int					read_uint32_move(const t_string *file, size_t *i,
 						uint32_t *dest);
@@ -298,8 +282,54 @@ int					read_int32(const t_string *file, size_t i, int32_t *dest);
 int					read_int32_move(const t_string *file, size_t *i,
 						int32_t *dest);
 
+//	read_64_bits.c
 int					read_int64(const t_string *file, size_t i, int64_t *dest);
 int					read_int64_move(const t_string *file, size_t *i,
 						int64_t *dest);
+
+//	read_cmap.c
+int					read_cmap(const t_string *file, t_ttf *ttf);
+
+//	read_font_directory.c
+int					read_font_directory(const t_string *file,
+						t_font_directory *font_directory);
+
+//	read_format4.c
+int					read_format4(const t_string *file, t_ttf *ttf);
+
+//	read_glyph_outline.c
+int					read_glyph_outline(const t_string *file, size_t offset,
+						t_glyph_outline *outline);
+
+//	read_glyph_outline_coordinates.c
+int					read_x_coordinates(const t_string *file,
+						size_t *file_cursor, t_glyph_outline *outline,
+						uint16_t last_index);
+int					read_y_coordinates(const t_string *file,
+						size_t *file_cursor, t_glyph_outline *outline,
+						uint16_t last_index);
+
+//	read_head.c
+int					read_head(const t_string *file, t_ttf *ttf);
+
+//	read_hhea.c
+int					read_hhea(const t_string *file, t_ttf *ttf);
+
+//	read_hmtx.c
+int					read_hmtx(const t_string *file, t_ttf *ttf);
+
+//	read_loca.c
+int					read_loca(const t_string *file, t_ttf *ttf);
+
+//	read_maxp.c
+int					read_maxp(const t_string *file, t_ttf *ttf);
+
+//	ttf_get_table_offset.c
+int64_t				ttf_get_table_offset(const t_ttf *ttf,
+						const char *table_name);
+
+//	ttf_parser.c
+int					ttf_parser(t_ttf *font, char *file_name);
+void				destroy_t_ttf(t_ttf *ttf);
 
 #endif

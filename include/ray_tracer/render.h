@@ -38,15 +38,22 @@ typedef struct s_raytracing_anti_aliasing_routine_args
 	int				current_line;
 }	t_raytracing_anti_aliasing_routine_args;
 
-t_vector3f	calculate_post_processing_color(const t_engine *engine, t_vector3f color);
-t_color	render_ray_icon(t_ray ray, const t_scene *scene,
-						   int *missed_object);
-void	render_raytracing(t_engine *minirt, int incrementer);
-void	render_anti_aliased_raytracing(t_engine *minirt);
-void	render_icon(t_engine *minirt, unsigned int background_color);
+//	post_processing.c
+t_vector3f	calculate_post_processing_color(const t_engine *engine,
+				t_vector3f color);
 
+//	render.c
+void		render_raytracing(t_engine *minirt, int incrementer);
+
+//	render_icon.c
+void		render_icon(t_engine *minirt, unsigned int background_color);
+
+//	render_with_anti_aliasing.c
+void		render_anti_aliased_raytracing(t_engine *minirt);
 
 //	render_ray.c
-t_color	render_ray(t_ray ray, const t_scene *scene);
+t_color		render_ray(t_ray ray, const t_scene *scene);
+t_color		render_ray_icon(t_ray ray, const t_scene *scene,
+				int *missed_object);
 
 #endif

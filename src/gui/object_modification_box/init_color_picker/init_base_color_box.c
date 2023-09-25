@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 01:50:32 by vfries            #+#    #+#             */
-/*   Updated: 2023/07/30 18:24:44 by vfries           ###   ########.fr       */
+/*   Updated: 2023/09/23 23:01:29 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ static void	put_color_segment(t_image *image, t_vector2i *position,
 				t_color_getter color_getter);
 static void	init_color_getters(t_color_getter *color_getters);
 static void	write_color_row(t_image *image, int y);
-static void	base_color_picker_on_click(t_gui_box *self, t_engine *engine,
-				t_click_data click_data);
 
 void	init_base_color_box(t_engine *engine, t_gui_box *gui_box,
 			t_gui_box *parent)
@@ -145,43 +143,4 @@ static void	put_color_segment(t_image *image, t_vector2i *position,
 	}
 	color_separator->previous_max = color_separator->max;
 	color_separator->max += color_separator->color_segment_width;
-}
-
-static void	base_color_picker_on_click(t_gui_box *self, t_engine *engine,
-				t_click_data click_data)
-{
-	const unsigned int	uint_color = get_image_pixel_color(&self->image,
-			click_data.click_position.y, click_data.click_position.x);
-	t_color				albedo;
-	t_light				tmp_light;
-
-	if (click_data.button != BUTTON_LEFT || uint_color == COLOR_TRANSPARENT)
-		return ;
-	engine->gui.color_and_material.color_picker_base_color
-		= get_t_color_from_uint(uint_color);
-	engine->gui.color_and_material.color_picker_base_color_was_changed
-		= true;
-	albedo = vector3f_divide(engine->gui.color_and_material.\
-		color_picker_base_color, 255.f);
-	if (engine->gui.selected_object.object == NULL
-		&& engine->gui.selected_object.light == NULL)
-	{
-		tmp_light.color = albedo;
-		return (redraw_icons(engine, NULL, &tmp_light));
-	}
-	engine->scene_changed = true;
-	if (engine->gui.selected_object.object == NULL)
-	{
-		light_set_color(engine->gui.selected_object.light, albedo);
-		return (redraw_icons(engine, NULL, engine->gui.selected_object.light));
-	}
-	if (engine->gui.color_and_material.color_being_changed == OUTLINE_CHECKERBOARD_COLOR)
-		engine->gui.selected_object.object->material.textures.\
-			outline.checkerboard.albedo = albedo;
-	else if (engine->gui.color_and_material.color_being_changed == CAP_CHECKERBOARD_COLOR)
-		engine->gui.selected_object.object->material.textures.\
-			cap.checkerboard.albedo = albedo;
-	else
-		engine->gui.selected_object.object->material.albedo = albedo;
-	redraw_icons(engine, engine->gui.selected_object.object, NULL);
 }

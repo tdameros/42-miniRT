@@ -80,7 +80,7 @@ static void	radius_input_box_on_click_plus(struct s_gui_box *self,
 	update_float_input_box(engine, object->radius,
 		engine->gui.float_input_boxes.radius);
 	if (recalculate_bvh_scene(&engine->scene, object) < 0)
-		ft_fatal_error("radius_input_box_on_click_plus: recalculate_bvh_scene failed");
+		ft_fatal_error("recalculate_bvh_scene failed");
 }
 
 static void	radius_input_box_on_click_minus(struct s_gui_box *self,
@@ -101,7 +101,7 @@ static void	radius_input_box_on_click_minus(struct s_gui_box *self,
 	update_float_input_box(engine, object->radius,
 		engine->gui.float_input_boxes.radius);
 	if (recalculate_bvh_scene(&engine->scene, object) < 0)
-		ft_fatal_error("radius_input_box_on_click_minus: recalculate_bvh_scene failed");
+		ft_fatal_error("recalculate_bvh_scene failed");
 }
 
 static void	radius_input_box_on_click_text(struct s_gui_box *self,

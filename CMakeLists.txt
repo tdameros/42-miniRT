@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.24)
+cmake_minimum_required(VERSION 3.26)
 project(42_miniRT C)
 
 set(CMAKE_C_STANDARD 11)
@@ -231,6 +231,8 @@ add_executable(42_miniRT
         lib/libft/src/time/get_current_time_in_ms.c
         lib/libft/src/time/get_number_of_fps.c
         lib/libft/src/time/get_time_elapsed_in_seconds.c
+        lib/libft/src/vector/str_vector/str_vector_add_elem.c
+        lib/libft/src/vector/str_vector/str_vector_create.c
         lib/libft/src/vector/str_vector/str_vector_delete_elem.c
         lib/libft/src/vector/str_vector/str_vector_destroy.c
         lib/libft/src/vector/str_vector/str_vector_get_elem.c
@@ -268,6 +270,7 @@ add_executable(42_miniRT
         src/export/scene/datetime.c
         src/export/scene/material.c
         src/export/scene/object.c
+        src/export/scene/objects.c
         src/export/scene/scene.c
         src/export/image_to_ppm.c
         src/export/screenshot.c
@@ -294,6 +297,7 @@ add_executable(42_miniRT
         src/font/rendering/draw_glyph.c
         src/font/rendering/get_glyph_points.c
         src/font/rendering/get_quadratic_bezier_points.c
+        src/font/rendering/is_point_inside_glyph.c
         src/font/rendering/write_centered_number_to_image.c
         src/font/rendering/write_centered_string_to_image.c
         src/font/get_font.c
@@ -308,6 +312,8 @@ add_executable(42_miniRT
         src/gui/draw_icon/draw_light_icon/draw_light_icon.c
         src/gui/draw_icon/draw_light_icon/draw_sides_rectangles.c
         src/gui/draw_icon/draw_light_icon/draw_top_rectangles.c
+        src/gui/draw_icon/get_object/get_mesh_object.c
+        src/gui/draw_icon/get_object/get_object.c
         src/gui/draw_icon/draw_icon.c
         src/gui/float_input_box/create_float_input_box.c
         src/gui/float_input_box/draw_float_input_box.c
@@ -316,6 +322,7 @@ add_executable(42_miniRT
         src/gui/main_box/menu_box/init_menu_box.c
         src/gui/main_box/menu_box/init_settings_icon.c
         src/gui/main_box/object_creation_box/init_object_creation_box.c
+        src/gui/main_box/object_creation_box/light_create_on_click.c
         src/gui/main_box/object_creation_box/object_creation_on_clicks.c
         src/gui/main_box/init_main_box.c
         src/gui/object_list_box/create_light_gui_box.c
@@ -331,6 +338,7 @@ add_executable(42_miniRT
         src/gui/object_modification_box/init_color_picker/init_base_color_box.c
         src/gui/object_modification_box/init_color_picker/init_color_picker_box.c
         src/gui/object_modification_box/init_color_picker/init_rgb_picker.c
+        src/gui/object_modification_box/init_color_picker/on_clicks.c
         src/gui/object_modification_box/init_object_modification_box.c
         src/gui/optional_boxes/add_mesh_object_box/click_mesh_box.c
         src/gui/optional_boxes/add_mesh_object_box/init_add_mesh_object_box.c
@@ -338,6 +346,7 @@ add_executable(42_miniRT
         src/gui/optional_boxes/add_mesh_object_box/mesh_object_selection_draw.c
         src/gui/optional_boxes/add_mesh_object_box/mesh_object_selection_on_click.c
         src/gui/optional_boxes/settings_box/init_antialiasing_toggle_box.c
+        src/gui/optional_boxes/settings_box/init_bounces_per_pixel_box.c
         src/gui/optional_boxes/settings_box/init_cam_fov_box.c
         src/gui/optional_boxes/settings_box/init_disable_shadows_box.c
         src/gui/optional_boxes/settings_box/init_max_resolution_reduction.c
@@ -366,11 +375,13 @@ add_executable(42_miniRT
         src/gui/create_vertical_boxes.c
         src/gui/get_boxes_decal.c
         src/gui/init_gui.c
+        src/hooks/update_object_attributes_modification_box/add_boxes/cap_checkerboard_size_on_clicks/disable_cap_checkerboard.c
         src/hooks/update_object_attributes_modification_box/add_boxes/cap_checkerboard_size_on_clicks/x.c
         src/hooks/update_object_attributes_modification_box/add_boxes/cap_checkerboard_size_on_clicks/y.c
         src/hooks/update_object_attributes_modification_box/add_boxes/normal_input_box_on_clicks/x.c
         src/hooks/update_object_attributes_modification_box/add_boxes/normal_input_box_on_clicks/y.c
         src/hooks/update_object_attributes_modification_box/add_boxes/normal_input_box_on_clicks/z.c
+        src/hooks/update_object_attributes_modification_box/add_boxes/outline_checkerboard_size_on_clicks/disable_outline_checkerboard.c
         src/hooks/update_object_attributes_modification_box/add_boxes/outline_checkerboard_size_on_clicks/x.c
         src/hooks/update_object_attributes_modification_box/add_boxes/outline_checkerboard_size_on_clicks/y.c
         src/hooks/update_object_attributes_modification_box/add_boxes/position_input_box_on_clicks/x.c
@@ -412,11 +423,15 @@ add_executable(42_miniRT
         src/hooks/update_object_attributes_modification_box/update_object_attributes_modification_box.c
         src/hooks/button_press.c
         src/hooks/button_release.c
+        src/hooks/deal_keys.c
+        src/hooks/deal_mouse.c
         src/hooks/focus_handler.c
         src/hooks/key_press.c
         src/hooks/key_release.c
+        src/hooks/motion_handler.c
         src/hooks/pressed_keys.c
         src/hooks/redraw_icons.c
+        src/hooks/toggle_camera_lock.c
         src/hooks/toggle_gui.c
         src/hooks/update_color_picker_color.c
         src/image/change_image_color.c
@@ -465,7 +480,6 @@ add_executable(42_miniRT
         src/math/conversion.c
         src/math/equation.c
         src/math/modulo.c
-        src/mlx_wrapper/get_mouse_position.c
         src/mlx_wrapper/get_screen_size.c
         src/mlx_wrapper/mouse_hide.c
         src/mlx_wrapper/mouse_move.c
@@ -475,6 +489,7 @@ add_executable(42_miniRT
         src/object/cone/transformations.c
         src/object/cylinder/create.c
         src/object/cylinder/transformations.c
+        src/object/mesh/bounding_box.c
         src/object/mesh/cache.c
         src/object/mesh/create.c
         src/object/mesh/mesh_deep_copy.c
@@ -486,6 +501,7 @@ add_executable(42_miniRT
         src/object/sphere/transformations.c
         src/object/bounding_box.c
         src/object/calculate_cache.c
+        src/object/clamp_rotation_degrees.c
         src/object/object_deep_copy.c
         src/object/objects.c
         src/object/transformations.c
@@ -504,6 +520,7 @@ add_executable(42_miniRT
         src/parsing/line_parsing/utils/get_lighting_ratio.c
         src/parsing/line_parsing/utils/get_normalized_vector.c
         src/parsing/line_parsing/utils/get_position.c
+        src/parsing/line_parsing/utils/get_rotation.c
         src/parsing/line_parsing/utils/get_vector3f.c
         src/parsing/line_parsing/invalid_scene_content_line.c
         src/parsing/line_parsing/parse_ambient_light.c
@@ -515,6 +532,7 @@ add_executable(42_miniRT
         src/parsing/line_parsing/parse_mesh_object.c
         src/parsing/line_parsing/parse_plane.c
         src/parsing/line_parsing/parse_sphere.c
+        src/parsing/obj_file/get_relevent_obj_lines.c
         src/parsing/obj_file/parse_line.c
         src/parsing/obj_file/parse_obj_file.c
         src/parsing/free_scene_content.c
@@ -567,8 +585,13 @@ add_executable(42_miniRT
         src/ray_tracer_gui_api/add_and_remove_object_and_light.c
         src/ray_tracer_gui_api/get_clicked_object.c
         src/render_frame/print_fps_counter.c
+        src/render_frame/put_raytraced_pixels_to_raytraced_image.c
         src/render_frame/render_frame.c
+        src/render_frame/render_message.c
+        src/render_frame/render_screen_shot_animation.c
         src/render_frame/render_user_interface.c
+        src/render_frame/update_placed_object_position.c
+        src/render_frame/update_scene.c
         src/threads/get_routine_data.c
         src/threads/mutex.c
         src/threads/threads.c
@@ -578,7 +601,8 @@ add_executable(42_miniRT
         src/vectors/vectors3f_utils.c
         src/vectors/vectors3i.c
         src/vectors/vectors_int.c
-        src/close_miniRT.c
+        src/close_engine.c
         src/color.c
-        src/init_minirt.c
-        src/main.c src/scene.c)
+        src/init_engine.c
+        src/main.c
+        src/scene.c)

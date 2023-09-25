@@ -39,11 +39,11 @@ t_side	get_face_side(t_mesh_bvh_node *node, int face_index, t_aabb_split split)
 	side[0] = false;
 	side[1] = false;
 	vertex_a = mesh_get_vertex_from_face(node->mesh_object,
-			face_index, 0);
+			face_index, VERTEX_A);
 	vertex_b = mesh_get_vertex_from_face(node->mesh_object,
-			face_index, 1);
+			face_index, VERTEX_B);
 	vertex_c = mesh_get_vertex_from_face(node->mesh_object,
-			face_index, 2);
+			face_index, VERTEX_C);
 	side[vector3f_get(vertex_a, split.axis) < split.middle] = true;
 	side[vector3f_get(vertex_b, split.axis) < split.middle] = true;
 	side[vector3f_get(vertex_c, split.axis) < split.middle] = true;

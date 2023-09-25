@@ -13,6 +13,7 @@
 #ifndef MODULO_H
 # define MODULO_H
 
+//	modulo.c
 float	modulof_positive(float dividend, float divisor);
 
 #endif

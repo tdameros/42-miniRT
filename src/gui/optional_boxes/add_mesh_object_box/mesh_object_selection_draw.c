@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 17:11:00 by vfries            #+#    #+#             */
-/*   Updated: 2023/09/01 18:25:23 by vfries           ###   ########lyon.fr   */
+/*   Updated: 2023/09/23 22:37:22 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void	mesh_object_selection_draw(t_gui_box *self, t_engine *engine,
 		(t_vector2i){draw_data.offset.x + self->position.x, \
 					draw_data.offset.y + self->position.y},
 		draw_data.mouse_position});
-	put_image(engine, &self->image, (t_vector2i){self->position.x + draw_data.offset.x,
+	put_image(engine, &self->image, (t_vector2i){
+		self->position.x + draw_data.offset.x,
 		self->position.y + draw_data.offset.y});
 }
 

@@ -43,7 +43,6 @@ static void	*render_raytracing_routine(void *arg_void)
 		y = data->current_line;
 		data->current_line++;
 		mutex_unlock(arg_void);
-
 		line = data->engine->raytraced_pixels.data
 			+ y * data->engine->raytraced_pixels.width;
 		x = data->engine->raytraced_pixels.width;

@@ -22,9 +22,9 @@ int	read_loca(const t_string *file, t_ttf *ttf)
 	if (loca_offset < 0)
 		return (-1);
 	ft_bzero(&ttf->loca, sizeof(ttf->loca));
-	ttf->loca.size = ttf->maxp.numGlyphs;
+	ttf->loca.size = ttf->maxp.num_glyphs;
 	return (read_loca_offsets(file, &ttf->loca, loca_offset,
-			ttf->head.indexToLocFormat == 0));
+			ttf->head.index_to_loc_format == 0));
 }
 
 static int	read_loca_offsets(const t_string *file, t_loca *loca,

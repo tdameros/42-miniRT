@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:15:00 by vfries            #+#    #+#             */
-/*   Updated: 2023/06/03 00:15:00 by vfries           ###   ########lyon.fr   */
+/*   Updated: 2023/09/24 09:05:32 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,7 @@ void	outline_checkerboard_size_input_box_y_on_click_minus(t_gui_box *self,
 		= (int)object->material.textures.outline.checkerboard.size.y - 2;
 	if (object->material.textures.outline.checkerboard.size.x <= 1.f
 		&& object->material.textures.outline.checkerboard.size.y <= 1.f)
-	{
-		object->material.textures.outline.texture_type = NONE;
-		if (engine->gui.color_and_material.color_being_changed == OUTLINE_CHECKERBOARD_COLOR)
-		{
-			engine->gui.color_and_material.color_being_changed = BASE_COLOR;
-			draw_toggle_box(
-				engine->gui.color_and_material.\
-				outline_checkered_pattern_color_toggle_box, false);
-		}
-	}
+		disable_outline_checkerboard(engine, object);
 	engine->scene_changed = true;
 	update_xy_float_input_boxes(engine,
 		vector2f_divide(object->material.textures.outline.checkerboard.size, \

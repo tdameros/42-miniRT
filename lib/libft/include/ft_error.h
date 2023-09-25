@@ -13,6 +13,7 @@
 #ifndef FT_ERROR_H
 # define FT_ERROR_H
 
+//	fatal_error.c
 void	ft_fatal_error(const char *error_message);
 
 #endif

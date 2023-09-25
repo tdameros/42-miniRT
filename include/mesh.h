@@ -20,13 +20,20 @@
 
 # define MESH_MINIMUM_SCALE 0.001f
 
+typedef enum e_vertices
+{
+	VERTEX_A,
+	VERTEX_B,
+	VERTEX_C,
+}	t_vertices;
+
 typedef struct s_mesh
 {
-	t_vectors3f		base_vertex;
-	t_vector3f		vertex_min;
-	t_vector3f		vertex_max;
-	t_vectors3f		base_normals;
-	t_mesh_faces	faces;
+	t_vectors3f				base_vertex;
+	t_vector3f				vertex_min;
+	t_vector3f				vertex_max;
+	t_vectors3f				base_normals;
+	t_mesh_faces			faces;
 	struct s_mesh_bvh_node	*tree;
 }	t_mesh;
 

@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:55:00 by vfries            #+#    #+#             */
-/*   Updated: 2023/07/30 18:31:42 by vfries           ###   ########.fr       */
+/*   Updated: 2023/09/24 09:17:49 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 
 static void	select_new_object(int button, t_engine *engine, int x, int y);
 static void	placing_object(int button, t_engine *engine);
-static void	toggle_camera_lock(t_engine *engine);
 
 int	button_press_handler(int button, int x, int y, t_engine *engine)
 {
@@ -82,35 +81,4 @@ static void	select_new_object(int button, t_engine *engine, int x, int y)
 	update_color_picker_color(&engine->gui);
 	redraw_icons(engine, engine->gui.selected_object.object, NULL);
 	update_object_attributes_modification_box(engine);
-}
-
-static void	toggle_camera_lock(t_engine *engine)
-{
-	const t_vector2i	screen_center = {
-		.x = engine->ray_traced_image.width / 2,
-		.y = engine->ray_traced_image.height / 2
-	};
-
-	mouse_move(engine, screen_center);
-	if (engine->camera.lock == true)
-	{
-		if (engine->gui.hide_animation.is_hidden == false)
-		{
-			toggle_gui(&engine->gui);
-			engine->gui.should_show_gui_on_camera_lock = true;
-		}
-		else
-			engine->gui.should_show_gui_on_camera_lock = false;
-		engine->previous_mouse_position = screen_center;
-		engine->camera.lock = false;
-		mouse_hide(engine);
-		if (engine->object_being_placed.light || engine->object_being_placed.object)
-			engine->scene_changed = true;
-		return ;
-	}
-	if (engine->gui.should_show_gui_on_camera_lock
-		&& engine->gui.hide_animation.is_hidden)
-		toggle_gui(&engine->gui);
-	engine->camera.lock = true;
-	mouse_show(engine);
 }

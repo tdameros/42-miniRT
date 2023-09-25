@@ -10,11 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ray_tracer/rays.h"
 #include "ray_tracer_gui_api.h"
 #include "object.h"
-#include "ray_tracer/rays.h"
 #include "engine.h"
-
 
 t_object	*get_clicked_object(t_engine *engine, int x, int y)
 {

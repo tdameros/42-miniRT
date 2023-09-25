@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 20:41:35 by vfries            #+#    #+#             */
-/*   Updated: 2023/04/12 20:46:20 by vfries           ###   ########lyon.fr   */
+/*   Updated: 2023/09/25 16:58:08 by vfries           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,18 @@ static const char	*get_startup_scene_path(const int argc, const char **argv);
 
 int	main(const int argc, const char **argv)
 {
-	t_engine	minirt;
+	t_engine	engine;
 	const char	*start_up_scene = get_startup_scene_path(argc, argv);
 
 	if (arguments_are_bad(argc, argv))
 		return (1);
-	if (init_engine(&minirt, start_up_scene, argv[0]) < 0)
+	if (init_engine(&engine, start_up_scene, argv[0]) < 0)
 	{
 		ft_putstr_fd("Error: Failed to init miniRT\n", STDERR_FILENO);
+		close_engine(&engine);
 		return (2);
 	}
-	mlx_loop(minirt.window.mlx);
+	mlx_loop(engine.window.mlx);
 }
 
 static bool	arguments_are_bad(const int argc, const char **argv)

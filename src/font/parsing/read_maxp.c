@@ -21,20 +21,20 @@ int	read_maxp(const t_string *file, t_ttf *ttf)
 		return (-1);
 	i = maxp_offset;
 	if (read_uint32_move(file, &i, &ttf->maxp.version) < 0
-		|| read_uint16_move(file, &i, &ttf->maxp.numGlyphs) < 0
-		|| read_uint16_move(file, &i, &ttf->maxp.maxPoints) < 0
-		|| read_uint16_move(file, &i, &ttf->maxp.maxContours) < 0
-		|| read_uint16_move(file, &i, &ttf->maxp.maxComponentPoints) < 0
-		|| read_uint16_move(file, &i, &ttf->maxp.maxComponentContours) < 0
-		|| read_uint16_move(file, &i, &ttf->maxp.maxZones) < 0
-		|| read_uint16_move(file, &i, &ttf->maxp.maxTwilightPoints) < 0
-		|| read_uint16_move(file, &i, &ttf->maxp.maxStorage) < 0
-		|| read_uint16_move(file, &i, &ttf->maxp.maxFunctionDefs) < 0
-		|| read_uint16_move(file, &i, &ttf->maxp.maxInstructionDefs) < 0
-		|| read_uint16_move(file, &i, &ttf->maxp.maxStackElements) < 0
-		|| read_uint16_move(file, &i, &ttf->maxp.maxSizeOfInstructions) < 0
-		|| read_uint16_move(file, &i, &ttf->maxp.maxComponentElements) < 0
-		|| read_uint16_move(file, &i, &ttf->maxp.maxComponentDepth) < 0)
+		|| read_uint16_move(file, &i, &ttf->maxp.num_glyphs) < 0
+		|| read_uint16_move(file, &i, &ttf->maxp.max_points) < 0
+		|| read_uint16_move(file, &i, &ttf->maxp.max_contours) < 0
+		|| read_uint16_move(file, &i, &ttf->maxp.max_component_points) < 0
+		|| read_uint16_move(file, &i, &ttf->maxp.max_component_contours) < 0
+		|| read_uint16_move(file, &i, &ttf->maxp.max_zones) < 0
+		|| read_uint16_move(file, &i, &ttf->maxp.max_twilight_points) < 0
+		|| read_uint16_move(file, &i, &ttf->maxp.max_storage) < 0
+		|| read_uint16_move(file, &i, &ttf->maxp.max_function_defs) < 0
+		|| read_uint16_move(file, &i, &ttf->maxp.max_instruction_defs) < 0
+		|| read_uint16_move(file, &i, &ttf->maxp.max_stack_elements) < 0
+		|| read_uint16_move(file, &i, &ttf->maxp.max_size_of_instructions) < 0
+		|| read_uint16_move(file, &i, &ttf->maxp.max_component_elements) < 0
+		|| read_uint16_move(file, &i, &ttf->maxp.max_component_depth) < 0)
 		return (-1);
 	return (0);
 }

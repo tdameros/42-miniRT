@@ -25,8 +25,8 @@ int	read_x_coordinates(const t_string *file, size_t *file_cursor,
 	int16_t		current_coordinate;
 	uint8_t		flag_combined;
 
-	outline->xCoordinates = malloc((last_index + 1) * 2);
-	if (outline->xCoordinates == NULL)
+	outline->x_coordinates = malloc((last_index + 1) * 2);
+	if (outline->x_coordinates == NULL)
 		return (-1);
 	prev_coordinate = 0;
 	current_coordinate = 0;
@@ -37,9 +37,9 @@ int	read_x_coordinates(const t_string *file, size_t *file_cursor,
 			| outline->flags[i].x_short_pos;
 		if (read_current_coordinate(file, file_cursor, &current_coordinate,
 				flag_combined) < 0)
-			return (free(outline->xCoordinates), -1);
-		outline->xCoordinates[i] = current_coordinate + prev_coordinate;
-		prev_coordinate = outline->xCoordinates[i];
+			return (free(outline->x_coordinates), -1);
+		outline->x_coordinates[i] = current_coordinate + prev_coordinate;
+		prev_coordinate = outline->x_coordinates[i];
 	}
 	return (0);
 }
@@ -52,8 +52,8 @@ int	read_y_coordinates(const t_string *file, size_t *file_cursor,
 	int16_t		current_coordinate;
 	uint8_t		flag_combined;
 
-	outline->yCoordinates = malloc((last_index + 1) * 2);
-	if (outline->yCoordinates == NULL)
+	outline->y_coordinates = malloc((last_index + 1) * 2);
+	if (outline->y_coordinates == NULL)
 		return (-1);
 	prev_coordinate = 0;
 	current_coordinate = 0;
@@ -64,9 +64,9 @@ int	read_y_coordinates(const t_string *file, size_t *file_cursor,
 			| outline->flags[i].y_short_pos;
 		if (read_current_coordinate(file, file_cursor, &current_coordinate,
 				flag_combined) < 0)
-			return (free(outline->yCoordinates), -1);
-		outline->yCoordinates[i] = current_coordinate + prev_coordinate;
-		prev_coordinate = outline->yCoordinates[i];
+			return (free(outline->y_coordinates), -1);
+		outline->y_coordinates[i] = current_coordinate + prev_coordinate;
+		prev_coordinate = outline->y_coordinates[i];
 	}
 	return (0);
 }

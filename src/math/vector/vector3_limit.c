@@ -10,43 +10,33 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <math.h>
+
 #include "math/vector.h"
 
 t_vector3f	vector3f_clamp(t_vector3f vector, float min, float max)
 {
-	if (vector.x < min)
-		vector.x = min;
-	if (vector.y < min)
-		vector.y = min;
-	if (vector.z < min)
-		vector.z = min;
-	if (vector.x > max)
-		vector.x = max;
-	if (vector.y > max)
-		vector.y = max;
-	if (vector.z > max)
-		vector.z = max;
+	vector.x = fmaxf(vector.x, min);
+	vector.y = fmaxf(vector.y, min);
+	vector.z = fmaxf(vector.z, min);
+	vector.x = fminf(vector.x, max);
+	vector.y = fminf(vector.y, max);
+	vector.z = fminf(vector.z, max);
 	return (vector);
 }
 
 t_vector3f	vector3f_min(t_vector3f a, t_vector3f b)
 {
-	if (b.x < a.x)
-		a.x = b.x;
-	if (b.y < a.y)
-		a.y = b.y;
-	if (b.z < a.z)
-		a.z = b.z;
-	return (a);
+	return ((t_vector3f){
+		fminf(a.x, b.x),
+		fminf(a.y, b.y),
+		fminf(a.z, b.z)});
 }
 
 t_vector3f	vector3f_max(t_vector3f a, t_vector3f b)
 {
-	if (b.x > a.x)
-		a.x = b.x;
-	if (b.y > a.y)
-		a.y = b.y;
-	if (b.z > a.z)
-		a.z = b.z;
-	return (a);
+	return ((t_vector3f){
+		fmaxf(a.x, b.x),
+		fmaxf(a.y, b.y),
+		fmaxf(a.z, b.z)});
 }

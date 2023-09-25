@@ -54,19 +54,32 @@ typedef struct s_gui_box_create
 	bool		should_create_an_image;
 }	t_gui_box_create;
 
-t_gui_box	create_t_gui_box(t_engine *engine, t_gui_box_create args);
-void		destroy_t_gui_box(t_window *window, t_gui_box *gui_box);
+struct s_limit
+{
+	int	left;
+	int	right;
+	int	top;
+	int	bottom;
+};
 
+//	create_gui_box.c
+t_gui_box	create_t_gui_box(t_engine *engine, t_gui_box_create args);
+
+//	default_gui_box_methods.c
 void		default_gui_box_draw(struct s_gui_box *self, t_engine *engine,
 				t_draw_data draw_data);
 void		draw_gui_box_image(t_gui_box *self, t_engine *engine,
 				t_draw_data draw_data);
-
 void		default_gui_box_on_click(t_gui_box *self, t_engine *minirt,
 				t_click_data click_data);
 
+//	destroy_t_gui_box.c
+void		destroy_t_gui_box(t_window *window, t_gui_box *gui_box);
+
+//	get_box_offset.c
 t_vector2i	get_box_offset(t_gui_box *box);
 
+//	get_clicked_gui_box.c
 t_gui_box	*get_clicked_root_gui_box(t_engine *engine, int *x, int *y);
 t_gui_box	*get_clicked_gui_box(t_gui_boxes gui_boxes, int *x, int *y);
 

@@ -113,5 +113,3 @@ static void	put_pixel(t_image *image, t_vector2i point,
 	int_color = vec_rgb_to_uint(color);
 	image->address[point.x + point.y * image->width] = int_color;
 }
-
-

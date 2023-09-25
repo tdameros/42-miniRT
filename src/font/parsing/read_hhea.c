@@ -30,20 +30,20 @@ static int	read_hhea_content(const t_string *file, t_ttf *ttf, size_t i)
 	if (read_uint32_move(file, &i, &ttf->hhea.version) < 0
 		|| read_int16_move(file, &i, &ttf->hhea.ascent) < 0
 		|| read_int16_move(file, &i, &ttf->hhea.descent) < 0
-		|| read_int16_move(file, &i, &ttf->hhea.lineGap) < 0
-		|| read_uint16_move(file, &i, &ttf->hhea.advanceWidthMax) < 0
-		|| read_int16_move(file, &i, &ttf->hhea.minLeftSideBearing) < 0
-		|| read_int16_move(file, &i, &ttf->hhea.minRightSideBearing) < 0
-		|| read_int16_move(file, &i, &ttf->hhea.xMaxExtent) < 0
-		|| read_int16_move(file, &i, &ttf->hhea.caretSlopeRise) < 0
-		|| read_int16_move(file, &i, &ttf->hhea.caretSlopeRun) < 0
-		|| read_int16_move(file, &i, &ttf->hhea.caretOffset) < 0
+		|| read_int16_move(file, &i, &ttf->hhea.line_gap) < 0
+		|| read_uint16_move(file, &i, &ttf->hhea.advance_width_max) < 0
+		|| read_int16_move(file, &i, &ttf->hhea.min_left_side_bearing) < 0
+		|| read_int16_move(file, &i, &ttf->hhea.min_right_side_bearing) < 0
+		|| read_int16_move(file, &i, &ttf->hhea.x_max_extent) < 0
+		|| read_int16_move(file, &i, &ttf->hhea.caret_slope_rise) < 0
+		|| read_int16_move(file, &i, &ttf->hhea.caret_slope_run) < 0
+		|| read_int16_move(file, &i, &ttf->hhea.caret_offset) < 0
 		|| read_int16_move(file, &i, &tmp) < 0 || tmp != 0
 		|| read_int16_move(file, &i, &tmp) < 0 || tmp != 0
 		|| read_int16_move(file, &i, &tmp) < 0 || tmp != 0
 		|| read_int16_move(file, &i, &tmp) < 0 || tmp != 0
-		|| read_int16_move(file, &i, &ttf->hhea.metricDataFormat) < 0
-		|| read_uint16_move(file, &i, &ttf->hhea.numOfLongHorMetrics) < 0)
+		|| read_int16_move(file, &i, &ttf->hhea.metric_data_format) < 0
+		|| read_uint16_move(file, &i, &ttf->hhea.num_of_long_hor_metrics) < 0)
 		return (-1);
 	return (0);
 }

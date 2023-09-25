@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_mesh_object.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/24 00:48:05 by tdameros          #+#    #+#             */
+/*   Updated: 2023/09/24 00:48:06 by tdameros         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parsing.h"
 #include "ray_tracer_gui_api.h"
 
 static int	init_object(t_object *mesh, char **scene_content_line);
 
-#include <stdio.h>
 int	parse_mesh_object(t_engine *engine, char **scene_content_line,
 						t_rt_file_requirements *rt_file_requirements)
 {

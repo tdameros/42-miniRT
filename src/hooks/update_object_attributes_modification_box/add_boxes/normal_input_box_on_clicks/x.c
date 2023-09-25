@@ -31,7 +31,7 @@ void	normal_input_box_x_on_click_plus(t_gui_box *self, t_engine *engine,
 	update_xyz_float_input_boxes(engine, object->axis_degrees,
 		&engine->gui.float_input_boxes.normal);
 	if (recalculate_bvh_scene(&engine->scene, object) < 0)
-		ft_fatal_error("normal_input_box_x_on_click_plus: recalculate_bvh_scene failed");
+		ft_fatal_error("recalculate_bvh_scene failed");
 }
 
 void	normal_input_box_x_on_click_minus(t_gui_box *self, t_engine *engine,
@@ -51,7 +51,7 @@ void	normal_input_box_x_on_click_minus(t_gui_box *self, t_engine *engine,
 	update_xyz_float_input_boxes(engine, object->axis_degrees,
 		&engine->gui.float_input_boxes.normal);
 	if (recalculate_bvh_scene(&engine->scene, object) < 0)
-		ft_fatal_error("normal_input_box_x_on_click_minus: recalculate_bvh_scene failed");
+		ft_fatal_error("recalculate_bvh_scene failed");
 }
 
 void	normal_input_box_x_on_click_text(t_gui_box *self, t_engine *engine,

@@ -24,6 +24,13 @@ int	write_material(t_material material, int fd);
 //	scene/object.c
 int	write_object(const t_object object, int fd);
 
+//	scene/objects.c
+int	write_sphere(const t_object sphere, int fd);
+int	write_plane(const t_object plane, int fd);
+int	write_cylinder(const t_object cylinder, int fd);
+int	write_cone(const t_object cone, int fd);
+int	write_mesh_object(const t_object mesh, int fd);
+
 //	scene/scene.c
 int	export_scene(const t_engine *engine, const char *output_file);
 

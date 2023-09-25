@@ -13,8 +13,13 @@
 #ifndef FT_SORT_H
 # define FT_SORT_H
 
+//	msort_int.c
 int	ft_msort_int(int *tab, int index_left, int index_right);
+
+//	msort_str.c
 int	ft_msort_str(char **tab, int index_left, int index_right);
+
+//	msort_str_ignore_case.c
 int	ft_msort_str_ignore_case(char **tab, int index_left, int index_right);
 
 #endif

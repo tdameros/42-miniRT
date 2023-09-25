@@ -15,14 +15,25 @@
 
 # define MENU_BOX_ICONS_COLOR 0x00666666
 
-void	init_main_gui_box(t_engine *engine, t_gui_box *gui_box);
-void	init_object_creation_gui_box(t_engine *engine,
-			t_gui_box *gui_box, t_gui_box *parent);
+//	menu_box/init_export_box.c
+void	init_export_box(t_engine *engine, t_gui_box *gui_box);
+
+//	menu_box/init_menu_box.c
 void	init_menu_gui_box(t_engine *engine, t_gui_box *gui_box,
 			t_gui_box *parent);
-void	init_export_box(t_engine *engine, t_gui_box *gui_box);
+
+//	menu_box/init_settings_icon.c
 void	init_settings_icon(t_engine *engine, t_gui_box *gui_box);
 
+//	object_creation_box/init_object_creation_box.c
+void	init_object_creation_gui_box(t_engine *engine,
+			t_gui_box *gui_box, t_gui_box *parent);
+
+//	object_creation_box/light_create_on_click.c
+void	light_create_on_click(t_gui_box *self, t_engine *engine,
+			t_click_data click_data);
+
+//	object_creation_box/object_create_on_clicks.c
 void	sphere_create_on_click(t_gui_box *self, t_engine *engine,
 			t_click_data click_data);
 void	plane_create_on_click(t_gui_box *self, t_engine *engine,
@@ -33,7 +44,8 @@ void	cone_create_on_click(t_gui_box *self, t_engine *engine,
 			t_click_data click_data);
 void	mesh_create_on_click(t_gui_box *self, t_engine *engine,
 			t_click_data click_data);
-void	light_create_on_click(t_gui_box *self, t_engine *engine,
-			t_click_data click_data);
+
+//	init_main_box.c
+void	init_main_gui_box(t_engine *engine, t_gui_box *gui_box);
 
 #endif

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_circle.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/24 01:47:37 by vfries            #+#    #+#             */
+/*   Updated: 2023/09/24 03:40:30 by vfries           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <math.h>
 
 #include "colors.h"
@@ -10,6 +22,8 @@ static void	*draw_circle_routine(void *routine_arg);
 static void	draw_circle_pixel(unsigned int *dst, t_vector2f pixel,
 				unsigned int circle_color,
 				const t_draw_circle_routine_arg *circle);
+static void	draw_pixel(unsigned int *dst, const unsigned int circle_color,
+				const int nb_of_points_in_circle);
 static bool	is_point_in_circle(t_vector2f pixel,
 				const t_draw_circle_routine_arg *circle, float sub_x,
 				float sub_y);
@@ -61,8 +75,6 @@ static void	draw_circle_pixel(unsigned int *dst, const t_vector2f pixel,
 	int		sub_y;
 	int		sub_x;
 	int		nb_of_points_in_circle;
-	t_color	new_color;
-	int		transparency;
 
 	nb_of_points_in_circle = 0;
 	sub_y = -1;
@@ -75,6 +87,15 @@ static void	draw_circle_pixel(unsigned int *dst, const t_vector2f pixel,
 	}
 	if (nb_of_points_in_circle <= 0)
 		return ;
+	draw_pixel(dst, circle_color, nb_of_points_in_circle);
+}
+
+static void	draw_pixel(unsigned int *dst, const unsigned int circle_color,
+				const int nb_of_points_in_circle)
+{
+	t_color	new_color;
+	int		transparency;
+
 	new_color = vector3f_multiply(get_t_color_from_uint(circle_color),
 			nb_of_points_in_circle);
 	new_color = vector3f_add(new_color, vector3f_multiply(

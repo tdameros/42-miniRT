@@ -29,8 +29,6 @@ int	mesh_bvh_subdivide(t_mesh_bvh_node *node)
 	}
 	if (fill_children_nodes(node) < 0)
 		return (-1);
-	node->left_node->previous_node = node;
-	node->right_node->previous_node = node;
 	node->nb_split_triangles = node->index_faces.length;
 	if (is_duplicated_node(node))
 	{

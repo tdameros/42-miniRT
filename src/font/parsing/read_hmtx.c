@@ -22,8 +22,8 @@ int	read_hmtx(const t_string *file, t_ttf *ttf)
 	const int64_t	head_offset = ttf_get_table_offset(ttf, "hmtx");
 	size_t			i;
 	size_t			j;
-	const size_t	left_side_bearing_size = ttf->maxp.numGlyphs
-		- ttf->hhea.numOfLongHorMetrics;
+	const size_t	left_side_bearing_size = ttf->maxp.num_glyphs
+		- ttf->hhea.num_of_long_hor_metrics;
 
 	if (head_offset < 0)
 		return (-1);
@@ -31,10 +31,10 @@ int	read_hmtx(const t_string *file, t_ttf *ttf)
 		return (-1);
 	i = head_offset;
 	j = -1;
-	while (++j < ttf->hhea.numOfLongHorMetrics)
-		if (read_uint16_move(file, &i, &ttf->hmtx.h_metrics[j].advanceWidth)
+	while (++j < ttf->hhea.num_of_long_hor_metrics)
+		if (read_uint16_move(file, &i, &ttf->hmtx.h_metrics[j].advance_width)
 			|| read_int16_move(file, &i,
-				&ttf->hmtx.h_metrics[j].leftSideBearing) < 0)
+				&ttf->hmtx.h_metrics[j].left_side_bearing) < 0)
 			return (read_hmtx_error(ttf));
 	j = -1;
 	while (++j < left_side_bearing_size)
@@ -46,7 +46,7 @@ int	read_hmtx(const t_string *file, t_ttf *ttf)
 static int	allocate_hmtx(t_ttf *ttf, const size_t left_side_bearing_size)
 {
 	ttf->hmtx.h_metrics = malloc(sizeof(*ttf->hmtx.h_metrics)
-			* ttf->hhea.numOfLongHorMetrics);
+			* ttf->hhea.num_of_long_hor_metrics);
 	ttf->hmtx.left_side_bearing = malloc(sizeof(*ttf->hmtx.left_side_bearing)
 			* left_side_bearing_size);
 	if (ttf->hmtx.h_metrics == NULL || ttf->hmtx.left_side_bearing == NULL)

@@ -37,7 +37,8 @@ static void	remove_elem_from_sorted_vector(t_vector *vector,
 				void *elem_to_remove)
 {
 	const size_t	size_to_move
-		= (vector->data + vector->length * vector->elem_size) - elem_to_remove - vector->elem_size;
+		= (vector->data + vector->length * vector->elem_size)
+		- elem_to_remove - vector->elem_size;
 
 	ft_memmove(elem_to_remove, elem_to_remove + vector->elem_size,
 		size_to_move);

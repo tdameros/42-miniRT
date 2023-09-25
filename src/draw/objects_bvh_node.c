@@ -12,11 +12,10 @@
 
 #include "draw.h"
 
-static void			draw_objects_bvh_objects_node(t_engine *engine,
-						t_objects_bvh_node *node,
-						t_vector3f color);
+static void	draw_objects_bvh_objects_node(t_engine *engine,
+				const t_objects_bvh_node *node, t_vector3f color);
 
-void	draw_objects_bvh_node(t_engine *engine, t_objects_bvh_node *node,
+void	draw_objects_bvh_node(t_engine *engine, const t_objects_bvh_node *node,
 							t_vector3f color)
 {
 	const t_vector3f	max = node->aabb_max;
@@ -38,12 +37,11 @@ void	draw_objects_bvh_node(t_engine *engine, t_objects_bvh_node *node,
 }
 
 static void	draw_objects_bvh_objects_node(t_engine *engine,
-										t_objects_bvh_node *node,
+										const t_objects_bvh_node *node,
 										t_vector3f color)
 {
 	size_t		i;
 	t_object	*object;
-
 
 	i = 0;
 	while (i < node->index_objects.length)

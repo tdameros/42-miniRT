@@ -49,11 +49,11 @@ static void	destroy_glyph_outlines_on_read_failure(t_glyph_outline *outlines,
 {
 	while (size--)
 	{
-		free(outlines[size].endPtsOfContours);
+		free(outlines[size].end_pts_of_contours);
 		free(outlines[size].instructions);
 		free(outlines[size].flags);
-		free(outlines[size].xCoordinates);
-		free(outlines[size].yCoordinates);
+		free(outlines[size].x_coordinates);
+		free(outlines[size].y_coordinates);
 	}
 	free(outlines);
 }

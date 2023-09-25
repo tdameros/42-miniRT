@@ -13,11 +13,16 @@
 #include "object.h"
 
 t_vector3f	mesh_get_vertex_from_face(const t_object *mesh_object,
-										size_t face_index, int vertex_index)
+									size_t face_index, t_vertices vertex)
 {
-	if (vertex_index == 0)
-		return (mesh_object->cache.mesh.vertex.data[mesh_object->mesh.faces.data[face_index].vertex_a.x - 1]);
-	else if (vertex_index == 1)
-		return (mesh_object->cache.mesh.vertex.data[mesh_object->mesh.faces.data[face_index].vertex_b.x - 1]);
-	return (mesh_object->cache.mesh.vertex.data[mesh_object->mesh.faces.data[face_index].vertex_c.x - 1]);
+	int	vertex_index;
+
+	vertex_index = 0;
+	if (vertex == VERTEX_A)
+		vertex_index = mesh_object->mesh.faces.data[face_index].vertex_a.x - 1;
+	else if (vertex == VERTEX_B)
+		vertex_index = mesh_object->mesh.faces.data[face_index].vertex_b.x - 1;
+	else if (vertex == VERTEX_C)
+		vertex_index = mesh_object->mesh.faces.data[face_index].vertex_c.x - 1;
+	return (mesh_object->cache.mesh.vertex.data[vertex_index]);
 }

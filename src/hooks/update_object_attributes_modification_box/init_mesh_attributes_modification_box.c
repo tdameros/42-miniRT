@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_mesh_attributes_modification_box.c            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/24 03:02:39 by tdameros          #+#    #+#             */
+/*   Updated: 2023/09/24 03:02:40 by tdameros         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "hooks.h"
 
 static void	add_transformation_boxes(t_engine *engine, t_gui_box *gui_box,

@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 17:23:22 by vfries            #+#    #+#             */
-/*   Updated: 2023/07/30 17:25:13 by vfries           ###   ########lyon.fr   */
+/*   Updated: 2023/09/23 23:28:29 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static void	init_object_creation_children(t_engine *engine, t_gui_box *gui_box);
 static void	create_images(t_engine *engine, t_gui_box *gui_box);
 static void	init_object_creation_box(const t_engine *engine, t_gui_box *gui_box,
 				int type);
+static void	draw_object_creation_box_icon(const t_engine *engine,
+				t_gui_box *gui_box, const int type);
 
 void	init_object_creation_gui_box(t_engine *minirt, t_gui_box *gui_box,
 			t_gui_box *parent)
@@ -70,35 +72,7 @@ static void	create_images(t_engine *engine, t_gui_box *gui_box)
 static void	init_object_creation_box(const t_engine *engine, t_gui_box *gui_box,
 				const int type)
 {
-	t_light		tmp_light;
-	t_object	tmp_object;
-
-	if (type == MESH)
-	{
-		change_image_color(&gui_box->image, COLOR_TRANSPARENT);
-		change_image_color(&gui_box->on_hover_image, HOVER_GUI_COLOR);
-		write_centered_string_to_image(&engine->gui.font, &gui_box->image,
-			".obj");
-		write_centered_string_to_image(&engine->gui.font,
-			&gui_box->on_hover_image, ".obj");
-	}
-	else if (type == LIGHT)
-	{
-		tmp_light.color = engine->gui.color_and_material.\
-			material_to_assign_to_new_objects.albedo;
-		draw_icon(&gui_box->image, NULL, &tmp_light, COLOR_TRANSPARENT);
-		draw_icon(&gui_box->on_hover_image, NULL, &tmp_light,
-			HOVER_GUI_COLOR);
-	}
-	else
-	{
-		tmp_object.material = engine->gui.color_and_material.\
-			material_to_assign_to_new_objects;
-		tmp_object.type = type;
-		draw_icon(&gui_box->image, &tmp_object, NULL, COLOR_TRANSPARENT);
-		draw_icon(&gui_box->on_hover_image, &tmp_object, NULL,
-			HOVER_GUI_COLOR);
-	}
+	draw_object_creation_box_icon(engine, gui_box, type);
 	round_image_corners(&gui_box->on_hover_image, BOX_ROUNDING_RADIUS);
 	round_image_corners(&gui_box->image, BOX_ROUNDING_RADIUS);
 	if (type == SPHERE)
@@ -113,4 +87,34 @@ static void	init_object_creation_box(const t_engine *engine, t_gui_box *gui_box,
 		gui_box->on_click = &mesh_create_on_click;
 	else
 		gui_box->on_click = &light_create_on_click;
+}
+
+static void	draw_object_creation_box_icon(const t_engine *engine,
+				t_gui_box *gui_box, const int type)
+{
+	t_light		tmp_light;
+	t_object	tmp_object;
+
+	if (type == LIGHT)
+	{
+		tmp_light.color = engine->gui.color_and_material.\
+			material_to_assign_to_new_objects.albedo;
+		draw_icon(&gui_box->image, NULL, &tmp_light, COLOR_TRANSPARENT);
+		draw_icon(&gui_box->on_hover_image, NULL, &tmp_light, HOVER_GUI_COLOR);
+		return ;
+	}
+	if (type != MESH)
+	{
+		tmp_object.material = engine->gui.color_and_material.\
+			material_to_assign_to_new_objects;
+		tmp_object.type = type;
+		draw_icon(&gui_box->image, &tmp_object, NULL, COLOR_TRANSPARENT);
+		draw_icon(&gui_box->on_hover_image, &tmp_object, NULL, HOVER_GUI_COLOR);
+		return ;
+	}
+	change_image_color(&gui_box->image, COLOR_TRANSPARENT);
+	change_image_color(&gui_box->on_hover_image, HOVER_GUI_COLOR);
+	write_centered_string_to_image(&engine->gui.font, &gui_box->image, ".obj");
+	write_centered_string_to_image(&engine->gui.font,
+		&gui_box->on_hover_image, ".obj");
 }

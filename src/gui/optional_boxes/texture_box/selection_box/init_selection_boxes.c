@@ -6,12 +6,11 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 18:42:25 by vfries            #+#    #+#             */
-/*   Updated: 2023/09/01 18:42:26 by vfries           ###   ########lyon.fr   */
+/*   Updated: 2023/09/23 22:36:35 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gui/optional_boxes.h"
-
 
 void	init_selection_boxes(t_engine *engine, t_gui_box *gui_box)
 {
