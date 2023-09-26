@@ -17,6 +17,8 @@
 
 #include "engine.h"
 
+#define COLOR_FPS_COUNTER 0xFFFFFF
+
 static bool	should_update_fps(struct timeval last_update);
 
 void	print_fps_counter(t_engine *engine, const struct timeval start_time)
@@ -36,10 +38,10 @@ void	print_fps_counter(t_engine *engine, const struct timeval start_time)
 	}
 	if (engine->gui.fps.fps_count)
 		mlx_string_put(engine->window.mlx, engine->window.window, 40, 40,
-			0xFF0000, engine->gui.fps.fps_count);
+			COLOR_FPS_COUNTER, engine->gui.fps.fps_count);
 	else
 		mlx_string_put(engine->window.mlx, engine->window.window, 40, 40,
-			0xFF0000, "Failed to get fps count");
+			COLOR_FPS_COUNTER, "Failed to get fps count");
 }
 
 inline static bool	should_update_fps(const struct timeval last_update)
