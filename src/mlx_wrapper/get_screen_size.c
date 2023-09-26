@@ -28,7 +28,6 @@
 
 void	get_screen_size(t_engine *engine)
 {
-	 // TODO check that screen size is not too small
 	if (X_SCREEN_SIZE <= 0 || Y_SCREEN_SIZE <= 0)
 		get_screen_size_macos(&engine->window.size.x, &engine->window.size.y);
 	if (X_SCREEN_SIZE > 0)
@@ -43,10 +42,8 @@ void	get_screen_size(t_engine *engine)
 #endif
 #ifdef __linux__
 
-
 void	get_screen_size(t_engine *engine)
 {
-	 // TODO check that screen size is not too small
 	if (X_SCREEN_SIZE <= 0 || Y_SCREEN_SIZE <= 0)
 	{
 		mlx_get_screen_size(engine->window.mlx, &engine->window.size.x,
