@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 13:50:43 by vfries            #+#    #+#             */
-/*   Updated: 2023/02/27 18:17:04 by vfries           ###   ########lyon.fr   */
+/*   Updated: 2023/09/26 16:13:14 by vfries           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ bool	ft_bitmask_test(void)
 		return (ft_putstr_fd("Bitmask: set_all_bits_to_one()\n", STDERR_FILENO),
 			ft_bitmask_free(&bitmask), false);
 	if (set_all_bits_to_zero(bitmask) < 0)
-		return (ft_putstr_fd("Bitmask: set_all_bits_to_zero()\n", STDERR_FILENO),
-			ft_bitmask_free(&bitmask), false);
+		return (ft_putstr_fd("Bitmask: set_all_bits_to_zero()\n",
+				STDERR_FILENO), ft_bitmask_free(&bitmask), false);
 	if (real_application_test())
 		return (ft_putstr_fd("Bitmask: real_application_test()\n",
 				STDERR_FILENO), ft_bitmask_free(&bitmask), false);

@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 03:07:18 by tdameros          #+#    #+#             */
-/*   Updated: 2023/09/24 03:43:46 by vfries           ###   ########.fr       */
+/*   Updated: 2023/09/26 16:11:58 by vfries           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,6 @@ void	get_screen_size(t_engine *engine)
 		engine->window.size.x = X_SCREEN_SIZE;
 	if (Y_SCREEN_SIZE > 0)
 		engine->window.size.y = Y_SCREEN_SIZE;
-	if (engine->window.size.x < MIN_X_SCREEN_SIZE)
-		engine->window.size.x = MIN_X_SCREEN_SIZE;
-	if (engine->window.size.y < MIN_Y_SCREEN_SIZE)
-		engine->window.size.y = MIN_Y_SCREEN_SIZE;
 }
 #endif
 #ifdef __linux__
@@ -54,9 +50,5 @@ void	get_screen_size(t_engine *engine)
 		engine->window.size.x = X_SCREEN_SIZE;
 	if (Y_SCREEN_SIZE > 0)
 		engine->window.size.y = Y_SCREEN_SIZE;
-//	if (engine->window.size.x < MIN_X_SCREEN_SIZE)
-//		engine->window.size.x = MIN_X_SCREEN_SIZE;
-//	if (engine->window.size.y < MIN_Y_SCREEN_SIZE)
-//		engine->window.size.y = MIN_Y_SCREEN_SIZE;
 }
 #endif
