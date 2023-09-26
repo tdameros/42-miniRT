@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_gui.h                                         :+:      :+:    :+:   */
+/*   init.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 01:02:00 by tdameros          #+#    #+#             */
-/*   Updated: 2023/05/11 01:02:00 by tdameros         ###   ########lyon.fr   */
+/*   Updated: 2023/09/25 19:16:28 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,6 @@
 # include "engine.h"
 
 //	init_gui.c
-void	init_gui(t_engine *engine);
+int	init_gui(t_engine *engine);
 
 #endif

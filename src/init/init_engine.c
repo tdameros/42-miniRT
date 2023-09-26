@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 03:05:27 by tdameros          #+#    #+#             */
-/*   Updated: 2023/09/25 17:58:50 by vfries           ###   ########.fr       */
+/*   Updated: 2023/09/25 19:15:08 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ int	init_engine(t_engine *engine, const char *start_up_scene,
 	init_rendering_settings(engine);
 	if (get_font(&engine->gui.font, PATH_TO_FONT) < 0)
 		return (-1);
-	init_gui(engine);
+	if (init_gui(engine) < 0)
+		return (-1);
 	if (vectors_int_initialize(&engine->scene.plane_indexes, 5) < 0)
 		return (-1);
 	if (parse_scene(engine, engine->start_up_scene) < 0)

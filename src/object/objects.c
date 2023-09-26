@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 17:07:00 by tdameros          #+#    #+#             */
-/*   Updated: 2023/05/09 17:07:00 by tdameros         ###   ########lyon.fr   */
+/*   Updated: 2023/09/25 19:54:04 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	add_object_in_objects(t_objects *objects, t_object object)
 		temp = malloc(sizeof(*objects->data) * (objects->size * 2));
 		if (temp == NULL)
 			return (-1);
-		ft_memcpy(temp, objects->data,
+		ft_memmove(temp, objects->data,
 			sizeof(*objects->data) * objects->length);
 		temp[objects->length] = object;
 		free(objects->data);

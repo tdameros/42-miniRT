@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vectors3f.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:47:00 by tdameros          #+#    #+#             */
-/*   Updated: 2023/08/08 11:47:00 by tdameros         ###   ########lyon.fr   */
+/*   Updated: 2023/09/25 19:54:06 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	vectors3f_add(t_vectors3f *vectors3f, t_vector3f vector3f)
 		temp = malloc(sizeof(*vectors3f->data) * (vectors3f->size * 2));
 		if (temp == NULL)
 			return (-1);
-		ft_memcpy(temp, vectors3f->data,
+		ft_memmove(temp, vectors3f->data,
 			sizeof(*vectors3f->data) * vectors3f->length);
 		temp[vectors3f->length] = vector3f;
 		free(vectors3f->data);
@@ -74,6 +74,6 @@ int	vectors3f_deep_copy(t_vectors3f *dst, const t_vectors3f *src)
 		return (-1);
 	dst->size = src->length;
 	dst->length = src->length;
-	ft_memcpy(dst->data, src->data, sizeof(*dst->data) * src->length);
+	ft_memmove(dst->data, src->data, sizeof(*dst->data) * src->length);
 	return (0);
 }

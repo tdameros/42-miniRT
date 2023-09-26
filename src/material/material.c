@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   material.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 21:50:00 by tdameros          #+#    #+#             */
-/*   Updated: 2023/06/16 21:50:00 by tdameros         ###   ########lyon.fr   */
+/*   Updated: 2023/09/25 19:54:03 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ static int	ppm_p6_deep_copy(t_ppm_p6 *dst, const t_ppm_p6 *src)
 		dst->pixels = malloc(size_in_bytes);
 		if (dst->pixels == NULL)
 			return (-1);
-		ft_memcpy(dst->pixels, src->pixels, size_in_bytes);
+		ft_memmove(dst->pixels, src->pixels, size_in_bytes);
 	}
 	return (0);
 }

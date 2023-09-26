@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 09:20:00 by vfries            #+#    #+#             */
-/*   Updated: 2023/06/19 09:20:00 by vfries           ###   ########lyon.fr   */
+/*   Updated: 2023/09/25 19:53:09 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	realloc_and_append(t_vector *dst, const t_vector *src,
 	new_data = malloc(dst->elem_size * needed_size);
 	if (new_data == NULL)
 		return (VECTOR_ALLOCATION_FAILED);
-	ft_memcpy(new_data, dst->data, dst->elem_size * dst->length);
+	ft_memmove(new_data, dst->data, dst->elem_size * dst->length);
 	free(dst->data);
 	dst->data = new_data;
 	append(dst, src);
@@ -48,7 +48,7 @@ static int	realloc_and_append(t_vector *dst, const t_vector *src,
 
 static void	append(t_vector *dst, const t_vector *src)
 {
-	ft_memcpy(dst->data + dst->elem_size * dst->length, src->data,
+	ft_memmove(dst->data + dst->elem_size * dst->length, src->data,
 		dst->elem_size * src->length);
 	dst->length += src->length;
 }

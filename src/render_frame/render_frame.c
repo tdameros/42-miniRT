@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 18:12:50 by vfries            #+#    #+#             */
-/*   Updated: 2023/09/24 07:06:28 by vfries           ###   ########.fr       */
+/*   Updated: 2023/09/25 19:03:28 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,6 @@
 #define FPS_GOAL 45.f
 #define FRAME_BEFORE_ADAPTION 20
 #define DEFAULT_INCREMENTER_VALUE 2
-
-#ifdef __linux__
-# define IS_LINUX 1
-#else
-# define IS_LINUX 0
-#endif
 
 static void			render_minirt_raytracing(t_engine *engine);
 static int			adjust_incrementer(t_quality quality, int incrementer);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   t_font.h                                           :+:      :+:    :+:   */
+/*   rendering_structs.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 02:16:00 by vfries            #+#    #+#             */
-/*   Updated: 2023/06/28 02:16:00 by vfries           ###   ########lyon.fr   */
+/*   Updated: 2023/09/25 21:56:50 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include "font/ttf_parser.h"
 # include "math/vector.h"
+
+# define NUMBER_OF_GLYPHS 127
 
 typedef struct s_triangle
 {

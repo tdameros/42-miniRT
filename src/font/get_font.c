@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 18:53:00 by vfries            #+#    #+#             */
-/*   Updated: 2023/06/27 18:53:00 by vfries           ###   ########lyon.fr   */
+/*   Updated: 2023/09/25 21:57:32 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ int	get_font(t_font *font, char *font_file)
 {
 	t_ttf	ttf;
 
-	font->glyphs = ft_calloc(127, sizeof(*font->glyphs));
-	font->long_hor_metric = malloc(sizeof(*font->long_hor_metric) * 127);
+	font->glyphs = ft_calloc(NUMBER_OF_GLYPHS, sizeof(*font->glyphs));
+	font->long_hor_metric = malloc(
+			sizeof(*font->long_hor_metric) * NUMBER_OF_GLYPHS);
 	if (font->glyphs == NULL || font->long_hor_metric == NULL)
 	{
 		free(font->glyphs);
@@ -51,7 +52,7 @@ static int	get_font_data(t_font *font, t_ttf *ttf)
 	uint8_t	i;
 
 	i = -1;
-	while (++i < 127)
+	while (++i < NUMBER_OF_GLYPHS)
 	{
 		if (get_points(font->glyphs + i, i, ttf) < 0)
 		{

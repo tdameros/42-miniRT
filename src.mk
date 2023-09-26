@@ -1,4 +1,8 @@
 SRC				=\
+	close_engine/close_engine.c		\
+	close_engine/destroy_mlx.c		\
+	\
+	\
 	draw/bounding_box.c		\
 	draw/draw.c				\
 	draw/draw_line.c		\
@@ -427,7 +431,6 @@ SRC				=\
 	vectors/vectors3i.c			\
 	vectors/vectors_int.c		\
 	\
-	close_engine.c		\
 	color.c				\
 	main.c				\
 	scene.c

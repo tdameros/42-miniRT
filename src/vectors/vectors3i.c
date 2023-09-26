@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vectors3i.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 12:55:00 by tdameros          #+#    #+#             */
-/*   Updated: 2023/08/08 12:55:00 by tdameros         ###   ########lyon.fr   */
+/*   Updated: 2023/09/25 19:54:06 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	vectors3i_add(t_vectors3i *vectors3i, t_vector3i vector3i)
 		temp = malloc(sizeof(*vectors3i->data) * (vectors3i->size * 2));
 		if (temp == NULL)
 			return (-1);
-		ft_memcpy(temp, vectors3i->data,
+		ft_memmove(temp, vectors3i->data,
 			sizeof(*vectors3i->data) * vectors3i->length);
 		temp[vectors3i->length] = vector3i;
 		free(vectors3i->data);

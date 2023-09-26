@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 22:11:00 by vfries            #+#    #+#             */
-/*   Updated: 2023/06/14 22:11:00 by vfries           ###   ########lyon.fr   */
+/*   Updated: 2023/09/25 19:53:23 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,6 @@ static void	*make_copy_of_vector(const t_vector *vector)
 	copy = malloc(vector->length * vector->elem_size);
 	if (copy == NULL)
 		return (NULL);
-	ft_memcpy(copy, vector->data, vector->length * vector->elem_size);
+	ft_memmove(copy, vector->data, vector->length * vector->elem_size);
 	return (copy);
 }

@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 17:22:14 by vfries            #+#    #+#             */
-/*   Updated: 2023/07/30 17:22:15 by vfries           ###   ########lyon.fr   */
+/*   Updated: 2023/09/25 19:15:34 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 static void	init_boxes(t_engine *engine);
 static void	init_message(t_engine *engine);
 
-void	init_gui(t_engine *engine)
+int	init_gui(t_engine *engine)
 {
 	engine->gui.gui_boxes.size = 3;
 	engine->gui.gui_boxes.data = ft_calloc(engine->gui.gui_boxes.size,
@@ -36,7 +36,7 @@ void	init_gui(t_engine *engine)
 			sizeof(*engine->gui.optional_gui_boxes.data));
 	if (engine->gui.gui_boxes.data == NULL
 		|| engine->gui.optional_gui_boxes.data == NULL)
-		ft_fatal_error("init_gui: malloc failed");
+		return (-1);
 	engine->gui.current_optional_box = NO_OPTIONAL_BOX;
 	engine->gui.draw_gui_image = &put_image_to_image_unsafe;
 	engine->gui.object_modification_amount = 0.1f;
@@ -47,6 +47,9 @@ void	init_gui(t_engine *engine)
 	engine->gui.hide_animation.hide_animation_finished = true;
 	init_boxes(engine);
 	init_message(engine);
+	init_image(&engine->gui.screen_shot.image, &engine->window,
+		engine->window.size.x, engine->window.size.y);
+	return (0);
 }
 
 static void	init_boxes(t_engine *engine)

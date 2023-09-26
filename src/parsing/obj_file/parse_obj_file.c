@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_obj_file.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 18:46:00 by tdameros          #+#    #+#             */
-/*   Updated: 2023/08/07 18:46:00 by tdameros         ###   ########lyon.fr   */
+/*   Updated: 2023/09/25 20:07:49 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	initialize_mesh_with_obj(t_mesh *mesh, const char *file_name)
 
 	lines = get_relevent_obj_lines(file_name, &number_of_vertex,
 			&number_of_normals, &number_of_faces);
-	if (lines.length == 0)
+	if (lines.data == NULL)
 		return (-1);
 	if (initialize_vectors_in_mesh(mesh, number_of_vertex, number_of_normals,
 			number_of_faces) < 0)

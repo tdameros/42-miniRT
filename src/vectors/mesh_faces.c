@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vectors3f.c                                        :+:      :+:    :+:   */
+/*   mesh_faces.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:47:00 by tdameros          #+#    #+#             */
-/*   Updated: 2023/08/08 11:47:00 by tdameros         ###   ########lyon.fr   */
+/*   Updated: 2023/09/25 19:54:05 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	mesh_faces_add(t_mesh_faces *mesh_faces, t_mesh_face mesh_face)
 		temp = malloc(sizeof(*mesh_faces->data) * (mesh_faces->size * 2));
 		if (temp == NULL)
 			return (-1);
-		ft_memcpy(temp, mesh_faces->data,
+		ft_memmove(temp, mesh_faces->data,
 			sizeof(*mesh_faces->data) * mesh_faces->length);
 		temp[mesh_faces->length] = mesh_face;
 		free(mesh_faces->data);
@@ -73,6 +73,6 @@ int	mesh_faces_deep_copy(t_mesh_faces *dst, const t_mesh_faces *src)
 		return (-1);
 	dst->size = src->length;
 	dst->length = src->length;
-	ft_memcpy(dst->data, src->data, sizeof(*dst->data) * src->length);
+	ft_memmove(dst->data, src->data, sizeof(*dst->data) * src->length);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_relevent_obj_lines.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 00:28:50 by tdameros          #+#    #+#             */
-/*   Updated: 2023/09/24 00:28:52 by tdameros         ###   ########lyon.fr   */
+/*   Updated: 2023/09/25 19:57:51 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ t_str_vector	get_relevent_obj_lines(const char *file_name,
 		ft_str_vector_destroy(&lines);
 		return ((t_vector){NULL, 0, 0, 0});
 	}
+	if (lines.length == 0)
+		ft_str_vector_destroy(&lines);
 	return (lines);
 }
 

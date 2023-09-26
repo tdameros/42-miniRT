@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vectors_int.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 21:18:00 by tdameros          #+#    #+#             */
-/*   Updated: 2023/09/14 21:18:00 by tdameros         ###   ########lyon.fr   */
+/*   Updated: 2023/09/25 19:54:05 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	vectors_int_add(t_vectors_int *vectors_int, int n)
 		temp = malloc(sizeof(*vectors_int->data) * (vectors_int->size * 2));
 		if (temp == NULL)
 			return (-1);
-		ft_memcpy(temp, vectors_int->data,
+		ft_memmove(temp, vectors_int->data,
 			sizeof(*vectors_int->data) * vectors_int->length);
 		temp[vectors_int->length] = n;
 		free(vectors_int->data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lights.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 23:08:00 by tdameros          #+#    #+#             */
-/*   Updated: 2023/07/02 23:08:00 by tdameros         ###   ########lyon.fr   */
+/*   Updated: 2023/09/25 19:53:44 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	add_light_in_lights(t_lights *lights, t_light light)
 		temp = malloc(sizeof(*lights->data) * (lights->size * 2));
 		if (temp == NULL)
 			return (-1);
-		ft_memcpy(temp, lights->data, sizeof(*lights->data) * lights->length);
+		ft_memmove(temp, lights->data, sizeof(*lights->data) * lights->length);
 		temp[lights->length] = light;
 		free(lights->data);
 		lights->data = temp;

@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 18:49:00 by vfries            #+#    #+#             */
-/*   Updated: 2023/06/14 18:49:00 by vfries           ###   ########lyon.fr   */
+/*   Updated: 2023/09/25 19:52:45 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	add_elem_on_empty_vector(t_vector *vector, const void *new_elem)
 		return (VECTOR_ALLOCATION_FAILED);
 	vector->length = 1;
 	vector->size = DEFAULT_SIZE;
-	ft_memcpy(vector->data, new_elem, vector->elem_size);
+	ft_memmove(vector->data, new_elem, vector->elem_size);
 	return (VECTOR_SUCCESS);
 }
 
@@ -49,8 +49,8 @@ static int	add_elem_on_full_vector(t_vector *vector, const void *new_elem)
 	new_data = malloc(new_size * vector->elem_size);
 	if (new_data == NULL)
 		return (VECTOR_ALLOCATION_FAILED);
-	ft_memcpy(new_data, vector->data, vector->length * vector->elem_size);
-	ft_memcpy(new_data + (vector->length * vector->elem_size), new_elem,
+	ft_memmove(new_data, vector->data, vector->length * vector->elem_size);
+	ft_memmove(new_data + (vector->length * vector->elem_size), new_elem,
 		vector->elem_size);
 	free(vector->data);
 	vector->data = new_data;
@@ -61,7 +61,7 @@ static int	add_elem_on_full_vector(t_vector *vector, const void *new_elem)
 
 static int	add_elem_on_non_full_vector(t_vector *vector, const void *new_elem)
 {
-	ft_memcpy(vector->data + (vector->length * vector->elem_size), new_elem,
+	ft_memmove(vector->data + (vector->length * vector->elem_size), new_elem,
 		vector->elem_size);
 	vector->length++;
 	return (VECTOR_SUCCESS);
