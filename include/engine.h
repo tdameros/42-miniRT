@@ -19,11 +19,11 @@
 # include "scene.h"
 # include "window.h"
 
-#ifdef __linux__
-# define IS_LINUX 1
-#else
-# define IS_LINUX 0
-#endif
+# ifdef __linux__
+#  define IS_LINUX 1
+# else
+#  define IS_LINUX 0
+# endif
 
 # define NB_OF_MOVEMENT_KEYS 8
 # define DEFAULT_DISTANCE_OF_NEW_OBJECTS 10.f
@@ -92,17 +92,17 @@ int		close_engine(t_engine *engine);
 void	destroy_mlx(t_engine *engine);
 
 // init/init_images.c
-int	init_engine_images(t_engine *engine);
+int		init_engine_images(t_engine *engine);
 
 //	init/init_engine.c
-int	init_engine(t_engine *engine, const char *start_up_scene,
-		const char *path_to_minirt_binary);
+int		init_engine(t_engine *engine, const char *start_up_scene,
+			const char *path_to_minirt_binary);
 
 // init/init_mlx.c
-int	init_mlx(t_engine *engine);
+int		init_mlx(t_engine *engine);
 
 // init/set_minirt_folder_as_current_working_directory.c
-int	set_minirt_folder_as_current_working_directory(
-		const char *path_to_minirt_binary);
+int		set_minirt_folder_as_current_working_directory(
+			const char *path_to_minirt_binary);
 
 #endif
