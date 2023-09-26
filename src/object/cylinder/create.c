@@ -39,9 +39,9 @@ t_object	cylinder_create(const t_vector3f position,
 
 void	cylinder_calculate_cache(t_object *cylinder)
 {
-	cylinder->cache.cone.endpoint1 = vector3f_subtract(cylinder->position,
+	cylinder->cache.cylinder.endpoint1 = vector3f_subtract(cylinder->position,
 			vector3f_multiply(cylinder->axis, cylinder->height / 2));
-	cylinder->cache.cone.endpoint2 = vector3f_add(cylinder->position,
+	cylinder->cache.cylinder.endpoint2 = vector3f_add(cylinder->position,
 			vector3f_multiply(cylinder->axis, cylinder->height / 2));
 	cylinder->cache.cylinder.cap1_normal = vector3f_multiply(cylinder->axis,
 			-1);
