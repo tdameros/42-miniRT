@@ -19,8 +19,6 @@
 #include "engine.h"
 #include "render_frame.h"
 #include "ray_tracer/render.h"
-#include "gui/utils.h"
-#include "font/render.h"
 #include "events.h"
 #include "hooks.h"
 #include "mlx_wrapper.h"

@@ -190,11 +190,8 @@ SRC				=\
 	ray_tracer_gui_api/get_clicked_object.c					\
 	\
 	\
-	render_frame/print_fps_counter.c						\
 	render_frame/put_raytraced_pixels_to_raytraced_image.c	\
 	render_frame/render_frame.c								\
-	render_frame/render_message.c							\
-	render_frame/render_screen_shot_animation.c				\
 	\
 	\
 	vectors/mesh_faces.c		\

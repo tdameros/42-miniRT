@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "engine.h"
-#include "gui/box.h"
-#include "gui/object_list_box.h"
 
 static int	update_plane_indexes(t_scene *scene);
 

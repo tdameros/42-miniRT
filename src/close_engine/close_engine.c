@@ -16,7 +16,6 @@
 #include "libft.h"
 
 #include "engine.h"
-#include "gui/box.h"
 
 static void	destroy_images(t_engine *engine);
 

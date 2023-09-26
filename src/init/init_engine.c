@@ -17,14 +17,12 @@
 #include "mlx.h"
 
 #include "mlx_wrapper.h"
-#include "gui/init.h"
 #include "events.h"
 #include "parsing.h"
 #include "hooks.h"
 #include "render_frame.h"
 #include "window.h"
 #include "engine.h"
-#include "font/render.h"
 
 #ifndef DEFAULT_MAX_RESOLUTION_REDUCTION
 # define DEFAULT_MAX_RESOLUTION_REDUCTION 21

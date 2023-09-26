@@ -15,7 +15,6 @@
 
 #include "engine.h"
 #include "parsing.h"
-#include "gui/utils.h"
 
 static int	get_camera_fov(char *fov_string, float *fov_destination);
 

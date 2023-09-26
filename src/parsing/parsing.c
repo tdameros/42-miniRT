@@ -18,7 +18,6 @@
 
 #include "engine.h"
 #include "parsing.h"
-#include "gui/object_list_box.h"
 
 static int	create_bvh_tree(t_engine *engine);
 
@@ -44,7 +43,6 @@ int	parse_scene(t_engine *engine, const char *start_up_scene)
 	if (create_bvh_tree(engine) < 0)
 		return (free_scene_content(scene_content), \
 				-1);
-//	update_object_list_icons(engine);
 	free_scene_content(scene_content);
 	return (0);
 }

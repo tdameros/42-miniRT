@@ -13,7 +13,6 @@
 #ifndef ENGINE_H
 # define ENGINE_H
 
-# include "gui/gui.h"
 # include "image.h"
 # include "ray_tracer/camera.h"
 # include "scene.h"
@@ -61,7 +60,6 @@ typedef struct s_engine
 {
 	t_window				window;
 	t_vector2i				mouse_position;
-	t_gui					gui;
 	t_image					main_image;
 	t_image					ray_traced_image;
 	t_image					bvh_image;

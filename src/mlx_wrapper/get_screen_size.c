@@ -54,9 +54,9 @@ void	get_screen_size(t_engine *engine)
 		engine->window.size.x = X_SCREEN_SIZE;
 	if (Y_SCREEN_SIZE > 0)
 		engine->window.size.y = Y_SCREEN_SIZE;
-	if (engine->window.size.x < MIN_X_SCREEN_SIZE)
-		engine->window.size.x = MIN_X_SCREEN_SIZE;
-	if (engine->window.size.y < MIN_Y_SCREEN_SIZE)
-		engine->window.size.y = MIN_Y_SCREEN_SIZE;
+//	if (engine->window.size.x < MIN_X_SCREEN_SIZE)
+//		engine->window.size.x = MIN_X_SCREEN_SIZE;
+//	if (engine->window.size.y < MIN_Y_SCREEN_SIZE)
+//		engine->window.size.y = MIN_Y_SCREEN_SIZE;
 }
 #endif

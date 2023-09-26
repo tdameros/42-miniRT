@@ -13,7 +13,6 @@
 #include "mlx.h"
 
 #include "events.h"
-#include "gui/utils.h"
 #include "engine.h"
 #include "hooks.h"
 #include "export.h"

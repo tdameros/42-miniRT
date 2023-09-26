@@ -26,6 +26,6 @@ void	put_image(t_engine *engine, t_image *image, t_vector2i position)
 
 void	put_image(t_engine *engine, t_image *image, t_vector2i position)
 {
-	engine->gui.draw_gui_image(&engine->main_image, image, position);
+	put_image_to_image(&engine->main_image, image, position);
 }
 #endif
