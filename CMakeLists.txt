@@ -262,6 +262,8 @@ add_executable(42_miniRT
         lib/minilibx_opengl_20191021/mlx_rgb.c
         lib/minilibx_opengl_20191021/mlx_shaders.c
         lib/minilibx_opengl_20191021/mlx_xpm.c
+        src/close_engine/close_engine.c
+        src/close_engine/destroy_mlx.c
         src/draw/bounding_box.c
         src/draw/draw.c
         src/draw/draw_line.c
@@ -375,6 +377,7 @@ add_executable(42_miniRT
         src/gui/create_vertical_boxes.c
         src/gui/get_boxes_decal.c
         src/gui/init_gui.c
+        src/gui/write_message_to_screen.c
         src/hooks/update_object_attributes_modification_box/add_boxes/cap_checkerboard_size_on_clicks/disable_cap_checkerboard.c
         src/hooks/update_object_attributes_modification_box/add_boxes/cap_checkerboard_size_on_clicks/x.c
         src/hooks/update_object_attributes_modification_box/add_boxes/cap_checkerboard_size_on_clicks/y.c
@@ -447,6 +450,10 @@ add_executable(42_miniRT
         src/image/put_image_to_image_unsafe.c
         src/image/round_image_corners.c
         src/image/round_image_corners_utils.c
+        src/init/init_engine.c
+        src/init/init_engine_images.c
+        src/init/init_mlx.c
+        src/init/set_minirt_folder_as_current_working_directory.c
         src/interpolater/interpolate_main_lines.c
         src/interpolater/interpolate_ray_tracing.c
         src/interpolater/interpolate_sub_lines.c
@@ -601,8 +608,6 @@ add_executable(42_miniRT
         src/vectors/vectors3f_utils.c
         src/vectors/vectors3i.c
         src/vectors/vectors_int.c
-        src/close_engine.c
         src/color.c
-        src/init_engine.c
         src/main.c
         src/scene.c)
