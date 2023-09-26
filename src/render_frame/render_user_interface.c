@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 03:02:21 by tdameros          #+#    #+#             */
-/*   Updated: 2023/09/24 03:55:20 by vfries           ###   ########.fr       */
+/*   Updated: 2023/09/25 22:32:46 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static float		get_gui_hidden_ration(t_gui *gui, uint64_t start_time);
 
 void	render_user_interface(t_engine *engine, const uint64_t start_time)
 {
+	render_message(engine);
 	engine->gui.hide_animation.current_hidden_ratio
 		= get_gui_hidden_ration(&engine->gui, start_time);
 	if (engine->gui.hide_animation.current_hidden_ratio >= 1.f)
@@ -37,7 +38,6 @@ void	render_user_interface(t_engine *engine, const uint64_t start_time)
 			+ engine->gui.current_optional_box, engine, (t_draw_data){\
 			get_left_box_decal(engine, engine->gui.gui_boxes.data + 1),
 			engine->mouse_position});
-	render_message(engine);
 }
 
 static void	render_main_gui_boxes(t_engine *engine)

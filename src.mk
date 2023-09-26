@@ -137,6 +137,7 @@ SRC				=\
 	gui/create_vertical_boxes.c		\
 	gui/get_boxes_decal.c			\
 	gui/init_gui.c					\
+	gui/write_message_to_screen.c	\
 	\
 	\
 	hooks/update_object_attributes_modification_box/add_boxes/cap_checkerboard_size_on_clicks/disable_cap_checkerboard.c	\

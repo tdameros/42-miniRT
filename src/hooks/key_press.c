@@ -6,13 +6,14 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 18:37:00 by vfries            #+#    #+#             */
-/*   Updated: 2023/07/30 18:37:01 by vfries           ###   ########.fr       */
+/*   Updated: 2023/09/25 22:34:35 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx.h"
 
 #include "events.h"
+#include "gui/utils.h"
 #include "engine.h"
 #include "hooks.h"
 #include "export.h"
@@ -47,7 +48,9 @@ static bool	handle_command_hooks(int key_code, t_engine *engine)
 	else if (key_code == KEY_S)
 	{
 		if (export_scene(engine, engine->start_up_scene) < 0)
-			ft_print_error("Warning: Failed to export scene.\n");
+			write_message_to_screen(engine, "Warning: Failed to save scene");
+		else
+			write_message_to_screen(engine, "Scene was saved");
 	}
 	return (true);
 }

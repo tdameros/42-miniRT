@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 02:01:00 by vfries            #+#    #+#             */
-/*   Updated: 2023/09/24 01:17:52 by vfries           ###   ########.fr       */
+/*   Updated: 2023/09/25 22:28:38 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,5 +103,9 @@ t_vector2i			get_right_box_decal(const t_engine *engine,
 						const t_gui_box *gui_box);
 t_vector2i			get_left_box_decal(const t_engine *engine,
 						const t_gui_box *gui_box);
+
+// write_message_to_screen
+void				write_message_to_screen(t_engine *engine,
+						const char *message);
 
 #endif

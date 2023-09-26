@@ -6,13 +6,14 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 23:10:43 by vfries            #+#    #+#             */
-/*   Updated: 2023/09/23 23:10:43 by vfries           ###   ########.fr       */
+/*   Updated: 2023/09/25 22:29:01 by vfries           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 
 #include "gui/box.h"
+#include "gui/utils.h"
 #include "gui/UI.h"
 #include "gui/main_gui_box.h"
 #include "font/render.h"
@@ -59,20 +60,10 @@ static void	export_box_on_click(t_gui_box *self, t_engine *engine,
 	(void)self;
 	if (click_data.button != BUTTON_LEFT)
 		return ;
-	engine->gui.message.animation_start_time_ms = ft_get_current_time_in_ms();
-	engine->gui.message.time_to_appear_ms = 500;
-	engine->gui.message.time_to_display_ms = 1000;
-	engine->gui.message.time_to_disappear_ms = 500;
-	change_image_color(&engine->gui.message.image_with_message,
-		COLOR_TRANSPARENT);
 	if (export_scene_with_datetime(engine) < 0)
-		write_centered_string_to_image(&engine->gui.font,
-			&engine->gui.message.image_with_message,
-			"Scene failed to be exported");
+		write_message_to_screen(engine, "Scene failed to be exported");
 	else
-		write_centered_string_to_image(&engine->gui.font,
-			&engine->gui.message.image_with_message,
-			"Scene was exported");
+		write_message_to_screen(engine, "Scene was exported");
 }
 
 static void	draw_export_icon(t_image *image,
