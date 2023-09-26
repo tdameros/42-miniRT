@@ -1,8 +1,17 @@
-NAME				=	miniRT
+BONUS = 0
 
-include src.mk
-SRC_PATH			=	src/
-DIR_BUILD			=	.build/
+ifeq ($(BONUS), 1)
+	PROJECT_PATH	=	bonus/
+	NAME			=	miniRT_bonus
+endif
+ifeq ($(BONUS), 0)
+	PROJECT_PATH	=	mandatory/
+	NAME			=	miniRT
+endif
+
+include 			$(PROJECT_PATH)/src.mk
+SRC_PATH			=	$(PROJECT_PATH)/src/
+DIR_BUILD			=	$(PROJECT_PATH)/.build/
 OBJS				=	$(patsubst %.c, $(DIR_BUILD)%.o, $(SRC))
 DEPS				=	$(patsubst %.c, $(DIR_BUILD)%.d, $(SRC))
 DEPS_FLAGS			=	-MMD -MP
@@ -10,7 +19,6 @@ BASE_CFLAGS			=	-Wall -Wextra -Werror
 LOW_RESOLUTION_FLAGS = -D DEFAULT_MAX_RESOLUTION_REDUCTION=50 -D DEFAULT_MIN_RESOLUTION_REDUCTION=50 -D DEFAULT_ANTIALIASING_VALUE=0 #-D X_SCREEN_SIZE=500 -D Y_SCREEN_SIZE=500
 BASE_DEBUG_CFLAGS	=	-g3 $(LOW_RESOLUTION_FLAGS)
 DEBUG_CLFAGS		=	$(BASE_DEBUG_CFLAGS) -fsanitize=address
-# DEBUG_CLFAGS		=	$(BASE_DEBUG_CFLAGS) -fsanitize=memory -fsanitize-memory-track-origins
 #-ffast-math reduces calculation precision, need to check behaviour before using
 OPTI_CFLAGS			=	-Ofast -march=native -flto -fno-signed-zeros -funroll-loops #-ffast-math
 # CFLAGS				=	$(BASE_CFLAGS) -g3
@@ -63,25 +71,25 @@ MINILIBX_A			=	$(MINILIBX_PATH)libmlx.a
 MAKE_MINILIBX		=	$(MAKE) -C $(MINILIBX_PATH)
 
 DIR_INCS =\
-	include/			\
-	$(LIBFT_INCLUDES)	\
+	$(PROJECT_PATH)/include/	\
+	$(LIBFT_INCLUDES)			\
 	$(MINILIBX_INCLUDES)
 INCLUDES =\
 	$(addprefix -I , $(DIR_INCS))
 
 ifeq ($(OS), Linux)
-	LIBS = \
-    	-lm	\
-    	$(LIBFT_L)	\
+	LIBS = 				\
+    	-lm				\
+    	$(LIBFT_L)		\
     	$(MINILIBX_L)	\
-    	-lXext	\
+    	-lXext			\
     	-lX11
     FRAMEWORKS =
 endif
 ifeq ($(OS), Darwin)
 	LIBS = \
-    	-lm	\
-    	$(LIBFT_L)	\
+    	-lm				\
+    	$(LIBFT_L)		\
     	$(MINILIBX_L)	\
     	-L$(DIR_BUILD) -lget_window_size
     FRAMEWORKS =\
@@ -105,24 +113,31 @@ run:
 			$(MAKE) -j
 			./miniRT assets/scenes/test.rt || true
 
-$(NAME):	$(OBJS) src/get_window_size.swift
+$(NAME):	$(OBJS) $(SRC_PATH)/get_window_size.swift
 	@if [ $(OS) = "Darwin" ]; then\
 		swiftc -emit-library -module-name SwiftCode -o $(CURDIR)/$(DIR_BUILD)libget_window_size.a $(SRC_PATH)get_window_size.swift;\
 	fi
 	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) $(FRAMEWORKS) $(LIBS) -o $(NAME)
 
 .PHONY:	bonus
-bonus:		all
+bonus:
+			$(MAKE) all BONUS=1
 
 .PHONY:	clean
 clean:
-			$(MAKE) compress
+			@if [ $(BONUS) = 0 ]; then\
+				$(MAKE) fclean BONUS=1;\
+			fi
 			$(MAKE_LIBFT) clean
 			$(MAKE_MINILIBX) clean
 			$(RM) $(DIR_BUILD)
 
 .PHONY:	fclean
-fclean:	clean
+fclean:
+			$(MAKE) clean
+			@if [ $(BONUS) = 0 ]; then\
+				$(MAKE) fclean BONUS=1;\
+			fi
 			$(MAKE_LIBFT) fclean
 			$(MAKE_MINILIBX) clean # MINILIBX has no fclean
 			$(RM) $(NAME)
