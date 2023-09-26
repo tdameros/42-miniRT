@@ -108,11 +108,6 @@ all:
 			$(MAKE_MINILIBX)
 			$(MAKE) $(NAME)
 
-.PHONY:		run
-run:
-			$(MAKE) -j
-			./miniRT assets/scenes/test.rt || true
-
 $(NAME):	$(OBJS) $(SRC_PATH)/get_window_size.swift
 	@if [ $(OS) = "Darwin" ]; then\
 		swiftc -emit-library -module-name SwiftCode -o $(CURDIR)/$(DIR_BUILD)libget_window_size.a $(SRC_PATH)get_window_size.swift;\
@@ -200,5 +195,5 @@ decompress:
 
 
 .PHONY: render
-render: all
-	find assets/scenes -name "*.rt" -exec ./miniRT {} \;
+render: bonus
+	find assets/scenes -name "*.rt" -exec ./miniRT_bonus {} \;
