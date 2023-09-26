@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 17:11:00 by vfries            #+#    #+#             */
-/*   Updated: 2023/09/23 23:28:49 by vfries           ###   ########.fr       */
+/*   Updated: 2023/09/26 16:14:36 by vfries           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,6 @@ static void	draw_object_and_light_gui_box(t_gui_box *self, t_engine *engine,
 	while (i--)
 		draw_object_and_light_gui_box_children(self->children.data + i, engine,
 			(t_vector2i){self->position.x, self->position.y + y});
-	// TODO Make a custom version of put_image_to_image() to not change the
-	// color if == COLOR_TRANSPARENT since it currently writes over the rounded
-	// edges
 }
 
 void	draw_object_and_light_gui_box_children(t_gui_box *gui_box,

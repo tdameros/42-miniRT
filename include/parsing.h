@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 23:24:00 by tdameros          #+#    #+#             */
-/*   Updated: 2023/09/25 03:35:14 by tdameros         ###   ########lyon.fr   */
+/*   Updated: 2023/09/26 16:15:09 by vfries           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ typedef struct s_rt_file_requirements
 {
 	bool	camera;
 	bool	ambient_light;
-//	bool	light;  // TODO add this for mandatory part
 }	t_rt_file_requirements;
 
 typedef struct s_checkerboard_parsing_data

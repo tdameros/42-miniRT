@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 03:18:55 by vfries            #+#    #+#             */
-/*   Updated: 2023/09/24 03:47:34 by vfries           ###   ########.fr       */
+/*   Updated: 2023/09/26 16:14:45 by vfries           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,4 @@ static bool	are_requirements_met(t_rt_file_requirements rt_file_requirements)
 {
 	return (rt_file_requirements.ambient_light
 		&& rt_file_requirements.camera);
-	// TODO add rt_file_requirements.light for mandatory part
 }
