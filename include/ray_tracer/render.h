@@ -42,12 +42,6 @@ typedef struct s_raytracing_anti_aliasing_routine_args
 t_vector3f	calculate_post_processing_color(const t_engine *engine,
 				t_vector3f color);
 
-//	render.c
-void		render_raytracing(t_engine *minirt, int incrementer);
-
-//	render_icon.c
-void		render_icon(t_engine *minirt, unsigned int background_color);
-
 //	render_with_anti_aliasing.c
 void		render_anti_aliased_raytracing(t_engine *minirt);
 

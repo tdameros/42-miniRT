@@ -47,21 +47,16 @@ int	init_engine(t_engine *engine, const char *start_up_scene,
 		const char *path_to_minirt_binary)
 {
 	ft_bzero(engine, sizeof(t_engine));
-	engine->start_up_scene = realpath(start_up_scene, NULL);
+	engine->start_up_scene = ft_strdup(start_up_scene);
 	if (engine->start_up_scene == NULL)
 		return (-1);
-	if (set_minirt_folder_as_current_working_directory(path_to_minirt_binary))
-		return (-1);
+	(void) path_to_minirt_binary;
 	if (init_mlx(engine) < 0)
 		return (-1);
 	engine->window.is_focused = true;
 	if (init_engine_images(engine) < 0)
 		return (-1);
 	init_rendering_settings(engine);
-	if (get_font(&engine->gui.font, PATH_TO_FONT) < 0)
-		return (-1);
-	if (init_gui(engine) < 0)
-		return (-1);
 	if (vectors_int_initialize(&engine->scene.plane_indexes, 5) < 0)
 		return (-1);
 	if (parse_scene(engine, engine->start_up_scene) < 0)

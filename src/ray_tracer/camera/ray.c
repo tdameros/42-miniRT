@@ -11,44 +11,27 @@
 /* ************************************************************************** */
 
 #include "engine.h"
-#include "threads.h"
-
-static void	*recalculate_rays_routine(void *arg_void);
 
 void	camera_recalculate_rays(t_camera *camera)
 {
-	t_recalculate_rays_args	arg;
+	int		x;
+	int		y;
+	t_ray	*cursor;
 
-	arg.camera = camera;
-	arg.current_line = 0;
-	start_threads(&arg, &recalculate_rays_routine);
-}
-
-static void	*recalculate_rays_routine(void *arg_void)
-{
-	t_recalculate_rays_args			*data;
-	t_ray							*line;
-	int								y;
-	int								x;
-
-	data = get_routine_data(arg_void);
-	mutex_lock(arg_void);
-	while (data->current_line < data->camera->viewport.size.y)
+	y = 0;
+	cursor = camera->rays;
+	while (y < camera->viewport.size.y)
 	{
-		y = data->current_line;
-		data->current_line++;
-		mutex_unlock(arg_void);
-		line = data->camera->rays
-			+ (int)((data->camera->viewport.size.y - y - 1)
-				* data->camera->viewport.size.x);
-		x = data->camera->viewport.size.x;
-		while (x--)
-			line[x] = ray_create(data->camera->position,
-					get_ray_direction(data->camera, x, y));
-		mutex_lock(arg_void);
+		x = 0;
+		while (x < camera->viewport.size.x)
+		{
+			*cursor = ray_create(camera->position,
+					get_ray_direction(camera, x, y));
+			cursor++;
+			x++;
+		}
+		y++;
 	}
-	mutex_unlock(arg_void);
-	return (NULL);
 }
 
 t_vector3f	get_ray_direction(const t_camera *camera, const float x,

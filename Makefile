@@ -16,8 +16,8 @@ OPTI_CFLAGS			=	-Ofast -march=native -flto -fno-signed-zeros -funroll-loops #-ff
 # CFLAGS				=	$(BASE_CFLAGS) -g3
 # CFLAGS				=	$(BASE_CFLAGS) $(OPTI_CFLAGS) -g3
 # CFLAGS				=	$(BASE_CFLAGS) $(BASE_DEBUG_CFLAGS)
-CFLAGS				=	$(BASE_CFLAGS) $(OPTI_CFLAGS)
-# CFLAGS			=	$(BASE_CFLAGS) $(DEBUG_CLFAGS)
+#CFLAGS				=	$(BASE_CFLAGS) $(OPTI_CFLAGS)
+ CFLAGS			=	$(BASE_CFLAGS) $(DEBUG_CLFAGS)
 # CFLAGS				=	$(BASE_CFLAGS) $(OPTI_CFLAGS) $(DEBUG_CLFAGS)
 RM					=	rm -rf
 AR					=	ar rcs

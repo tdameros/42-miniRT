@@ -16,42 +16,28 @@
 
 #define PIXEL_DIVISION 2.f
 
-static void			*render_raytracing_routine(void *arg_void);
 static t_vector3f	get_antialiased_pixel(const t_engine *engine, int x, int y);
 static t_ray		get_ray(const t_engine *engine, float x, float y);
 
 void	render_anti_aliased_raytracing(t_engine *engine)
 {
-	t_raytracing_anti_aliasing_routine_args	arg;
+	int			x;
+	int			y;
+	t_vector3f	*cursor;
 
-	arg.engine = engine;
-	arg.current_line = 0;
-	start_threads(&arg, &render_raytracing_routine);
-}
-
-static void	*render_raytracing_routine(void *arg_void)
-{
-	t_raytracing_anti_aliasing_routine_args	*data;
-	int										x;
-	int										y;
-	t_vector3f								*line;
-
-	data = get_routine_data(arg_void);
-	mutex_lock(arg_void);
-	while (data->current_line < data->engine->ray_traced_image.height)
+	y = 0;
+	cursor = engine->raytraced_pixels.data;
+	while (y < engine->raytraced_pixels.height)
 	{
-		y = data->current_line;
-		data->current_line++;
-		mutex_unlock(arg_void);
-		line = data->engine->raytraced_pixels.data
-			+ y * data->engine->raytraced_pixels.width;
-		x = data->engine->raytraced_pixels.width;
-		while (x--)
-			line[x] = get_antialiased_pixel(data->engine, x, y);
-		mutex_lock(arg_void);
+		x = 0;
+		while (x < engine->raytraced_pixels.width)
+		{
+			*cursor = get_antialiased_pixel(engine, x, y);
+			cursor++;
+			x++;
+		}
+		y++;
 	}
-	mutex_unlock(arg_void);
-	return (NULL);
 }
 
 static t_vector3f	get_antialiased_pixel(const t_engine *engine, const int x,
