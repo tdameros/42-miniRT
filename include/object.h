@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   t_object.h                                         :+:      :+:    :+:   */
+/*   object.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vfries <vfries@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 18:42:20 by vfries            #+#    #+#             */
-/*   Updated: 2023/05/07 18:42:20 by vfries           ###   ########.fr       */
+/*   Updated: 2023/09/26 15:55:05 by vfries           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include "math/vector.h"
 # include "colors.h"
 # include "material.h"
-# include "mesh.h"
 
 # define LIGHT -1
 
@@ -29,19 +28,7 @@ enum e_object_type
 	SPHERE,
 	PLANE,
 	CYLINDER,
-	CYLINDER_INF,
-	CONE,
-	MESH,
 };
-
-typedef struct s_cone_cache
-{
-	t_vector3f	endpoint1;
-	t_vector3f	endpoint2;
-	float		radius_divide_height;
-	t_vector3f	cap_normal;
-	float		cap_d;
-}	t_cone_cache;
 
 typedef struct s_cylinder_cache
 {
@@ -64,24 +51,11 @@ typedef struct s_sphere_cache
 	float	square_radius;
 }	t_sphere_cache;
 
-typedef struct s_mesh_object_cache
-{
-	t_matrix4	rotation;
-	t_matrix4	translation;
-	t_matrix4	scale;
-	t_vector3f	scale_vector;
-	t_vectors3f	vertex;
-	t_vectors3f	normals;
-	char		*obj_file_path;
-}	t_mesh_object_cache;
-
 union u_object_cache
 {
-	t_cone_cache		cone;
 	t_cylinder_cache	cylinder;
 	t_plane_cache		plane;
 	t_sphere_cache		sphere;
-	t_mesh_object_cache	mesh;
 };
 
 typedef struct s_object_size
@@ -109,7 +83,6 @@ typedef struct s_object
 	t_material				material;
 	union u_object_cache	cache;
 	char					*name;
-	t_mesh					mesh;
 	t_bounding_box			bounding_box;
 }	t_object;
 
@@ -119,21 +92,6 @@ typedef struct s_objects
 	size_t				length;
 	size_t				size;
 }	t_objects;
-
-//	cone/create.c
-t_object	cone_create(const t_vector3f position,
-				const t_vector3f rotation_degrees,
-				const t_object_size size, const t_material material);
-void		cone_calculate_cache(t_object *cone);
-void		cone_calculate_bounding_box(t_object *cone);
-
-//	cone/transformations.c
-void		cone_move(t_object *cone, const t_vector3f movement_axis,
-				const float distance);
-void		cone_rotate(t_object *cone, const t_vector3f rotation_degrees);
-void		cone_set_position(t_object *cone, const t_vector3f position);
-void		cone_set_height(t_object *cone, const float height);
-void		cone_set_radius(t_object *cone, const float radius);
 
 //	cylinder/create.c
 t_object	cylinder_create(const t_vector3f position,
@@ -151,34 +109,6 @@ void		cylinder_set_position(t_object *cylinder,
 				const t_vector3f position);
 void		cylinder_set_height(t_object *cylinder, const float height);
 void		cylinder_set_radius(t_object *cylinder, const float radius);
-
-//	mesh/cache.c
-void		mesh_object_update_vertex(t_object *mesh_object);
-void		mesh_object_update_normals(t_object *mesh_object);
-void		mesh_cache_free(t_mesh_object_cache *cache);
-
-//	mesh/create.c
-int			mesh_object_initialize(t_object *mesh_object, const char *obj_file,
-				t_material material);
-void		mesh_free(t_mesh *mesh);
-void		mesh_calculate_bounding_box(t_object *mesh_object);
-
-// mesh/mesh_deep_copy.c
-int			mesh_deep_copy(t_mesh *dst, const t_mesh *src);
-
-//	mesh/transformations.c
-void		mesh_object_move(t_object *mesh_object,
-				const t_vector3f movement_axis, const float distance);
-void		mesh_object_set_position(t_object *mesh_object,
-				const t_vector3f position);
-void		mesh_object_set_rotation(t_object *mesh_object,
-				const t_vector3f rotation_degrees);
-void		mesh_object_set_scale(t_object *mesh_object,
-				const t_vector3f scale);
-
-//	mesh/utils.c
-t_vector3f	mesh_get_vertex_from_face(const t_object *mesh_object,
-				size_t face_index, t_vertices vertex);
 
 //	plane/create.c
 t_object	plane_create(const t_vector3f position,

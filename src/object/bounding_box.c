@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bounding_box.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:13:00 by tdameros          #+#    #+#             */
-/*   Updated: 2023/09/17 09:13:00 by tdameros         ###   ########lyon.fr   */
+/*   Updated: 2023/09/26 15:57:58 by vfries           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,4 @@ void	object_calculate_bounding_box(t_object *object)
 		sphere_calculate_bounding_box(object);
 	else if (object->type == CYLINDER)
 		cylinder_calculate_bounding_box(object);
-	else if (object->type == CONE)
-		cone_calculate_bounding_box(object);
-	else if (object->type == MESH)
-		mesh_calculate_bounding_box(object);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersection.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 08:47:50 by tdameros          #+#    #+#             */
-/*   Updated: 2023/07/31 08:47:53 by tdameros         ###   ########lyon.fr   */
+/*   Updated: 2023/09/26 15:59:13 by vfries           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,8 @@ t_hit	calculate_object_distance(const t_ray *ray, const t_object *object)
 		return (calculate_sphere_distance(ray, object));
 	else if (object->type == PLANE)
 		return (calculate_plane_distance(ray, object));
-	else if (object->type == CYLINDER_INF)
-		return (calculate_inf_cylinder_distance(ray, object));
 	else if (object->type == CYLINDER)
 		return (calculate_cylinder_distance(ray, object));
-	else if (object->type == CONE)
-		return (calculate_cone_distance(ray, object));
-	else if (object->type == MESH && object->mesh.tree != NULL)
-		return (mesh_bvh_calculate_ray_intersection(ray, object->mesh.tree));
 	return (miss_hit());
 }
 
@@ -71,13 +65,7 @@ t_hit	hit_object(const t_ray *ray, const t_object *object,
 		return (hit_sphere(ray, object, hit_distance));
 	else if (object->type == PLANE)
 		return (hit_plane(ray, object, hit_distance));
-	else if (object->type == CYLINDER_INF)
-		return (hit_infinite_cylinder(ray, object, hit_distance));
 	else if (object->type == CYLINDER)
 		return (hit_cylinder(ray, object, hit_distance));
-	else if (object->type == CONE)
-		return (hit_cone(ray, object, hit_distance));
-	else if (object->type == MESH)
-		return (hit_mesh(ray, object, hit_distance));
 	return (miss_hit());
 }

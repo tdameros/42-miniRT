@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 03:19:10 by vfries            #+#    #+#             */
-/*   Updated: 2023/04/21 03:26:15 by vfries           ###   ########lyon.fr   */
+/*   Updated: 2023/09/26 15:28:18 by vfries           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ int	parse_plane(t_engine *engine, char **scene_content_line,
 		return (error("Error\nFailed to get plane line\n"));
 	if (get_position(scene_content_line[1], &plane.position) < 0)
 		return (error("Error\nFailed to get plane position\n"));
-	if (get_rotation(scene_content_line[2], &plane.axis_degrees) < 0)
+	if (get_normalized_vector(scene_content_line[2], &plane.axis) < 0)
 		return (error("Error\nFailed to get plane axis\n"));
 	if (get_color(scene_content_line[3], &plane.material.albedo) < 0)
 		return (error("Error\nFailed to get plane albedo\n"));
 	plane.material.albedo = vector3f_divide(plane.material.albedo, 255.f);
-	plane = plane_create(plane.position, plane.axis_degrees, plane.material);
+	plane = plane_create(plane.position, plane.axis, plane.material);
 	if (add_object(engine, plane) < 0)
 		return (free_object(&plane), -1);
 	return (0);

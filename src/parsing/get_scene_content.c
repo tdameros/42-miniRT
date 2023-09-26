@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 03:18:57 by vfries            #+#    #+#             */
-/*   Updated: 2023/04/21 03:18:58 by vfries           ###   ########lyon.fr   */
+/*   Updated: 2023/09/26 15:24:57 by vfries           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ static char	***get_scene_content_from_lines(t_list *lines)
 	{
 		scene_content[lines_count] = ft_split_unless_in_quotes(lines->content,
 				WHITE_SPACES);
-//		scene_content[lines_count] = ft_split(lines->content, ' '); // TODO for mandatory part
 		if (scene_content[lines_count] == NULL)
 		{
 			free_scene_content(scene_content);

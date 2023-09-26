@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 00:29:42 by tdameros          #+#    #+#             */
-/*   Updated: 2023/07/09 00:29:44 by tdameros         ###   ########lyon.fr   */
+/*   Updated: 2023/09/26 16:03:57 by vfries           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ t_object	cylinder_create(const t_vector3f position,
 	ft_bzero(&cylinder, sizeof(cylinder));
 	cylinder.type = CYLINDER;
 	cylinder.position = position;
-	cylinder.axis_degrees = clamp_rotation_degrees(rotation_degrees);
-	cylinder.axis = get_normal_from_rotation(cylinder.axis_degrees);
+	cylinder.axis_degrees = (t_vector3f){0};
+	cylinder.axis = vector3f_unit(rotation_degrees);
 	cylinder.radius = size.radius;
 	cylinder.height = size.height;
 	cylinder.material = material;
@@ -39,9 +39,9 @@ t_object	cylinder_create(const t_vector3f position,
 
 void	cylinder_calculate_cache(t_object *cylinder)
 {
-	cylinder->cache.cone.endpoint1 = vector3f_subtract(cylinder->position,
+	cylinder->cache.cylinder.endpoint1 = vector3f_subtract(cylinder->position,
 			vector3f_multiply(cylinder->axis, cylinder->height / 2));
-	cylinder->cache.cone.endpoint2 = vector3f_add(cylinder->position,
+	cylinder->cache.cylinder.endpoint2 = vector3f_add(cylinder->position,
 			vector3f_multiply(cylinder->axis, cylinder->height / 2));
 	cylinder->cache.cylinder.cap1_normal = vector3f_multiply(cylinder->axis,
 			-1);

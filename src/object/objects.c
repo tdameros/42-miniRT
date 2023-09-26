@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 17:07:00 by tdameros          #+#    #+#             */
-/*   Updated: 2023/09/25 19:54:04 by vfries           ###   ########.fr       */
+/*   Updated: 2023/09/26 15:51:44 by vfries           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,6 @@ int	remove_object_in_objects(t_objects *objects, size_t index)
 
 void	free_object(t_object *object)
 {
-	material_free(&object->material);
-	if (object->type == MESH)
-	{
-		mesh_free(&object->mesh);
-		mesh_cache_free(&object->cache.mesh);
-	}
 	free(object->name);
 	object->name = NULL;
 }

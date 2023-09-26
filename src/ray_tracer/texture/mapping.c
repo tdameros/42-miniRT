@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mapping.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 15:14:00 by tdameros          #+#    #+#             */
-/*   Updated: 2023/06/19 15:14:00 by tdameros         ###   ########lyon.fr   */
+/*   Updated: 2023/09/26 15:58:40 by vfries           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ t_vector2f	calculate_object_map(const t_vector3f hit_position,
 {
 	if (object->type == SPHERE)
 		return (calculate_spherical_map(hit_position, object));
-	else if (object->type == CYLINDER || object->type == CYLINDER_INF
-		|| object->type == CONE)
+	else if (object->type == CYLINDER)
 		return (calculate_cylindrical_map(hit_position, object));
 	else if (object->type == PLANE)
 		return (calculate_planar_map(hit_position, object));

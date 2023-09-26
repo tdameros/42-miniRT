@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdameros <tdameros@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 00:38:00 by tdameros          #+#    #+#             */
-/*   Updated: 2023/07/09 00:38:00 by tdameros         ###   ########lyon.fr   */
+/*   Updated: 2023/09/26 16:04:05 by vfries           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ t_object	plane_create(const t_vector3f position,
 	ft_bzero(&plane, sizeof(plane));
 	plane.type = PLANE;
 	plane.position = position;
-	plane.axis_degrees = clamp_rotation_degrees(rotation_degrees);
-	plane.axis = get_normal_from_rotation(plane.axis_degrees);
+	plane.axis_degrees = (t_vector3f){0};
+	plane.axis = vector3f_unit(rotation_degrees);
 	plane.material = material;
 	plane.name = ft_strdup("Plane");
 	plane_calculate_cache(&plane);
