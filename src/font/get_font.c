@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 18:53:00 by vfries            #+#    #+#             */
-/*   Updated: 2023/09/25 21:57:32 by vfries           ###   ########.fr       */
+/*   Updated: 2023/09/27 19:35:55 by vfries           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,14 @@ int	get_font(t_font *font, char *font_file)
 	{
 		free(font->glyphs);
 		free(font->long_hor_metric);
+		ft_bzero(font, sizeof(*font));
 		return (-1);
 	}
 	if (ttf_parser(&ttf, font_file) < 0)
 	{
 		free(font->glyphs);
 		free(font->long_hor_metric);
+		ft_bzero(font, sizeof(*font));
 		return (-1);
 	}
 	if (get_font_data(font, &ttf) < 0)
@@ -58,6 +60,7 @@ static int	get_font_data(t_font *font, t_ttf *ttf)
 		{
 			free_font_glyphs(font->glyphs, i);
 			free(font->long_hor_metric);
+			ft_bzero(font, sizeof(*font));
 			destroy_t_ttf(ttf);
 			return (-1);
 		}
