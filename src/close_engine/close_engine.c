@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 03:07:36 by tdameros          #+#    #+#             */
-/*   Updated: 2023/09/25 22:16:23 by vfries           ###   ########.fr       */
+/*   Updated: 2023/09/27 17:12:45 by vfries           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,14 @@ static void	destroy_font(t_font *font)
 {
 	size_t	i;
 
-	i = NUMBER_OF_GLYPHS;
-	while (i--)
+	if (font->glyphs)
 	{
-		free(font->glyphs[i].points);
-		free(font->glyphs[i].contours_limits);
+		i = NUMBER_OF_GLYPHS;
+		while (i--)
+		{
+			free(font->glyphs[i].points);
+			free(font->glyphs[i].contours_limits);
+		}
 	}
 	free(font->glyphs);
 	free(font->long_hor_metric);
