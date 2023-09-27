@@ -6,7 +6,7 @@
 /*   By: vfries <vfries@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 23:02:45 by vfries            #+#    #+#             */
-/*   Updated: 2023/09/23 23:10:01 by vfries           ###   ########.fr       */
+/*   Updated: 2023/09/27 17:46:03 by vfries           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ void	base_color_picker_on_click(t_gui_box *self, t_engine *engine,
 		return ;
 	engine->gui.color_and_material.color_picker_base_color
 		= get_t_color_from_uint(uint_color);
-	engine->gui.color_and_material.color_picker_base_color_was_changed
-		= true;
+	engine->gui.color_and_material.color_picker_base_color_was_changed = true;
 	albedo = vector3f_divide(engine->gui.color_and_material.\
 		color_picker_base_color, 255.f);
 	if (engine->gui.selected_object.object == NULL)
@@ -44,6 +43,7 @@ void	base_color_picker_on_click(t_gui_box *self, t_engine *engine,
 	else
 		engine->gui.selected_object.object->material.albedo = albedo;
 	redraw_icons(engine, engine->gui.selected_object.object, NULL);
+	engine->scene_changed = true;
 }
 
 void	color_picker_on_click(t_gui_box *self, t_engine *engine,
@@ -69,6 +69,7 @@ void	color_picker_on_click(t_gui_box *self, t_engine *engine,
 	else
 		engine->gui.selected_object.object->material.albedo = albedo;
 	redraw_icons(engine, engine->gui.selected_object.object, NULL);
+	engine->scene_changed = true;
 }
 
 static void	handle_object_is_null(t_engine *engine, const t_color albedo)

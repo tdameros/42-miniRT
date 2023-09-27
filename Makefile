@@ -103,7 +103,7 @@ all:
 .PHONY:		run
 run:
 			$(MAKE) -j
-			./miniRT assets/scenes/test.rt || true
+			./miniRT || true
 
 $(NAME):	$(OBJS) src/get_window_size.swift
 	@if [ $(OS) = "Darwin" ]; then\
