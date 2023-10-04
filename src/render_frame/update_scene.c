@@ -33,7 +33,6 @@ void	update_scene(t_engine *engine, const uint64_t start_time)
 			ft_get_current_time());
 
 	deal_keys(engine, start_time);
-	update_placed_object_position(engine);
 	if (update_changed_scene(engine, &next_update_time,
 			&was_rendered_at_full_resolution, current_time_in_ms))
 		return (update_placed_object_position(engine));
