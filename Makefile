@@ -186,4 +186,4 @@ decompress:
 
 .PHONY: render
 render: all
-	find assets/scenes -name "*.rt" -exec ./miniRT {} \;
+	find assets/scenes -name "*.rt" -not -path '*/.*' -exec ./miniRT {} \;
