@@ -13,10 +13,11 @@ DEBUG_CLFAGS		=	$(BASE_DEBUG_CFLAGS) -fsanitize=address
 # DEBUG_CLFAGS		=	$(BASE_DEBUG_CFLAGS) -fsanitize=memory -fsanitize-memory-track-origins
 #-ffast-math reduces calculation precision, need to check behaviour before using
 OPTI_CFLAGS			=	-Ofast -march=native -flto -fno-signed-zeros -funroll-loops #-ffast-math
+PTHREAD_CFLAGS		=	-pthread
 # CFLAGS				=	$(BASE_CFLAGS) -g3
 # CFLAGS				=	$(BASE_CFLAGS) $(OPTI_CFLAGS) -g3
 # CFLAGS				=	$(BASE_CFLAGS) $(BASE_DEBUG_CFLAGS)
-CFLAGS				=	$(BASE_CFLAGS) $(OPTI_CFLAGS)
+CFLAGS				=	$(BASE_CFLAGS) $(OPTI_CFLAGS) $(PTHREAD_CFLAGS)
 # CFLAGS			=	$(BASE_CFLAGS) $(DEBUG_CLFAGS)
 # CFLAGS				=	$(BASE_CFLAGS) $(OPTI_CFLAGS) $(DEBUG_CLFAGS)
 RM					=	rm -rf
