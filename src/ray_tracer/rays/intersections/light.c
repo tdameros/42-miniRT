@@ -37,8 +37,10 @@ t_hit	calculate_shadow_ray_intersection(const t_ray *ray,
 		hit = calculate_plane_distance(ray, scene->objects.data
 				+ scene->plane_indexes.data[index]);
 		hit.index_obj = scene->plane_indexes.data[index];
-		if (hit.distance > 0.f && hit.distance < light_distance)
+		if (hit.distance > 0.f && hit.distance < light_distance) {
+			hit.hit = true;
 			return (hit);
+		}
 		index++;
 	}
 	bvh_hit = objects_bvh_calculate_light_intersection(ray,
@@ -58,7 +60,7 @@ static t_hit	objects_bvh_calculate_light_intersection(const t_ray *ray,
 	near_hit.distance = FLT_MAX;
 	near_hit.index_obj = -1;
 	objects_bvh_light_intersect(ray, tree, &near_hit, light_distance);
-	if (near_hit.index_obj >= 0 && near_hit.distance > 0)
+	if (near_hit.index_obj >= 0 && near_hit.distance > 0.f)
 		near_hit.hit = true;
 	else
 	{
@@ -113,7 +115,7 @@ static t_hit	objects_bvh_light_intersect_leaf(const t_ray *ray,
 	{
 		object = &node->objects->data[node->index_objects.data[i]];
 		hit = calculate_object_distance(ray, object);
-		if (hit.distance > 0 && hit.distance < light_distance)
+		if (hit.distance > 0.f && hit.distance < light_distance)
 		{
 			near_hit = hit;
 			near_hit.index_obj = node->index_objects.data[i];
